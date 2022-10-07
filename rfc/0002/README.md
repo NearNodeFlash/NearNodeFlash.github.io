@@ -53,7 +53,7 @@ Example
 
 Say I authored a simple application, `foo`, that requires Rabbit local GFS2 storage and a persistent Lustre storage volume. As the author, my program is coded to expect the GFS2 volume is mounted at `/foo/local` and the Lustre volume is mounted at `/foo/persistent`
 
-Working with an administrator, my application's storage requirements and pod specification are placed in an NNF Container Profile `foo`
+Working with an administrator, my application's storage requirements and pod specification are placed in an NNF Container Profile `foo`:
 
 ```yaml
 kind: NnfContainerProfile
@@ -63,9 +63,9 @@ metadata:
     namespace: default
 spec:
     storages:
-    - name: $JOB_DW_foo-local-storage
+    - name: JOB_DW_foo-local-storage
       type: gfs2
-    - name: $PERSISTENT_DW_foo-persistent-storage
+    - name: PERSISTENT_DW_foo-persistent-storage
       type: lustre
     podSpec:
         containers:
@@ -88,8 +88,8 @@ Say Peter wants to use `foo` as part of his job specification. Peter would submi
 #DW persistentdw name=some-lustre
 
 #DW container name=my-foo profile=foo                 \
-    $JOB_DW_foo-local-storage=my-gfs2                 \
-    $PERSISTENT_DW_foo-persistent-storage=some-lustre
+    JOB_DW_foo-local-storage=my-gfs2                  \
+    PERSISTENT_DW_foo-persistent-storage=some-lustre
 ```
 
 Peter submits the job to the WLM. WLM guides the job through the workflow states:
@@ -104,8 +104,8 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
     metadata:
         name: my-job-container-my-foo
     data:
-        $JOB_DW_foo-local-storage:             type=gfs2   mount-type=indexed-mount
-        $PERSISTENT_DW_foo-persistent-storage: type=lustre mount-type=mount-point
+        JOB_DW_foo-local-storage:             type=gfs2   mount-type=indexed-mount
+        PERSISTENT_DW_foo-persistent-storage: type=lustre mount-type=mount-point
     ```
     2. Rabbit software duplicates the `foo` pod spec in the NNF Container Profile and fills in the necessary volumes and config map.
 
@@ -150,7 +150,7 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
 Special Note: Indexed-Mount Type
 --------------------------------
 
-When using a file system like GFS2, each compute is allocated its own Rabbit volume. The Rabbit software mounts a collection of mount paths with a common prefix and an ending indexed value. 
+When using a file system like XFS or GFS2, each compute is allocated its own Rabbit volume. The Rabbit software mounts a collection of mount paths with a common prefix and an ending indexed value. 
 
 Application AUTHORS must be aware that their desired mount-point really contains a collection of directories, one for each compute node. The mount point type can be known by consulting the config map values.
 
@@ -167,3 +167,5 @@ node-N
 ```
 
 Node positions are ***not*** absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories /node-0 through /node-5 in the container path.
+
+Additionally, not all container instances could see the same number of compute nodes in an indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run one Rabbit, and 1 node to another Rabbit.
