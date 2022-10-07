@@ -19,29 +19,33 @@ There are several different actors involved
 - The RABBIT software that interprets the #DWs and starts the container during execution of the job
 
 There are multiple relationships between the actors:
-- AUTHOR to ADMINISTRATOR: The author defines how their application is executed and the NNF storage requirements
+- AUTHOR to ADMINISTRATOR: The author tells the administrator how their application is executed and the NNF storage requirements.
 - Between the AUTHOR and USER: The application expects certain storage, and the #DW must meet those expectations.
-- ADMINISTRATOR to RABBIT: Admin tells Rabbit how to run the container
-- Between USER and RABBIT: User provides the #DW container directive in the job specification, and Rabbit validates & interprets the directive.
+- ADMINISTRATOR to RABBIT: Admin tells Rabbit how to run the containerized application with the required storage.
+- Between USER and RABBIT: User provides the #DW container directive in the job specification. Rabbit validates and interprets the directive.
 
 Proposal
 --------
 
 The proposal below might take a couple of read-throughs; I've also added a concrete example afterward that might help.
 
-1. The AUTHOR writes their application expecting NNF Storage at specific locations. For each storage requirement, they define...
+1. The AUTHOR writes their application expecting NNF Storage at specific locations. For each storage requirement, they define:
     1. a unique name for the storage which can be referenced in the 'container' directive
     2. the expected storage types; if necessary
     3. the required mount path or mount path prefix
-    4. other constraints or storage requirements (i.e. minimum capacity)
-2. The AUTHOR works with the ADMINISTRATOR to define, a unique name for the program, the pod specification for executing their program, and the NNF storage requirements described above. The ADMINISTRATOR creates a corresponding _NNF Container Profile_ custom kubernetes resource.
-3. The USER who desires to use the application works with the AUTHOR and the related Container Profile to understand the storage requirements.
-4. The USER submits a WLM job with the #DW container fields populated
-5. WLM runs the job and drives the job through the following stages...
-    1. Proposal: RABBIT validates the #DW container directive by comparing the supplied values to what is listed in the Container Profile. If the USER fails to meet the requirements, the job fails.
-    2. Pre-run: RABBIT software...
-        1. creates a config map reflecting the storage requirements and any runtime parameters
-        2. duplicates the pod specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
+    4. other constraints or storage requirements (e.g. minimum capacity)
+2. The AUTHOR works with the ADMINISTRATOR to define:
+    1. a unique name for the program to be referred by USER
+    2. the pod specification for executing their program
+    3. the NNF storage requirements described above. 
+3. The ADMINISTRATOR creates a corresponding _NNF Container Profile_ custom kubernetes resource
+4. The USER who desires to use the application works with the AUTHOR and the related Container Profile to understand the storage requirements.
+5. The USER submits a WLM job with the #DW container fields populated
+6. WLM runs the job and drives the job through the following stages...
+    1. Proposal: RABBIT validates the #DW container directive by comparing the supplied values to what is listed in the Container Profile. If the USER fails to meet the requirements, the job fails. 
+    2. Pre-run: RABBIT software will:
+        1. create a config map reflecting the storage requirements and any runtime parameters
+        2. duplicate the pod specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
     3. The containerized application executes. The expected mounts are available per the requirements and celebration occurs.
 
 Example
@@ -83,7 +87,7 @@ Say Peter wants to use `foo` as part of his job specification. Peter would submi
 
 #DW persistentdw name=some-lustre
 
-#DW container name=my-foo profile=foo               \
+#DW container name=my-foo profile=foo                 \
     $JOB_DW_foo-local-storage=my-gfs2                 \
     $PERSISTENT_DW_foo-persistent-storage=some-lustre
 ```
@@ -162,4 +166,4 @@ node-2
 node-N
 ```
 
-Node positions are ***not*** absolute locations. WLM could, in theory, select physical 6 compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories /node-0 through /node-5
+Node positions are ***not*** absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories /node-0 through /node-5 in the container.
