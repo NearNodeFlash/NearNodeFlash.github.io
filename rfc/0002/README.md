@@ -44,7 +44,7 @@ The proposal below might take a couple of read-throughs; I've also added a concr
 6. WLM runs the job and drives the job through the following stages...
     1. Proposal: RABBIT validates the #DW container directive by comparing the supplied values to what is listed in the NNF Container Profile. If the USER fails to meet the requirements, the job fails. 
     2. Pre-run: RABBIT software will:
-        1. create a config map reflecting the storage requirements and any runtime parameters
+        1. create a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named "nnf-config", if specified.
         2. duplicate the pod specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
     3. The containerized application executes. The expected mounts are available per the requirements and celebration occurs.
 
@@ -78,6 +78,8 @@ spec:
             mountPath: /foo/local
           - name: foo-persistent-storage
             mountPath: /foo/persistent
+          - name: nnf-config
+            mountPath: /nnf/config
 ```
 
 Say Peter wants to use `foo` as part of his job specification. Peter would submit the job with the directives below:
@@ -126,8 +128,6 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
             mountPath: /foo/local
           - name: foo-persistent-storage
             mountPath: /foo/persistent
-        
-          # This volumeMount added by Rabbit software
           - name: nnf-config 
             mountPath: /nnf/config
 
