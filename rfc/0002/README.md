@@ -36,7 +36,7 @@ The proposal below might take a couple of read-throughs; I've also added a concr
     4. other constraints or storage requirements (e.g. minimum capacity)
 2. The AUTHOR works with the ADMINISTRATOR to define:
     1. a unique name for the program to be referred by USER
-    2. the pod specification for executing their program
+    2. the pod template specification for executing their program
     3. the NNF storage requirements described above. 
 3. The ADMINISTRATOR creates a corresponding _NNF Container Profile_ custom kubernetes resource with the necessary NNF storage requirements and pod specification as described by the AUTHOR
 4. The USER who desires to use the application works with the AUTHOR and the related NNF Container Profile to understand the storage requirements.
@@ -45,7 +45,7 @@ The proposal below might take a couple of read-throughs; I've also added a concr
     1. Proposal: RABBIT validates the #DW container directive by comparing the supplied values to what is listed in the NNF Container Profile. If the USER fails to meet the requirements, the job fails. 
     2. Pre-run: RABBIT software will:
         1. create a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named "nnf-config", if specified.
-        2. duplicate the pod specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
+        2. duplicate the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
     3. The containerized application executes. The expected mounts are available per the requirements and celebration occurs.
 
 Example
@@ -67,19 +67,23 @@ spec:
       type: gfs2
     - name: PERSISTENT_DW_foo-persistent-storage
       type: lustre
-    podSpec:
-        containers:
-        - name: foo
-          image: foo:latest
-          command:
-          - /foo
-          volumeMounts:
-          - name: foo-local-storage
-            mountPath: /foo/local
-          - name: foo-persistent-storage
-            mountPath: /foo/persistent
-          - name: nnf-config
-            mountPath: /nnf/config
+    template:
+        metadata:
+            name: foo
+            namespace: default
+        spec:
+            containers:
+            - name: foo
+              image: foo:latest
+              command:
+              - /foo
+              volumeMounts:
+              - name: foo-local-storage
+                mountPath: /foo/local
+              - name: foo-persistent-storage
+                mountPath: /foo/persistent
+              - name: nnf-config
+                mountPath: /nnf/config
 ```
 
 Say Peter wants to use `foo` as part of his job specification. Peter would submit the job with the directives below:
@@ -109,39 +113,43 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
         JOB_DW_foo-local-storage:             type=gfs2   mount-type=indexed-mount
         PERSISTENT_DW_foo-persistent-storage: type=lustre mount-type=mount-point
     ```
-    2. Rabbit software duplicates the `foo` pod spec in the NNF Container Profile and fills in the necessary volumes and config map.
+    2. Rabbit software duplicates the `foo` pod template spec in the NNF Container Profile and fills in the necessary volumes and config map.
 
     ```yaml
     kind: Pod
     apiVersion: v1
     metadata:
         name: my-job-container-my-foo
-    spec:
-        containers:
-        # This section unchanged from Container Profile
-        - name: foo
-          image: foo:latest
-          command:
-            - /foo
-          volumeMounts:
-          - name: foo-local-storage
-            mountPath: /foo/local
-          - name: foo-persistent-storage
-            mountPath: /foo/persistent
-          - name: nnf-config 
-            mountPath: /nnf/config
+    template:
+        metadata:
+            name: foo
+            namespace: default
+        spec:
+            containers:
+            # This section unchanged from Container Profile
+            - name: foo
+              image: foo:latest
+              command:
+                - /foo
+              volumeMounts:
+              - name: foo-local-storage
+                mountPath: /foo/local
+              - name: foo-persistent-storage
+                mountPath: /foo/persistent
+              - name: nnf-config 
+                mountPath: /nnf/config
 
-        # volumes added by Rabbit software
-        volumes:
-        - name: foo-local-storage
-          hostPath:
-            path: /nnf/job/my-job/my-gfs2
-        - name: foo-persistent-storage
-          hostPath:
-            path: /nnf/persistent/some-lustre
-        - name: nnf-config
-          configMap:
-            name: my-job-container-my-foo
+            # volumes added by Rabbit software
+            volumes:
+            - name: foo-local-storage
+              hostPath:
+                path: /nnf/job/my-job/my-gfs2
+            - name: foo-persistent-storage
+              hostPath:
+                path: /nnf/persistent/some-lustre
+            - name: nnf-config
+              configMap:
+                name: my-job-container-my-foo
     ```
     3. Rabbit software starts the pods on Rabbit nodes
 
@@ -184,7 +192,7 @@ metadata:
 spec:
   mpi: "true"
   storages: // ...
-  podSpec: // ...
+  template: // ...
 ```
 
 A container that specifies MPI uses Kubeflow's [MPI Operator](https://www.kubeflow.org/docs/components/training/mpi/). MPI Workers are started on each Rabbit that is part of the workflow, and an MPI Launcher is used to execute the mpirun command itself.
