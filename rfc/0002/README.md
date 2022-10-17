@@ -169,3 +169,22 @@ node-N
 Node positions are ***not*** absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories /node-0 through /node-5 in the container path.
 
 Additionally, not all container instances could see the same number of compute nodes in an indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run one Rabbit, and 1 node to another Rabbit.
+
+Special Note: MPI Applications
+------------------------------
+
+A USER who writes an application using MPI can have RABBIT software execute the the application using mpirun. To specify an MPI program, the NNF Container Profile contains the boolean value "mpi" in the specification.
+
+```yaml
+kind: NnfContainerProfile
+apiVersion: v1alpha1
+metadata:
+    name: bar-mpi
+    namespace: default
+spec:
+  mpi: "true"
+  storages: // ...
+  podSpec: // ...
+```
+
+A container that specifies MPI uses Kubeflow's [MPI Operator](https://www.kubeflow.org/docs/components/training/mpi/). MPI Workers are started on each Rabbit that is part of the workflow, and an MPI Launcher is used to execute the mpirun command itself.
