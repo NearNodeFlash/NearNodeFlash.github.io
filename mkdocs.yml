@@ -7,8 +7,12 @@ nav:
   - Home: index.md
   #- About: about.md
   - 'User Guides':
+    - guides/index.md
     - 'Initial Setup': 'guides/initial-setup/readme.md'
   - 'RFCs':
+    - rfcs/index.md
     - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
 theme:
   name: 'material'
+plugins:
+  - section-index
