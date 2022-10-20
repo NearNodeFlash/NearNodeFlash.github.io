@@ -2,7 +2,7 @@ Rabbit storage for containerized applications
 =============================================
 
 **authors**: Nate Roiger <nate.roiger@hpe.com> |
-**state**: ideation
+**state**: proposed
 
 ---
 

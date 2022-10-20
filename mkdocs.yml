@@ -1,0 +1,14 @@
+site_name: NNF
+site_description: 'Near Node Flash'
+docs_dir: docs/
+repo_name: GitHub
+repo_url: https://github.com/NearNodeFlash/NearNodeFlash.github.io
+nav:
+  - Home: index.md
+  #- About: about.md
+  - 'User Guides':
+    - 'Initial Setup': 'guides/initial-setup/readme.md'
+  - 'RFCs':
+    - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
+theme:
+  name: 'material'
