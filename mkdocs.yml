@@ -11,6 +11,7 @@ nav:
     - 'Initial Setup': 'guides/initial-setup/readme.md'
   - 'RFCs':
     - rfcs/index.md
+    - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
     - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
 theme:
   name: 'material'
