@@ -16,4 +16,5 @@ nav:
 theme:
   name: 'material'
 plugins:
+  - macros
   - section-index

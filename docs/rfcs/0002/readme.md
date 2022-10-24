@@ -1,10 +1,9 @@
+---
+authors: nate.roiger <nate.roiger@hpe.com>
+state: discussion
+---
 Rabbit storage for containerized applications
 =============================================
-
-**authors**: Nate Roiger <nate.roiger@hpe.com> |
-**state**: proposed
-
----
 
 For Rabbit to provide storage to a containerized application there needs to be _some_ mechanism. The remainder of this RFC proposes that mechanism.
 
