@@ -15,6 +15,7 @@ nav:
     - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
 theme:
   name: 'material'
+  logo: img/logo.png
 plugins:
   - macros
   - section-index
