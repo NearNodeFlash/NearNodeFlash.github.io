@@ -17,7 +17,8 @@ There are several different actors involved
 - The USER who intends to to use the application using the 'container' directive in their job specification
 - The RABBIT software that interprets the #DWs and starts the container during execution of the job
 
-There are multiple relationships between the actors:
+There are multiple relationships between the actors
+
 - AUTHOR to ADMINISTRATOR: The author tells the administrator how their application is executed and the NNF storage requirements.
 - Between the AUTHOR and USER: The application expects certain storage, and the #DW must meet those expectations.
 - ADMINISTRATOR to RABBIT: Admin tells Rabbit how to run the containerized application with the required storage.
@@ -98,12 +99,12 @@ Say Peter wants to use `foo` as part of his job specification. Peter would submi
 ```
 
 Peter submits the job to the WLM. WLM guides the job through the workflow states:
+
 1. Proposal: Rabbit software verifies the #DW directives. For the container directive `my-foo` with profile `foo`, the storage requirements listed in the NNF Container Profile are `foo-local-storage` and `foo-persistent-storage`. These values are correctly represented by the directive so it is valid.
 2. Setup: Since there is a jobdw, `my-gfs2`, Rabbit software provisions this storage.
 3. Pre-Run:
     1. Rabbit software generates a config map that corresponds to the storage requirements and runtime parameters.
-
-    ```yaml
+```yaml
     kind: ConfigMap
     apiVersion: v1
     metadata:
@@ -111,10 +112,9 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
     data:
         JOB_DW_foo-local-storage:             type=gfs2   mount-type=indexed-mount
         PERSISTENT_DW_foo-persistent-storage: type=lustre mount-type=mount-point
-    ```
+```
     2. Rabbit software duplicates the `foo` pod template spec in the NNF Container Profile and fills in the necessary volumes and config map.
-
-    ```yaml
+```yaml
     kind: Pod
     apiVersion: v1
     metadata:
@@ -149,7 +149,7 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
             - name: nnf-config
               configMap:
                 name: my-job-container-my-foo
-    ```
+```
     3. Rabbit software starts the pods on Rabbit nodes
 
 
@@ -173,7 +173,7 @@ node-2
 node-N
 ```
 
-Node positions are ***not*** absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories /node-0 through /node-5 in the container path.
+Node positions are ***not*** absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories `/node-0` through `/node-5` in the container path.
 
 Additionally, not all container instances could see the same number of compute nodes in an indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run one Rabbit, and 1 node to another Rabbit.
 
