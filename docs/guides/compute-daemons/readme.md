@@ -59,7 +59,7 @@ The command line arguements can be provided to the service definition or as an o
 | `--service-token-file=[PATH]` | Location of the service token file |
 | `--service-cert-file=[PATH]` | Location of the service certificate file |
 | `--node-name=[COMPUTE-NODE-NAME]` | Name of this compute node as described in the System Configuration |
-| `--nnf-node-name=[RABBIT-NODE-NAME]` | Name of the rabbit node connected to this compute node as described in the System Configuration |
+| `--nnf-node-name=[RABBIT-NODE-NAME]` | Name of the rabbit node connected to this compute node as described in the System Configuration (`nnf-dm` daemon only)|
 
 For example:
 
