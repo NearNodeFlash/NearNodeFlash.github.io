@@ -7,7 +7,7 @@ $ git clone git@github.com:NearNodeFlash/NearNodeFlash.github.io.git
 $ cd NearNodeFlash.github.io.git
 $ python3 -m venv venv
 $ . venv/bin/activate
-(venv) $ pip install -r requirements.txt
+(venv) $ pip install -r mkdocs_requirements.txt
 ```
 
 ### Run mkdocs Server
