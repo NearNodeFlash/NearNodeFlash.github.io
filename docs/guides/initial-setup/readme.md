@@ -8,22 +8,20 @@ Instructions for the initial setup of a Rabbit are included in this document.
 
 ## LVM Configuration on Rabbit
 
-<details>
-  <summary>LVM Details (<i>click to expand</i>)</summary>
+??? "LVM Details"
+    Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not sync'ed with the containers where the LVM commands execute.
 
-  Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not sync'ed with the containers where the LVM commands execute.
+    3 options to solve this problem are:
 
-  3 options to solve this problem are:
+    1. Disable UDEV sync at the host operating system level
+    2. Disable UDEV sync using the `–noudevsync` command option for each LVM command
+    3. Clear the UDEV cookie using the `dmsetup udevcomplete_all` command after the lvcreate/lvremove command.
 
-  1. Disable UDEV sync at the host operating system level
-  2. Disable UDEV sync using the `–noudevsync` command option for each LVM command
-  3. Clear the UDEV cookie using the `dmsetup udevcomplete_all` command after the lvcreate/lvremove command.
+    Taking these in reverse order using option 3 above which allows UDEV settings within the host OS to remain unchanged from the default, one would need to start the   `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
 
-  Taking these in reverse order using option 3 above which allows UDEV settings within the host OS to remain unchanged from the default, one would need to start the   `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
+    Option 2 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary   because the host OS is PXE-booted onto the node vs loaded from an device that is discovered by UDEV.
 
-  Option 2 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary   because the host OS is PXE-booted onto the node vs loaded from an device that is discovered by UDEV.
-
-  Option 1 above is what we chose to implement because it is the simplest. The following sections discuss this setting.
+    Option 1 above is what we chose to implement because it is the simplest. The following sections discuss this setting.
 </details>
 
 In order for LVM commands to run within the container environment on a Rabbit, the following change is required to the `/etc/lvm/lvm.conf` file on Rabbit.
