@@ -1,6 +1,6 @@
 # NearNodeFlash Pages
 
-# Create mkdocs Environment
+## Create mkdocs Environment
 
 ```bash
 $ git clone git@github.com:NearNodeFlash/NearNodeFlash.github.io.git
@@ -10,7 +10,7 @@ $ . venv/bin/activate
 (venv) $ pip install -r requirements.txt
 ```
 
-## Run mkdocs Server
+### Run mkdocs Server
 
 To run mkdocs server locally, execute `mkdocs serve`. The output will appear similar to below, with the localhost URL listed at the end.
 
