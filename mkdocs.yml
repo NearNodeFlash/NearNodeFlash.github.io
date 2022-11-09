@@ -10,6 +10,7 @@ nav:
     - guides/index.md
     - 'Initial Setup': 'guides/initial-setup/readme.md'
     - 'Compute Daemons': 'guides/compute-daemons/readme.md'
+    - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
   - 'RFCs':
     - rfcs/index.md
     - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
