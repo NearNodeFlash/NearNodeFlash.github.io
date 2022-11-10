@@ -86,4 +86,3 @@ WantedBy=multi-user.target
 ## Easy Deployment
 
 The nnf-deploy tool's `install` command can be used to run the daemons on a system's set of compute nodes. This option will compile the latest daemon binaries, retrieve the service token and certificates, and will copy and install the daemons on each of the compute nodes. Refer to the [nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy) repository and run `nnf-deploy install --help` for details.
-

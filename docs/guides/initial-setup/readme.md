@@ -1,15 +1,16 @@
-# Initial Setup Instructions
-
-**authors**: Tony Floeder <anthony.floeder@hpe.com> 
-
 ---
+authors: Tony Floeder <anthony.floeder@@hpe.com>
+categories: setup
+---
+
+# Initial Setup Instructions
 
 Instructions for the initial setup of a Rabbit are included in this document.
 
 ## LVM Configuration on Rabbit
 
 ??? "LVM Details"
-    Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not sync'ed with the containers where the LVM commands execute.
+    Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.
 
     3 options to solve this problem are:
 
@@ -44,7 +45,7 @@ Webhooks require the Jetstack `cert-manager`. Installation is shown below.
 
 ```bash
 export certver="v1.7.0"
-#Required for webhooks
+# Required for webhooks
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$certver"/cert-manager.yaml
 ```
 
@@ -53,9 +54,9 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$ce
 | Node Type                      | Node Label            |
 | :------------------------------| :-------------------- |
 | Generic Kubernetes Worker Node | cray.wlm.manager=true |
-| Generic Kubernetes Worker Node | cray.nnf.manager=true |
+|                                | cray.nnf.manager=true |
 | Rabbit Node                    | cray.nnf.node=true    |
-| Rabbit Node                    | cray.nnf.x-name=$NODE |
+|                                | cray.nnf.x-name=$NODE |
 
 ### Kubernetes Node Taints
 
@@ -69,20 +70,18 @@ See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-evic
 
 The SystemConfiguration Custom Resource Definition (CRD) is a DWS resource that describes the hardware layout of the whole system. It is expected that an administrator creates a single SystemConfiguration resource when the system is being set up. There is no need to update the SystemConfiguration resource unless hardware is added to or removed from the system.
 
-<details>
-  <summary>System Configuration Details (<i>click to expand</i>)</summary>
+??? "System Configuration Details"
+    Rabbit software looks for a SystemConfiguration named `default` in the `default` namespace. This resource contains a list of compute nodes and storage nodes, and it describes the mapping between them. There are two different consumers of the SystemConfiguration resource in the NNF software:
 
-The Rabbit software looks for a SystemConfiguration named "default" in the "default" namespace. This resource contains a list of compute nodes and storage nodes, and it describes the mapping between them. There are two different consumers of the SystemConfiguration resource in the NNF software:
+    `NnfNodeReconciler` - The reconciler for the NnfNode resource running on the Rabbit nodes reads the SystemConfiguration resource. It uses the Storage to compute mapping information to fill in the HostName section of the NnfNode resource. This information is then used to populate the DWS Storage resource.
 
-NnfNodeReconciler - The reconciler for the NnfNode resource running on the Rabbit nodes reads the SystemConfiguration resource. It uses the Storage to compute mapping information to fill in the HostName section of the NnfNode resource. This information is then used to populate the DWS Storage resource.
-
-NnfSystemConfigurationReconciler - This reconciler runs in the nnf-controller-manager. It creates a Namespace for each compute node listed in the SystemConfiguration. These namespaces are used by the client mount code.
+    `NnfSystemConfigurationReconciler` - This reconciler runs in the `nnf-controller-manager`. It creates a Namespace for each compute node listed in the SystemConfiguration. These namespaces are used by the client mount code.
 </details>
 
-Here is an example System Configuration.
+Here is an example `SystemConfiguration`:
 
 | Spec Section               | Notes                                                                                                              |
-| :------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| :------------------------- |--------------------------------------------------------------------------------------------------------------------|
 | computeNodes               | List of names of compute nodes in the system                                                                       |
 | storageNodes               | List of Rabbits and the compute nodes attached                                                                     |
 | storageNodes.computeAccess | List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to |
