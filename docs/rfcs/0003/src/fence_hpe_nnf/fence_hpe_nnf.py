@@ -75,13 +75,13 @@ def set_power_status(conn, options):
 	"""
 
 	if options["--action"] == "on":
-        # In the case that we want to allow the agent to recover the Rabbit,
-        # Update the Storage CR to show healthy for this node and
-        # remove the logged error below
-    	logging.error("Power on disallowed for this node\n")
+		# In the case that we want to allow the agent to recover the Rabbit,
+		# Update the Storage CR to show healthy for this node and
+		# remove the logged error below
+		logging.error("Power on disallowed for this node\n")
 	else:
-        #TODO: Update Storage CR here, Node name will be in the pcmk_host_list
-        pass
+		#TODO: Update Storage CR here, Node name will be in the pcmk_host_list
+		pass
 
 	return
 
