@@ -2,11 +2,11 @@
 
 ## This agent is a work in progress and is not currently operational, it requires the following to be complete:
 1. Logic to identify the Rabbit node based on the information passed in the pmck_host_list
-2. A Kubernetes
+2. A Kubernetes...
    1. Role setup to read/write Storage CRDs
    2. Service Account for this agent
    3. RoleBinding to marry 1 & 2 above
-   4. The SA cert & token to enabe access to the Kubernetes API and Storage CR
+   4. The SA cert & token to enable access to the Kubernetes API and Storage CR
 3. Properly formed k8s request to pull the Storage Spec
 4. Logic to update the Storage Spec
 5. Properly formed k8s request to update the Storage Spec
