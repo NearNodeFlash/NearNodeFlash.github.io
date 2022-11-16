@@ -14,7 +14,7 @@ Near Node Flash Smoke Test erects a framework that can perform a number of smoke
 * Capture the results of tests (todo)
 * Mark/report the tests as successful or failed (todo)
 
-##Container build
+## Container build
 Final Image Tools Requirements
 * Docker in Docker
 ** docker run -v /var/run/docker.sock:/var/run/docker.sock -it docker
@@ -32,7 +32,7 @@ Images - uses the docker image which is alpine based
   - Does not have golang (Dockerfile COPY)
   - Does not have kustomize (kustomize installer)
 
-##Basic FLow
+## Basic FLow
   - Basic validation 
     - Kube config info present **(complete-ish)**
     - Not in use by a developer (by namespace name) **(complete-ish)**
@@ -48,12 +48,12 @@ Images - uses the docker image which is alpine based
     - Evaluate test runs **(todo)**
   - Cleanup
 
-##Considerations
+## Considerations
   - Once built, the image can be run multiple times with different tests if desired
   - The kubernetes cluster can be changed by volume mapping in different kube configs
   - nnf-deploy does not return failure status codes which can make failures in the process non-obvious
 
-##Container run examples
+## Container run examples
 
 The following is helpful for development...it runs the container and drops you in a shell.  From there you can edit and run main.sh.  main.sh is mapped from your dev directory so any changes that you make persist after the container stops or is removed.
 
@@ -67,7 +67,7 @@ An example showing how to ignore any "developer labels" and to increase runtime 
 
     docker run -v <your path to >/somek8s.cfg:/app/.kube/config -v /var/run/docker.sock:/var/run/docker.sock -it smoke:latest -v -v -v --ignore-dev
 
-##Misc helpful commands
+## Misc helpful commands
 
 Building the container image.
 
