@@ -6,31 +6,52 @@ discussion:
 Near Node Flash Smoke Test
 ==================================
 Near Node Flash Smoke Test erects a framework that can perform a number of smoke test related functions, including:
-* Creation of a docker container - complete
+* Creation of a docker container - complete (more or less)
 * Pull Rabbit components from github - complete (more or less)
 * Build each Rabbit component - in progress (some components fail to build)
-* Deploy Rabbit components using nnf-deploy
-* Run stock or custom tests against Rabbit software
-* Capture the results of tests
-* Mark/report the tests as successful or failed
+* Deploy Rabbit components using nnf-deploy (todo)
+* Run stock or custom tests against Rabbit software (todo)
+* Capture the results of tests (todo)
+* Mark/report the tests as successful or failed (todo)
 
 ##Container build
 Final Image Tools Requirements
 * Docker in Docker
 ** docker run -v /var/run/docker.sock:/var/run/docker.sock -it docker
 * Golang
-* Git
-* Make
+* git
+* make
+* kustomize
 
-Images - alpine based
+Images - uses the docker image which is alpine based
   - Contains apk-tools (alpine package manager)
   - Contains docker CLI
   - Contains wget, make
   - Does not have git (apk add git)
   - Does not have bash (apk add bash)
   - Does not have golang (Dockerfile COPY)
-  - Does not have kustomize
+  - Does not have kustomize (kustomize installer)
 
+##Basic FLow
+  - Basic validation 
+    - Kube config info present **(complete-ish)**
+    - Not in use by a developer (by namespace name) **(complete-ish)**
+    - No previous test failure (smoke test namespace exists) **(complete-ish)**
+    - Cluster nodes healthy **(complete-ish)**
+  - Initialization
+    - Create the test namespace **(complete-ish)**
+    - Pull and build nnf-deploy **(complete-ish)**
+  - Build and Deploy
+    - Use nnf-deploy to undeploy any existing components (may require nnf-deploy modifications) **(in progress)**
+    - Use nff-deploy to build and deploy fresh components **(in progress)**
+    - Run tests **(todo)**
+    - Evaluate test runs **(todo)**
+  - Cleanup
+
+##Considerations
+  - Once built, the image can be run multiple times with different tests if desired
+  - The kubernetes cluster can be changed by volume mapping in different kube configs
+  - nnf-deploy does not return failure status codes which can make failures in the process non-obvious
 
 ##Container run examples
 
@@ -49,4 +70,5 @@ An example showing how to ignore any "developer labels" and to increase runtime 
 ##Misc helpful commands
 
 Building the container image.
+
     docker build -t smoke:latest .
