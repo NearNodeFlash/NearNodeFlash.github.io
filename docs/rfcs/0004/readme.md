@@ -34,12 +34,12 @@ Images - uses the docker image which is alpine based
 
 ## Basic FLow
   - Basic validation 
-    - Kube config info present **(complete-ish)**
-    - Not in use by a developer (by namespace name) **(complete-ish)**
-    - No previous test failure (smoke test namespace exists) **(complete-ish)**
-    - Cluster nodes healthy **(complete-ish)**
+    - Kube config info present **(complete)**
+    - Not in use by a developer (by namespace name) **(complete)**
+    - No previous test failure (smoke test namespace exists) **(complete)**
+    - Cluster nodes healthy **(complete)**
   - Initialization
-    - Create the test namespace **(complete-ish)**
+    - Create the test namespace **(complete)**
     - Pull and build nnf-deploy **(complete-ish)**
   - Build and Deploy
     - Use nnf-deploy to undeploy any existing components (may require nnf-deploy modifications) **(in progress)**
