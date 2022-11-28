@@ -1,5 +1,5 @@
 ---
-authors: Tony Floeder <anthony.floeder@@hpe.com>
+authors: Tony Floeder <anthony.floeder@hpe.com>
 categories: setup
 ---
 
