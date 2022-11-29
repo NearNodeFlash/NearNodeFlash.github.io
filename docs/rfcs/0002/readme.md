@@ -1,5 +1,5 @@
 ---
-authors: nate.roiger <nate.roiger@hpe.com>
+authors: Nate Thornton <nate.thornton@hpe.com>
 state: discussion
 ---
 Rabbit storage for containerized applications
