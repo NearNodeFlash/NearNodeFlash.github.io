@@ -23,7 +23,7 @@ To specify a profile name on a #DW directive, use the `profile` option
 
 # Setting A Default Profile
 
-A default profile must be defined at all times. Any #DW line that does not specify a profile will use default profile. If a default profile is not defined, then any new workflows will be rejected.  If more than one profile is marked as default then any new workflows will be rejected.
+A default profile must be defined at all times. Any #DW line that does not specify a profile will use the default profile. If a default profile is not defined, then any new workflows will be rejected. If more than one profile is marked as default then any new workflows will be rejected.
 
 To query existing profiles
 
@@ -74,7 +74,7 @@ data:
 
 ## GFS2
 
-The following show how to specify command line options for pvcreate, lvcreate, and mkfs for GFS2.
+The following shows how to specify command line options for pvcreate, lvcreate, and mkfs for GFS2.
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha1
@@ -95,7 +95,7 @@ data:
 
 ## Lustre / ZFS
 
-The following shows how to specify a zpool virtual device (vdev).  In this case the default vdev is a stripe.   See zpoolconcepts(7) for virtual device descriptions.
+The following shows how to specify a zpool virtual device (vdev). In this case the default vdev is a stripe. See [zpoolconcepts(7)](https://openzfs.github.io/openzfs-docs/man/7/zpoolconcepts.7.html) for virtual device descriptions.
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha1
@@ -123,7 +123,7 @@ data:
 
 ### ZFS dataset properties
 
-The following shows how to specify ZFS dataset properties in the --mkfsoptions arg for mkfs.lustre.  See zfsprops(7).
+The following shows how to specify ZFS dataset properties in the `--mkfsoptions` arg for mkfs.lustre. See [zfsprops(7)](https://openzfs.github.io/openzfs-docs/man/7/zfsprops.7.html).
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha1
@@ -189,43 +189,43 @@ data:
 
 ## pvcreate
 
-* `$DEVICE` - expands to the /dev/<path> value for one device that has been allocated
+* `$DEVICE` - expands to the `/dev/<path>` value for one device that has been allocated
 
 ## vgcreate
 
 * `$VG_NAME` - expands to a volume group name that is controlled by Rabbit software.
-* `$DEVICE_LIST` - expands to a list of space-separated /dev/<path> devices.  This list will contain the devices that were iterated over for the pvcreate step.
+* `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were iterated over for the pvcreate step.
 
 ## lvcreate
 
 * `$VG_NAME` - see vgcreate above.
 * `$LV_NAME` - expands to a logical volume name that is controlled by Rabbit software.
 * `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for the volume group.
-* `$DEVICE1, $DEVICE2, ... $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
+* `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
 
 ## XFS mkfs
 
-* `$DEVICE` - expands to the /dev/<path> value for the logical volume that was created by the lvcreate step above.
+* `$DEVICE` - expands to the `/dev/<path>` value for the logical volume that was created by the lvcreate step above.
 
 ## GFS2 mkfs
 
-* `$DEVICE` - expands to the /dev/<path> value for the logical volume that was created by the lvcreate step above.
+* `$DEVICE` - expands to the `/dev/<path>` value for the logical volume that was created by the lvcreate step above.
 * `$CLUSTER_NAME` - expands to a cluster name that is controlled by Rabbit Software
 * `$LOCK_SPACE` - expands to a lock space key that is controlled by Rabbit Software.
 * `$PROTOCOL` - expands to a locking protocol that is controlled by Rabbit Software.
 
 ## zpool create
 
-* `$DEVICE_LIST` - expands to a list of space-separated /dev/<path> devices.  This list will contain the devices that were allocated for this storage request.
+* `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were allocated for this storage request.
 * `$POOL_NAME` - expands to a pool name that is controlled by Rabbit software.
 * `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for this storage request.
-* `$DEVICE1, $DEVICE2, ... $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
+* `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
 
 ## lustre mkfs
 
 * `$FS_NAME` - expands to the filesystem name that was passed to Rabbit software from the workflow's #DW line.
-* `$MGS_NID` - expands to the NID of the MGS.  If an external MGS was specified in the #DW line or the NnfStorageProfile, then that value will be used. If the MGS was orchestrated by nnf-sos then an appropriate internal value will be used.
+* `$MGS_NID` - expands to the NID of the MGS. If the MGS was orchestrated by nnf-sos then an appropriate internal value will be used.
 * `$POOL_NAME` - see zpool create above.
-* `$VOL_NAME` - expands to the volume name that will be created.  This value will be <poolname>/<dataset>, and is controlled by EC.
+* `$VOL_NAME` - expands to the volume name that will be created. This value will be `<pool_name>/<dataset>`, and is controlled by Rabbit software.
 * `$INDEX` - expands to the index value of the target and is controlled by Rabbit software.
 
