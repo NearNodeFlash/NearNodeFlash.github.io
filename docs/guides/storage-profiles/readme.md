@@ -6,6 +6,7 @@ categories: provisioning
 # Storage Profile Overview
 
 Storage Profiles allow for customization of the Rabbit storage provisioning process. Examples of content that can be customized via storage profiles is
+
 1. The RAID type used for storage
 2. Any mkfs or LVM args used
 3. An external MGS NID for Lustre
