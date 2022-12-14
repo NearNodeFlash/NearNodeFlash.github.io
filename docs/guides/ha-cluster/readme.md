@@ -48,7 +48,7 @@ Configure the Rabbit agent with the following parameters:
 | Argument | Definition |
 | -------- | ---------- |
 | `--kubernetes-service-host=[ADDRESS]` | The IP address of the kubeapi server |
-| `--kubernetes-service-port=[PORT]` | The listening port of the kube api server |
+| `--kubernetes-service-port=[PORT]` | The listening port of the kubeapi server |
 | `--service-token-file=[PATH]` | The location of the service token file. The file must be present on all nodes within the cluster |
 | `--service-cert-file=[PATH]` | The location of the service certificate file. The file must be present on all nodes within the cluster |
 | `--nnf-node-name=[RABBIT-NODE-NAME]` | Name of the rabbit node |
