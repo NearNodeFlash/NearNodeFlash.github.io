@@ -80,11 +80,12 @@ The SystemConfiguration Custom Resource Definition (CRD) is a DWS resource that 
 
 Here is an example `SystemConfiguration`:
 
-| Spec Section               | Notes                                                                                                              |
-| :------------------------- |--------------------------------------------------------------------------------------------------------------------|
-| computeNodes               | List of names of compute nodes in the system                                                                       |
-| storageNodes               | List of Rabbits and the compute nodes attached                                                                     |
-| storageNodes.computeAccess | List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to |
+| Spec Section                 | Notes                                                                                                              |
+| :--------------------------- |--------------------------------------------------------------------------------------------------------------------|
+| computeNodes                 | List of names of compute nodes in the system                                                                       |
+| storageNodes                 | List of Rabbits and the compute nodes attached                                                                     |
+| storageNodes[].type          | Must be "Rabbit"                                                                                                   |
+| storageNodes[].computeAccess | List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to |
 
 ```yaml
 apiVersion: dws.cray.hpe.com/v1alpha1
