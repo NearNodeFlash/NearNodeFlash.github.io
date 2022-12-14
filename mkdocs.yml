@@ -11,6 +11,7 @@ nav:
     - 'Initial Setup': 'guides/initial-setup/readme.md'
     - 'Compute Daemons': 'guides/compute-daemons/readme.md'
     - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
+    - 'High Availability Cluster': 'guides/ha-cluster/readme.md'
     - 'Storage Profiles': 'guides/storage-profiles/readme.md'
   - 'RFCs':
     - rfcs/index.md
@@ -27,6 +28,7 @@ plugins:
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
+  - admonition
   - pymdownx.details
   - pymdownx.inlinehilite
   - pymdownx.snippets
