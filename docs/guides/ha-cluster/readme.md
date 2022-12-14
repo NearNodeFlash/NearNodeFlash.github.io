@@ -6,9 +6,9 @@ categories: setup
 # High Availability Cluster
 
 Rabbit software supports provisioning of Red Hat GFS2 (Global File System 2) storage. Per Red Hat, 
-> GFS2 allows multiple nodes to share storage at a block level as if the storage were connected to locally to each cluster node. GFS2 cluster file system requires a cluster infrastructure
+> GFS2 allows multiple nodes to share storage at a block level as if the storage were connected locally to each cluster node. GFS2 cluster file system requires a cluster infrastructure
 
-Therefore, in order to use of the GFS2, the Rabbit and its associated compute nodes must form a high-availability cluster.
+Therefore, in order to use GFS2, the Rabbit and its associated compute nodes must form a high availability cluster.
 
 ## Cluster Setup
 
