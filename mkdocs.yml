@@ -16,6 +16,7 @@ nav:
     - rfcs/index.md
     - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
     - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
+    - 'Storage Profiles for Lustre Layout': 'rfcs/0003/readme.md'
 theme:
   name: 'material'
   logo: img/logo.png
