@@ -57,7 +57,7 @@ The command line arguements can be provided to the service definition or as an o
 | `--kubernetes-service-port=[PORT]` | The listening port of the kubeapi server |
 | `--service-token-file=[PATH]` | Location of the service token file |
 | `--service-cert-file=[PATH]` | Location of the service certificate file |
-| `--node-name=[COMPUTE-NODE-NAME]` | Name of this compute node as described in the System Configuration. Defaults to the os.Hostname() value. |
+| `--node-name=[COMPUTE-NODE-NAME]` | Name of this compute node as described in the System Configuration. Defaults to the host name reported by the OS. |
 | `--nnf-node-name=[RABBIT-NODE-NAME]` | `nnf-dm` daemon only. Name of the rabbit node connected to this compute node as described in the System Configuration. If not provided, the `--node-name` value is used to find the associated Rabbit node in the System Configuration. |
 | `--sys-config=[NAME]` | `nnf-dm` daemon only. The System Configuration resource's name. Defaults to `default` |
 
