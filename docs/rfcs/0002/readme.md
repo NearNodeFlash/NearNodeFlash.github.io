@@ -51,7 +51,7 @@ The proposal below might take a couple of read-throughs; I've also added a concr
 Example
 -------
 
-Say I authored a simple application, `foo`, that requires Rabbit local GFS2 storage and a persistent Lustre storage volume. As the author, my program is coded to expect the GFS2 volume is mounted at `/foo/local` and the Lustre volume is mounted at `/foo/persistent`
+Say I authored a simple application, `foo`, that requires Rabbit local GFS2 storage and a persistent Lustre storage volume. As the author, my program is coded to expect the GFS2 volume is mounted at `/foo/local` and the Lustre volume is mounted at `/foo/persistent`. In this case, the storages are not optional, so they are defined as such in the NNF Container Profile.
 
 Working with an administrator, my application's storage requirements and pod specification are placed in an NNF Container Profile `foo`:
 
@@ -64,9 +64,9 @@ metadata:
 spec:
     storages:
     - name: JOB_DW_foo-local-storage
-      type: gfs2
+      optional: false
     - name: PERSISTENT_DW_foo-persistent-storage
-      type: lustre
+      optional: false
     template:
         metadata:
             name: foo
@@ -84,6 +84,8 @@ spec:
                 mountPath: /foo/persistent
               - name: nnf-config
                 mountPath: /nnf/config
+              securityContext:
+                allowPrivilegeEscalation: false
 ```
 
 Say Peter wants to use `foo` as part of his job specification. Peter would submit the job with the directives below:
@@ -97,6 +99,8 @@ Say Peter wants to use `foo` as part of his job specification. Peter would submi
     JOB_DW_foo-local-storage=my-gfs2                  \
     PERSISTENT_DW_foo-persistent-storage=some-lustre
 ```
+
+Since the NNF Container Profile has specified that both storages are not optional (i.e. `optional: false`), they must both be present in the #DW directives along with the `container` directive. Alternatively, if either was marked as optional (i.e. `optional: true`), it would not be required to be present in the #DW directives and therefore would not be mounted into the container.
 
 Peter submits the job to the WLM. WLM guides the job through the workflow states:
 
@@ -137,6 +141,8 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
                 mountPath: /foo/persistent
               - name: nnf-config 
                 mountPath: /nnf/config
+              securityContext:
+                allowPrivilegeEscalation: false
 
             # volumes added by Rabbit software
             volumes:
@@ -149,21 +155,30 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
             - name: nnf-config
               configMap:
                 name: my-job-container-my-foo
+
+            # securityContext added by Rabbit software - values will be inherited from the workflow
+            securityContext:
+              runAsUser: 1000
+              runAsGroup: 2000
+              fsGroup: 2000
 ```
     3. Rabbit software starts the pods on Rabbit nodes
 
+Security
+--------
 
+Kubernetes allows for a way to define permissions for a container using a [Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This can be seen in the pod template spec above. The user and group IDs will be inherited from the Workflow's spec.
 
 Special Note: Indexed-Mount Type
 --------------------------------
 
-When using a file system like XFS or GFS2, each compute is allocated its own Rabbit volume. The Rabbit software mounts a collection of mount paths with a common prefix and an ending indexed value. 
+When using a file system like XFS or GFS2, each compute is allocated its own Rabbit volume. The Rabbit software mounts a collection of mount paths with a common prefix and an ending indexed value.
 
 Application AUTHORS must be aware that their desired mount-point really contains a collection of directories, one for each compute node. The mount point type can be known by consulting the config map values.
 
 If we continue the example from above, the `foo` application would expect the foo-local-storage path of `/foo/local` to contain several directories
 
-```
+```shell
 # ls /foo/local/*
 
 node-0
@@ -174,5 +189,7 @@ node-N
 ```
 
 Node positions are ***not*** absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories `/node-0` through `/node-5` in the container path.
+
+Symlinks will be added to support the physical compute node names. Assuming a compute node hostname of `compute-node-1` from the example above, it would link to `node-0`, `compute-node-2` would link to `node-1`, etc.
 
 Additionally, not all container instances could see the same number of compute nodes in an indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run one Rabbit, and 1 node to another Rabbit.
