@@ -53,8 +53,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$ce
 
 | Node Type                      | Node Label            |
 | :------------------------------| :-------------------- |
-| Generic Kubernetes Worker Node | cray.wlm.manager=true |
-|                                | cray.nnf.manager=true |
+| Generic Kubernetes Worker Node | cray.nnf.manager=true |
 | Rabbit Node                    | cray.nnf.node=true    |
 |                                | cray.nnf.x-name=$NODE |
 
