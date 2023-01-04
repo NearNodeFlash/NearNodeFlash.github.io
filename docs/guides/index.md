@@ -6,6 +6,7 @@
 * [Compute Daemons](compute-daemons/readme.md)
 * [Firmware Upgrade](firmware-upgrade/readme.md)
 * [High Availability Cluster](ha-cluster/readme.md)
+* [RBAC for Users](rbac-for-users/readme.md)
 
 ## Provisioning
 

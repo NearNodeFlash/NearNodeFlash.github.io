@@ -12,8 +12,8 @@ nav:
     - 'Compute Daemons': 'guides/compute-daemons/readme.md'
     - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
     - 'High Availability Cluster': 'guides/ha-cluster/readme.md'
-    - 'Storage Profiles': 'guides/storage-profiles/readme.md'
     - 'RBAC for Users': 'guides/rbac-for-users/readme.md'
+    - 'Storage Profiles': 'guides/storage-profiles/readme.md'
   - 'RFCs':
     - rfcs/index.md
     - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
