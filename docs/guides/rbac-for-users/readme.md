@@ -5,15 +5,15 @@ categories: setup
 
 # RBAC for Users
 
-This document shows how to create a kubeconfig file with RBAC set up to only allow viewing resources.
+This document shows how to create a kubeconfig file with RBAC set up to restrict access to view only for resources.
 
 ## Overview
 
-RBAC (Role Based Access Control) sets what operations a user or service can perform on a list of kubernetes resources. RBAC affects everything that interacts with the kube-apiserver (both users and services internal or external to the cluster). More information about RBAC can be found in the kubernetes [***documentation***](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+RBAC (Role Based Access Control) determines the operations a user or service can perform on a list of Kubernetes resources. RBAC affects everything that interacts with the kube-apiserver (both users and services internal or external to the cluster). More information about RBAC can be found in the Kubernetes [***documentation***](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
 
-User access to a kubernetes cluster is defined through a kubeconfig file. This file contains the address of the kube-apiserver as well as the key and certificate for the user. Typically this file is located in `~/.kube/config`. When a kubernetes cluster is created, a config file is generated for the admin that allows access to all resources in the cluster. This is the equivalent of `root` on a Linux system.
+User access to a Kubernetes cluster is defined through a kubeconfig file. This file contains the address of the kube-apiserver as well as the key and certificate for the user. Typically this file is located in `~/.kube/config`. When a kubernetes cluster is created, a config file is generated for the admin that allows unrestricted access to all resources in the cluster. This is the equivalent of `root` on a Linux system.
 
-The goal of this document is to create a new kubeconfig file that only allows read access to kubernetes resources. This kubeconfig file can be shared between the HPE employees to investigate issues on the system. This involves:
+The goal of this document is to create a new kubeconfig file that allows view only access to Kubernetes resources. This kubeconfig file can be shared between the HPE employees to investigate issues on the system. This involves:
 
 - Generating a new key/cert pair for an "hpe" user
 - Creating a new kubeconfig file
