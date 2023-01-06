@@ -84,8 +84,6 @@ spec:
                 mountPath: /foo/persistent
               - name: nnf-config
                 mountPath: /nnf/config
-              securityContext:
-                allowPrivilegeEscalation: false
 ```
 
 Say Peter wants to use `foo` as part of his job specification. Peter would submit the job with the directives below:
@@ -141,8 +139,6 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
                 mountPath: /foo/persistent
               - name: nnf-config 
                 mountPath: /nnf/config
-              securityContext:
-                allowPrivilegeEscalation: false
 
             # volumes added by Rabbit software
             volumes:
