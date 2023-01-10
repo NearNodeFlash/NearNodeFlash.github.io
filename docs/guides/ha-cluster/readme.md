@@ -24,16 +24,16 @@ HPE hardware implements software known as the Hardware System Supervisor (HSS), 
 
 ### Compute Fencing
 
-!!! warning
-    Usage of the Redfish fencing agent is not yet verified
-
 The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/main/agents/redfish) from [ClusterLabs](https://github.com/ClusterLabs/fence-agents) should be used for Compute nodes in the cluster. Configure the agent with the following parameters:
 
 | Argument | Definition |
 | -------- | ---------- |
-| `--ip=[ADDRESS]` | The IP address or hostname of the compute node's HSS node controller |
-|`--systems-uri=[URI]` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
-|`--ssl-insecure` | Instructs the use of an insecure SSL exchange |
+| `ip=[ADDRESS]` | The IP address or hostname of the HSS controller |
+| `port=[PORT]` | The Port of the HSS controller. Must be `80` |
+| `systems-uri=[URI]` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
+| `ssl-insecure=[BOOL]` | Instructs the use of an insecure SSL exchange. Must be `true` |
+| `username=[USER]` | The user name for connecting to the HSS controller |
+| `password=[PASSWORD]` | the password for connecting to the HSS controller |
 
 
 ### Rabbit Fencing
@@ -47,11 +47,11 @@ Configure the Rabbit agent with the following parameters:
 
 | Argument | Definition |
 | -------- | ---------- |
-| `--kubernetes-service-host=[ADDRESS]` | The IP address of the kubeapi server |
-| `--kubernetes-service-port=[PORT]` | The listening port of the kubeapi server |
-| `--service-token-file=[PATH]` | The location of the service token file. The file must be present on all nodes within the cluster |
-| `--service-cert-file=[PATH]` | The location of the service certificate file. The file must be present on all nodes within the cluster |
-| `--nnf-node-name=[RABBIT-NODE-NAME]` | Name of the rabbit node |
+| `kubernetes-service-host=[ADDRESS]` | The IP address of the kubeapi server |
+| `kubernetes-service-port=[PORT]` | The listening port of the kubeapi server |
+| `service-token-file=[PATH]` | The location of the service token file. The file must be present on all nodes within the cluster |
+| `service-cert-file=[PATH]` | The location of the service certificate file. The file must be present on all nodes within the cluster |
+| `nnf-node-name=[NNF-NODE-NAME]` | Name of the NNF node as it is appears in the System Configuration |
 
 ### Dummy Fencing
 
