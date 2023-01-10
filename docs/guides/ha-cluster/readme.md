@@ -5,10 +5,10 @@ categories: setup
 
 # High Availability Cluster
 
-Rabbit software supports provisioning of Red Hat GFS2 (Global File System 2) storage. Per Red Hat:
+NNF software supports provisioning of Red Hat GFS2 (Global File System 2) storage. Per RedHat:
 > GFS2 allows multiple nodes to share storage at a block level as if the storage were connected locally to each cluster node. GFS2 cluster file system requires a cluster infrastructure.
 
-Therefore, in order to use GFS2, the Rabbit and its associated compute nodes must form a high availability cluster.
+Therefore, in order to use GFS2, the NNF node and its associated compute nodes must form a high availability cluster.
 
 ## Cluster Setup
 
@@ -24,34 +24,42 @@ HPE hardware implements software known as the Hardware System Supervisor (HSS), 
 
 ### Compute Fencing
 
-!!! warning
-    Usage of the Redfish fencing agent is not yet verified
-
 The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/main/agents/redfish) from [ClusterLabs](https://github.com/ClusterLabs/fence-agents) should be used for Compute nodes in the cluster. Configure the agent with the following parameters:
 
 | Argument | Definition |
 | -------- | ---------- |
-| `--ip=[ADDRESS]` | The IP address or hostname of the compute node's HSS node controller |
-|`--systems-uri=[URI]` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
-|`--ssl-insecure` | Instructs the use of an insecure SSL exchange |
+| `ip=[ADDRESS]` | The IP address or hostname of the HSS controller |
+| `port=[PORT]` | The Port of the HSS controller. Must be `80` |
+| `systems-uri=[URI]` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
+| `ssl-insecure=[BOOL]` | Instructs the use of an insecure SSL exchange. Must be `true` |
+| `username=[USER]` | The user name for connecting to the HSS controller |
+| `password=[PASSWORD]` | the password for connecting to the HSS controller |
 
 
-### Rabbit Fencing
+### NNF Fencing
 
 !!! info
-    Rabbit fencing agent is in active development; the description below is subject to change.
+    NNF fencing agent is in active development; the description below is subject to change.
 
-Since the Rabbit node is connected to 16 compute blades, careful coordination around fencing of a Rabbit node is required to minimize the impact of the outage. When a Rabbit node is fenced, the corresponding Kubernetes Storage resource (`storages.dws.cray.hpe.com`) is updated with a status of 'Fenced'. The workload manager must observe this change and handle the movement of resources off the Rabbit node and clear the 'Fenced' status before forcibly rebooting the node.
-
-Configure the Rabbit agent with the following parameters:
+Configure the NNF agent with the following parameters:
 
 | Argument | Definition |
 | -------- | ---------- |
-| `--kubernetes-service-host=[ADDRESS]` | The IP address of the kubeapi server |
-| `--kubernetes-service-port=[PORT]` | The listening port of the kubeapi server |
-| `--service-token-file=[PATH]` | The location of the service token file. The file must be present on all nodes within the cluster |
-| `--service-cert-file=[PATH]` | The location of the service certificate file. The file must be present on all nodes within the cluster |
-| `--nnf-node-name=[RABBIT-NODE-NAME]` | Name of the rabbit node |
+| `kubernetes-service-host=[ADDRESS]` | The IP address of the kubeapi server |
+| `kubernetes-service-port=[PORT]` | The listening port of the kubeapi server |
+| `service-token-file=[PATH]` | The location of the service token file. The file must be present on all nodes within the cluster |
+| `service-cert-file=[PATH]` | The location of the service certificate file. The file must be present on all nodes within the cluster |
+| `nnf-node-name=[NNF-NODE-NAME]` | Name of the NNF node as it is appears in the System Configuration |
+| `api-version=[VERSION]` | The API Version of the NNF Node resource. Defaults to "v1alpha1" |
+
+Since the NNF node is connected to 16 compute blades, careful coordination around fencing of a NNF node is required to minimize the impact of the outage. When a Rabbit node is fenced, the corresponding DWS Storage resource (`storages.dws.cray.hpe.com`) status changes. The workload manager must observe this change and follow the procedure below to recover from the fencing status.
+
+1. Observed the `storage.Status` changed and that `storage.Status.RequiresReboot == True`
+2. Set the `storage.Spec.State := Disabled`
+4. Wait for a change to the Storage status `storage.Status.State == Disabled`
+5. Reboot the NNF node
+6. Set the `storage.Spec.State := Enabled`
+7. Wait for `storage.Status.State == Enabled`
 
 ### Dummy Fencing
 
