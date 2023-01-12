@@ -5,11 +5,12 @@
 import sys
 import logging
 import atexit
+import http
 
 sys.path.append("@FENCEAGENTSLIBDIR@")
 
 from fencing import *
-from fencing import fail, fail_usage, run_delay
+from fencing import fail, run_delay
 
 try:
     from kubernetes import client
@@ -28,9 +29,9 @@ def get_power_status(api_client, options):
 
     except client.exceptions.ApiException as e:
         logging.debug("Exception when reading node: %s %s", e, type(e))
-        if e.status == 401:
+        if e.status == http.HTTPStatus.UNAUTHORIZED:
             fail(EC_LOGIN_DENIED)
-        elif e.status == 404:
+        elif e.status == http.HTTPStatus.NOT_FOUND:
             fail(EC_STATUS)
 
         logging.error("Exception when reading node: %s %s", e, type(e))
@@ -59,7 +60,7 @@ def _get_nnf_node_power_status(api_client, options):
 
     except client.exceptions.ApiException as e:
         logging.debug("Exception when reading NNF node: %s %s", e, type(e))
-        if e.status == 404:
+        if e.status == http.HTTPStatus.NOT_FOUND:
             fail(EC_STATUS)
 
         logging.error("Exception when reading NNF node: %s %s", e, type(e))

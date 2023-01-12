@@ -29,9 +29,9 @@ The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/mai
 | Argument | Definition |
 | -------- | ---------- |
 | `ip=[ADDRESS]` | The IP address or hostname of the HSS controller |
-| `port=[PORT]` | The Port of the HSS controller. Must be `80` |
-| `systems-uri=[URI]` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
-| `ssl-insecure=[BOOL]` | Instructs the use of an insecure SSL exchange. Must be `true` |
+| `port=80` | The Port of the HSS controller. Must be `80` |
+| `systems-uri=/redfish/v1/Systems/Node0` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
+| `ssl-insecure=true` | Instructs the use of an insecure SSL exchange. Must be `true` |
 | `username=[USER]` | The user name for connecting to the HSS controller |
 | `password=[PASSWORD]` | the password for connecting to the HSS controller |
 
