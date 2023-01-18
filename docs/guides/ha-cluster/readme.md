@@ -30,17 +30,30 @@ The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/mai
 | -------- | ---------- |
 | `ip=[ADDRESS]` | The IP address or hostname of the HSS controller |
 | `port=80` | The Port of the HSS controller. Must be `80` |
-| `systems-uri=/redfish/v1/Systems/Node0` | The URI of the Systems object. Must be `/redfish/v1/Systems/Node0` |
+| `systems-uri=/redfish/v1/Systems/1` | The URI of the Systems object. Must be `/redfish/v1/Systems/1` |
 | `ssl-insecure=true` | Instructs the use of an insecure SSL exchange. Must be `true` |
 | `username=[USER]` | The user name for connecting to the HSS controller |
 | `password=[PASSWORD]` | the password for connecting to the HSS controller |
 
+For example, setting up the Redfish fencing agent on "rabbit-compute-2" with the redfish service at "192.168.0.1"
+
+```shell
+pcs stonith create rabbit-compute-2 fence_redfish pcmk_host_list=rabbit-compute-2 ip=192.168.0.1 systems-uri=/redfish/v1/Systems/1 username=root password=password ssl_insecure=true
+```
 
 ### NNF Fencing
 
-!!! info
-    NNF fencing agent is in active development; the description below is subject to change.
+#### Source
+The NNF Fencing agent is available at https://github.com/NearNodeFlash/fence-agents under the `nnf` branch.
 
+```shell
+git clone https://github.com/NearNodeFlash/fence-agents --branch nnf
+```
+#### Build
+
+Refer to the NNF.md file at the root directory of the fence-agents repository
+
+#### Setup
 Configure the NNF agent with the following parameters:
 
 | Argument | Definition |
@@ -52,6 +65,13 @@ Configure the NNF agent with the following parameters:
 | `nnf-node-name=[NNF-NODE-NAME]` | Name of the NNF node as it is appears in the System Configuration |
 | `api-version=[VERSION]` | The API Version of the NNF Node resource. Defaults to "v1alpha1" |
 
+For example, setting up the NNF fencing agent on "rabbit-node-1" with a kubernetes service API running at "192.168.0.1:6443" and the service token and certificate copied to "/etc/nnf/fence/"
+
+```
+pcs stonith create rabbit-node-1 fence_nnf pcmk_host_list=rabbit-node-1 kubernetes-service-host=192.168.0.1 kubernetes-service-port=6443 service-token-file=/etc/nnf/fence/service.token service-cert-file=/etc/nnf/fence/service.cert nnf-node-name=rabbit-node-1
+```
+
+#### Recovery
 Since the NNF node is connected to 16 compute blades, careful coordination around fencing of a NNF node is required to minimize the impact of the outage. When a Rabbit node is fenced, the corresponding DWS Storage resource (`storages.dws.cray.hpe.com`) status changes. The workload manager must observe this change and follow the procedure below to recover from the fencing status.
 
 1. Observed the `storage.Status` changed and that `storage.Status.RequiresReboot == True`
