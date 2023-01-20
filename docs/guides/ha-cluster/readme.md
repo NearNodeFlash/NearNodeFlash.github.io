@@ -65,7 +65,7 @@ Configure the NNF agent with the following parameters:
 | `nnf-node-name=[NNF-NODE-NAME]` | Name of the NNF node as it is appears in the System Configuration |
 | `api-version=[VERSION]` | The API Version of the NNF Node resource. Defaults to "v1alpha1" |
 
-For example, setting up the NNF fencing agent on "rabbit-node-1" with a kubernetes service API running at "192.168.0.1:6443" and the service token and certificate copied to "/etc/nnf/fence/"
+For example, setting up the NNF fencing agent on `rabbit-node-1` with a kubernetes service API running at `192.168.0.1:6443` and the service token and certificate copied to `/etc/nnf/fence/`.
 
 ```
 pcs stonith create rabbit-node-1 fence_nnf pcmk_host_list=rabbit-node-1 kubernetes-service-host=192.168.0.1 kubernetes-service-port=6443 service-token-file=/etc/nnf/fence/service.token service-cert-file=/etc/nnf/fence/service.cert nnf-node-name=rabbit-node-1
