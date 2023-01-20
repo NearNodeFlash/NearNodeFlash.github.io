@@ -51,7 +51,7 @@ git clone https://github.com/NearNodeFlash/fence-agents --branch nnf
 ```
 #### Build
 
-Refer to the NNF.md file at the root directory of the fence-agents repository
+Refer to the `NNF.md file` at the root directory of the fence-agents repository.
 
 #### Setup
 Configure the NNF agent with the following parameters:
