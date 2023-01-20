@@ -35,7 +35,7 @@ The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/mai
 | `username=[USER]` | The user name for connecting to the HSS controller |
 | `password=[PASSWORD]` | the password for connecting to the HSS controller |
 
-For example, setting up the Redfish fencing agent on "rabbit-compute-2" with the redfish service at "192.168.0.1"
+For example, setting up the Redfish fencing agent on `rabbit-compute-2` with the redfish service at `192.168.0.1`
 
 ```shell
 pcs stonith create rabbit-compute-2 fence_redfish pcmk_host_list=rabbit-compute-2 ip=192.168.0.1 systems-uri=/redfish/v1/Systems/1 username=root password=password ssl_insecure=true
