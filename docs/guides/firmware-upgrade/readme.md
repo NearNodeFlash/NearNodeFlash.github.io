@@ -1,11 +1,25 @@
 ---
-authors: Tony Floeder <anthony.floeder@hpe.com>
+authors: Tony Floeder <anthony.floeder@hpe.com>, Nate Thornton <nate.thornton@hpe.com>
 categories: setup
 ---
 
 # Firmware Upgrade Procedures
 
-This guide presents the firmware upgrade procedures to upgrade firmware from the Rabbit processor using tools present in the operating system.
+This guide presents the firmware upgrade procedures to upgrade firmware from the Rabbit using tools present in the operating system.
+
+## PCIe Switch Firmware Upgrade
+
+In order to upgrade the firmware on the PCIe switch, the `switchtec` kernel driver and utility of the same name must be installed. Rabbit hardware consists of two PCIe switches, which can be managed by devices typically located at `/dev/switchtec0` and `/dev/switchtec1`.
+
+!!! danger
+    Upgrading the switch firmware will cause the switch to reset. Prototype Rabbit units not supporting hotplug should undergo a power-cycle to ensure switch initialization following firmware uprade. Similarily, compute nodes not supporting hotplug may lose connectivity after firmware upgrade and should also be power-cycled.
+
+```bash
+IMAGE=$1 # Provide the path to the firmware image file
+SWITCHES=("/dev/switchtec0" "/dev/switchtec1")
+for SWITCH in $SWITCHES; do switchtec fw-update $SWITCH $IMAGE; done
+```
+
 
 ## NVMe Drive Firmware Upgrade
 
