@@ -40,22 +40,19 @@ The proposal below outlines the high level behavior of using containers:
 5. The USER submits a WLM job with the #DW container fields populated
 6. WLM runs the job and drives the job through the following stages...
     1. `Proposal`: RABBIT validates the #DW container directive by comparing the supplied values to what is listed in the NNF Container Profile. If the USER fails to meet the requirements, the job fails
-    2. `Setup`: RABBIT creates a pinned container profile for the workflow based on the supplied profile
-    3. `PreRun`: RABBIT software will:
+    2. `PreRun`: RABBIT software will:
         1. create a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
         2. duplicate the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
-        3. pods will be deployed using Jobs (1 job for each targeted Rabbit node) to allow for automated re-deployments upon failure
-    4. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. Via jobs, the pods will continue to run until:
-       1. the pod completes successfully
+    3. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. The pods will continue to run until:
+       1. the pod completes successfully (any failed pods will be restarted)
        2. timeout (i.e. `activeDeadlineSeconds`) is hit (optional)
-       3. the max number of pod retries (i.e. `backoffLimit`) is hit (indicating failure and new retry pods)
-          1. Note: retry limit is non-optional per Kubernetes Job configuration
+       3. the max number of pod retries (i.e. `backoffLimit`) is hit (indicating failure on all retry attempts)
+          1. Note: retry limit is non-optional per Kubernetes configuration
           2. If retries are not desired, this number could be set to disable any retry attempts.
-    5. `PostRun`: RABBIT software will:
-       1. Roll up the Job completions for each Rabbit node to determine if the jobs/pods are ready to be removed
-       2. Mark the stage as `Ready` if the Jobs are successful. This includes any successful retries after preceding failures
-       3. Leave all jobs/pods around for log inspection
-    6. `Teardown`: RABBIT software will remove the jobs and pods
+    4. `PostRun`: RABBIT software will:
+       1. Mark the stage as `Ready` if the pods have all completed successfully. This includes any retries after preceding failures.
+       2. If all pods are completed but did complete successfully, the stage will not be marked as ready.
+       3. Leave all pods around for log inspection
 
 ### Communication Details
 
@@ -65,7 +62,7 @@ Other than mounts, the following subsections outline the proposed communication 
 
 A headless kubernetes services will be deployed to connect the pods. This service will be unique to each container workflow. Each rabbit node would be
 reached via `<host-name>.<service-name>`. The service-name would be provided to the application via a well-known environmental variable.
-This has been prototyped and has proven to be successful.
+This has been prototyped and has proven to be successful. The list of rabbits that are open for communication will be provided as well.
 
 #### Compute-to-Rabbit Communication
 
@@ -159,65 +156,60 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
                 PERSISTENT_DW_foo-persistent-storage: type=lustre mount-type=mount-point
         ```
 
-    2. Rabbit software creates a Job and duplicates the `foo` pod template spec in the NNF Container Profile and fills in the necessary volumes and config map. 
+    2. Rabbit software creates a pod and duplicates the `foo` pod template spec in the NNF Container Profile and fills in the necessary volumes and config map.
 
         ```yaml
-            kind: Job
-            apiVersion: batch/v1
+            kind: Pod
+            apiVersion: v1
             metadata:
                 name: my-job-container-my-foo
-            spec:
-              activeDeadlineSeconds: 300
-              backoffLimit: 3
-              template:
-                  metadata:
-                      name: foo
-                      namespace: default
-                  spec:
-                      containers:
-                      # This section unchanged from Container Profile
-                      - name: foo
-                        image: foo:latest
-                        command:
-                          - /foo
-                        volumeMounts:
-                        - name: foo-local-storage
-                          mountPath: /foo/local
-                        - name: foo-persistent-storage
-                          mountPath: /foo/persistent
-                        - name: nnf-config 
-                          mountPath: /nnf/config
-                        ports:
-                          - name: compute
-                            hostPort: 9376 # hostport selected by Rabbit software
-                            containerPort: 80
-
-                      # volumes added by Rabbit software
-                      volumes:
+            template:
+                metadata:
+                    name: foo
+                    namespace: default
+                spec:
+                    containers:
+                    # This section unchanged from Container Profile
+                    - name: foo
+                      image: foo:latest
+                      command:
+                        - /foo
+                      volumeMounts:
                       - name: foo-local-storage
-                        hostPath:
-                          path: /nnf/job/my-job/my-gfs2
+                        mountPath: /foo/local
                       - name: foo-persistent-storage
-                        hostPath:
-                          path: /nnf/persistent/some-lustre
-                      - name: nnf-config
-                        configMap:
-                          name: my-job-container-my-foo
+                        mountPath: /foo/persistent
+                      - name: nnf-config 
+                        mountPath: /nnf/config
+                      ports:
+                        - name: compute
+                          hostPort: 9376 # hostport selected by Rabbit software
+                          containerPort: 80
 
-                      # securityContext added by Rabbit software - values will be inherited from the workflow
-                      securityContext:
-                        runAsUser: 1000
-                        runAsGroup: 2000
-                        fsGroup: 2000
+                    # volumes added by Rabbit software
+                    volumes:
+                    - name: foo-local-storage
+                      hostPath:
+                        path: /nnf/job/my-job/my-gfs2
+                    - name: foo-persistent-storage
+                      hostPath:
+                        path: /nnf/persistent/some-lustre
+                    - name: nnf-config
+                      configMap:
+                        name: my-job-container-my-foo
+
+                    # securityContext added by Rabbit software - values will be inherited from the workflow
+                    securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 2000
+                      fsGroup: 2000
         ```
 
     3. Rabbit software starts the pods on Rabbit nodes
 4. Post-Run
-   1. Rabbit will wait for all jobs/pods to finish
-   2. If all Jobs are successful, Post-Run will be marked as `Ready`
-   3. If any Jobs is not successful, Post-Run will not be marked as `Ready`
-5. Teardown:
-   1. Jobs/Containers will be removed.
+   1. Rabbit will wait for all pods to finish
+   2. If all pods are successful, Post-Run will be marked as `Ready`
+   3. If any pod is not successful, Post-Run will not be marked as `Ready`
 
 ## Security
 
