@@ -17,7 +17,7 @@ In order to upgrade the firmware on the PCIe switch, the `switchtec` kernel driv
 ```bash
 IMAGE=$1 # Provide the path to the firmware image file
 SWITCHES=("/dev/switchtec0" "/dev/switchtec1")
-for SWITCH in $SWITCHES; do switchtec fw-update $SWITCH $IMAGE; done
+for SWITCH in $SWITCHES; do switchtec fw-update $SWITCH $IMAGE --yes; done
 ```
 
 
