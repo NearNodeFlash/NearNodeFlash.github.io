@@ -27,6 +27,8 @@ plugins:
   - macros
   - section-index
 markdown_extensions:
+  - toc:
+      permalink: true
   - pymdownx.highlight:
       anchor_linenums: true
   - admonition
