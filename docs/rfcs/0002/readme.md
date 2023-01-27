@@ -48,15 +48,19 @@ The proposal below outlines the high level behavior of running containers in a w
        2. timeout (i.e. `activeDeadlineSeconds`) is hit (optional)
        3. the max number of pod retries (i.e. `backoffLimit`) is hit (indicating failure on all retry attempts)
           1. Note: retry limit is non-optional per Kubernetes configuration
-          2. If retries are not desired, this number could be set to disable any retry attempts.
+          2. If retries are not desired, this number could be set to 0 to disable any retry attempts.
     4. `PostRun`: RABBIT software:
        1. Mark the stage as `Ready` if the pods have all completed successfully. This includes any retries after preceding failures.
        2. If all pods are completed but did complete successfully, the stage is not be marked as ready.
        3. Leave all pods around for log inspection
 
+### Container Assignment to Rabbit Nodes
+
+During `Proposal`, the USER must assign compute nodes for the container workflow. The assigned compute nodes determine which Rabbit nodes run the containers.
+
 ### Communication Details
 
-Other than mounts, the following subsections outline the proposed communication between the Rabbit nodes themselves and the Compute nodes.
+The following subsections outline the proposed communication between the Rabbit nodes themselves and the Compute nodes.
 
 #### Rabbit-to-Rabbit Communication
 
@@ -233,7 +237,7 @@ node-2
 node-N
 ```
 
-Node positions are _not_absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories `/node-0` through `/node-5` in the container path.
+Node positions are _not_ absolute locations. WLM could, in theory, select 6 physical compute nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories `/node-0` through `/node-5` in the container path.
 
 Symlinks will be added to support the physical compute node names. Assuming a compute node hostname of `compute-node-1` from the example above, it would link to `node-0`, `compute-node-2` would link to `node-1`, etc.
 
