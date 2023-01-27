@@ -24,7 +24,7 @@ There are multiple relationships between the actors:
 
 ## Proposal
 
-The proposal below outlines the high level behavior of using containers:
+The proposal below outlines the high level behavior of running containers in a workflow:
 
 1. The AUTHOR writes their application expecting NNF Storage at specific locations. For each storage requirement, they define:
     1. a unique name for the storage which can be referenced in the 'container' directive
@@ -35,23 +35,23 @@ The proposal below outlines the high level behavior of using containers:
     1. a unique name for the program to be referred by USER
     2. the pod template specification for executing their program
     3. the NNF storage requirements described above.
-3. The ADMINISTRATOR creates a corresponding _NNF Container Profile_ custom kubernetes resource with the necessary NNF storage requirements and pod specification as described by the AUTHOR
+3. The ADMINISTRATOR creates a corresponding _NNF Container Profile_ Kubernetes custom resource with the necessary NNF storage requirements and pod specification as described by the AUTHOR
 4. The USER who desires to use the application works with the AUTHOR and the related NNF Container Profile to understand the storage requirements
-5. The USER submits a WLM job with the #DW container fields populated
-6. WLM runs the job and drives the job through the following stages...
-    1. `Proposal`: RABBIT validates the #DW container directive by comparing the supplied values to what is listed in the NNF Container Profile. If the USER fails to meet the requirements, the job fails
-    2. `PreRun`: RABBIT software will:
-        1. create a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
-        2. duplicate the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
-    3. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. The pods will continue to run until:
+5. The USER submits a WLM job with the #DW container directive variables populated
+6. WLM runs the workflow and drives it through the following stages...
+    1. `Proposal`: RABBIT validates the #DW container directive by comparing the supplied values to those listed in the NNF Container Profile. If the workflow fails to meet the requirements, the job fails
+    2. `PreRun`: RABBIT software:
+        1. creates a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
+        2. duplicates the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
+    3. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. The pods continue to run until:
        1. the pod completes successfully (any failed pods will be restarted)
        2. timeout (i.e. `activeDeadlineSeconds`) is hit (optional)
        3. the max number of pod retries (i.e. `backoffLimit`) is hit (indicating failure on all retry attempts)
           1. Note: retry limit is non-optional per Kubernetes configuration
           2. If retries are not desired, this number could be set to disable any retry attempts.
-    4. `PostRun`: RABBIT software will:
+    4. `PostRun`: RABBIT software:
        1. Mark the stage as `Ready` if the pods have all completed successfully. This includes any retries after preceding failures.
-       2. If all pods are completed but did complete successfully, the stage will not be marked as ready.
+       2. If all pods are completed but did complete successfully, the stage is not be marked as ready.
        3. Leave all pods around for log inspection
 
 ### Communication Details
@@ -60,23 +60,23 @@ Other than mounts, the following subsections outline the proposed communication 
 
 #### Rabbit-to-Rabbit Communication
 
-A headless kubernetes services will be deployed to connect the pods. This service will be unique to each container workflow. Each rabbit node would be
+A headless Kubernetes service connects the pods. This service is unique to each container workflow. Each rabbit node would be
 reached via `<host-name>.<service-name>`. The service-name would be provided to the application via a well-known environmental variable.
-This has been prototyped and has proven to be successful. The list of rabbits that are open for communication will be provided as well.
+This has been prototyped and has proven to be successful. The list of Rabbits available for communication is provided as well.
 
 #### Compute-to-Rabbit Communication
 
-For Compute to Rabbit communication, the proposal is to use an open port between the nodes, so the applications could communicate using IP.
+For Compute to Rabbit communication, the proposal is to use an open port between the nodes, so the applications could communicate using IP protocol.
 The port number would be assigned by the Rabbit software and included in the workflow resource's environmental variables after the Setup state (similar to workflow name & namespace).
 Flux should provide the port number to the compute application via an environmental variable or command line argument. The containerized application
 would always see the same port number using the `hostPort`/`containerPort` mapping functionality included in Kubernetes. To clarify, the Rabbit software is picking
 and managing the ports picked for `hostPort`.
 
-This would require a range of ports, to be listed as open in the firewall configuration and specified in the rabbit system configuration.
-The fewer ports available would increase the chances of port reservation conflicts that could fail a job.
+This requires a range of ports to be open in the firewall configuration and specified in the rabbit system configuration.
+The fewer the number of ports available increases the chances of a port reservation conflict that would fail a workflow.
 
 For safe port reusability, this port range must be large enough to account for the anticipated number of containerized jobs running concurrently. This allows time for the Linux kernel
-to prepare a port for reusability. The kernel must take this port range into considering when defining the ephemeral port range.
+to prepare a port for reuse. The kernel must take this port range into consideration when defining the ephemeral port range.
 
 #### Rabbit-to-Compute Communication
 
@@ -207,13 +207,13 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
 
     3. Rabbit software starts the pods on Rabbit nodes
 4. Post-Run
-   1. Rabbit will wait for all pods to finish
-   2. If all pods are successful, Post-Run will be marked as `Ready`
-   3. If any pod is not successful, Post-Run will not be marked as `Ready`
+   1. Rabbit waits for all pods to finish
+   2. If all pods are successful, Post-Run is marked as `Ready`
+   3. If any pod is not successful, Post-Run is not marked as `Ready`
 
 ## Security
 
-Kubernetes allows for a way to define permissions for a container using a [Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This can be seen in the pod template spec above. The user and group IDs will be inherited from the Workflow's spec.
+Kubernetes allows for a way to define permissions for a container using a [Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This can be seen in the pod template spec above. The user and group IDs are inherited from the Workflow's spec.
 
 ## Special Note: Indexed-Mount Type
 
@@ -221,7 +221,7 @@ When using a file system like XFS or GFS2, each compute is allocated its own Rab
 
 Application AUTHORS must be aware that their desired mount-point really contains a collection of directories, one for each compute node. The mount point type can be known by consulting the config map values.
 
-If we continue the example from above, the `foo` application would expect the foo-local-storage path of `/foo/local` to contain several directories
+If we continue the example from above, the `foo` application expects the foo-local-storage path of `/foo/local` to contain several directories
 
 ```shell
 $ ls /foo/local/*
