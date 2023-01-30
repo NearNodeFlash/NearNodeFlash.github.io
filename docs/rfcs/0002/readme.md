@@ -42,17 +42,17 @@ The proposal below outlines the high level behavior of running containers in a w
     1. `Proposal`: RABBIT validates the #DW container directive by comparing the supplied values to those listed in the NNF Container Profile. If the workflow fails to meet the requirements, the job fails
     2. `PreRun`: RABBIT software:
         1. creates a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
-        2. duplicates the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers.
+        2. duplicates the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers
     3. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. The pods continue to run until:
-       1. the pod completes successfully (any failed pods will be restarted)
-       2. timeout (i.e. `activeDeadlineSeconds`) is hit (optional)
-       3. the max number of pod retries (i.e. `backoffLimit`) is hit (indicating failure on all retry attempts)
+       1. the pod completes successfully (any failed pods will be retried)
+       2. the max number of pod retries is hit (indicating failure on all retry attempts)
           1. Note: retry limit is non-optional per Kubernetes configuration
-          2. If retries are not desired, this number could be set to 0 to disable any retry attempts.
+          2. If retries are not desired, this number could be set to 0 to disable any retry attempts
     4. `PostRun`: RABBIT software:
-       1. Mark the stage as `Ready` if the pods have all completed successfully. This includes any retries after preceding failures.
-       2. If all pods are completed but did complete successfully, the stage is not be marked as ready.
-       3. Leave all pods around for log inspection
+       1. marks the stage as `Ready` if the pods have all completed successfully. This includes a successful retry after preceding failures
+       2. starts a timer for any running pods. Once the timeout is hit, the pods will be killed and the workflow will indicate failure
+       3. if all pods are completed but did complete successfully, the stage is not be marked as ready
+       4. leaves all pods around for log inspection
 
 ### Container Assignment to Rabbit Nodes
 
@@ -64,9 +64,28 @@ The following subsections outline the proposed communication between the Rabbit 
 
 #### Rabbit-to-Rabbit Communication
 
-A headless Kubernetes service connects the pods. This service is unique to each container workflow. Each rabbit node would be
-reached via `<host-name>.<service-name>`. The service-name would be provided to the application via a well-known environmental variable.
-This has been prototyped and has proven to be successful. The list of Rabbits available for communication is provided as well.
+A headless Kubernetes service connects the pods. This service is unique to each container workflow. Each rabbit node can be reached via `<hostname>.<subdomain>` using DNS. The hostname is a combination of the workflow name and Rabbit node name. The service name is used for the subdomain and the workflow name will be used. For example, a workflow name of `foo` that targets `rabbit-node2` would be `foo-rabbit-node2.foo`.
+
+Environment variables are provided to the container and ConfigMap for each rabbit that is targeted by the container workflow:
+
+```shell
+RABBIT_HOSTS=foo-rabbit-node2,foo-rabbit-node3
+RABBIT_SUBDOMAIN=foo
+RABBIT_DOMAIN=default.svc.cluster.local
+```
+
+```yaml
+kind: ConfigMap
+apiVersion: v1
+data:
+  rabbitHosts:
+    - foo-rabbit-node2
+    - foo-rabbit-node3
+  rabbitSubdomain: foo
+  rabbitDomain: default.svc.cluster.local
+```
+
+DNS can then be used to communicate with other Rabbit containers.
 
 #### Compute-to-Rabbit Communication
 
