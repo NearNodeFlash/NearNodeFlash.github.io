@@ -44,29 +44,34 @@ The proposal below outlines the high level behavior of running containers in a w
         1. creates a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
         2. duplicates the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers
     3. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. The pods continue to run until:
-       1. the pod completes successfully (any failed pods will be retried)
+       1. a pod completes successfully (any failed pods will be retried)
        2. the max number of pod retries is hit (indicating failure on all retry attempts)
           1. Note: retry limit is non-optional per Kubernetes configuration
           2. If retries are not desired, this number could be set to 0 to disable any retry attempts
     4. `PostRun`: RABBIT software:
        1. marks the stage as `Ready` if the pods have all completed successfully. This includes a successful retry after preceding failures
        2. starts a timer for any running pods. Once the timeout is hit, the pods will be killed and the workflow will indicate failure
-       3. if all pods are completed but did complete successfully, the stage is not be marked as ready
-       4. leaves all pods around for log inspection
+       3. leaves all pods around for log inspection
 
 ### Container Assignment to Rabbit Nodes
 
-During `Proposal`, the USER must assign compute nodes for the container workflow. The assigned compute nodes determine which Rabbit nodes run the containers.
+During `Proposal`, the USER must assign compute nodes for the container workflow. The assigned
+compute nodes determine which Rabbit nodes run the containers.
 
 ### Communication Details
 
-The following subsections outline the proposed communication between the Rabbit nodes themselves and the Compute nodes.
+The following subsections outline the proposed communication between the Rabbit nodes themselves and
+the Compute nodes.
 
 #### Rabbit-to-Rabbit Communication
 
-A headless Kubernetes service connects the pods. This service is unique to each container workflow. Each rabbit node can be reached via `<hostname>.<subdomain>` using DNS. The hostname is a combination of the workflow name and Rabbit node name. The service name is used for the subdomain and the workflow name will be used. For example, a workflow name of `foo` that targets `rabbit-node2` would be `foo-rabbit-node2.foo`.
+Each rabbit node can be reached via `<hostname>.<subdomain>` using DNS. The hostname is a
+combination of the workflow name and Rabbit node name. The workflow name is used for the subdomain.
 
-Environment variables are provided to the container and ConfigMap for each rabbit that is targeted by the container workflow:
+For example, a workflow name of `foo` that targets `rabbit-node2` would be `foo-rabbit-node2.foo`.
+
+Environment variables are provided to the container and ConfigMap for each rabbit that is targeted
+by the container workflow:
 
 ```shell
 RABBIT_HOSTS=foo-rabbit-node2,foo-rabbit-node3
@@ -85,25 +90,37 @@ data:
   rabbitDomain: default.svc.cluster.local
 ```
 
-DNS can then be used to communicate with other Rabbit containers.
+DNS can then be used to communicate with other Rabbit containers. The FQDN for the container running on rabbit-node2 is `foo-rabbit-node2.foo.default.svc.cluster.local`.
 
 #### Compute-to-Rabbit Communication
 
-For Compute to Rabbit communication, the proposal is to use an open port between the nodes, so the applications could communicate using IP protocol.
-The port number would be assigned by the Rabbit software and included in the workflow resource's environmental variables after the Setup state (similar to workflow name & namespace).
-Flux should provide the port number to the compute application via an environmental variable or command line argument. The containerized application
-would always see the same port number using the `hostPort`/`containerPort` mapping functionality included in Kubernetes. To clarify, the Rabbit software is picking
-and managing the ports picked for `hostPort`.
+For Compute to Rabbit communication, the proposal is to use an open port between the nodes, so the
+applications could communicate using IP protocol.  The port number would be assigned by the Rabbit
+software and included in the workflow resource's environmental variables after the Setup state
+(similar to workflow name & namespace).  Flux should provide the port number to the compute
+application via an environmental variable or command line argument. The containerized application
+would always see the same port number using the `hostPort`/`containerPort` mapping functionality
+included in Kubernetes. To clarify, the Rabbit software is picking and managing the ports picked for
+`hostPort`.
 
-This requires a range of ports to be open in the firewall configuration and specified in the rabbit system configuration.
-The fewer the number of ports available increases the chances of a port reservation conflict that would fail a workflow.
+This requires a range of ports to be open in the firewall configuration and specified in the rabbit
+system configuration. The fewer the number of ports available increases the chances of a port
+reservation conflict that would fail a workflow.
 
-For safe port reusability, this port range must be large enough to account for the anticipated number of containerized jobs running concurrently. This allows time for the Linux kernel
-to prepare a port for reuse. The kernel must take this port range into consideration when defining the ephemeral port range.
+Example port range definition in the SystemConfiguration:
 
-#### Rabbit-to-Compute Communication
-
-Same approach as above.
+```yaml
+apiVersion: v1
+items:
+  - apiVersion: dws.cray.hpe.com/v1alpha1
+    kind: SystemConfiguration
+      name: default
+      namespace: default
+    spec:
+      containerHostPortRangeMin: 30000
+      containerHostPortRangeMax: 40000
+      ...
+```
 
 ## Example
 
@@ -119,12 +136,12 @@ metadata:
     name: foo
     namespace: default
 spec:
-    activeDeadlineSeconds: 300
-    backoffLimit: 3
+    postRunTimeout: 300
+    maxRetries: 6
     storages:
-    - name: JOB_DW_foo-local-storage
+    - name: DW_JOB_foo-local-storage
       optional: false
-    - name: PERSISTENT_DW_foo-persistent-storage
+    - name: DW_PERSISTENT_foo-persistent-storage
       optional: false
     template:
         metadata:
@@ -156,8 +173,8 @@ Say Peter wants to use `foo` as part of his job specification. Peter would submi
 #DW persistentdw name=some-lustre
 
 #DW container name=my-foo profile=foo                 \
-    JOB_DW_foo-local-storage=my-gfs2                  \
-    PERSISTENT_DW_foo-persistent-storage=some-lustre
+    DW_JOB_foo-local-storage=my-gfs2                  \
+    DW_PERSISTENT_foo-persistent-storage=some-lustre
 ```
 
 Since the NNF Container Profile has specified that both storages are not optional (i.e. `optional: false`), they must both be present in the #DW directives along with the `container` directive. Alternatively, if either was marked as optional (i.e. `optional: true`), it would not be required to be present in the #DW directives and therefore would not be mounted into the container.
@@ -175,8 +192,9 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
             metadata:
                 name: my-job-container-my-foo
             data:
-                JOB_DW_foo-local-storage:             type=gfs2   mount-type=indexed-mount
-                PERSISTENT_DW_foo-persistent-storage: type=lustre mount-type=mount-point
+                DW_JOB_foo-local-storage:             type=gfs2   mount-type=indexed-mount
+                DW_PERSISTENT_foo-persistent-storage: type=lustre mount-type=mount-point
+                ...
         ```
 
     2. Rabbit software creates a pod and duplicates the `foo` pod template spec in the NNF Container Profile and fills in the necessary volumes and config map.
@@ -230,7 +248,7 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
 
     3. Rabbit software starts the pods on Rabbit nodes
 4. Post-Run
-   1. Rabbit waits for all pods to finish
+   1. Rabbit waits for all pods to finish (or until timeout is hit)
    2. If all pods are successful, Post-Run is marked as `Ready`
    3. If any pod is not successful, Post-Run is not marked as `Ready`
 
