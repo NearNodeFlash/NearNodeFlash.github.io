@@ -206,7 +206,7 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
                         mountPath: /foo/local
                       - name: foo-persistent-storage
                         mountPath: /foo/persistent
-                      - name: nnf-config 
+                      - name: nnf-config
                         mountPath: /nnf/config
                       ports:
                         - name: compute
@@ -242,9 +242,9 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
 
 Kubernetes allows for a way to define permissions for a container using a [Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This can be seen in the pod template spec above. The user and group IDs are inherited from the Workflow's spec.
 
-## Special Note: Indexed-Mount Type
+## Special Note: Indexed-Mount Type for GFS2 File Systems
 
-When using a file system like XFS or GFS2, each compute is allocated its own Rabbit volume. The Rabbit software mounts a collection of mount paths with a common prefix and an ending indexed value.
+When using a GFS2 file system, each compute is allocated its own Rabbit volume. The Rabbit software mounts a collection of mount paths with a common prefix and an ending indexed value.
 
 Application AUTHORS must be aware that their desired mount-point really contains a collection of directories, one for each compute node. The mount point type can be known by consulting the config map values.
 
