@@ -63,14 +63,14 @@ The following subsections outline the proposed communication between the Rabbit 
 
 #### Rabbit-to-Rabbit Communication
 
-Each rabbit node can be reached via `<hostname>.<subdomain>` using DNS. The hostname is a combination of the workflow name and Rabbit node name. The workflow name is used for the subdomain.
+Each rabbit node can be reached via `<hostname>.<subdomain>` using DNS. The hostname is the Rabbit node name and the workflow name is used for the subdomain.
 
-For example, a workflow name of `foo` that targets `rabbit-node2` would be `foo-rabbit-node2.foo`.
+For example, a workflow name of `foo` that targets `rabbit-node2` would be `rabbit-node2.foo`.
 
 Environment variables are provided to the container and ConfigMap for each rabbit that is targeted by the container workflow:
 
 ```shell
-NNF_CONTAINER_NODES=foo-rabbit-node2,foo-rabbit-node3
+NNF_CONTAINER_NODES=rabbit-node2 rabbit-node3
 NNF_CONTAINER_SUBDOMAIN=foo
 NNF_CONTAINER_DOMAIN=default.svc.cluster.local
 ```
@@ -80,13 +80,13 @@ kind: ConfigMap
 apiVersion: v1
 data:
   nnfContainerNodes:
-    - foo-rabbit-node2
-    - foo-rabbit-node3
+    - rabbit-node2
+    - rabbit-node3
   nnfContainerSubdomain: foo
   nnfContainerDomain: default.svc.cluster.local
 ```
 
-DNS can then be used to communicate with other Rabbit containers. The FQDN for the container running on rabbit-node2 is `foo-rabbit-node2.foo.default.svc.cluster.local`.
+DNS can then be used to communicate with other Rabbit containers. The FQDN for the container running on rabbit-node2 is `rabbit-node2.foo.default.svc.cluster.local`.
 
 #### Compute-to-Rabbit Communication
 
@@ -178,8 +178,8 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
             metadata:
                 name: my-job-container-my-foo
             data:
-                DW_JOB_foo-local-storage:             type=gfs2   mount-type=indexed-mount
-                DW_PERSISTENT_foo-persistent-storage: type=lustre mount-type=mount-point
+                DW_JOB_foo_local_storage:             mount-type=indexed-mount
+                DW_PERSISTENT_foo_persistent_storage: mount-type=mount-point
                 ...
         ```
 
