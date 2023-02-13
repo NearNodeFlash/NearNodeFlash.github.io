@@ -31,6 +31,14 @@ In order for LVM commands to run within the container environment on a Rabbit, t
 sed -i 's/udev_sync = 1/udev_sync = 0/g' /etc/lvm/lvm.conf
 ```
 
+### ZFS
+
+ZFS kernel module must be enabled to run on boot. This can be done by creating a file, `zfs.conf`, containing the string "zfs" in your systems modules-load.d directory.
+
+```bash
+echo "zfs" > /etc/modules-load.d/zfs.conf
+```
+
 ## Kubernetes Initial Setup
 
 Installation of Kubernetes (k8s) nodes proceeds by installing k8s components onto the master node(s) of the cluster, then installing k8s components onto the worker nodes and joining those workers to the cluster. The k8s cluster setup for Rabbit requires 3 distinct k8s node types for operation:
