@@ -22,25 +22,6 @@ Fencing is the process of restricting and releasing access to resources that a f
 
 HPE hardware implements software known as the Hardware System Supervisor (HSS), which itself conforms to the SNIA Redfish/Swordfish standard. This provides the means to manage hardware outside the host OS.
 
-### Compute Fencing
-
-The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/main/agents/redfish) from [ClusterLabs](https://github.com/ClusterLabs/fence-agents) should be used for Compute nodes in the cluster. Configure the agent with the following parameters:
-
-| Argument | Definition |
-| -------- | ---------- |
-| `ip=[ADDRESS]` | The IP address or hostname of the HSS controller |
-| `port=80` | The Port of the HSS controller. Must be `80` |
-| `systems-uri=/redfish/v1/Systems/1` | The URI of the Systems object. Must be `/redfish/v1/Systems/1` |
-| `ssl-insecure=true` | Instructs the use of an insecure SSL exchange. Must be `true` |
-| `username=[USER]` | The user name for connecting to the HSS controller |
-| `password=[PASSWORD]` | the password for connecting to the HSS controller |
-
-For example, setting up the Redfish fencing agent on `rabbit-compute-2` with the redfish service at `192.168.0.1`
-
-```shell
-pcs stonith create rabbit-compute-2 fence_redfish pcmk_host_list=rabbit-compute-2 ip=192.168.0.1 systems-uri=/redfish/v1/Systems/1 username=root password=password ssl_insecure=true
-```
-
 ### NNF Fencing
 
 #### Source
@@ -51,7 +32,7 @@ git clone https://github.com/NearNodeFlash/fence-agents --branch nnf
 ```
 #### Build
 
-Refer to the `NNF.md file` at the root directory of the fence-agents repository.
+Refer to the `NNF.md file` at the root directory of the fence-agents repository. The fencing agents must be installed on every node in the cluster.
 
 #### Setup
 Configure the NNF agent with the following parameters:
@@ -65,7 +46,9 @@ Configure the NNF agent with the following parameters:
 | `nnf-node-name=[NNF-NODE-NAME]` | Name of the NNF node as it is appears in the System Configuration |
 | `api-version=[VERSION]` | The API Version of the NNF Node resource. Defaults to "v1alpha1" |
 
-For example, setting up the NNF fencing agent on `rabbit-node-1` with a kubernetes service API running at `192.168.0.1:6443` and the service token and certificate copied to `/etc/nnf/fence/`.
+The token and certificate can be found in the Kubernetes Secrets resource for the nnf-system/nnf-fence-agent ServiceAccount. This provides RBAC rules to limit the fencing agent to only the Kubernetes resources it needs access to.
+
+For example, setting up the NNF fencing agent on `rabbit-node-1` with a kubernetes service API running at `192.168.0.1:6443` and the service token and certificate copied to `/etc/nnf/fence/`. This needs to be run on one node in the cluster.
 
 ```
 pcs stonith create rabbit-node-1 fence_nnf pcmk_host_list=rabbit-node-1 kubernetes-service-host=192.168.0.1 kubernetes-service-port=6443 service-token-file=/etc/nnf/fence/service.token service-cert-file=/etc/nnf/fence/service.cert nnf-node-name=rabbit-node-1
@@ -80,6 +63,25 @@ Since the NNF node is connected to 16 compute blades, careful coordination aroun
 5. Reboot the NNF node
 6. Set the `storage.Spec.State := Enabled`
 7. Wait for `storage.Status.State == Enabled`
+
+### Compute Fencing
+
+The [Redfish fencing agent](https://github.com/ClusterLabs/fence-agents/tree/main/agents/redfish) from [ClusterLabs](https://github.com/ClusterLabs/fence-agents) should be used for Compute nodes in the cluster. It is also included at https://github.com/NearNodeFlash/fence-agents, and can be built at the same time as the NNF fencing agent. Configure the agent with the following parameters:
+
+| Argument | Definition |
+| -------- | ---------- |
+| `ip=[ADDRESS]` | The IP address or hostname of the HSS controller |
+| `port=80` | The Port of the HSS controller. Must be `80` |
+| `systems-uri=/redfish/v1/Systems/1` | The URI of the Systems object. Must be `/redfish/v1/Systems/1` |
+| `ssl-insecure=true` | Instructs the use of an insecure SSL exchange. Must be `true` |
+| `username=[USER]` | The user name for connecting to the HSS controller |
+| `password=[PASSWORD]` | the password for connecting to the HSS controller |
+
+For example, setting up the Redfish fencing agent on `rabbit-compute-2` with the redfish service at `192.168.0.1`. This needs to be run on one node in the cluster.
+
+```shell
+pcs stonith create rabbit-compute-2 fence_redfish pcmk_host_list=rabbit-compute-2 ip=192.168.0.1 systems-uri=/redfish/v1/Systems/1 username=root password=password ssl_insecure=true
+```
 
 ### Dummy Fencing
 
