@@ -49,7 +49,7 @@ The `service.token` and `service.cert` files must be copied to each compute node
 
 Installing the daemon will create a default configuration located at `/etc/systemd/system/[BINARY-NAME].service`
 
-The command line arguements can be provided to the service definition or as an override file.
+The command line arguments can be provided to the service definition or as an override file.
 
 | Argument | Definition |
 | -------- | ---------- |
@@ -82,6 +82,15 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 ```
+
+#### nnf-dm Specific Configuration
+
+nnf-dm has some additional configuration options that can be used to tweak the kubernetes client:
+
+| Argument | Definition |
+| -------- | ---------- |
+| `--kubernetes-qps=[QPS]` | The number of Queries Per Second (QPS) before client-side rate-limiting starts. Defaults to 50.
+| `--kubernetes-burst=[QPS]` | Once QPS is hit, allow this many concurrent calls. Defaults to 100.
 
 ## Easy Deployment
 
