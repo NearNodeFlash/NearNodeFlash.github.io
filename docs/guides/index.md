@@ -11,3 +11,4 @@
 ## Provisioning
 
 * [Storage Profiles](storage-profiles/readme.md)
+* [Data Movement Configuration](data-movement/readme.md)
