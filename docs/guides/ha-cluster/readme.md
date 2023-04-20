@@ -13,7 +13,7 @@ Therefore, in order to use GFS2, the NNF node and its associated compute nodes m
 ## Cluster Setup
 
 Red Hat provides instructions for [creating a high availability cluster with Pacemaker](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters#doc-wrapper), including instructions for [installing cluster software](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters#proc_installing-cluster-software-creating-high-availability-cluster) and
-[creating a high availability cluster](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters).
+[creating a high availability cluster](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters). When following these instructions, each of the high availability clusters that are created should be named after the hostname of the NNF node. In the Red Hat examples the cluster name is `my_cluster`.
 
 
 ## Fencing Agents
