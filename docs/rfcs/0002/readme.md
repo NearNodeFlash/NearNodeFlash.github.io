@@ -1,5 +1,5 @@
 ---
-authors: Nate Thornton <nate.thornton@hpe.com>
+authors: Blake Devcich <blake.devcich@hpe.com>
 state: discussion
 ---
 # Rabbit storage for containerized applications
@@ -28,12 +28,11 @@ The proposal below outlines the high level behavior of running containers in a w
 
 1. The AUTHOR writes their application expecting NNF Storage at specific locations. For each storage requirement, they define:
     1. a unique name for the storage which can be referenced in the 'container' directive
-    2. the expected storage types; if necessary
-    3. the required mount path or mount path prefix
-    4. other constraints or storage requirements (e.g. minimum capacity)
+    2. the required mount path or mount path prefix
+    3. other constraints or storage requirements (e.g. minimum capacity)
 2. The AUTHOR works with the ADMINISTRATOR to define:
     1. a unique name for the program to be referred by USER
-    2. the pod template specification for executing their program
+    2. the pod template or MPI Job specification for executing their program
     3. the NNF storage requirements described above.
 3. The ADMINISTRATOR creates a corresponding _NNF Container Profile_ Kubernetes custom resource with the necessary NNF storage requirements and pod specification as described by the AUTHOR
 4. The USER who desires to use the application works with the AUTHOR and the related NNF Container Profile to understand the storage requirements
@@ -41,8 +40,8 @@ The proposal below outlines the high level behavior of running containers in a w
 6. WLM runs the workflow and drives it through the following stages...
     1. `Proposal`: RABBIT validates the #DW container directive by comparing the supplied values to those listed in the NNF Container Profile. If the workflow fails to meet the requirements, the job fails
     2. `PreRun`: RABBIT software:
-        1. creates a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
-        2. duplicates the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers
+        1. duplicates the pod template specification from the Container Profile and patches the necessary Volumes and the config map. The spec is used as the basis for starting the necessary pods and containers
+        2. creates a config map reflecting the storage requirements and any runtime parameters; this is provided to the container at the volume mount named `nnf-config`, if specified
     3. The containerized application(s) executes. The expected mounts are available per the requirements and celebration occurs. The pods continue to run until:
        1. a pod completes successfully (any failed pods will be retried)
        2. the max number of pod retries is hit (indicating failure on all retry attempts)
@@ -57,11 +56,80 @@ The proposal below outlines the high level behavior of running containers in a w
 
 During `Proposal`, the USER must assign compute nodes for the container workflow. The assigned compute nodes determine which Rabbit nodes run the containers.
 
+### Container Definition
+
+Containers can be launched in two ways:
+
+1. MPI Jobs
+2. Non-MPI Jobs
+
+MPI Jobs are launched using [`mpi-operator`](https://github.com/kubeflow/mpi-operator). This uses a launcher/worker model. The launcher pod is responsible for running the `mpirun` command that will target the worker pods to run the MPI application. The launcher will run on the first targeted NNF node and the workers will run on each of the targeted NNF nodes.
+
+For Non-MPI jobs, `mpi-operator` is **not** used. This model runs the same application on each of the targeted NNF nodes.
+
+The NNF Container Profile allows a user to pick one of these methods. Each method is defined in similar, but different fashions. Since MPI Jobs use `mpi-operator`, the [`MPIJobSpec`](https://pkg.go.dev/github.com/kubeflow/mpi-operator@v0.4.0/pkg/apis/kubeflow/v2beta1#MPIJobSpec) is used to define the container(s). For Non-MPI Jobs a [`PodSpec`](https://pkg.go.dev/k8s.io/api/core/v1#PodSpec) is used to define the container(s).
+
+An example of an MPI Job is below. The `data.mpiSpec` field is defined:
+
+```yaml
+kind: NnfContainerProfile
+apiVersion: nnf.cray.hpe.com/v1alpha1
+data:
+  mpiSpec:
+    mpiReplicaSpecs:
+      Launcher:
+        template:
+          spec:
+            containers:
+            - command:
+              - mpirun
+              - dcmp
+              - $(DW_JOB_foo_local_storage)/0
+              - $(DW_JOB_foo_local_storage)/1
+              image: ghcr.io/nearnodeflash/nnf-mfu:latest
+              name: example-mpi
+      Worker:
+        template:
+          spec:
+            containers:
+            - image: ghcr.io/nearnodeflash/nnf-mfu:latest
+              name: example-mpi
+    slotsPerWorker: 1
+...
+```
+
+An example of a Non-MPI Job is below. The `data.spec` field is defined:
+
+```yaml
+kind: NnfContainerProfile
+apiVersion: nnf.cray.hpe.com/v1alpha1
+data:
+  spec:
+    containers:
+    - command:
+      - /bin/sh
+      - -c
+      - while true; do date && sleep 5; done
+      image: alpine:latest
+      name: example-forever
+...
+```
+
+In both cases, the `spec` is used as a starting point to define the containers. NNF software supplements the specification to add functionality (e.g. mounting #DW storages). In other words, what you see here will not be the final spec for the container that ends up running as part of the container workflow.
+
+### Security
+
+The workflow's UID and GID are used to run the container application and for mounting the specified fileystems in the container. Kubernetes allows for a way to define permissions for a container using a [Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/).
+
+`mpirun` uses `ssh` to communicate with the worker nodes. `ssh` requires that UID is assigned to a username. Since the UID/GID are dynamic values from the workflow, work must be done to the container's `/etc/passwd` to map the UID/GID to a username. An `InitContainer` is used to modify `/etc/passwd` and mount it into the container.
+
 ### Communication Details
 
 The following subsections outline the proposed communication between the Rabbit nodes themselves and the Compute nodes.
 
 #### Rabbit-to-Rabbit Communication
+
+##### Non-MPI Jobs
 
 Each rabbit node can be reached via `<hostname>.<subdomain>` using DNS. The hostname is the Rabbit node name and the workflow name is used for the subdomain.
 
@@ -88,6 +156,10 @@ data:
 
 DNS can then be used to communicate with other Rabbit containers. The FQDN for the container running on rabbit-node2 is `rabbit-node2.foo.default.svc.cluster.local`.
 
+##### MPI Jobs
+
+For MPI Jobs, these hostnames and subdomains will be slightly different due to the implementation of `mpi-operator`. However, the variables will remain the same and provide a consistent way to retrieve the values.
+
 #### Compute-to-Rabbit Communication
 
 For Compute to Rabbit communication, the proposal is to use an open port between the nodes, so the applications could communicate using IP protocol.  The port number would be assigned by the Rabbit software and included in the workflow resource's environmental variables after the Setup state (similar to workflow name & namespace).  Flux should provide the port number to the compute application via an environmental variable or command line argument. The containerized application would always see the same port number using the `hostPort`/`containerPort` mapping functionality included in Kubernetes. To clarify, the Rabbit software is picking and managing the ports picked for `hostPort`.
@@ -111,7 +183,7 @@ items:
 
 ## Example
 
-Say I authored a simple application, `foo`, that requires Rabbit local GFS2 storage and a persistent Lustre storage volume. As the author, my program is coded to expect the GFS2 volume is mounted at `/foo/local` and the Lustre volume is mounted at `/foo/persistent`
+Say I authored a simple application, `foo`, that requires Rabbit local GFS2 storage and a persistent Lustre storage volume.
 
 Working with an administrator, my application's storage requirements and pod specification are placed in an NNF Container Profile `foo`:
 
@@ -129,26 +201,15 @@ spec:
       optional: false
     - name: DW_PERSISTENT_foo-persistent-storage
       optional: false
-    template:
-        metadata:
-            name: foo
-            namespace: default
-        spec:
-            containers:
-            - name: foo
-              image: foo:latest
-              command:
-              - /foo
-              volumeMounts:
-              - name: foo-local-storage
-                mountPath: /foo/local
-              - name: foo-persistent-storage
-                mountPath: /foo/persistent
-              - name: nnf-config
-                mountPath: /nnf/config
-              ports:
-              - name: compute
-                containerPort: 80
+    spec:
+        containers:
+        - name: foo
+          image: foo:latest
+          command:
+          - /foo
+          ports:
+          - name: compute
+            containerPort: 80
 ```
 
 Say Peter wants to use `foo` as part of his job specification. Peter would submit the job with the directives below:
@@ -183,7 +244,7 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
                 ...
         ```
 
-    2. Rabbit software creates a pod and duplicates the `foo` pod template spec in the NNF Container Profile and fills in the necessary volumes and config map.
+    2. Rabbit software creates a pod and duplicates the `foo` pod spec in the NNF Container Profile and fills in the necessary volumes and config map.
 
         ```yaml
             kind: Pod
@@ -203,9 +264,9 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
                         - /foo
                       volumeMounts:
                       - name: foo-local-storage
-                        mountPath: /foo/local
+                        mountPath: <MOUNT_PATH>
                       - name: foo-persistent-storage
-                        mountPath: /foo/persistent
+                        mountPath: <MOUNT_PATH>
                       - name: nnf-config
                         mountPath: /nnf/config
                       ports:
@@ -238,9 +299,6 @@ Peter submits the job to the WLM. WLM guides the job through the workflow states
    2. If all pods are successful, Post-Run is marked as `Ready`
    3. If any pod is not successful, Post-Run is not marked as `Ready`
 
-## Security
-
-Kubernetes allows for a way to define permissions for a container using a [Security Context](https://kubernetes.io/docs/tasks/configure-pod-container/security-context/). This can be seen in the pod template spec above. The user and group IDs are inherited from the Workflow's spec.
 
 ## Special Note: Indexed-Mount Type for GFS2 File Systems
 
