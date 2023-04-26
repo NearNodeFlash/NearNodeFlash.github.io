@@ -11,11 +11,8 @@ Data Movement can be configured in multiple ways:
 2. Per Copy Offload API Request arguments
 
 The first method is a "global" configuration - it affects all data movement operations. The second
-is done per the Copy Offload API, which allows for some configuration on a per-case basis - but is
+is done per the Copy Offload API, which allows for some configuration on a per-case basis, but is
 limited in scope. Both methods are meant to work in tandem.
-
-
-More on each in the sections below.
 
 ## Server Side ConfigMap
 
@@ -45,7 +42,8 @@ Movement operation, and it uses the config map to set the `slots` and `maxSlots`
 node) in the hostfile. The number of `slots`/`maxSlots` is the same for every host in the hostfile.
 
 Additionally, Data Movement uses substitution to fill in dynamic information for each Data Movement
-operation. These **must** be present in the command for Data Movement to work properly:
+operation. Each of these **must** be present in the command for Data Movement to work properly when
+using `mpirun` and `dcp`:
 
 |VAR|Description|
 |---|-----------|
