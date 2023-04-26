@@ -10,6 +10,7 @@ nav:
     - guides/index.md
     - 'Initial Setup': 'guides/initial-setup/readme.md'
     - 'Compute Daemons': 'guides/compute-daemons/readme.md'
+    - 'Data Movement': 'guides/data-movement/readme.md'
     - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
     - 'High Availability Cluster': 'guides/ha-cluster/readme.md'
     - 'RBAC for Users': 'guides/rbac-for-users/readme.md'
