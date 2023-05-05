@@ -6,7 +6,6 @@ repo_url: https://github.com/NearNodeFlash/NearNodeFlash.github.io
 copyright: '&copy; Copyright 2023 Hewlett Packard Enterprise Development LP'
 nav:
   - Home: index.md
-  #- About: about.md
   - 'User Guides':
     - guides/index.md
     - 'Initial Setup': 'guides/initial-setup/readme.md'
