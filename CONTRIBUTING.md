@@ -1,10 +1,10 @@
-We welcome contributions to dws
+We welcome contributions to NNF
 
 # Pull Requests
 
 This repository follows the standard GitHub fork+pull model.  We accept GitHub pull requests.
 
-Fork the project on GitHub, work in your fork and in branches, push these to your GitHub fork, and when ready, open up a GitHub pull request against `https://github.com/HewlettPackard/dws`
+Fork the project on GitHub, work in your fork and in branches, push these to your GitHub fork, and when ready, open up a GitHub pull request against `https://github.com/NearNodeFlash/NearNodeFlash.github.io`.
 
 ## Developer's Certificate of Origin
 
