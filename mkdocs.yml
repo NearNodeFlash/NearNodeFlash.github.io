@@ -3,6 +3,7 @@ site_description: 'Near Node Flash'
 docs_dir: docs/
 repo_name: GitHub
 repo_url: https://github.com/NearNodeFlash/NearNodeFlash.github.io
+copyright: '&copy; Copyright 2023 Hewlett Packard Enterprise Development LP'
 nav:
   - Home: index.md
   #- About: about.md
@@ -21,12 +22,17 @@ nav:
     - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
 theme:
   name: 'material'
+  custom_dir: overrides
   logo: img/logo.png
   favicon: img/logo.png
 plugins:
   - search
   - macros
   - section-index
+extra:
+  version:
+    provider: mike
+    default: latest
 markdown_extensions:
   - toc:
       permalink: true
