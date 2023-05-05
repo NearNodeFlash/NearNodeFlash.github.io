@@ -1,0 +1,35 @@
+name: Publish `main` Documentation
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Publish Development Documentation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+
+      - name: Install Dependencies
+        run: |
+          pip install --disable-pip-version-check -r mkdocs_requirements.txt
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "Doc Deploy Bot"
+          git config --local user.email "bot@noreply.github.hpe.com"
+
+      - name: mike Deploy Main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mike deploy --push dev

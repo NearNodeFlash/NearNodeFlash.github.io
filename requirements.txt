@@ -1,2 +1,4 @@
 mkdocs-section-index
 mkdocs-macros-plugin
+mkdocs-material
+mkdocs-material-extensions
