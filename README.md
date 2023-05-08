@@ -22,3 +22,4 @@ INFO     -  Documentation built in 0.22 seconds
 INFO     -  [10:59:28] Watching paths for changes: 'docs', 'mkdocs.yml'
 INFO     -  [10:59:28] Serving on http://127.0.0.1:8000/
 ```
+
