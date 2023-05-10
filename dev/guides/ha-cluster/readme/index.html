@@ -17,7 +17,7 @@
         <link rel="next" href="../../rbac-for-users/readme/">
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.10">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
@@ -789,7 +789,7 @@
 </tr>
 </tbody>
 </table>
-<p>The token and certificate can be found in the Kubernetes Secrets resource for the nnf-system/nnf-fence-agent ServiceAccount. This provides RBAC rules to limit the fencing agent to only the Kubernetes resources it needs access to.</p>
+<p>The token and certificate can be found in the Kubernetes Secrets resource for the nnf-system/nnf-fencing-agent ServiceAccount. This provides RBAC rules to limit the fencing agent to only the Kubernetes resources it needs access to.</p>
 <p>For example, setting up the NNF fencing agent on <code>rabbit-node-1</code> with a kubernetes service API running at <code>192.168.0.1:6443</code> and the service token and certificate copied to <code>/etc/nnf/fence/</code>. This needs to be run on one node in the cluster.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pcs stonith create rabbit-node-1 fence_nnf pcmk_host_list=rabbit-node-1 kubernetes-service-host=192.168.0.1 kubernetes-service-port=6443 service-token-file=/etc/nnf/fence/service.token service-cert-file=/etc/nnf/fence/service.cert nnf-node-name=rabbit-node-1
 </code></pre></div>
