@@ -149,6 +149,6 @@ roleRef:
   kind: ClusterRole
   name: workload-manager
   apiGroup: rbac.authorization.k8s.io
-  ```
+```
 
 The WLM should then use the kubeconfig file associated with this "flux" user to access the DataWorkflowServices API and the Rabbit system.
