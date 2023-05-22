@@ -109,7 +109,7 @@ export KUBECONFIG=/tmp/hpe/hpe.conf
 
 **Note** This section assumes the reader has read and understood the steps described above for setting up `RBAC for Users`.
 
-A workload manager (WLM) such as [Flux](https://github.com/flux-framework) or [Slurm](https://slurm.schedmd.com) will interact with [DataWorkflowServices](https://dataworkflowservices.github.io/v0.0.1/) as a privileged user. RBAC is used to limit the operations that a WLM can perform on a Rabbit system.
+A workload manager (WLM) such as [Flux](https://github.com/flux-framework) or [Slurm](https://slurm.schedmd.com) will interact with [DataWorkflowServices](https://dataworkflowservices.github.io) as a privileged user. RBAC is used to limit the operations that a WLM can perform on a Rabbit system.
 
 The following steps are required to create a user and a role for the WLM.  In this case, we're creating a user to be used with the Flux WLM:
 
