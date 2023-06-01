@@ -183,7 +183,7 @@ items:
 
 ## Example
 
-Say I authored a simple application, `foo`, that requires Rabbit local GFS2 storage and a persistent Lustre storage volume.
+For this example, let's assume I've authored an application called `foo`. This application requires Rabbit local GFS2 storage and a persistent Lustre storage volume.
 
 Working with an administrator, my application's storage requirements and pod specification are placed in an NNF Container Profile `foo`:
 
