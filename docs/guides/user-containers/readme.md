@@ -1,7 +1,7 @@
 # NNF User Containers
 
 NNF User Containers are a mechanism to allow user-defined containerized
-applications to be run on Rabbit nodes with access to NNF ephemeral and persistent storage, while also having access to the global lustre filesystem.
+applications to be run on Rabbit nodes with access to NNF ephemeral and persistent storage.
 
 !!! note
 
