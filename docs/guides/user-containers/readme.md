@@ -166,7 +166,7 @@ data:
               - dcmp
               - $(DW_JOB_foo_local_storage)/0
               - $(DW_JOB_foo_local_storage)/1
-              image: deanhpe/red-rock-slushy:v2.0
+              image: dean/red-rock-slushy:v2.0
               name: red-rock-launcher
       Worker:
         template:
@@ -174,7 +174,7 @@ data:
             imagePullSecrets:
             - name: readonly-red-rock-slushy
             containers:
-            - image: deanhpe/red-rock-slushy:v2.0
+            - image: dean/red-rock-slushy:v2.0
               name: red-rock-worker
     runPolicy:
       cleanPodPolicy: Running
