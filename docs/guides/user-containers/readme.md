@@ -137,3 +137,63 @@ Now any user can select this profile in their Workflow by specifying it in a
 ```bash
 #DW container profile=red-rock-slushy  [...]
 ```
+
+### Using a Private Version of MPI File Utils
+
+If our user's containerized application instead contains `mpirun` and `dcp`,
+because perhaps it's a private copy of [nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu),
+then the administrator would insert two `imagePullSecrets` lists into the
+`mpiSpec` of the an NNFContainerProfile for the MPI launcher and the MPI worker.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfContainerProfile
+metadata:
+  name: mpi-red-rock-slushy
+  namespace: nnf-system
+data:
+  mpiSpec:
+    mpiImplementation: OpenMPI
+    mpiReplicaSpecs:
+      Launcher:
+        template:
+          spec:
+            imagePullSecrets:
+            - name: readonly-red-rock-slushy
+            containers:
+            - command:
+              - mpirun
+              - dcmp
+              - $(DW_JOB_foo_local_storage)/0
+              - $(DW_JOB_foo_local_storage)/1
+              image: deanhpe/red-rock-slushy:v2.0
+              name: red-rock-launcher
+      Worker:
+        template:
+          spec:
+            imagePullSecrets:
+            - name: readonly-red-rock-slushy
+            containers:
+            - image: deanhpe/red-rock-slushy:v2.0
+              name: red-rock-worker
+    runPolicy:
+      cleanPodPolicy: Running
+      suspend: false
+    slotsPerWorker: 1
+    sshAuthMountPath: /root/.ssh
+  pinned: false
+  retryLimit: 6
+  storages:
+  - name: DW_JOB_foo_local_storage
+    optional: false
+  - name: DW_PERSISTENT_foo_persistent_storage
+    optional: true
+```
+
+Now any user can select this profile in their Workflow by specifying it in a
+`#DW container` directive.
+
+```bash
+#DW container profile=mpi-red-rock-slushy  [...]
+```
+
