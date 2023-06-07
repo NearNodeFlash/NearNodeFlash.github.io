@@ -8,14 +8,14 @@ applications to be run on Rabbit nodes with access to NNF ephemeral and persiste
     The following is a limited look at User Containers.  More content will be
     provided after the RFC has been finalized.
 
-## Custom NNFContainerProfile
+## Custom NnfContainerProfile
 
 The author of a containerized application will work with the administrator to
 define a pod specification template for the container and to create an
-appropriate NNFContainerProfile resource for the container.  The image and tag
+appropriate NnfContainerProfile resource for the container.  The image and tag
 for the user's container will be specified in the profile.
 
-New NNFContainerProfile resources may be created by copying one of the provided
+New NnfContainerProfile resources may be created by copying one of the provided
 example profiles from the `nnf-system` namespace.  The examples may be found by listing them with `kubectl`:
 
 ```console
@@ -24,7 +24,7 @@ kubectl get nnfcontainerprofiles -n nnf-system
 
 ### Workflow Job Specification
 
-The user's workflow will specify the name of the NNFContainerProfile in a DW
+The user's workflow will specify the name of the NnfContainerProfile in a DW
 directive.  If the custom profile is named `red-rock-slushy` then it will be
 specified in the "#DW container" directive with the "profile" parameter.
 
@@ -98,9 +98,9 @@ $ SECRET_NAME=readonly-red-rock-slushy
 $ kubectl create secret docker-registry $SECRET_NAME -n default --docker-server="https://index.docker.io/v1/" --docker-username=$USER_NAME --docker-password=$USER_TOKEN --docker-email=$USER_EMAIL
 ```
 
-### Add the Secret to the NNFContainerProfile
+### Add the Secret to the NnfContainerProfile
 
-The administrator must add an `imagePullSecrets` list to the NNFContainerProfile
+The administrator must add an `imagePullSecrets` list to the NnfContainerProfile
 resource that was created for this user's containerized application.
 
 The following profile shows the placement of the `readonly-red-rock-slushy` secret
@@ -137,3 +137,64 @@ Now any user can select this profile in their Workflow by specifying it in a
 ```bash
 #DW container profile=red-rock-slushy  [...]
 ```
+
+### Using a Private Container Repository for MPI Application Containers
+
+If our user's containerized application instead contains an MPI application,
+because perhaps it's a private copy of [nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu),
+then the administrator would insert two `imagePullSecrets` lists into the
+`mpiSpec` of the NnfContainerProfile for the MPI launcher and the MPI worker.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfContainerProfile
+metadata:
+  name: mpi-red-rock-slushy
+  namespace: nnf-system
+data:
+  mpiSpec:
+    mpiImplementation: OpenMPI
+    mpiReplicaSpecs:
+      Launcher:
+        template:
+          spec:
+            imagePullSecrets:
+            - name: readonly-red-rock-slushy
+            containers:
+            - command:
+              - mpirun
+              - dcmp
+              - $(DW_JOB_foo_local_storage)/0
+              - $(DW_JOB_foo_local_storage)/1
+              image: dean/red-rock-slushy:v2.0
+              name: red-rock-launcher
+      Worker:
+        template:
+          spec:
+            imagePullSecrets:
+            - name: readonly-red-rock-slushy
+            containers:
+            - image: dean/red-rock-slushy:v2.0
+              name: red-rock-worker
+    runPolicy:
+      cleanPodPolicy: Running
+      suspend: false
+    slotsPerWorker: 1
+    sshAuthMountPath: /root/.ssh
+  pinned: false
+  retryLimit: 6
+  storages:
+  - name: DW_JOB_foo_local_storage
+    optional: false
+  - name: DW_PERSISTENT_foo_persistent_storage
+    optional: true
+```
+
+Now any user can select this profile in their Workflow by specifying it in a
+`#DW container` directive.
+
+```bash
+#DW container profile=mpi-red-rock-slushy  [...]
+```
+
+
