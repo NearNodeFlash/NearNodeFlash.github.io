@@ -140,7 +140,7 @@ Now any user can select this profile in their Workflow by specifying it in a
 
 ### Using a Private Version of MPI File Utils
 
-If our user's containerized application instead contains `mpirun` and `dcp`,
+If our user's containerized application instead contains MPI File Utils,
 because perhaps it's a private copy of [nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu),
 then the administrator would insert two `imagePullSecrets` lists into the
 `mpiSpec` of the NnfContainerProfile for the MPI launcher and the MPI worker.
