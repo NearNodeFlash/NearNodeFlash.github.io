@@ -40,7 +40,7 @@ SERVICE_ACCOUNT=$1
 NAMESPACE=$2
 
 kubectl get secret ${SERVICE_ACCOUNT} -n ${NAMESPACE} -o json | jq -Mr '.data.token' | base64 --decode > ./service.token
-kubectl get secret ${SERVICE_ACCOUNT} -n ${NAMESPACE} -o json | jq -Mr '.data["ca.crt"]' | base64 -decode > ./service.cert
+kubectl get secret ${SERVICE_ACCOUNT} -n ${NAMESPACE} -o json | jq -Mr '.data["ca.crt"]' | base64 --decode > ./service.cert
 ```
 
 The `service.token` and `service.cert` files must be copied to each compute node, typically in the `/etc/[BINARY-NAME]/` directory

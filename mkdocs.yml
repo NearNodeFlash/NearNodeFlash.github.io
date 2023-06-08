@@ -15,6 +15,7 @@ nav:
     - 'High Availability Cluster': 'guides/ha-cluster/readme.md'
     - 'RBAC for Users': 'guides/rbac-for-users/readme.md'
     - 'Storage Profiles': 'guides/storage-profiles/readme.md'
+    - 'User Containers': 'guides/user-containers/readme.md'
   - 'RFCs':
     - rfcs/index.md
     - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
@@ -45,6 +46,7 @@ extra:
     provider: mike
     default: latest
 markdown_extensions:
+  - admonition
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.details
