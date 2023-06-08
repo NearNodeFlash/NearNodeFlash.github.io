@@ -46,7 +46,7 @@ Configure the NNF agent with the following parameters:
 | `nnf-node-name=[NNF-NODE-NAME]` | Name of the NNF node as it is appears in the System Configuration |
 | `api-version=[VERSION]` | The API Version of the NNF Node resource. Defaults to "v1alpha1" |
 
-The token and certificate can be found in the Kubernetes Secrets resource for the nnf-system/nnf-fence-agent ServiceAccount. This provides RBAC rules to limit the fencing agent to only the Kubernetes resources it needs access to.
+The token and certificate can be found in the Kubernetes Secrets resource for the nnf-system/nnf-fencing-agent ServiceAccount. This provides RBAC rules to limit the fencing agent to only the Kubernetes resources it needs access to.
 
 For example, setting up the NNF fencing agent on `rabbit-node-1` with a kubernetes service API running at `192.168.0.1:6443` and the service token and certificate copied to `/etc/nnf/fence/`. This needs to be run on one node in the cluster.
 
