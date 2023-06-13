@@ -8,7 +8,7 @@ categories: release, repo
 ## NNF Software Overview
 
 The following repositories comprise the NNF Software and each have their own versions. There is a
-hierarchy of sorts, since `nnf-deploy` packages the individual components together using submodules.
+hierarchy, since `nnf-deploy` packages the individual components together using submodules.
 
 Each component under `nnf-deploy` needs to be released first, then `nnf-deploy` can be updated to
 point to those release versions, then `nnf-deploy` itself can be updated and released.
@@ -18,12 +18,12 @@ part of `nnf-deploy`, but it should match the version number of `nnf-deploy`. Re
 other components.
 
 - [NearNodeFlash/nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy)
-    * [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
-    * [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
-    * [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
-    * [HewlettPackard/dws](https://github.com/HewlettPackard/dws)
-    * [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
-    * [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
+    - [HewlettPackard/dws](https://github.com/HewlettPackard/dws)
+    - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
+    - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
+    - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
+    - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
+    - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
 - [NearNodeFlash/NearNodeFlash.github.io](https://github.com/NearNodeFlash/NearNodeFlash.github.io)
 
 [nnf-ec](https://github.com/NearNodeFlash/nnf-ec) is vendored in as part of `nnf-sos` and does not
@@ -32,7 +32,7 @@ need to be released separately.
 ## Primer
 
 This document is based on the process set forth by the [DataWorkflowServices Release
-Process](https://dataworkflowservices.github.io/v0.0.1/repo-guides/create-a-release/readme/#github-release-process).
+Process](https://dataworkflowservices.github.io/v0.0.1/repo-guides/create-a-release/readme/).
 Please read that as a background for this document before going any further.
 
 ## Requirements
@@ -41,19 +41,16 @@ To create tags and releases, you will need maintainer or admin rights on the rep
 
 ## Release Each Component In `nnf-deploy`
 
-As mentioned above, you'll first need to create releases for each component contained in
-`nnf-deploy`. This section describes that process.
+You'll first need to create releases for each component contained in `nnf-deploy`. This section
+describes that process.
 
 Each release branch needs to be updated with what is on master. To do that, we'll need the latest
 copy of master, and it will ultimately be merged to the `releases/v0` branch via a Pull Request.
-Once merged, a tag is created and then a release.
+Once merged, an annotated tag is created and then a release.
 
-<details>
-<summary>Component Version Numbers</summary>
-Each component has its own version number that needs to be incremented. Make sure you change the
-version numbers in the commands below to match the new version for the component. The `v0.0.3` is
+Each component has its own version number that needs to be incremented. **Make sure you change the
+version numbers** in the commands below to match the new version for the component. The `v0.0.3` is
 just an example.
-</details>
 
 1. Ensure your branches are up to date:
 
@@ -87,16 +84,22 @@ just an example.
     end.
 
 5. For `lustre-csi-driver` and `lustre-fs-operator`, there are additional files that need to track
-   the version number as well.
+   the version number as well, which allow them to be installed with `kubectl apply -k`.
 
     a. For `lustre-fs-operator`, update `config/manager/kustomization.yaml` with the correct
     version.
 
-    b. For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
+    . For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
     `charts/lustre-csi-driver/values.yaml` with the correct version.
 
 6. Create a Pull Request from your branch and **target the release branch**. When merging the Pull
-   Request, **you must use a Merge Commit. Do not Rebase or Squash.**
+Request, **you must use a Merge Commit.**
+
+    !!! note
+
+        **Do not** Rebase or Squash! Those actions will remove the records that Git uses to determine which
+        commits have been merged, and then when the next release is created Git will treat everything
+        like a conflict. Additionally, this will cause auto-generated release notes to include the previous release.
 
 7. Once merged, update the release branch locally and then create an annotated tag:
 
@@ -126,12 +129,16 @@ sure that everything is now current on master.
     ```shell
     git checkout master
     git pull
-    git checkout -b update-submodules
-    git submodule foreach git checkout master
-    git submodule foreach git pull
+    ./update.sh
     ```
 
-2. Update `config/reponsitories.yaml` and update the version for `lustre-csi-driver` and `lustre-fs-operator`.
+2. Update `config/repositories.yaml` and update the referenced versions for:
+
+   a. `lustre-csi-driver`
+
+   b. `lustre-fs-operator`
+
+   c. `nnf-mfu`
 
 3. Commit the changes and open a Pull Request against the `master` branch.
 
@@ -139,7 +146,7 @@ sure that everything is now current on master.
 
 5. There will be conflicts on the submodules after step 3. This is expected. We will update the
    submodules to the new tags and then commit the changes.  If each tag was committed properly, the
-   follow command can do this for you:
+   following command can do this for you:
 
     ```shell
     git submodule foreach 'git checkout `git describe --match="v*" HEAD`'
@@ -148,14 +155,16 @@ sure that everything is now current on master.
     Verify that each submodule is now at the proper tagged version.
 
     ```shell
-    git submodule foreach git status
+    git submodule status
     ```
 
 6. Do a `git add` for each of the submodules.
 
-7. Verify that `git status` is happy with `nnf-deploy` and then finalize the merge from master by
+7. Run `go mod tidy` and then `make`. Do another `git add` for any changes, particularly`go.mod` and/or `go.sum`.
+
+8. Verify that `git status` is happy with `nnf-deploy` and then finalize the merge from master by
    doing a `git commit`.
 
-8. Follow steps 6-8 from the previous section to finalize the release of `nnf-deploy`.
+9. Follow steps 6-8 from the previous section to finalize the release of `nnf-deploy`.
 
 The software is now released!
