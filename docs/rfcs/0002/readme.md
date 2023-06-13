@@ -1,6 +1,6 @@
 ---
 authors: Blake Devcich <blake.devcich@hpe.com>
-state: discussion
+state: published
 ---
 # Rabbit storage for containerized applications
 

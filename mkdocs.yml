@@ -1,27 +1,29 @@
 site_name: NNF
-site_description: 'Near Node Flash'
+site_description: "Near Node Flash"
 docs_dir: docs/
-repo_name: 'NearNodeFlash/NearNodeFlash.github.io'
+repo_name: "NearNodeFlash/NearNodeFlash.github.io"
 repo_url: https://github.com/NearNodeFlash/NearNodeFlash.github.io
-copyright: '&copy; Copyright 2023 Hewlett Packard Enterprise Development LP'
+copyright: "&copy; Copyright 2023 Hewlett Packard Enterprise Development LP"
 nav:
   - Home: index.md
-  - 'User Guides':
-    - guides/index.md
-    - 'Initial Setup': 'guides/initial-setup/readme.md'
-    - 'Compute Daemons': 'guides/compute-daemons/readme.md'
-    - 'Data Movement': 'guides/data-movement/readme.md'
-    - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
-    - 'High Availability Cluster': 'guides/ha-cluster/readme.md'
-    - 'RBAC for Users': 'guides/rbac-for-users/readme.md'
-    - 'Storage Profiles': 'guides/storage-profiles/readme.md'
-    - 'User Containers': 'guides/user-containers/readme.md'
-  - 'RFCs':
-    - rfcs/index.md
-    - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
-    - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
+  - "User Guides":
+      - guides/index.md
+      - "Initial Setup": "guides/initial-setup/readme.md"
+      - "Compute Daemons": "guides/compute-daemons/readme.md"
+      - "Data Movement": "guides/data-movement/readme.md"
+      - "Firmware Upgrade": "guides/firmware-upgrade/readme.md"
+      - "High Availability Cluster": "guides/ha-cluster/readme.md"
+      - "RBAC for Users": "guides/rbac-for-users/readme.md"
+      - "Storage Profiles": "guides/storage-profiles/readme.md"
+      - "User Containers": "guides/user-containers/readme.md"
+  - "RFCs":
+      - rfcs/index.md
+      - "Rabbit Request For Comment Process": "rfcs/0001/readme.md"
+      - "Rabbit Storage For Containerized Applications": "rfcs/0002/readme.md"
+  - "Repo Admin Guides":
+      - "Releasing NNF Software": "repo-guides/release-nnf-sw/readme.md"
 theme:
-  name: 'material'
+  name: "material"
   custom_dir: overrides
   features:
     - content.code.copy
