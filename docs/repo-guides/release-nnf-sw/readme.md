@@ -89,7 +89,7 @@ just an example.
     a. For `lustre-fs-operator`, update `config/manager/kustomization.yaml` with the correct
     version.
 
-    . For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
+    b. For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
     `charts/lustre-csi-driver/values.yaml` with the correct version.
 
 6. Create a Pull Request from your branch and **target the release branch**. When merging the Pull
