@@ -32,6 +32,14 @@ specified in the "#DW container" directive with the "profile" parameter.
 #DW container profile=red-rock-slushy  [...]
 ```
 
+### Restricting To User ID or Group ID
+
+New NnfContainerProfile resources may be restricted to a specific user ID
+or group ID.  When a `data.userID` or `data.groupID` is specified in the profile, only
+those Workflow resources having a matching user ID or group ID will be allowed to
+use that profile.  If the profile specifies both of these IDs, then the Workflow
+resource must match both of them.
+
 ## Using a Private Container Repository
 
 The user's containerized application may be placed in a private repository.  In
