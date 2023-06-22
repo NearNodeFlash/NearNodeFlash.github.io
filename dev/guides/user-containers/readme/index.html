@@ -17,7 +17,7 @@
         <link rel="next" href="../../../rfcs/">
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.15">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.16">
     
     
       
@@ -487,6 +487,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#restricting-to-user-id-or-group-id" class="md-nav__link">
+    Restricting To User ID or Group ID
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -728,6 +735,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#restricting-to-user-id-or-group-id" class="md-nav__link">
+    Restricting To User ID or Group ID
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -836,6 +850,12 @@ directive.  If the custom profile is named <code>red-rock-slushy</code> then it 
 specified in the "#DW container" directive with the "profile" parameter.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">#DW container profile=red-rock-slushy  [...]</span>
 </code></pre></div>
+<h3 id="restricting-to-user-id-or-group-id">Restricting To User ID or Group ID</h3>
+<p>New NnfContainerProfile resources may be restricted to a specific user ID
+or group ID.  When a <code>data.userID</code> or <code>data.groupID</code> is specified in the profile, only
+those Workflow resources having a matching user ID or group ID will be allowed to
+use that profile.  If the profile specifies both of these IDs, then the Workflow
+resource must match both of them.</p>
 <h2 id="using-a-private-container-repository">Using a Private Container Repository</h2>
 <p>The user's containerized application may be placed in a private repository.  In
 this case, the user must define an access token to be used with that repository,
@@ -1052,7 +1072,7 @@ then the administrator would insert two <code>imagePullSecrets</code> lists into
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.b4d07000.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.a51614de.min.js"></script>
       
     
   </body>
