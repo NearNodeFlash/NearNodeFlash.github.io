@@ -24,6 +24,7 @@ other components.
     - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
     - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
     - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
+    - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
 - [NearNodeFlash/NearNodeFlash.github.io](https://github.com/NearNodeFlash/NearNodeFlash.github.io)
 
 [nnf-ec](https://github.com/NearNodeFlash/nnf-ec) is vendored in as part of `nnf-sos` and does not
