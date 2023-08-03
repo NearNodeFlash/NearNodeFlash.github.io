@@ -10,7 +10,7 @@ applications to be run on Rabbit nodes with access to NNF ephemeral and persiste
 
 ## Environment Variables
 
-Two sets of environment variables are available with container workflows: Container and Compute Node. The former are the variables that are available inside the user containers. The latter are the variables that are provided back to the DWS workflow, which in turn are collected by Flux and provided to compute nodes. See the Flux documentation for more details.
+Two sets of environment variables are available with container workflows: Container and Compute Node. The former are the variables that are available inside the user containers. The latter are the variables that are provided back to the DWS workflow, which in turn are collected by the WLM and provided to compute nodes. See the WLM documentation for more details.
 
 ### Container Environment Variables
 
@@ -42,7 +42,7 @@ my-container-workflow-worker-1.my-container-workflow-worker.default.svc slots=1
 
 ### Compute Node Environment Variables
 
-These environment variables are provided to the compute node via Flux by way of the DWS Workflow. Note that these environment variables are consistent across all the compute nodes for a given workflow.
+These environment variables are provided to the compute node via the WLM by way of the DWS Workflow. Note that these environment variables are consistent across all the compute nodes for a given workflow.
 
 #### `NNF_CONTAINER_PORTS`
 
