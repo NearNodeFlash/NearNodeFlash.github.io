@@ -21,7 +21,7 @@ container command in the NNF Container Profile or within the container itself.
 
 Containers can contact one another via Kubernetes cluster networking. This functionality is provided by DNS. Environment variables are provided that allow a user to be able to piece together the FQDN so that the other containers can be contacted.
 
-This example demonstrates an MPI container workflow, with two worker nodes. Two worker nodes means two containers running on two NNF nodes.
+This example demonstrates an MPI container workflow, with two worker pods. Two worker pods means two pods/containers running on two NNF nodes.
 
 ```console
 mpiuser@my-container-workflow-launcher:~$ env | grep NNF
@@ -42,7 +42,7 @@ my-container-workflow-worker-1.my-container-workflow-worker.default.svc slots=1
 
 ### Compute Node Environment Variables
 
-These environment variables are provided to the compute node via Flux by way of the DWS Workflow. Note that these environment variables are consistent across all the compute nodes for a given workflow. At this time, there is no way to provided compute specific environment variables.
+These environment variables are provided to the compute node via Flux by way of the DWS Workflow. Note that these environment variables are consistent across all the compute nodes for a given workflow.
 
 #### `NNF_CONTAINER_PORTS`
 
