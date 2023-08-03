@@ -46,7 +46,7 @@ These environment variables are provided to the compute node via Flux by way of 
 
 #### `NNF_CONTAINER_PORTS`
 
-If container ports are requested via the NNF Container Profile, then this environment variable will provide the allocated ports for the container. This is a comma separated list of ports if multiple ports are requested.
+If the NNF Container Profile requests container ports, then this environment variable provides the allocated ports for the container. This is a comma separated list of ports if multiple ports are requested.
 
 This allows an application on the compute node to contact the user container running on its local NNF node via these port numbers. The compute nodes must have proper routing to the NNF Node and needs a generic way of contacting the NNF node. It is suggested than a DNS entry is provided via `/etc/hosts`, or similar.
 
