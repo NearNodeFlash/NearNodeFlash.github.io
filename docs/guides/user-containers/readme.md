@@ -6,7 +6,55 @@ applications to be run on Rabbit nodes with access to NNF ephemeral and persiste
 !!! note
 
     The following is a limited look at User Containers.  More content will be
-    provided after the RFC has been finalized.
+    provided after the RFC has been finalized. This is a work in progress.
+
+## Environment Variables
+
+Two sets of environment variables are available with container workflows: Container and Compute Node. The former are the variables that are available inside the user containers. The latter are the variables that are provided back to the DWS workflow, which in turn are collected by the WLM and provided to compute nodes. See the WLM documentation for more details.
+
+### Container Environment Variables
+
+These variables are provided for use inside the container. They can be used as part of the
+container command in the NNF Container Profile or within the container itself.
+
+#### Container Hostnames and Domains
+
+Containers can contact one another via Kubernetes cluster networking. This functionality is provided by DNS. Environment variables are provided that allow a user to be able to piece together the FQDN so that the other containers can be contacted.
+
+This example demonstrates an MPI container workflow, with two worker pods. Two worker pods means two pods/containers running on two NNF nodes.
+
+```console
+mpiuser@my-container-workflow-launcher:~$ env | grep NNF
+NNF_CONTAINER_HOSTNAMES=my-container-workflow-launcher my-container-workflow-worker-0 my-container-workflow-worker-1
+NNF_CONTAINER_DOMAIN=default.svc.cluster.local
+NNF_CONTAINER_SUBDOMAIN=my-container-workflow-worker
+```
+
+The container FQDN consists of the following: `<HOSTNAME>.<SUBDOMAIN>.<DOMAIN>`. To contact the other worker container from worker 0, `my-container-workflow-worker-1.my-container-workflow-worker.default.svc.cluster.local` would be used.
+
+For MPI-based containers, an alternate way to retrieve this information is to look at the default `hostfile`, provided by `mpi-operator`. This file lists out all the worker nodes' FQDNs:
+
+```console
+mpiuser@my-container-workflow-launcher:~$ cat /etc/mpi/hostfile
+my-container-workflow-worker-0.my-container-workflow-worker.default.svc slots=1
+my-container-workflow-worker-1.my-container-workflow-worker.default.svc slots=1
+```
+
+### Compute Node Environment Variables
+
+These environment variables are provided to the compute node via the WLM by way of the DWS Workflow. Note that these environment variables are consistent across all the compute nodes for a given workflow.
+
+#### `NNF_CONTAINER_PORTS`
+
+If the NNF Container Profile requests container ports, then this environment variable provides the allocated ports for the container. This is a comma separated list of ports if multiple ports are requested.
+
+This allows an application on the compute node to contact the user container running on its local NNF node via these port numbers. The compute node must have proper routing to the NNF Node and needs a generic way of contacting the NNF node. It is suggested than a DNS entry is provided via `/etc/hosts`, or similar.
+
+For cases where one port is requested, the following can be used to contact the user container running on the NNF node (assuming an entry for `local-rabbit` is provided via `/etc/hosts`).
+
+```console
+local-rabbit:$(NNF_CONTAINER_PORTS)
+```
 
 ## Custom NnfContainerProfile
 
@@ -99,11 +147,11 @@ Hub username and the email address they have associated with that username.  In
 this case, the secret will be named `readonly-red-rock-slushy`.
 
 ```console
-$ USER_TOKEN=users-token-text
-$ USER_NAME=dean
-$ USER_EMAIL=dean@myco.com
-$ SECRET_NAME=readonly-red-rock-slushy
-$ kubectl create secret docker-registry $SECRET_NAME -n default --docker-server="https://index.docker.io/v1/" --docker-username=$USER_NAME --docker-password=$USER_TOKEN --docker-email=$USER_EMAIL
+USER_TOKEN=users-token-text
+USER_NAME=dean
+USER_EMAIL=dean@myco.com
+SECRET_NAME=readonly-red-rock-slushy
+kubectl create secret docker-registry $SECRET_NAME -n default --docker-server="https://index.docker.io/v1/" --docker-username=$USER_NAME --docker-password=$USER_TOKEN --docker-email=$USER_EMAIL
 ```
 
 ### Add the Secret to the NnfContainerProfile
@@ -204,5 +252,3 @@ Now any user can select this profile in their Workflow by specifying it in a
 ```bash
 #DW container profile=mpi-red-rock-slushy  [...]
 ```
-
-
