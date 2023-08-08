@@ -17,7 +17,7 @@
         <link rel="next" href="../../compute-daemons/readme/">
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.18">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.26e3688c.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.eebd395e.min.css">
       
       
 
@@ -812,22 +812,22 @@
 <table>
 <thead>
 <tr>
-<th align="left">Node Type</th>
-<th align="left">Node Label</th>
+<th style="text-align: left;">Node Type</th>
+<th style="text-align: left;">Node Label</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Generic Kubernetes Worker Node</td>
-<td align="left">cray.nnf.manager=true</td>
+<td style="text-align: left;">Generic Kubernetes Worker Node</td>
+<td style="text-align: left;">cray.nnf.manager=true</td>
 </tr>
 <tr>
-<td align="left">Rabbit Node</td>
-<td align="left">cray.nnf.node=true</td>
+<td style="text-align: left;">Rabbit Node</td>
+<td style="text-align: left;">cray.nnf.node=true</td>
 </tr>
 <tr>
-<td align="left"></td>
-<td align="left">cray.nnf.x-name=$NODE</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">cray.nnf.x-name=$NODE</td>
 </tr>
 </tbody>
 </table>
@@ -835,14 +835,14 @@
 <table>
 <thead>
 <tr>
-<th align="left">Node Type</th>
-<th align="left">Node Label</th>
+<th style="text-align: left;">Node Type</th>
+<th style="text-align: left;">Node Label</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">Rabbit Node</td>
-<td align="left">cray.nnf.node=true:NoSchedule</td>
+<td style="text-align: left;">Rabbit Node</td>
+<td style="text-align: left;">cray.nnf.node=true:NoSchedule</td>
 </tr>
 </tbody>
 </table>
@@ -860,25 +860,25 @@
 <table>
 <thead>
 <tr>
-<th align="left">Spec Section</th>
+<th style="text-align: left;">Spec Section</th>
 <th>Notes</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left">computeNodes</td>
+<td style="text-align: left;">computeNodes</td>
 <td>List of names of compute nodes in the system</td>
 </tr>
 <tr>
-<td align="left">storageNodes</td>
+<td style="text-align: left;">storageNodes</td>
 <td>List of Rabbits and the compute nodes attached</td>
 </tr>
 <tr>
-<td align="left">storageNodes[].type</td>
+<td style="text-align: left;">storageNodes[].type</td>
 <td>Must be "Rabbit"</td>
 </tr>
 <tr>
-<td align="left">storageNodes[].computeAccess</td>
+<td style="text-align: left;">storageNodes[].computeAccess</td>
 <td>List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to</td>
 </tr>
 </tbody>
