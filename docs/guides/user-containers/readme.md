@@ -56,6 +56,62 @@ For cases where one port is requested, the following can be used to contact the 
 local-rabbit:$(NNF_CONTAINER_PORTS)
 ```
 
+## Container Ports
+
+NNF Container Profiles allow for ports to be reserved for a container workflow. `numPorts` can be used to specify the number of ports needed for a container workflow:
+
+```yaml
+kind: NnfContainerProfile
+metadata:
+  name: sample-nnfcontainerprofile
+  namespace: nnf-system
+data:
+  # Request the number of ports to open on the targeted rabbits. These ports are accessible outside
+  # of the k8s cluster.  The requested ports are made available as environment variables inside the
+  # container and in the DWS workflow (NNF_CONTAINER_PORTS).
+  numPorts: 1
+```
+
+The allocated port numbers are made available via the [`NNF_CONTAINER_PORTS`](#nnf_container_ports) environment variable.
+
+The workflow requests this number of ports from the `NnfPortManager`, which is responsible for managing the ports allocated to container workflows. This resource can be inspected to see which ports are allocated.
+
+These ports are opened on the NNF Nodes that are targeted by the container workflow. When a port is assigned, it becomes "reserved" for all NNF Nodes in the system. This reservation occurs even if the port is unused by the NNF Nodes not involved in the specific container workflow. To clarify, if port 4001 is employed by a container workflow that targets 6 out of 10 NNF Nodes within the system, any subsequent workflow cannot utilize port 4001 on the remaining 4 NNF Nodes.
+
+!!! note
+
+    The `SystemConfiguration` must be configured to allow for a range of ports, otherwise container workflows will fail in the `Setup` state due to insufficient resources. See [SystemConfiguration Setup](#systemconfiguration-setup).
+
+### SystemConfiguration Setup
+
+In order for container workflows to request ports from the `NnfPortManager`, the `SystemConfiguration` must be configured for a range of ports:
+
+```yaml
+kind: SystemConfiguration
+metadata:
+  name: default
+  namspace: default
+spec:
+  # Ports is the list of ports available for communication between nodes in the
+  # system. Valid values are single integers, or a range of values of the form
+  # "START-END" where START is an integer value that represents the start of a
+  # port range and END is an integer value that represents the end of the port
+  # range (inclusive).
+  ports:
+    - 4000-4999
+  # PortsCooldownInSeconds is the number of seconds to wait before a port can be
+  # reused. Defaults to 60 seconds (to match the typical value for the kernel's
+  # TIME_WAIT). A value of 0 means the ports can be reused immediately.
+  # Defaults to 60s if not set.
+  portsCooldownInSeconds: 60
+```
+
+`ports` is empty by default, and **must** be set by an administrator.
+
+Multiple port ranges can be specified in this list, as well as single integers. This must be a safe port range that does not interfere with the ephemeral port range of the Linux kernel. The range should also account for the estimated number of simultaneous users that are running container workflows.
+
+Once a container workflow is done, the port is released and the `NnfPortManager` will not allow reuse of the port until the amount of time specified by `portsCooldownInSeconds` has elapsed. Then the port can be reused by another container workflow.
+
 ## Custom NnfContainerProfile
 
 The author of a containerized application will work with the administrator to
