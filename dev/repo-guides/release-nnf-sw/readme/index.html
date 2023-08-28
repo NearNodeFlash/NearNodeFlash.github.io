@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.3">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.5">
     
     
       
@@ -910,21 +910,45 @@ just an example.</p>
 end.</p>
 </li>
 <li>
-<p>For <code>lustre-csi-driver</code> and <code>lustre-fs-operator</code>, there are additional files that need to track
-   the version number as well, which allow them to be installed with <code>kubectl apply -k</code>.</p>
-<p>a. For <code>lustre-fs-operator</code>, update <code>config/manager/kustomization.yaml</code> with the correct
+<p>Perform repo-specific updates:</p>
+<ol>
+<li>
+<p>For <code>lustre-csi-driver</code> and <code>lustre-fs-operator</code>, there are additional files that need to
+track the version number as well, which allow them to be installed with <code>kubectl apply -k</code>.</p>
+<ol>
+<li>
+<p>For <code>lustre-fs-operator</code>, update <code>config/manager/kustomization.yaml</code> with the correct
 version.</p>
-<p>b. For <code>lustre-csi-driver</code>, update <code>deploy/kubernetes/base/kustomization.yaml</code> and
-<code>charts/lustre-csi-driver/values.yaml</code> with the correct version.</p>
 </li>
 <li>
-<p>Create a Pull Request from your branch and <strong>target the release branch</strong>. When merging the Pull
+<p>For <code>lustre-csi-driver</code>, update <code>deploy/kubernetes/base/kustomization.yaml</code> and
+<code>charts/lustre-csi-driver/values.yaml</code> with the correct version.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>If <code>nnf-mfu</code> was updated, multiple references in <code>nnf-dm</code> will need to be updated with the
+new version number for the <code>nnf-mfu</code> image:</p>
+<ol>
+<li>
+<p>In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMU_VERSION</code> with the new version</p>
+</li>
+<li>
+<p>In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;</code></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>Create a Pull Request from your branch and <strong>target the release branch</strong>.  When merging the Pull
 Request, <strong>you must use a Merge Commit.</strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Do not</strong> Rebase or Squash! Those actions will remove the records that Git uses to determine which
-commits have been merged, and then when the next release is created Git will treat everything
-like a conflict. Additionally, this will cause auto-generated release notes to include the previous release.</p>
+<p><strong>Do not</strong> Rebase or Squash! Those actions will remove the records that Git uses to
+determine which commits have been merged, and then when the next release is created Git will
+treat everything like a conflict. Additionally, this will cause auto-generated release notes
+to include the previous release.</p>
 </div>
 </li>
 <li>
@@ -946,8 +970,8 @@ like a conflict. Additionally, this will cause auto-generated release notes to i
 </ol>
 <h2 id="release-nnf-deploy">Release <code>nnf-deploy</code></h2>
 <p>Once the individual components are released, we need to update the submodules and
-<code>config/repositories.yaml</code> in the <strong>master</strong> branch before we start on the release branch. This makes
-sure that everything is now current on master.</p>
+<code>config/repositories.yaml</code> in the <strong>master</strong> branch before we start on the release branch. This
+makes sure that everything is now current on master.</p>
 <ol>
 <li>
 <p>Update the submodules on master:</p>
@@ -984,7 +1008,8 @@ sure that everything is now current on master.</p>
 <p>Do a <code>git add</code> for each of the submodules.</p>
 </li>
 <li>
-<p>Run <code>go mod tidy</code> and then <code>make</code>. Do another <code>git add</code> for any changes, particularly<code>go.mod</code> and/or <code>go.sum</code>.</p>
+<p>Run <code>go mod tidy</code> and then <code>make</code>. Do another <code>git add</code> for any changes, particularly<code>go.mod</code>
+and/or <code>go.sum</code>.</p>
 </li>
 <li>
 <p>Verify that <code>git status</code> is happy with <code>nnf-deploy</code> and then finalize the merge from master by
