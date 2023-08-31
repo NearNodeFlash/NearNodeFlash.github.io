@@ -16,6 +16,7 @@ nav:
       - "RBAC for Users": "guides/rbac-for-users/readme.md"
       - "Storage Profiles": "guides/storage-profiles/readme.md"
       - "User Containers": "guides/user-containers/readme.md"
+      - "External MGSs": "guides/external-mgs/readme.md"
   - "RFCs":
       - rfcs/index.md
       - "Rabbit Request For Comment Process": "rfcs/0001/readme.md"
