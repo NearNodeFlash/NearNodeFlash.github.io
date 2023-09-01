@@ -123,7 +123,9 @@ A persistent storage MGTs can be created with the following DW directive:
 #DW create_persistent name=mgt-pool-member-1 capacity=1GiB type=lustre profile=mgt-pool-member
 ```
 
-Multiple persistent instances with different names can be created using the `mgt-pool-member` profile to add more than one MGT to the pool. To create a Lustre file system that uses one of the MGTs from the pool, an `NnfStorageProfile` should be created that uses the special notation `pool:[pool-name]` in the `externalMgs` field.
+Multiple persistent instances with different names can be created using the `mgt-pool-member` profile to add more than one MGT to the pool.
+
+To create a Lustre file system that uses one of the MGTs from the pool, an `NnfStorageProfile` should be created that uses the special notation `pool:[pool-name]` in the `externalMgs` field.
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha1
