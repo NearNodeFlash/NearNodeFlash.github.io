@@ -11,7 +11,7 @@ importantly, it allows you to specify which NNF storages are accessible within t
 which container image to run. The containers are executed on the NNF nodes that are allocated to
 your container workflow. These containers can be executed in either of two modes: Non-MPI and MPI.
 
-For Non-MPI applications, the image and command are launched across all the the targeted NNF Nodes
+For Non-MPI applications, the image and command are launched across all the targeted NNF Nodes
 in a uniform manner. This is useful in simple applications, where non-distributed behavior is
 desired.
 
@@ -20,7 +20,8 @@ distributing tasks to various worker containers. Each of the NNF nodes targeted 
 receives its corresponding worker container. The focus of this documentation will be on MPI
 applications.
 
-To see a full working example before diving into these docs, see [this](#putting-it-all-together).
+To see a full working example before diving into these docs, see [Putting It All
+Together](#putting-it-all-together).
 
 ## Before Creating a Container Workflow
 
@@ -63,8 +64,8 @@ optional.
 
 There are three types of storages available to containers:
 
-- local non-persistent storage (created via `#DW_JOB` directives)
-- persistent storage (created via `#DW_PERSISTENT` directives)
+- local non-persistent storage (created via `#DW jobdw` directives)
+- persistent storage (created via `#DW create_persistent` directives)
 - global lustre storage (defined by `LustreFilesystems`)
 
 For local and persistent storage, only GFS2 and Lustre filesystems are supported. Raw and XFS
@@ -82,11 +83,11 @@ variables (so underscores must be used, not dashes), since the storage mount dir
 provided to the container via environment variables.
 
 This storage name is used in container workflow directives to reference the NNF storage name that
-defines the filesystem. More on that in [Creating a Container
+defines the filesystem. Find more info on that in [Creating a Container
 Workflow](#creating-a-container-workflow).
 
-Storages may deemed be `optional` in a profile. If a storage is not option, the storage name
-must be set the name of an NNF filesystem name in the container workflow.
+Storages may be deemed as `optional` in a profile. If a storage is not optional, the storage name
+must be set to the name of an NNF filesystem name in the container workflow.
 
 For global lustre, there is an additional field for `pvcMode`, which must match the mode that is
 configured in the `LustreFilesystem` resource that represents the global lustre filesystem. This
@@ -117,11 +118,10 @@ Kubernetes
 [`PodSpec`](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
 that outlines the desired configuration for the pod.
 
-For MPI containers, `mpiSpec` is used. This custom resource, available through
-[`MPIJobSpec`]
-from `mpi-operator`, serves as a facilitator for executing MPI applications across worker
-containers. This resource can be likened to a wrapper around a `PodSpec`, but users
-need to define a `PodSpec` for both Launcher and Worker containers.
+For MPI containers, `mpiSpec` is used. This custom resource, available through `MPIJobSpec` from
+`mpi-operator`, serves as a facilitator for executing MPI applications across worker containers.
+This resource can be likened to a wrapper around a `PodSpec`, but users need to define a `PodSpec`
+for both Launcher and Worker containers.
 
 See the [`MPIJobSpec`
 definition](https://github.com/kubeflow/mpi-operator/blob/v0.4.0/pkg/apis/kubeflow/v2beta1/types.go#L137)
@@ -130,7 +130,7 @@ for more details on what can be configured for an MPI application.
 It's important to bear in mind that the NNF Software is designed to override specific values within
 the `MPIJobSpec` for ensuring the desired behavior in line with NNF software requirements. To
 prevent complications, it's advisable not to delve too deeply into the specification. A few
-illustrative examples of fields that have been preconfigured include:
+illustrative examples of fields that are overridden by the NNF Software include:
 
 - Replicas
 - RunPolicy.BackoffLimit
@@ -227,7 +227,7 @@ persistent storage) or it can be supplied in the same workflow as the container.
 the `LustreFilesystem` must exist that represents the global lustre filesystem.
 
 In this example, we're creating a GFS2 filesystem to accompany the container directive. We're using
-the `red-rock-slush` profile which contains a non-optional storage called `DW_JOB_local_storage`:
+the `red-rock-slushy` profile which contains a non-optional storage called `DW_JOB_local_storage`:
 
 ```yaml
 kind: NnfContainerProfile
@@ -256,7 +256,11 @@ running inside of the container can then use this variable to get to the filesys
 See [here](#container-environment-variables).
 
 Multiple storages can be defined in the container directives. Only one container directive is
-allowed per worfklow.
+allowed per workflow.
+
+!!! note
+    GFS2 filesystems have special considerations since the mount directory contains directories for
+    every compute node. See [GFS2 Index Mounts](#gfs2-index-mounts) for more info.
 
 ## Running a Container Workflow
 
@@ -295,6 +299,36 @@ Each storage defined by a container profile and used in a container workflow res
 corresponding environment variable. This variable is used to hold the mount directory of the
 filesystem.
 
+###### GFS2 Index Mounts
+
+When using a GFS2 file system, each compute is allocated its own NNF volume. The NNF software mounts
+a collection of directories that are indexed (e.g. `0/`, `1/`, etc) to the compute nodes.
+
+Application authors must be aware that their desired GFS2 mount-point really a collection of
+directories, one for each compute node. It is the responsibility of the author to understand the
+underlying filesystem mounted at the storage environment variable (e.g. `$DW_JOB_my_gfs2_storage`).
+
+Each compute node's application can leave breadcrumbs (e.g. hostnames) somewhere on the GFS2
+filesystem mounted on the compute node. This can be used to identify the index mount directory to a
+compute node from the application running inside of the user container.
+
+Here is an example of 3 compute nodes on an NNF node targeted in a GFS2 workflow:
+
+```shell
+$ ls $DW_JOB_my_gfs2_storage/*
+/mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0/0
+/mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0/1
+/mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0/2
+```
+
+Node positions are _not_ absolute locations. The WLM could, in theory, select 6 physical compute
+nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories `/0` through `/5` in
+the container mount path.
+
+Additionally, not all container instances could see the same number of compute nodes in an
+indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run
+one NNF node, and 1 node to another NNF. The first NNF node would have 16 index directories, whereas
+the 2nd would only contain 1.
 ##### Hostnames and Domains
 
 Containers can contact one another via Kubernetes cluster networking. This functionality is provided
