@@ -262,16 +262,106 @@ allowed per workflow.
     GFS2 filesystems have special considerations since the mount directory contains directories for
     every compute node. See [GFS2 Index Mounts](#gfs2-index-mounts) for more info.
 
+### Targeting Nodes
+
+For container directives, compute nodes must be assigned to the workflow. The NNF software will
+trace the compute nodes back to their local NNF nodes and the containers will be executed on those
+NNF nodes. The act of assigning compute nodes to your container workflow instructs the NNF software
+to select the NNF nodes that run the containers.
+
+For the `jobdw` directive that is included above, the servers (i.e. NNF nodes) must also be assigned
+along with the computes.
+
 ## Running a Container Workflow
 
-TODO: Once the container exit strategy is complete, come back to this section to detail:
+Once the workflow is created, it will need to progress through the following states. This is a quick
+overview of the container-related behavior that occurs:
 
-- PreRun Behavior
-- PostRun Behavior
-- Teardown
+- Proposal: Verify storages are provided according to the container profile.
+- Setup: If applicable, request ports from NnfPortManager.
+- DataIn: No container related activity.
+- PreRun: Appropriate `MPIJob` or `Job(s)` are created for the workflow. In turn, user containers
+are created and launched by Kubernetes. Containers are expected to have started in this state.
+- PostRun: Once in PostRun, user containers are expected to have completed (non-zero exit)
+successfully.
+- DataOut: No container related activity.
+- Teardown: Ports are released; `MPIJob` or `Job(s)` are deleted, which in turn deletes the user
+containers.
 
-This will mostly be a from a WLM/DWS Workflow integration perspective, but will touch on the lower
-level workings.
+The two main states of a container workflow (i.e. PreRun, PostRun) are discussed further in the
+following sections.
+
+### PreRun
+
+In PreRun, the containers are created and expected to start. Once the containers have reach a
+non-initialization state (i.e. Running), the containers are considered to have been started and the
+workflow can advance.
+
+By default, containers are expected to start within 60 seconds. If not, the workflow reports an
+Error that the containers cannot be started. This value is configurable via the
+`preRunTimeoutSeconds` field in the container profile.
+
+To summarize the PreRun behavior:
+
+- If the container starts successfully (running), transition to Ready:true.
+- If the container fails to start, transition to the Error State.
+- If the container is initializing and has not started after `preRunTimeoutSeconds` seconds,
+terminate the container and transition to the Error State.
+
+#### Init Containers
+
+Containers have some additional initialization that occurs using [Init
+Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/).  These containers
+must run to completion before the main container can start. The NNF Software injects Init
+Containers into the container specification for various reasons:
+
+- To ensure the proper permissions (i.e. user/group) are configured
+- For MPI jobs, to ensure the launcher pod can contact the worker pods
+
+### PostRun
+
+In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container does
+not exit cleanly, the Kubernetes software will attempt a number of retries based on the
+configuration of the container profile. It will continue to do this until the container exits
+successfully, or if the `retryLimit` is set - whichever occurs first. In the latter case, the
+workflow will report an Error.
+
+Read up on the [Failure Retries](#failure-retries) for more information on retries.
+
+Furthermore, the container profile features a `postRunTimeoutSeconds` field. If this timeout is
+reached before the container successfully exits, it triggers an Error state. The timer for this
+timeout begins upon entry into the PostRun phase, allowing the containers the specified period to
+execute before the workflow enters an Error state.
+
+To recap the PostRun behavior:
+
+- If the container exits successfully, transition to Ready:true.
+- If the container exits unsuccessfully after `retryLimit` number of retries, transition to the
+Error State.
+- If the container is running and has not exited after `postRunTimeoutSeconds` seconds, terminate
+the container and transition to the Error State.
+
+### Failure Retries
+
+If a container fails (non-zero exit code), the Kubernetes software implements retries. The number of
+retries can be set via the `retryLimit` field in the container profile. If a non-zero exit code is
+detected, the Kubernetes software will create a new instance of the pod and try again. The
+default number of retries for `retryLimit` is set to 6, which is the default value for Kubernetes
+Jobs. This means that if the pods fails every single time, there will be 7 failed pods in total
+since it attempted 6 retries after the first failure.
+
+To understand this behavior more, see [Pod backoff failure
+policy](https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy)
+in the Kubernetes documentation. This explains the retry (i.e. backoff) behavior in more detail.
+
+It is important to note that due to the configuration of the `MPIJob` and/or `Job` that is created
+for User Containers, the container retries are immediate - there is no backoff timeout between
+retires. This is due to the NNF Software setting the `RestartPolicy` to `Never`, which causes a new
+pod to spin up after every failure rather than re-use (i.e. restart) the previously failed pod. This
+allows a user to see a complete history of the failed pod(s) and the logs can easily be obtained.
+See more on this at [Handling Pod and container
+failures](https://kubernetes.io/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures)
+in the Kubernetes documentation.
 
 ## Putting it All Together
 
@@ -329,6 +419,7 @@ Additionally, not all container instances could see the same number of compute n
 indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run
 one NNF node, and 1 node to another NNF. The first NNF node would have 16 index directories, whereas
 the 2nd would only contain 1.
+
 ##### Hostnames and Domains
 
 Containers can contact one another via Kubernetes cluster networking. This functionality is provided
