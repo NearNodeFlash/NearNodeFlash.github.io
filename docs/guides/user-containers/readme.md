@@ -294,7 +294,7 @@ following sections.
 ### PreRun
 
 In PreRun, the containers are created and expected to start. Once the containers reach a
-non-initialization state (i.e. Running), the containers are considered to have been started and the
+non-initialization state (i.e. Running), the containers are considered to be started and the
 workflow can advance.
 
 By default, containers are expected to start within 60 seconds. If not, the workflow reports an
