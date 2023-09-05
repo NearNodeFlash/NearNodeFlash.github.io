@@ -282,7 +282,7 @@ overview of the container-related behavior that occurs:
 - DataIn: No container related activity.
 - PreRun: Appropriate `MPIJob` or `Job(s)` are created for the workflow. In turn, user containers
 are created and launched by Kubernetes. Containers are expected to start in this state.
-- PostRun: Once in PostRun, user containers are expected to have completed (non-zero exit)
+- PostRun: Once in PostRun, user containers are expected to complete (non-zero exit)
 successfully.
 - DataOut: No container related activity.
 - Teardown: Ports are released; `MPIJob` or `Job(s)` are deleted, which in turn deletes the user
