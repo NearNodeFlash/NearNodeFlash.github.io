@@ -323,7 +323,7 @@ Containers into the container specification for various reasons:
 In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container does
 exit cleanly, the Kubernetes software attempts a number of retries based on the
 configuration of the container profile. It continues to do this until the container exits
-successfully, or if the `retryLimit` is set - whichever occurs first. In the latter case, the
+successfully, or until the `retryLimit` is hit - whichever occurs first. In the latter case, the
 workflow will report an Error.
 
 Read up on the [Failure Retries](#failure-retries) for more information on retries.
