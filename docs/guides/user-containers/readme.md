@@ -281,7 +281,7 @@ overview of the container-related behavior that occurs:
 - Setup: If applicable, request ports from NnfPortManager.
 - DataIn: No container related activity.
 - PreRun: Appropriate `MPIJob` or `Job(s)` are created for the workflow. In turn, user containers
-are created and launched by Kubernetes. Containers are expected to have started in this state.
+are created and launched by Kubernetes. Containers are expected to start in this state.
 - PostRun: Once in PostRun, user containers are expected to have completed (non-zero exit)
 successfully.
 - DataOut: No container related activity.
