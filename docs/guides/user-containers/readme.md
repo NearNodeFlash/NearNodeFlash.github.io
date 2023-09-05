@@ -320,11 +320,11 @@ Containers into the container specification for various reasons:
 
 ### PostRun
 
-In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container does
+In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container fails to
 exit cleanly, the Kubernetes software attempts a number of retries based on the
 configuration of the container profile. It continues to do this until the container exits
 successfully, or until the `retryLimit` is hit - whichever occurs first. In the latter case, the
-workflow will report an Error.
+workflow reports an Error.
 
 Read up on the [Failure Retries](#failure-retries) for more information on retries.
 
@@ -345,7 +345,7 @@ the container and transition to the Error State.
 
 If a container fails (non-zero exit code), the Kubernetes software implements retries. The number of
 retries can be set via the `retryLimit` field in the container profile. If a non-zero exit code is
-detected, the Kubernetes software will create a new instance of the pod and try again. The
+detected, the Kubernetes software creates a new instance of the pod and retries. The
 default number of retries for `retryLimit` is set to 6, which is the default value for Kubernetes
 Jobs. This means that if the pods fails every single time, there will be 7 failed pods in total
 since it attempted 6 retries after the first failure.
