@@ -293,7 +293,7 @@ following sections.
 
 ### PreRun
 
-In PreRun, the containers are created and expected to start. Once the containers have reach a
+In PreRun, the containers are created and expected to start. Once the containers reach a
 non-initialization state (i.e. Running), the containers are considered to have been started and the
 workflow can advance.
 
