@@ -274,7 +274,7 @@ along with the computes.
 
 ## Running a Container Workflow
 
-Once the workflow is created, it will need to progress through the following states. This is a quick
+Once the workflow is created, the WLM progresses it through the following states. This is a quick
 overview of the container-related behavior that occurs:
 
 - Proposal: Verify storages are provided according to the container profile.
