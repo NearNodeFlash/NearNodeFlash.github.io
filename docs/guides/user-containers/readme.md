@@ -322,10 +322,10 @@ These initialization tasks include:
 
 ### PreRun Completed
 
-Once PreRun has transitioned to `Completed` status, the user container is now running.
-Sequentially, the WLM should initiate applications on the compute nodes. Utilizing [container
-ports](#container-ports), these applications on the compute nodes can establish communication with
-the user container, which is running on the local NNF node attached to the computes.
+Once PreRun has transitioned to `Completed` status, the user container is now running and the WLM
+should initiate applications on the compute nodes. Utilizing [container ports](#container-ports),
+the applications on the compute nodes can establish communication with the user containers, which
+are running on the local NNF node attached to the computes.
 
 This communication allows for the compute node applications to drive certain behavior inside of the
 user container. For example, once the compute node application is complete, it can signal to the
