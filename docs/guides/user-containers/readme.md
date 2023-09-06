@@ -274,15 +274,15 @@ along with the computes.
 
 ## Running a Container Workflow
 
-Once the workflow is created, it will need to progress through the following states. This is a quick
+Once the workflow is created, the WLM progresses it through the following states. This is a quick
 overview of the container-related behavior that occurs:
 
 - Proposal: Verify [storages](#container-storages) are provided according to the container profile.
 - Setup: If applicable, [request ports](#container-ports) from NnfPortManager.
 - DataIn: No container related activity.
 - PreRun: Appropriate `MPIJob` or `Job(s)` are created for the workflow. In turn, user containers
-are created and launched by Kubernetes. Containers are expected to have started in this state.
-- PostRun: Once in PostRun, user containers are expected to have completed (non-zero exit)
+are created and launched by Kubernetes. Containers are expected to start in this state.
+- PostRun: Once in PostRun, user containers are expected to complete (non-zero exit)
 successfully.
 - DataOut: No container related activity.
 - Teardown: Ports are released; `MPIJob` or `Job(s)` are deleted, which in turn deletes the user
@@ -293,8 +293,8 @@ following sections.
 
 ### PreRun
 
-In PreRun, the containers are created and expected to start. Once the containers have reach a
-non-initialization state (i.e. Running), the containers are considered to have been started and the
+In PreRun, the containers are created and expected to start. Once the containers reach a
+non-initialization state (i.e. Running), the containers are considered to be started and the
 workflow can advance.
 
 By default, containers are expected to start within 60 seconds. If not, the workflow reports an
@@ -322,11 +322,11 @@ These initialization tasks include:
 
 ### PostRun
 
-In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container does
-not exit cleanly, the Kubernetes software will attempt a number of retries based on the
-configuration of the container profile. It will continue to do this until the container exits
-successfully, or if the `retryLimit` is set - whichever occurs first. In the latter case, the
-workflow will report an Error.
+In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container fails to
+exit cleanly, the Kubernetes software attempts a number of retries based on the
+configuration of the container profile. It continues to do this until the container exits
+successfully, or until the `retryLimit` is hit - whichever occurs first. In the latter case, the
+workflow reports an Error.
 
 Read up on the [Failure Retries](#failure-retries) for more information on retries.
 
@@ -347,7 +347,7 @@ the container and transition to the Error State.
 
 If a container fails (non-zero exit code), the Kubernetes software implements retries. The number of
 retries can be set via the `retryLimit` field in the container profile. If a non-zero exit code is
-detected, the Kubernetes software will create a new instance of the pod and try again. The
+detected, the Kubernetes software creates a new instance of the pod and retries. The
 default number of retries for `retryLimit` is set to 6, which is the default value for Kubernetes
 Jobs. This means that if the pods fails every single time, there will be 7 failed pods in total
 since it attempted 6 retries after the first failure.
