@@ -277,8 +277,8 @@ along with the computes.
 Once the workflow is created, it will need to progress through the following states. This is a quick
 overview of the container-related behavior that occurs:
 
-- Proposal: Verify storages are provided according to the container profile.
-- Setup: If applicable, request ports from NnfPortManager.
+- Proposal: Verify [storages](#container-storages) are provided according to the container profile.
+- Setup: If applicable, [request ports](#container-ports) from NnfPortManager.
 - DataIn: No container related activity.
 - PreRun: Appropriate `MPIJob` or `Job(s)` are created for the workflow. In turn, user containers
 are created and launched by Kubernetes. Containers are expected to have started in this state.
@@ -310,13 +310,15 @@ terminate the container and transition to the Error State.
 
 #### Init Containers
 
-Containers have some additional initialization that occurs using [Init
-Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/).  These containers
-must run to completion before the main container can start. The NNF Software injects Init
-Containers into the container specification for various reasons:
+The NNF Software injects [Init
+Containers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/) into the container
+specification to perform initialization tasks. These containers must run to completion before the
+main container can start.
 
-- To ensure the proper permissions (i.e. user/group) are configured
-- For MPI jobs, to ensure the launcher pod can contact the worker pods
+These initialization tasks include:
+
+- Ensuring the proper permissions (i.e. UID/GID) are available in the main container
+- For MPI jobs, ensuring the launcher pod can contact each worker pod via DNS
 
 ### PostRun
 
