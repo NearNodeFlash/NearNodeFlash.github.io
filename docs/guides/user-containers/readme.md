@@ -303,10 +303,10 @@ Error that the containers cannot be started. This value is configurable via the
 
 To summarize the PreRun behavior:
 
-- If the container starts successfully (running), transition to Ready:true.
-- If the container fails to start, transition to the Error State.
+- If the container starts successfully (running), transition to `Completed` status.
+- If the container fails to start, transition to the `Error` status.
 - If the container is initializing and has not started after `preRunTimeoutSeconds` seconds,
-terminate the container and transition to the Error State.
+terminate the container and transition to the `Error` status.
 
 #### Init Containers
 
@@ -320,6 +320,17 @@ These initialization tasks include:
 - Ensuring the proper permissions (i.e. UID/GID) are available in the main container
 - For MPI jobs, ensuring the launcher pod can contact each worker pod via DNS
 
+### PreRun Completed
+
+Once PreRun has transitioned to `Completed` status, the user container is now running.
+Sequentially, the WLM should initiate applications on the compute nodes. Utilizing [container
+ports](#container-ports), these applications on the compute nodes can establish communication with
+the user container, which is running on the local NNF node attached to the computes.
+
+This communication allows for the compute node applications to drive certain behavior inside of the
+user container. For example, once the compute node application is complete, it can signal to the
+user container that it is time to perform cleanup or data migration action.
+
 ### PostRun
 
 In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container fails to
@@ -331,17 +342,17 @@ workflow reports an Error.
 Read up on the [Failure Retries](#failure-retries) for more information on retries.
 
 Furthermore, the container profile features a `postRunTimeoutSeconds` field. If this timeout is
-reached before the container successfully exits, it triggers an Error state. The timer for this
+reached before the container successfully exits, it triggers an `Error` status. The timer for this
 timeout begins upon entry into the PostRun phase, allowing the containers the specified period to
-execute before the workflow enters an Error state.
+execute before the workflow enters an `Error` status.
 
 To recap the PostRun behavior:
 
-- If the container exits successfully, transition to Ready:true.
+- If the container exits successfully, transition to `Completed` status.
 - If the container exits unsuccessfully after `retryLimit` number of retries, transition to the
-Error State.
+`Error` status.
 - If the container is running and has not exited after `postRunTimeoutSeconds` seconds, terminate
-the container and transition to the Error State.
+the container and transition to the `Error` status.
 
 ### Failure Retries
 
