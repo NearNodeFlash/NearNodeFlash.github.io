@@ -644,12 +644,72 @@
     Creating a Container Workflow
   </a>
   
+    <nav class="md-nav" aria-label="Creating a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#targeting-nodes" class="md-nav__link">
+    Targeting Nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#running-a-container-workflow" class="md-nav__link">
     Running a Container Workflow
   </a>
+  
+    <nav class="md-nav" aria-label="Running a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerun" class="md-nav__link">
+    PreRun
+  </a>
+  
+    <nav class="md-nav" aria-label="PreRun">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-containers" class="md-nav__link">
+    Init Containers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerun-completed" class="md-nav__link">
+    PreRun Completed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postrun" class="md-nav__link">
+    PostRun
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-retries" class="md-nav__link">
+    Failure Retries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1107,12 +1167,72 @@
     Creating a Container Workflow
   </a>
   
+    <nav class="md-nav" aria-label="Creating a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#targeting-nodes" class="md-nav__link">
+    Targeting Nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#running-a-container-workflow" class="md-nav__link">
     Running a Container Workflow
   </a>
+  
+    <nav class="md-nav" aria-label="Running a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerun" class="md-nav__link">
+    PreRun
+  </a>
+  
+    <nav class="md-nav" aria-label="PreRun">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-containers" class="md-nav__link">
+    Init Containers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerun-completed" class="md-nav__link">
+    PreRun Completed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postrun" class="md-nav__link">
+    PostRun
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-retries" class="md-nav__link">
+    Failure Retries
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1502,15 +1622,99 @@ allowed per workflow.</p>
 <p>GFS2 filesystems have special considerations since the mount directory contains directories for
 every compute node. See <a href="#gfs2-index-mounts">GFS2 Index Mounts</a> for more info.</p>
 </div>
+<h3 id="targeting-nodes">Targeting Nodes</h3>
+<p>For container directives, compute nodes must be assigned to the workflow. The NNF software will
+trace the compute nodes back to their local NNF nodes and the containers will be executed on those
+NNF nodes. The act of assigning compute nodes to your container workflow instructs the NNF software
+to select the NNF nodes that run the containers.</p>
+<p>For the <code>jobdw</code> directive that is included above, the servers (i.e. NNF nodes) must also be assigned
+along with the computes.</p>
 <h2 id="running-a-container-workflow">Running a Container Workflow</h2>
-<p>TODO: Once the container exit strategy is complete, come back to this section to detail:</p>
+<p>Once the workflow is created, the WLM progresses it through the following states. This is a quick
+overview of the container-related behavior that occurs:</p>
 <ul>
-<li>PreRun Behavior</li>
-<li>PostRun Behavior</li>
-<li>Teardown</li>
+<li>Proposal: Verify <a href="#container-storages">storages</a> are provided according to the container profile.</li>
+<li>Setup: If applicable, <a href="#container-ports">request ports</a> from NnfPortManager.</li>
+<li>DataIn: No container related activity.</li>
+<li>PreRun: Appropriate <code>MPIJob</code> or <code>Job(s)</code> are created for the workflow. In turn, user containers
+are created and launched by Kubernetes. Containers are expected to start in this state.</li>
+<li>PostRun: Once in PostRun, user containers are expected to complete (non-zero exit)
+successfully.</li>
+<li>DataOut: No container related activity.</li>
+<li>Teardown: Ports are released; <code>MPIJob</code> or <code>Job(s)</code> are deleted, which in turn deletes the user
+containers.</li>
 </ul>
-<p>This will mostly be a from a WLM/DWS Workflow integration perspective, but will touch on the lower
-level workings.</p>
+<p>The two main states of a container workflow (i.e. PreRun, PostRun) are discussed further in the
+following sections.</p>
+<h3 id="prerun">PreRun</h3>
+<p>In PreRun, the containers are created and expected to start. Once the containers reach a
+non-initialization state (i.e. Running), the containers are considered to be started and the
+workflow can advance.</p>
+<p>By default, containers are expected to start within 60 seconds. If not, the workflow reports an
+Error that the containers cannot be started. This value is configurable via the
+<code>preRunTimeoutSeconds</code> field in the container profile.</p>
+<p>To summarize the PreRun behavior:</p>
+<ul>
+<li>If the container starts successfully (running), transition to <code>Completed</code> status.</li>
+<li>If the container fails to start, transition to the <code>Error</code> status.</li>
+<li>If the container is initializing and has not started after <code>preRunTimeoutSeconds</code> seconds,
+terminate the container and transition to the <code>Error</code> status.</li>
+</ul>
+<h4 id="init-containers">Init Containers</h4>
+<p>The NNF Software injects <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">Init
+Containers</a> into the container
+specification to perform initialization tasks. These containers must run to completion before the
+main container can start.</p>
+<p>These initialization tasks include:</p>
+<ul>
+<li>Ensuring the proper permissions (i.e. UID/GID) are available in the main container</li>
+<li>For MPI jobs, ensuring the launcher pod can contact each worker pod via DNS</li>
+</ul>
+<h3 id="prerun-completed">PreRun Completed</h3>
+<p>Once PreRun has transitioned to <code>Completed</code> status, the user container is now running and the WLM
+should initiate applications on the compute nodes. Utilizing <a href="#container-ports">container ports</a>,
+the applications on the compute nodes can establish communication with the user containers, which
+are running on the local NNF node attached to the computes.</p>
+<p>This communication allows for the compute node applications to drive certain behavior inside of the
+user container. For example, once the compute node application is complete, it can signal to the
+user container that it is time to perform cleanup or data migration action.</p>
+<h3 id="postrun">PostRun</h3>
+<p>In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container fails to
+exit cleanly, the Kubernetes software attempts a number of retries based on the
+configuration of the container profile. It continues to do this until the container exits
+successfully, or until the <code>retryLimit</code> is hit - whichever occurs first. In the latter case, the
+workflow reports an Error.</p>
+<p>Read up on the <a href="#failure-retries">Failure Retries</a> for more information on retries.</p>
+<p>Furthermore, the container profile features a <code>postRunTimeoutSeconds</code> field. If this timeout is
+reached before the container successfully exits, it triggers an <code>Error</code> status. The timer for this
+timeout begins upon entry into the PostRun phase, allowing the containers the specified period to
+execute before the workflow enters an <code>Error</code> status.</p>
+<p>To recap the PostRun behavior:</p>
+<ul>
+<li>If the container exits successfully, transition to <code>Completed</code> status.</li>
+<li>If the container exits unsuccessfully after <code>retryLimit</code> number of retries, transition to the
+<code>Error</code> status.</li>
+<li>If the container is running and has not exited after <code>postRunTimeoutSeconds</code> seconds, terminate
+the container and transition to the <code>Error</code> status.</li>
+</ul>
+<h3 id="failure-retries">Failure Retries</h3>
+<p>If a container fails (non-zero exit code), the Kubernetes software implements retries. The number of
+retries can be set via the <code>retryLimit</code> field in the container profile. If a non-zero exit code is
+detected, the Kubernetes software creates a new instance of the pod and retries. The
+default number of retries for <code>retryLimit</code> is set to 6, which is the default value for Kubernetes
+Jobs. This means that if the pods fails every single time, there will be 7 failed pods in total
+since it attempted 6 retries after the first failure.</p>
+<p>To understand this behavior more, see <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy">Pod backoff failure
+policy</a>
+in the Kubernetes documentation. This explains the retry (i.e. backoff) behavior in more detail.</p>
+<p>It is important to note that due to the configuration of the <code>MPIJob</code> and/or <code>Job</code> that is created
+for User Containers, the container retries are immediate - there is no backoff timeout between
+retires. This is due to the NNF Software setting the <code>RestartPolicy</code> to <code>Never</code>, which causes a new
+pod to spin up after every failure rather than re-use (i.e. restart) the previously failed pod. This
+allows a user to see a complete history of the failed pod(s) and the logs can easily be obtained.
+See more on this at <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures">Handling Pod and container
+failures</a>
+in the Kubernetes documentation.</p>
 <h2 id="putting-it-all-together">Putting it All Together</h2>
 <p>See the <a href="https://github.com/NearNodeFlash/nnf-container-example">NNF Container Example</a> for a
 working example of how to run a simple MPI application inside of an NNF User Container and run it
