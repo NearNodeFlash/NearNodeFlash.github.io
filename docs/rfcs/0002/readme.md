@@ -4,6 +4,11 @@ state: published
 ---
 # Rabbit storage for containerized applications
 
+!!! note
+
+    This RFC contains outdated information. For the most up-to-date details, please refer to the
+    [User Containers](../../guides/user-containers/readme.md) documentation.
+
 For Rabbit to provide storage to a containerized application there needs to be _some_ mechanism. The remainder of this RFC proposes that mechanism.
 
 ## Actors
