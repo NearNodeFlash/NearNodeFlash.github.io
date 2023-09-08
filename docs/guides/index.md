@@ -12,6 +12,7 @@
 
 * [Storage Profiles](storage-profiles/readme.md)
 * [Data Movement Configuration](data-movement/readme.md)
+* [Lustre External MGT](external-mgs/readme.md)
 
 ## NNF User Containers
 
