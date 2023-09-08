@@ -145,11 +145,11 @@ makes sure that everything is now current on master.
 
 2. Update `config/repositories.yaml` and update the referenced versions for:
 
-   a. `lustre-csi-driver`
+    1. `lustre-csi-driver`
 
-   b. `lustre-fs-operator`
+    2. `lustre-fs-operator`
 
-   c. `nnf-mfu`
+    3. `nnf-mfu`
 
 3. Commit the changes and open a Pull Request against the `master` branch.
 
