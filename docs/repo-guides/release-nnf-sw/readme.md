@@ -24,6 +24,7 @@ other components.
     - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
     - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
     - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
+    - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
 - [NearNodeFlash/NearNodeFlash.github.io](https://github.com/NearNodeFlash/NearNodeFlash.github.io)
 
 [nnf-ec](https://github.com/NearNodeFlash/nnf-ec) is vendored in as part of `nnf-sos` and does not
@@ -83,23 +84,33 @@ just an example.
     If there are any differences, they must be trivial. Some READMEs may have extra lines at the
     end.
 
-5. For `lustre-csi-driver` and `lustre-fs-operator`, there are additional files that need to track
-   the version number as well, which allow them to be installed with `kubectl apply -k`.
+5. Perform repo-specific updates:
 
-    a. For `lustre-fs-operator`, update `config/manager/kustomization.yaml` with the correct
-    version.
+    1. For `lustre-csi-driver` and `lustre-fs-operator`, there are additional files that need to
+    track the version number as well, which allow them to be installed with `kubectl apply -k`.
 
-    b. For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
-    `charts/lustre-csi-driver/values.yaml` with the correct version.
+        1. For `lustre-fs-operator`, update `config/manager/kustomization.yaml` with the correct
+        version.
 
-6. Create a Pull Request from your branch and **target the release branch**. When merging the Pull
+        2. For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
+        `charts/lustre-csi-driver/values.yaml` with the correct version.
+
+    2. If `nnf-mfu` was updated, multiple references in `nnf-dm` will need to be updated with the
+    new version number for the `nnf-mfu` image:
+
+        1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version
+
+        2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>`
+
+6. Create a Pull Request from your branch and **target the release branch**.  When merging the Pull
 Request, **you must use a Merge Commit.**
 
     !!! note
 
-        **Do not** Rebase or Squash! Those actions will remove the records that Git uses to determine which
-        commits have been merged, and then when the next release is created Git will treat everything
-        like a conflict. Additionally, this will cause auto-generated release notes to include the previous release.
+        **Do not** Rebase or Squash! Those actions will remove the records that Git uses to
+        determine which commits have been merged, and then when the next release is created Git will
+        treat everything like a conflict. Additionally, this will cause auto-generated release notes
+        to include the previous release.
 
 7. Once merged, update the release branch locally and then create an annotated tag:
 
@@ -121,8 +132,8 @@ Request, **you must use a Merge Commit.**
 ## Release `nnf-deploy`
 
 Once the individual components are released, we need to update the submodules and
-`config/repositories.yaml` in the **master** branch before we start on the release branch. This makes
-sure that everything is now current on master.
+`config/repositories.yaml` in the **master** branch before we start on the release branch. This
+makes sure that everything is now current on master.
 
 1. Update the submodules on master:
 
@@ -134,11 +145,11 @@ sure that everything is now current on master.
 
 2. Update `config/repositories.yaml` and update the referenced versions for:
 
-   a. `lustre-csi-driver`
+    1. `lustre-csi-driver`
 
-   b. `lustre-fs-operator`
+    2. `lustre-fs-operator`
 
-   c. `nnf-mfu`
+    3. `nnf-mfu`
 
 3. Commit the changes and open a Pull Request against the `master` branch.
 
@@ -160,7 +171,8 @@ sure that everything is now current on master.
 
 6. Do a `git add` for each of the submodules.
 
-7. Run `go mod tidy` and then `make`. Do another `git add` for any changes, particularly`go.mod` and/or `go.sum`.
+7. Run `go mod tidy` and then `make`. Do another `git add` for any changes, particularly`go.mod`
+and/or `go.sum`.
 
 8. Verify that `git status` is happy with `nnf-deploy` and then finalize the merge from master by
    doing a `git commit`.
