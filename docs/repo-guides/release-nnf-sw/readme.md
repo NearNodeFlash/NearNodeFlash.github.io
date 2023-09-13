@@ -18,7 +18,7 @@ part of `nnf-deploy`, but it should match the version number of `nnf-deploy`. Re
 other components.
 
 - [NearNodeFlash/nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy)
-    - [HewlettPackard/dws](https://github.com/HewlettPackard/dws)
+    - [DataWorkflowServices/dws](https://github.com/DataWorkflowServices/dws)
     - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
     - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
     - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
