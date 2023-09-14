@@ -7,7 +7,7 @@ categories: setup
 
 Rabbit software requires two daemons be installed and run on each compute node. Each daemon shares similar build, package, and installation processes described below.
 
-- The [***Client Mount***](https://github.com/HewlettPackard/dws/tree/master/mount-daemon) daemon, `clientmount`, provides the support for mounting Rabbit hosted file systems on compute nodes.
+- The [***Client Mount***](https://github.com/DataWorkflowServices/dws/tree/master/mount-daemon) daemon, `clientmount`, provides the support for mounting Rabbit hosted file systems on compute nodes.
 - The [***Data Movement***](https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/compute) daemon, `nnf-dm`, supports creating, monitoring, and managing data movement (copy-offload) operations
 
 ## Building from source
