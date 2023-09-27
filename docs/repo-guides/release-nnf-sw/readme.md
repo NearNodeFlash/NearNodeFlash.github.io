@@ -33,7 +33,7 @@ need to be released separately.
 ## Primer
 
 This document is based on the process set forth by the [DataWorkflowServices Release
-Process](https://dataworkflowservices.github.io/v0.0.1/repo-guides/create-a-release/readme/).
+Process](https://dataworkflowservices.github.io/v0.0.2/repo-guides/create-a-release/readme/).
 Please read that as a background for this document before going any further.
 
 ## Requirements
@@ -86,11 +86,10 @@ just an example.
 
 5. Perform repo-specific updates:
 
-    1. For `lustre-csi-driver` and `lustre-fs-operator`, there are additional files that need to
+    1. For `lustre-csi-driver`, `lustre-fs-operator`, `dws`, `nnf-sos`, and `nnf-dm` there are additional files that need to
     track the version number as well, which allow them to be installed with `kubectl apply -k`.
 
-        1. For `lustre-fs-operator`, update `config/manager/kustomization.yaml` with the correct
-        version.
+        1. For `lustre-fs-operator`, `dws`, `nnf-sos`, and `nnf-dm` update `config/manager/kustomization.yaml` with the correct version.
 
         2. For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
         `charts/lustre-csi-driver/values.yaml` with the correct version.
