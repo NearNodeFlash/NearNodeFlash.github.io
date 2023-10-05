@@ -70,7 +70,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$ce
 | :------------------------------| :---------------------------- |
 | Rabbit Node                    | cray.nnf.node=true:NoSchedule |
 
-See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). The [nnf-deploy init](https://github.com/NearNodeFlash/nnf-deploy) command provides examples of labeling and tainting k8s nodes for use with Rabbit.
+See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). The [`nnf-deploy init`](https://github.com/NearNodeFlash/nnf-deploy) command provides examples of labeling and tainting k8s nodes for use with Rabbit.
 
 ## Rabbit System Configuration
 
