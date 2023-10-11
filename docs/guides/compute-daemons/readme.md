@@ -30,7 +30,7 @@ NNF software defines a Kubernetes Service Account for granting communication pri
 
 | Compute Daemon | Service Account | Namespace |
 | -------------- | --------------- | --------- |
-| Client Mount   | dws-operator-controller-manager | dws-operator-system |
+| Client Mount   | dws-controller-manager | dws-system |
 | Data Movement  | nnf-dm-controller-manager | nnf-dm-system |
 
 ```bash
