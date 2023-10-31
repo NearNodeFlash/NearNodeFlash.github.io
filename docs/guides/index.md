@@ -12,6 +12,7 @@
 
 * [Storage Profiles](storage-profiles/readme.md)
 * [Data Movement Configuration](data-movement/readme.md)
+* [Copy Offload API](data-movement/copy-offload-api.html)
 * [Lustre External MGT](external-mgs/readme.md)
 
 ## NNF User Containers

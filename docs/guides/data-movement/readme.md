@@ -87,5 +87,5 @@ The `CreateRequest` API call that is used to create Data Movement with the Copy 
 options to allow a user to specify some options for that particular Data Movement. These settings
 are on a per-request basis.
 
-See the [CreateRequest API](https://github.com/NearNodeFlash/nnf-dm/blob/master/daemons/compute/Readme.md#create-request)
+See the [DataMovementCreateRequest API](copy-offload-api.html#datamovement.DataMovementCreateRequest)
 definition for what can be configured.
