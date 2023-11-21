@@ -68,7 +68,7 @@ profile is specified, the `default` profile is used. This default profile must e
 map.
 
 `slots`, `maxSlots`, and `command` can be stored in Data Movement profiles. These profiles are
-available for a quick way to switch between different settings for a particular workflow.
+available to quickly switch between different settings for a particular workflow.
 
 Example profiles:
 
