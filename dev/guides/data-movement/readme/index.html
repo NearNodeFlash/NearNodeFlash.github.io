@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.7">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.14">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.4b4a2bd9.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.fad675c6.min.css">
       
       
 
@@ -316,6 +316,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../.." class="md-nav__link">
         
@@ -335,6 +336,7 @@
   
   
     
+  
   
   
     
@@ -384,6 +386,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../initial-setup/readme/" class="md-nav__link">
         
@@ -401,6 +404,7 @@
             
               
                 
+  
   
   
   
@@ -424,6 +428,7 @@
   
   
     
+  
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -472,7 +477,9 @@
       
         <li class="md-nav__item">
   <a href="#server-side-configmap" class="md-nav__link">
-    Server Side ConfigMap
+    <span class="md-ellipsis">
+      Server Side ConfigMap
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Server Side ConfigMap">
@@ -480,14 +487,18 @@
         
           <li class="md-nav__item">
   <a href="#command" class="md-nav__link">
-    command
+    <span class="md-ellipsis">
+      command
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#profiles" class="md-nav__link">
-    Profiles
+    <span class="md-ellipsis">
+      Profiles
+    </span>
   </a>
   
 </li>
@@ -499,7 +510,9 @@
       
         <li class="md-nav__item">
   <a href="#copy-offload-api-daemon" class="md-nav__link">
-    Copy Offload API Daemon
+    <span class="md-ellipsis">
+      Copy Offload API Daemon
+    </span>
   </a>
   
 </li>
@@ -515,6 +528,7 @@
             
               
                 
+  
   
   
   
@@ -538,6 +552,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../firmware-upgrade/readme/" class="md-nav__link">
         
@@ -555,6 +570,7 @@
             
               
                 
+  
   
   
   
@@ -578,6 +594,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../rbac-for-users/readme/" class="md-nav__link">
         
@@ -595,6 +612,7 @@
             
               
                 
+  
   
   
   
@@ -618,6 +636,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../user-containers/readme/" class="md-nav__link">
         
@@ -635,6 +654,7 @@
             
               
                 
+  
   
   
   
@@ -662,6 +682,7 @@
     
       
       
+  
   
   
   
@@ -712,6 +733,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../../rfcs/0001/readme/" class="md-nav__link">
         
@@ -729,6 +751,7 @@
             
               
                 
+  
   
   
   
@@ -756,6 +779,7 @@
     
       
       
+  
   
   
   
@@ -795,6 +819,7 @@
             
               
                 
+  
   
   
   
@@ -848,7 +873,9 @@
       
         <li class="md-nav__item">
   <a href="#server-side-configmap" class="md-nav__link">
-    Server Side ConfigMap
+    <span class="md-ellipsis">
+      Server Side ConfigMap
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Server Side ConfigMap">
@@ -856,14 +883,18 @@
         
           <li class="md-nav__item">
   <a href="#command" class="md-nav__link">
-    command
+    <span class="md-ellipsis">
+      command
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#profiles" class="md-nav__link">
-    Profiles
+    <span class="md-ellipsis">
+      Profiles
+    </span>
   </a>
   
 </li>
@@ -875,7 +906,9 @@
       
         <li class="md-nav__item">
   <a href="#copy-offload-api-daemon" class="md-nav__link">
-    Copy Offload API Daemon
+    <span class="md-ellipsis">
+      Copy Offload API Daemon
+    </span>
   </a>
   
 </li>
@@ -983,19 +1016,22 @@ the most up to date default command:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mpirun<span class="w"> </span>--allow-run-as-root<span class="w"> </span>--hostfile<span class="w"> </span><span class="nv">$HOSTFILE</span><span class="w"> </span>dcp<span class="w"> </span>--progress<span class="w"> </span><span class="m">1</span><span class="w"> </span>--uid<span class="w"> </span><span class="nv">$UID</span><span class="w"> </span>--gid<span class="w"> </span><span class="nv">$GID</span><span class="w"> </span><span class="nv">$SRC</span><span class="w"> </span><span class="nv">$DEST</span>
 </code></pre></div>
 <h3 id="profiles">Profiles</h3>
-<p><strong>Note:</strong> This feature is not fully implemented, but is present in the <code>nnf-dm-config</code> config map.
-Only the <code>default</code> profile is used, and it must be present in the configuration. Once the feature is
-implemented, a user will be able to select a profile using #DW directives and/or the Copy Offload
-API. Right now, users can add additional profiles into the config map, but the only way to use them
-would be to rename one of them to be <code>default</code>.</p>
+<p>Profiles can be specified in the in the <code>nnf-dm-config</code> config map. Users are able to select a
+profile using #DW directives (e.g .<code>copy_in profile=my-dm-profile</code>) and the Copy Offload API. If no
+profile is specified, the <code>default</code> profile is used. This default profile must exist in the config
+map.</p>
 <p><code>slots</code>, <code>maxSlots</code>, and <code>command</code> can be stored in Data Movement profiles. These profiles are
-available for a quick way to switch between different settings for a particular workflow.</p>
-<p>Example profile:</p>
+available to quickly switch between different settings for a particular workflow.</p>
+<p>Example profiles:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">profiles</span><span class="p">:</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">      </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="nt">maxSlots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
 <a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --uid $UID --gid $GID $SRC $DEST</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="nt">no-xattrs</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">maxSlots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --xattrs none --uid $UID --gid $GID $SRC $DEST</span>
 </code></pre></div>
 <h2 id="copy-offload-api-daemon">Copy Offload API Daemon</h2>
 <p>The <code>CreateRequest</code> API call that is used to create Data Movement with the Copy Offload API has some
@@ -1094,7 +1130,7 @@ definition for what can be configured.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.aecac24b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.cd18aaf1.min.js"></script>
       
     
   </body>
