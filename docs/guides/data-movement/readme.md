@@ -62,16 +62,15 @@ mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --uid $UID --gi
 
 ### Profiles
 
-**Note:** This feature is not fully implemented, but is present in the `nnf-dm-config` config map.
-Only the `default` profile is used, and it must be present in the configuration. Once the feature is
-implemented, a user will be able to select a profile using #DW directives and/or the Copy Offload
-API. Right now, users can add additional profiles into the config map, but the only way to use them
-would be to rename one of them to be `default`.
+Profiles can be specified in the in the `nnf-dm-config` config map. Users are able to select a
+profile using #DW directives (e.g .`copy_in profile=my-dm-profile`) and the Copy Offload API. If no
+profile is specified, the `default` profile is used. This default profile must exist in the config
+map.
 
 `slots`, `maxSlots`, and `command` can be stored in Data Movement profiles. These profiles are
-available for a quick way to switch between different settings for a particular workflow.
+available to quickly switch between different settings for a particular workflow.
 
-Example profile:
+Example profiles:
 
 ```yaml
 profiles:
@@ -79,6 +78,10 @@ profiles:
       slots: 8
       maxSlots: 0
       command: mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --uid $UID --gid $GID $SRC $DEST
+  no-xattrs:
+      slots: 8
+      maxSlots: 0
+      command: mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --xattrs none --uid $UID --gid $GID $SRC $DEST
 ```
 
 ## Copy Offload API Daemon
