@@ -517,6 +517,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#selinux-and-data-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      SELinux and Data Movement
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -913,6 +922,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#selinux-and-data-movement" class="md-nav__link">
+    <span class="md-ellipsis">
+      SELinux and Data Movement
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1039,6 +1057,17 @@ options to allow a user to specify some options for that particular Data Movemen
 are on a per-request basis.</p>
 <p>See the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest API</a>
 definition for what can be configured.</p>
+<h2 id="selinux-and-data-movement">SELinux and Data Movement</h2>
+<p>Careful consideration must be taken when enabling SELinux on compute nodes. Doing so will result in
+SELinux Extended File Attributes (xattrs) being placed on files created by applications running on
+the compute node, which may not be supported by the destination file system (e.g. Lustre).</p>
+<p>Depending on the configuration of <code>dcp</code>, there may be an attempt to copy these xattrs. You may need
+to disable this by using <code>dcp --xattrs none</code> to avoid errors. For example, the <code>command</code> in the
+<code>nnf-dm-config</code> config map or <code>dcpOptions</code> in the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest
+API</a> could be used to set this
+option.</p>
+<p>See the <a href="https://mpifileutils.readthedocs.io/en/latest/dcp.1.html"><code>dcp</code> documentation</a> for more
+information.</p>
 
 
 
