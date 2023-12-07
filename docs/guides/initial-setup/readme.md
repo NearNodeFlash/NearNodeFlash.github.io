@@ -52,7 +52,7 @@ Installation of Kubernetes (k8s) nodes proceeds by installing k8s components ont
 Webhooks require the Jetstack `cert-manager`. Installation is shown below.
 
 ```bash
-export certver="v1.11.1"
+export certver="v1.13.1"
 # Required for webhooks
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$certver"/cert-manager.yaml
 ```
@@ -94,7 +94,7 @@ Here is an example `SystemConfiguration`:
 | storageNodes[].computeAccess | List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to |
 
 ```yaml
-apiVersion: dws.cray.hpe.com/v1alpha1
+apiVersion: dataworkflowservices.github.io/v1alpha2
 kind: SystemConfiguration
 metadata:
   name: default
@@ -105,6 +105,9 @@ spec:
   - name: compute-02
   - name: compute-03
   - name: compute-04
+  ports:
+  - 5000-5999
+  portsCooldownInSeconds: 0
   storageNodes:
   - computesAccess:
     - index: 0
