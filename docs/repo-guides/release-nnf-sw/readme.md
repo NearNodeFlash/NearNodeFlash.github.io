@@ -19,8 +19,8 @@ other components.
 
 - [NearNodeFlash/nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy)
     - [DataWorkflowServices/dws](https://github.com/DataWorkflowServices/dws)
-    - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
     - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
+    - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
     - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
     - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
     - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
@@ -89,9 +89,16 @@ just an example.
     1. For `lustre-csi-driver`, `lustre-fs-operator`, `dws`, `nnf-sos`, and `nnf-dm` there are additional files that need to
     track the version number as well, which allow them to be installed with `kubectl apply -k`.
 
-        1. For `lustre-fs-operator`, `dws`, `nnf-sos`, and `nnf-dm` update `config/manager/kustomization.yaml` with the correct version.
+        1. For:
+        - `lustre-fs-operator`
+        - `dws`
+        - `nnf-sos`
+        - `nnf-dm`
+            update `config/manager/kustomization.yaml` with the correct version.
 
-        2. For `lustre-csi-driver`, update `deploy/kubernetes/base/kustomization.yaml` and
+        2. For
+        - `lustre-csi-driver`
+            update `deploy/kubernetes/base/kustomization.yaml` and
         `charts/lustre-csi-driver/values.yaml` with the correct version.
 
     2. If `nnf-mfu` was updated, multiple references in `nnf-dm` will need to be updated with the
@@ -115,6 +122,7 @@ Request, **you must use a Merge Commit.**
 
     ```shell
     git checkout releases/v0
+    git pull
     git tag -a v0.0.3 -m "Release v0.0.3"
     git push origin --tags
     ```
