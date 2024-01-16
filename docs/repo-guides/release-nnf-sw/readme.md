@@ -93,12 +93,12 @@ just an example.
 
     |Repo                 |Update|
     |---------------------|------|
+    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>`|
     |`lustre-fs-operator` |update `config/manager/kustomization.yaml` with the correct version.|
     |`dws`                |update `config/manager/kustomization.yaml` with the correct version.|
     |`nnf-sos`            |update `config/manager/kustomization.yaml` with the correct version.|
     |`nnf-dm`             |update `config/manager/kustomization.yaml` with the correct version.|
     |`lustre-csi-driver`  |update `deploy/kubernetes/base/kustomization.yaml` and `charts/lustre-csi-driver/values.yaml` with the correct version.|
-    |`nnf-mfu`            |multiple references in `nnf-dm` must be updated with the new `nnf-mfu` version number:<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>`|
 
 6. **Target the `releases/v0` branch** with a Pull Request from your branch.  When merging the Pull
 Request, **you must use a Merge Commit.**
@@ -130,14 +130,17 @@ Request, **you must use a Merge Commit.**
 ## Release `nnf-deploy`
 
 Once the individual components are released, we need to update the submodules
-in the `master` branch before we start on the release branch. This ensures
+in `nnf-deploy's` `master` branch before we create the release branch. This ensures
 that everything is current on `master` for `nnf-deploy`.
 
 1. Update the submodules for `nnf-deploy` on master:
 
     ```shell
+    cd nnf-deploy
     git checkout master
     git pull
+    git submodule foreach git checkout master
+    git submodule foreach git pull
     ```
 
 2. Create a branch to capture the submodule changes for the PR to `master`
@@ -157,13 +160,13 @@ that everything is current on `master` for `nnf-deploy`.
    following command can do this for you:
 
     ```shell
-    git submodule foreach 'git checkout $(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))'
+    git submodule foreach 'git checkout `git describe --match="v*" HEAD`'
     ```
 
 6. Verify that each submodule is now at the proper tagged version.
 
     ```shell
-    git submodule foreach git status
+    git submodule
     ```
 
 7. Do a `git add` for each of the submodules.
