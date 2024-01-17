@@ -93,7 +93,7 @@ just an example.
 
     |Repo                 |Update|
     |---------------------|------|
-    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>`|
+    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag.<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version.<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>.`|
     |`lustre-fs-operator` |update `config/manager/kustomization.yaml` with the correct version.|
     |`dws`                |update `config/manager/kustomization.yaml` with the correct version.|
     |`nnf-sos`            |update `config/manager/kustomization.yaml` with the correct version.|
@@ -191,4 +191,18 @@ that everything is current on `master` for `nnf-deploy`.
 
 12. Follow steps 6-8 from the previous section to finalize the release of `nnf-deploy`.
 
-The software is now released!
+**The software is now released!**
+
+## Clone a release
+
+The follow commands clone release `v0.0.7` into `nnf-deploy-v0.0.7`
+
+```shell
+export NNF_VERSION=v0.0.7
+
+git clone --recurse-submodules git@github.com:NearNodeFlash/nnf-deploy nnf-deploy-$NNF_VERSION
+cd nnf-deploy-$NNF_VERSION
+git -c advice.detachedHead=false checkout $NNF_VERSION --recurse-submodules
+
+git submodule status
+```
