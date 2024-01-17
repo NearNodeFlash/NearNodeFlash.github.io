@@ -62,16 +62,15 @@ mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --uid $UID --gi
 
 ### Profiles
 
-**Note:** This feature is not fully implemented, but is present in the `nnf-dm-config` config map.
-Only the `default` profile is used, and it must be present in the configuration. Once the feature is
-implemented, a user will be able to select a profile using #DW directives and/or the Copy Offload
-API. Right now, users can add additional profiles into the config map, but the only way to use them
-would be to rename one of them to be `default`.
+Profiles can be specified in the in the `nnf-dm-config` config map. Users are able to select a
+profile using #DW directives (e.g .`copy_in profile=my-dm-profile`) and the Copy Offload API. If no
+profile is specified, the `default` profile is used. This default profile must exist in the config
+map.
 
 `slots`, `maxSlots`, and `command` can be stored in Data Movement profiles. These profiles are
-available for a quick way to switch between different settings for a particular workflow.
+available to quickly switch between different settings for a particular workflow.
 
-Example profile:
+Example profiles:
 
 ```yaml
 profiles:
@@ -79,6 +78,10 @@ profiles:
       slots: 8
       maxSlots: 0
       command: mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --uid $UID --gid $GID $SRC $DEST
+  no-xattrs:
+      slots: 8
+      maxSlots: 0
+      command: mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --xattrs none --uid $UID --gid $GID $SRC $DEST
 ```
 
 ## Copy Offload API Daemon
@@ -87,5 +90,20 @@ The `CreateRequest` API call that is used to create Data Movement with the Copy 
 options to allow a user to specify some options for that particular Data Movement. These settings
 are on a per-request basis.
 
-See the [CreateRequest API](https://github.com/NearNodeFlash/nnf-dm/blob/master/daemons/compute/Readme.md#create-request)
+See the [DataMovementCreateRequest API](copy-offload-api.html#datamovement.DataMovementCreateRequest)
 definition for what can be configured.
+
+## SELinux and Data Movement
+
+Careful consideration must be taken when enabling SELinux on compute nodes. Doing so will result in
+SELinux Extended File Attributes (xattrs) being placed on files created by applications running on
+the compute node, which may not be supported by the destination file system (e.g. Lustre).
+
+Depending on the configuration of `dcp`, there may be an attempt to copy these xattrs. You may need
+to disable this by using `dcp --xattrs none` to avoid errors. For example, the `command` in the
+`nnf-dm-config` config map or `dcpOptions` in the [DataMovementCreateRequest
+API](copy-offload-api.html#datamovement.DataMovementCreateRequest) could be used to set this
+option.
+
+See the [`dcp` documentation](https://mpifileutils.readthedocs.io/en/latest/dcp.1.html) for more
+information.

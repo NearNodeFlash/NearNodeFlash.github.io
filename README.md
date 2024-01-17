@@ -1,5 +1,13 @@
 # NearNodeFlash Pages
 
+## Retrieve the submodules
+
+There are references to files in other repos, so update the submodules for them.
+
+```bash
+git submodule update external/nnf-dm
+```
+
 ## Create mkdocs Environment
 
 ```bash
