@@ -147,7 +147,6 @@ that everything is current on `master` for `nnf-deploy`.
 
     ```shell
     git checkout -b update-submodules
-    ./update.sh
     ```
 
 3. Commit the changes and open a Pull Request against the `master` branch.
