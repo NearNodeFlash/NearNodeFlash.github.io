@@ -52,7 +52,7 @@ Installation of Kubernetes (k8s) nodes proceeds by installing k8s components ont
 Webhooks require the Jetstack `cert-manager`. Installation is shown below.
 
 ```bash
-export certver="v1.7.0"
+export certver="v1.13.1"
 # Required for webhooks
 kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$certver"/cert-manager.yaml
 ```
@@ -63,7 +63,6 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$ce
 | :------------------------------| :-------------------- |
 | Generic Kubernetes Worker Node | cray.nnf.manager=true |
 | Rabbit Node                    | cray.nnf.node=true    |
-|                                | cray.nnf.x-name=$NODE |
 
 ### Kubernetes Node Taints
 
@@ -71,7 +70,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$ce
 | :------------------------------| :---------------------------- |
 | Rabbit Node                    | cray.nnf.node=true:NoSchedule |
 
-See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). The [NearNodeFlash/nnf-deploy/init.sh script](https://github.com/NearNodeFlash/nnf-deploy/blob/master/init.sh) provides examples of labeling and tainting k8s nodes for use with Rabbit.
+See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). The [`nnf-deploy init`](https://github.com/NearNodeFlash/nnf-deploy) command provides examples of labeling and tainting k8s nodes for use with Rabbit.
 
 ## Rabbit System Configuration
 
@@ -95,7 +94,7 @@ Here is an example `SystemConfiguration`:
 | storageNodes[].computeAccess | List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to |
 
 ```yaml
-apiVersion: dws.cray.hpe.com/v1alpha1
+apiVersion: dataworkflowservices.github.io/v1alpha2
 kind: SystemConfiguration
 metadata:
   name: default
@@ -106,6 +105,9 @@ spec:
   - name: compute-02
   - name: compute-03
   - name: compute-04
+  ports:
+  - 5000-5999
+  portsCooldownInSeconds: 0
   storageNodes:
   - computesAccess:
     - index: 0
