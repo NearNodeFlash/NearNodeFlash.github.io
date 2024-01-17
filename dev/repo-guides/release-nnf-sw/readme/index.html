@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.0">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.45e1311d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
       
       
 
@@ -830,6 +830,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#clone-a-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clone a release
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -917,6 +926,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#clone-a-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clone a release
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -945,17 +963,21 @@ point to those release versions, then <code>nnf-deploy</code> itself can be upda
 part of <code>nnf-deploy</code>, but it should match the version number of <code>nnf-deploy</code>. Release this like the
 other components.</p>
 <ul>
-<li><a href="https://github.com/NearNodeFlash/nnf-deploy">NearNodeFlash/nnf-deploy</a><ul>
+<li>
+<p><a href="https://github.com/NearNodeFlash/nnf-deploy">NearNodeFlash/nnf-deploy</a></p>
+<ul>
 <li><a href="https://github.com/DataWorkflowServices/dws">DataWorkflowServices/dws</a></li>
-<li><a href="https://github.com/NearNodeFlash/lustre-fs-operator">NearNodeFlash/lustre-fs-operator</a></li>
 <li><a href="https://github.com/HewlettPackard/lustre-csi-driver">HewlettPackard/lustre-csi-driver</a></li>
+<li><a href="https://github.com/NearNodeFlash/lustre-fs-operator">NearNodeFlash/lustre-fs-operator</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-mfu">NearNodeFlash/nnf-mfu</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos">NearNodeFlash/nnf-sos</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-dm">NearNodeFlash/nnf-dm</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-integration-test">NearNodeFlash/nnf-integration-test</a></li>
 </ul>
 </li>
-<li><a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io">NearNodeFlash/NearNodeFlash.github.io</a></li>
+<li>
+<p><a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io">NearNodeFlash/NearNodeFlash.github.io</a></p>
+</li>
 </ul>
 <p><a href="https://github.com/NearNodeFlash/nnf-ec">nnf-ec</a> is vendored in as part of <code>nnf-sos</code> and does not
 need to be released separately.</p>
@@ -1004,119 +1026,150 @@ end.</p>
 <li>
 <p>Perform repo-specific updates:</p>
 <ol>
-<li>
-<p>For <code>lustre-csi-driver</code>, <code>lustre-fs-operator</code>, <code>dws</code>, <code>nnf-sos</code>, and <code>nnf-dm</code> there are additional files that need to
-track the version number as well, which allow them to be installed with <code>kubectl apply -k</code>.</p>
-<ol>
-<li>
-<p>For <code>lustre-fs-operator</code>, <code>dws</code>, <code>nnf-sos</code>, and <code>nnf-dm</code> update <code>config/manager/kustomization.yaml</code> with the correct version.</p>
-</li>
-<li>
-<p>For <code>lustre-csi-driver</code>, update <code>deploy/kubernetes/base/kustomization.yaml</code> and
-<code>charts/lustre-csi-driver/values.yaml</code> with the correct version.</p>
-</li>
+<li>For <code>lustre-csi-driver</code>, <code>lustre-fs-operator</code>, <code>dws</code>, <code>nnf-sos</code>, and <code>nnf-dm</code> there are additional files that need to
+track the version number as well, which allow them to be installed with <code>kubectl apply -k</code>.</li>
 </ol>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Update</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>nnf-mfu</code></td>
+<td>The new version of <code>nnf-mfu</code> is referenced by the <code>NNFMFU</code> variable in several places:<br><br><code>nnf-sos</code><br>1. <code>Makefile</code> replace <code>NNFMFU</code> with <code>nnf-mfu's</code> tag.<br><br><code>nnf-dm</code><br>1. In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMU_VERSION</code> with the new version.<br>2. In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;.</code></td>
+</tr>
+<tr>
+<td><code>lustre-fs-operator</code></td>
+<td>update <code>config/manager/kustomization.yaml</code> with the correct version.</td>
+</tr>
+<tr>
+<td><code>dws</code></td>
+<td>update <code>config/manager/kustomization.yaml</code> with the correct version.</td>
+</tr>
+<tr>
+<td><code>nnf-sos</code></td>
+<td>update <code>config/manager/kustomization.yaml</code> with the correct version.</td>
+</tr>
+<tr>
+<td><code>nnf-dm</code></td>
+<td>update <code>config/manager/kustomization.yaml</code> with the correct version.</td>
+</tr>
+<tr>
+<td><code>lustre-csi-driver</code></td>
+<td>update <code>deploy/kubernetes/base/kustomization.yaml</code> and <code>charts/lustre-csi-driver/values.yaml</code> with the correct version.</td>
+</tr>
+</tbody>
+</table>
 </li>
 <li>
-<p>If <code>nnf-mfu</code> was updated, multiple references in <code>nnf-dm</code> will need to be updated with the
-new version number for the <code>nnf-mfu</code> image:</p>
-<ol>
-<li>
-<p>In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMU_VERSION</code> with the new version</p>
-</li>
-<li>
-<p>In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;</code></p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li>
-<p>Create a Pull Request from your branch and <strong>target the release branch</strong>.  When merging the Pull
+<p><strong>Target the <code>releases/v0</code> branch</strong> with a Pull Request from your branch.  When merging the Pull
 Request, <strong>you must use a Merge Commit.</strong></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><strong>Do not</strong> Rebase or Squash! Those actions will remove the records that Git uses to
+<p><strong>Do not</strong> Rebase or Squash! Those actions remove the records that Git uses to
 determine which commits have been merged, and then when the next release is created Git will
 treat everything like a conflict. Additionally, this will cause auto-generated release notes
 to include the previous release.</p>
 </div>
 </li>
 <li>
-<p>Once merged, update the release branch locally and then create an annotated tag:</p>
+<p>Once merged, update the release branch locally and create an annotated tag:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>releases/v0
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.0.3<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>pull
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.0.3<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
 </code></pre></div>
 </li>
 <li>
-<p>Now that there is a tag, a release can be created via the <a href="https://cli.github.com/">GitHub CLI</a>.
+<p>Now that a tag exists, a release can be created via the <a href="https://cli.github.com/">GitHub CLI</a>.
    Alternatively, use the <a href="https://github.com/NearNodeFlash/nnf-dm/releases/new">Web UI</a>.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span>--generate-notes<span class="w"> </span>--verify-tag<span class="w"> </span>-p<span class="w"> </span>v0.0.3<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
 </code></pre></div>
 </li>
 <li>
-<p>Repeat this process for each remaining component.</p>
+<p>GOTO Step 1 and repeat this process for each remaining component.</p>
 </li>
 </ol>
 <h2 id="release-nnf-deploy">Release <code>nnf-deploy</code></h2>
-<p>Once the individual components are released, we need to update the submodules and
-<code>config/repositories.yaml</code> in the <strong>master</strong> branch before we start on the release branch. This
-makes sure that everything is now current on master.</p>
+<p>Once the individual components are released, we need to update the submodules
+in <code>nnf-deploy's</code> <code>master</code> branch before we create the release branch. This ensures
+that everything is current on <code>master</code> for <code>nnf-deploy</code>.</p>
 <ol>
 <li>
-<p>Update the submodules on master:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>master
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>pull
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>./update.sh
+<p>Update the submodules for <code>nnf-deploy</code> on master:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>nnf-deploy
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>master
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>git<span class="w"> </span>pull
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>master
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>pull
 </code></pre></div>
 </li>
 <li>
-<p>Update <code>config/repositories.yaml</code> and update the referenced versions for:</p>
-<ol>
-<li>
-<p><code>lustre-csi-driver</code></p>
-</li>
-<li>
-<p><code>lustre-fs-operator</code></p>
-</li>
-<li>
-<p><code>nnf-mfu</code></p>
-</li>
-</ol>
+<p>Create a branch to capture the submodule changes for the PR to <code>master</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>update-submodules
+</code></pre></div>
 </li>
 <li>
 <p>Commit the changes and open a Pull Request against the <code>master</code> branch.</p>
 </li>
 <li>
-<p>Once merged, follow steps 1-3 from the previous section to update the release branch with master.</p>
+<p>Once merged, follow steps 1-3 from the previous section to create a release branch off of <code>releases/v0</code> and
+   update it with changes from <code>master</code>.</p>
 </li>
 <li>
-<p>There will be conflicts on the submodules after step 3. This is expected. We will update the
+<p>There will be conflicts for the submodules after step 3. <strong>This is expected.</strong> Update the
    submodules to the new tags and then commit the changes.  If each tag was committed properly, the
    following command can do this for you:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">&#39;git checkout `git describe --match=&quot;v*&quot; HEAD`&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">&#39;git checkout `git describe --match=&quot;v*&quot; HEAD`&#39;</span>
 </code></pre></div>
+</li>
+<li>
 <p>Verify that each submodule is now at the proper tagged version.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>status
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>submodule
 </code></pre></div>
 </li>
 <li>
 <p>Do a <code>git add</code> for each of the submodules.</p>
 </li>
 <li>
-<p>Run <code>go mod tidy</code> and then <code>make</code>. Do another <code>git add</code> for any changes, particularly<code>go.mod</code>
-and/or <code>go.sum</code>.</p>
+<p>Update <code>config/repositories.yaml</code> with the referenced versions for:</p>
+<ol>
+<li><code>lustre-csi-driver</code></li>
+<li><code>lustre-fs-operator</code></li>
+<li><code>nnf-mfu</code>  (Search for NNFMFU_VERSION)</li>
+</ol>
 </li>
 <li>
-<p>Verify that <code>git status</code> is happy with <code>nnf-deploy</code> and then finalize the merge from master by
-   doing a <code>git commit</code>.</p>
+<p>Tidy and make <code>nnf-deploy</code> to avoid embarrassment.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>go<span class="w"> </span>mod<span class="w"> </span>tidy
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>make
+</code></pre></div>
+</li>
+<li>
+<p>Do another <code>git add</code> for any changes, particularly <code>go.mod</code> and/or <code>go.sum</code>.</p>
+</li>
+<li>
+<p>Verify that <code>git status</code> is happy with <code>nnf-deploy</code> and then finalize the merge
+    from master by with a <code>git commit</code>.</p>
 </li>
 <li>
 <p>Follow steps 6-8 from the previous section to finalize the release of <code>nnf-deploy</code>.</p>
 </li>
 </ol>
-<p>The software is now released!</p>
+<p><strong>The software is now released!</strong></p>
+<h2 id="clone-a-release">Clone a release</h2>
+<p>The follow commands clone release <code>v0.0.7</code> into <code>nnf-deploy-v0.0.7</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NNF_VERSION</span><span class="o">=</span>v0.0.7
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>git@github.com:NearNodeFlash/nnf-deploy<span class="w"> </span>nnf-deploy-<span class="nv">$NNF_VERSION</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">cd</span><span class="w"> </span>nnf-deploy-<span class="nv">$NNF_VERSION</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>git<span class="w"> </span>-c<span class="w"> </span>advice.detachedHead<span class="o">=</span><span class="nb">false</span><span class="w"> </span>checkout<span class="w"> </span><span class="nv">$NNF_VERSION</span><span class="w"> </span>--recurse-submodules
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>git<span class="w"> </span>submodule<span class="w"> </span>status
+</code></pre></div>
 
 
 
@@ -1200,10 +1253,10 @@ and/or <code>go.sum</code>.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
       
     
   </body>
