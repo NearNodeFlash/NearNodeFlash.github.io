@@ -1000,7 +1000,7 @@
 <h1 id="compute-daemons">Compute Daemons</h1>
 <p>Rabbit software requires two daemons be installed and run on each compute node. Each daemon shares similar build, package, and installation processes described below.</p>
 <ul>
-<li>The <a href="https://github.com/DataWorkflowServices/dws/tree/master/mount-daemon"><strong><em>Client Mount</em></strong></a> daemon, <code>clientmount</code>, provides the support for mounting Rabbit hosted file systems on compute nodes.</li>
+<li>The <a href="https://github.com/NearNodeFlash/nnf-sos/tree/master/mount-daemon"><strong><em>Client Mount</em></strong></a> daemon, <code>clientmount</code>, provides the support for mounting Rabbit hosted file systems on compute nodes.</li>
 <li>The <a href="https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/compute"><strong><em>Data Movement</em></strong></a> daemon, <code>nnf-dm</code>, supports creating, monitoring, and managing data movement (copy-offload) operations</li>
 </ul>
 <h2 id="building-from-source">Building from source</h2>
@@ -1023,12 +1023,12 @@
 <tbody>
 <tr>
 <td>Client Mount</td>
-<td>dws-controller-manager</td>
-<td>dws-system</td>
+<td>nnf-clientmount</td>
+<td>nnf-system</td>
 </tr>
 <tr>
 <td>Data Movement</td>
-<td>nnf-dm-controller-manager</td>
+<td>nnf-dm-daemon</td>
 <td>nnf-dm-system</td>
 </tr>
 </tbody>
@@ -1083,7 +1083,7 @@
 </tr>
 </tbody>
 </table>
-<p>For example:</p>
+<p>An example unit file for nnf-dm:</p>
 <div class="highlight"><span class="filename">cat /etc/systemd/system/nnf-dm.service</span><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[Unit]
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Description=Near-Node Flash (NNF) Data Movement Service
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -1095,12 +1095,33 @@
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>   --kubernetes-service-port=7777 \
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>   --service-token-file=/path/to/service.token \
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>   --service-cert-file=/path/to/service.cert \
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   --node-name=this-compute-node \
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>   --nnf-node-name=my-rabbit-node
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>   --kubernetes-qps=50 \
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>   --kubernetes-burst=100
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Restart=on-failure
 <a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>
 <a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>[Install]
 <a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>WantedBy=multi-user.target
+</code></pre></div>
+<p>An example unit file is for clientmountd:</p>
+<div class="highlight"><span class="filename">cat /etc/systemd/system/clientmountd.service</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>[Unit]
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Description=Near-Node Flash (NNF) Clientmountd Service
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>[Service]
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>PIDFile=/var/run/clientmountd.pid
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>ExecStartPre=/bin/rm -f /var/run/clientmountd.pid
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>ExecStart=/usr/bin/clientmountd \
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   --kubernetes-service-host=127.0.0.1 \
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>   --kubernetes-service-port=7777 \
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>   --service-token-file=/path/to/service.token \
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>   --service-cert-file=/path/to/service.cert
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Restart=on-failure
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Environment=GOGC=off
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>Environment=GOMEMLIMIT=20MiB
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>Environment=GOMAXPROCS=5
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>Environment=HTTP2_PING_TIMEOUT_SECONDS=60
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>[Install]
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>WantedBy=multi-user.target
 </code></pre></div>
 <h4 id="nnf-dm-specific-configuration">nnf-dm Specific Configuration</h4>
 <p>nnf-dm has some additional configuration options that can be used to tweak the kubernetes client:</p>
