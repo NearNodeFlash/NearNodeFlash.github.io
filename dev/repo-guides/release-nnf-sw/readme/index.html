@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.8">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.f2e4d321.min.css">
       
       
 
@@ -1089,9 +1089,10 @@ to include the previous release.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span>--generate-notes<span class="w"> </span>--verify-tag<span class="w"> </span>-p<span class="w"> </span>v0.0.3<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
 </code></pre></div>
 </li>
-<li>
-<p>GOTO Step 1 and repeat this process for each remaining component.</p>
-</li>
+</ol>
+<p><strong>Note</strong> Do not do this <code>gh release create</code> in the nnf-deploy repo.  That repo will create a release automatically when a new tag is pushed.</p>
+<ol>
+<li>GOTO Step 1 and repeat this process for each remaining component.</li>
 </ol>
 <h2 id="release-nnf-deploy">Release <code>nnf-deploy</code></h2>
 <p>Once the individual components are released, we need to update the submodules
@@ -1156,9 +1157,10 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
     from master by with a <code>git commit</code>.</p>
 </li>
 <li>
-<p>Follow steps 6-8 from the previous section to finalize the release of <code>nnf-deploy</code>.</p>
+<p>Follow steps 6-7 from the previous section to finalize the release of <code>nnf-deploy</code>.</p>
 </li>
 </ol>
+<p><strong>Note</strong> In step 7, the push of the tag will cause nnf-deploy's <code>handle_release_tag</code> workflow to automatically create the release.</p>
 <p><strong>The software is now released!</strong></p>
 <h2 id="clone-a-release">Clone a release</h2>
 <p>The follow commands clone release <code>v0.0.7</code> into <code>nnf-deploy-v0.0.7</code></p>
@@ -1253,10 +1255,10 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.8fd75fb4.min.js"></script>
       
     
   </body>
