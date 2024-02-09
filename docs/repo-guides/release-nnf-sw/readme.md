@@ -125,6 +125,8 @@ Request, **you must use a Merge Commit.**
     gh release create --generate-notes --verify-tag -p v0.0.3 -t "Release v0.0.3"
     ```
 
+**Note** Do not do this `gh release create` in the nnf-deploy repo.  That repo will create a release automatically when a new tag is pushed.
+
 9. GOTO Step 1 and repeat this process for each remaining component.
 
 ## Release `nnf-deploy`
@@ -188,7 +190,9 @@ that everything is current on `master` for `nnf-deploy`.
 11. Verify that `git status` is happy with `nnf-deploy` and then finalize the merge
     from master by with a `git commit`.
 
-12. Follow steps 6-8 from the previous section to finalize the release of `nnf-deploy`.
+12. Follow steps 6-7 from the previous section to finalize the release of `nnf-deploy`.
+
+**Note** In step 7, the push of the tag will cause nnf-deploy's `handle_release_tag` workflow to automatically create the release.
 
 **The software is now released!**
 

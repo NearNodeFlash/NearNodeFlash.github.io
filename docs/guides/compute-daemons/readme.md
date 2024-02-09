@@ -7,7 +7,7 @@ categories: setup
 
 Rabbit software requires two daemons be installed and run on each compute node. Each daemon shares similar build, package, and installation processes described below.
 
-- The [***Client Mount***](https://github.com/DataWorkflowServices/dws/tree/master/mount-daemon) daemon, `clientmount`, provides the support for mounting Rabbit hosted file systems on compute nodes.
+- The [***Client Mount***](https://github.com/NearNodeFlash/nnf-sos/tree/master/mount-daemon) daemon, `clientmount`, provides the support for mounting Rabbit hosted file systems on compute nodes.
 - The [***Data Movement***](https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/compute) daemon, `nnf-dm`, supports creating, monitoring, and managing data movement (copy-offload) operations
 
 ## Building from source
@@ -30,8 +30,8 @@ NNF software defines a Kubernetes Service Account for granting communication pri
 
 | Compute Daemon | Service Account | Namespace |
 | -------------- | --------------- | --------- |
-| Client Mount   | dws-controller-manager | dws-system |
-| Data Movement  | nnf-dm-controller-manager | nnf-dm-system |
+| Client Mount   | nnf-clientmount | nnf-system |
+| Data Movement  | nnf-dm-daemon | nnf-dm-system |
 
 ```bash
 #!/bin/bash
@@ -61,7 +61,7 @@ The command line arguments can be provided to the service definition or as an ov
 | `--nnf-node-name=[RABBIT-NODE-NAME]` | `nnf-dm` daemon only. Name of the rabbit node connected to this compute node as described in the System Configuration. If not provided, the `--node-name` value is used to find the associated Rabbit node in the System Configuration. |
 | `--sys-config=[NAME]` | `nnf-dm` daemon only. The System Configuration resource's name. Defaults to `default` |
 
-For example:
+An example unit file for nnf-dm:
 
 ```conf title="cat /etc/systemd/system/nnf-dm.service"
 [Unit]
@@ -75,9 +75,33 @@ ExecStart=/usr/bin/nnf-dm \
    --kubernetes-service-port=7777 \
    --service-token-file=/path/to/service.token \
    --service-cert-file=/path/to/service.cert \
-   --node-name=this-compute-node \
-   --nnf-node-name=my-rabbit-node
+   --kubernetes-qps=50 \
+   --kubernetes-burst=100
 Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+An example unit file is for clientmountd:
+
+```conf title="cat /etc/systemd/system/clientmountd.service"
+[Unit]
+Description=Near-Node Flash (NNF) Clientmountd Service
+
+[Service]
+PIDFile=/var/run/clientmountd.pid
+ExecStartPre=/bin/rm -f /var/run/clientmountd.pid
+ExecStart=/usr/bin/clientmountd \
+   --kubernetes-service-host=127.0.0.1 \
+   --kubernetes-service-port=7777 \
+   --service-token-file=/path/to/service.token \
+   --service-cert-file=/path/to/service.cert
+Restart=on-failure
+Environment=GOGC=off
+Environment=GOMEMLIMIT=20MiB
+Environment=GOMAXPROCS=5
+Environment=HTTP2_PING_TIMEOUT_SECONDS=60
 
 [Install]
 WantedBy=multi-user.target
