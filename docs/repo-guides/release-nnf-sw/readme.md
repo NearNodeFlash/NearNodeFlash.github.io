@@ -109,7 +109,7 @@ Request, **you must use a Merge Commit.**
         treat everything like a conflict. Additionally, this will cause auto-generated release notes
         to include the previous release.
 
-7. Once merged, update the release branch locally and create an annotated tag:
+7. Once merged, update the release branch locally and create an annotated tag. Each repo has a workflow job named `create_release` that will create a release automatically when the new tag is pushed.
 
     ```shell
     git checkout releases/v0
@@ -118,16 +118,7 @@ Request, **you must use a Merge Commit.**
     git push origin --tags
     ```
 
-8. Now that a tag exists, a release can be created via the [GitHub CLI](https://cli.github.com/).
-   Alternatively, use the [Web UI](https://github.com/NearNodeFlash/nnf-dm/releases/new).
-
-    ```bash
-    gh release create --generate-notes --verify-tag -p v0.0.3 -t "Release v0.0.3"
-    ```
-
-**Note** Do not do this `gh release create` in the nnf-deploy repo.  That repo will create a release automatically when a new tag is pushed.
-
-9. GOTO Step 1 and repeat this process for each remaining component.
+8. GOTO Step 1 and repeat this process for each remaining component.
 
 ## Release `nnf-deploy`
 
@@ -191,8 +182,6 @@ that everything is current on `master` for `nnf-deploy`.
     from master by with a `git commit`.
 
 12. Follow steps 6-7 from the previous section to finalize the release of `nnf-deploy`.
-
-**Note** In step 7, the push of the tag will cause nnf-deploy's `handle_release_tag` workflow to automatically create the release.
 
 **The software is now released!**
 
