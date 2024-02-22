@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.8">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.f2e4d321.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e359304.min.css">
       
       
 
@@ -338,14 +338,12 @@
     
     
     
-    
-    
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    
+    <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
@@ -364,7 +362,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -603,14 +601,12 @@
     
     
     
-    
-    
       
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    
+    <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
@@ -629,7 +625,7 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -702,14 +698,15 @@
     
     
     
-    
-    
+      
+        
+        
       
       
+    
     
     <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
@@ -1076,7 +1073,7 @@ to include the previous release.</p>
 </div>
 </li>
 <li>
-<p>Once merged, update the release branch locally and create an annotated tag:</p>
+<p>Once merged, update the release branch locally and create an annotated tag. Each repo has a workflow job named <code>create_release</code> that will create a release automatically when the new tag is pushed.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>releases/v0
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>pull
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.0.3<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
@@ -1084,15 +1081,8 @@ to include the previous release.</p>
 </code></pre></div>
 </li>
 <li>
-<p>Now that a tag exists, a release can be created via the <a href="https://cli.github.com/">GitHub CLI</a>.
-   Alternatively, use the <a href="https://github.com/NearNodeFlash/nnf-dm/releases/new">Web UI</a>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>gh<span class="w"> </span>release<span class="w"> </span>create<span class="w"> </span>--generate-notes<span class="w"> </span>--verify-tag<span class="w"> </span>-p<span class="w"> </span>v0.0.3<span class="w"> </span>-t<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
-</code></pre></div>
+<p>GOTO Step 1 and repeat this process for each remaining component.</p>
 </li>
-</ol>
-<p><strong>Note</strong> Do not do this <code>gh release create</code> in the nnf-deploy repo.  That repo will create a release automatically when a new tag is pushed.</p>
-<ol>
-<li>GOTO Step 1 and repeat this process for each remaining component.</li>
 </ol>
 <h2 id="release-nnf-deploy">Release <code>nnf-deploy</code></h2>
 <p>Once the individual components are released, we need to update the submodules
@@ -1101,16 +1091,16 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
 <ol>
 <li>
 <p>Update the submodules for <code>nnf-deploy</code> on master:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>nnf-deploy
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>master
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>git<span class="w"> </span>pull
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>master
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>pull
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>nnf-deploy
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>git<span class="w"> </span>checkout<span class="w"> </span>master
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>git<span class="w"> </span>pull
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>master
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span>git<span class="w"> </span>pull
 </code></pre></div>
 </li>
 <li>
 <p>Create a branch to capture the submodule changes for the PR to <code>master</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>update-submodules
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>update-submodules
 </code></pre></div>
 </li>
 <li>
@@ -1124,12 +1114,12 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
 <p>There will be conflicts for the submodules after step 3. <strong>This is expected.</strong> Update the
    submodules to the new tags and then commit the changes.  If each tag was committed properly, the
    following command can do this for you:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">&#39;git checkout `git describe --match=&quot;v*&quot; HEAD`&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">&#39;git checkout `git describe --match=&quot;v*&quot; HEAD`&#39;</span>
 </code></pre></div>
 </li>
 <li>
 <p>Verify that each submodule is now at the proper tagged version.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>git<span class="w"> </span>submodule
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>git<span class="w"> </span>submodule
 </code></pre></div>
 </li>
 <li>
@@ -1145,8 +1135,8 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
 </li>
 <li>
 <p>Tidy and make <code>nnf-deploy</code> to avoid embarrassment.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>go<span class="w"> </span>mod<span class="w"> </span>tidy
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>make
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>go<span class="w"> </span>mod<span class="w"> </span>tidy
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>make
 </code></pre></div>
 </li>
 <li>
@@ -1160,17 +1150,16 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
 <p>Follow steps 6-7 from the previous section to finalize the release of <code>nnf-deploy</code>.</p>
 </li>
 </ol>
-<p><strong>Note</strong> In step 7, the push of the tag will cause nnf-deploy's <code>handle_release_tag</code> workflow to automatically create the release.</p>
 <p><strong>The software is now released!</strong></p>
 <h2 id="clone-a-release">Clone a release</h2>
 <p>The follow commands clone release <code>v0.0.7</code> into <code>nnf-deploy-v0.0.7</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NNF_VERSION</span><span class="o">=</span>v0.0.7
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>git@github.com:NearNodeFlash/nnf-deploy<span class="w"> </span>nnf-deploy-<span class="nv">$NNF_VERSION</span>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">cd</span><span class="w"> </span>nnf-deploy-<span class="nv">$NNF_VERSION</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>git<span class="w"> </span>-c<span class="w"> </span>advice.detachedHead<span class="o">=</span><span class="nb">false</span><span class="w"> </span>checkout<span class="w"> </span><span class="nv">$NNF_VERSION</span><span class="w"> </span>--recurse-submodules
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>git<span class="w"> </span>submodule<span class="w"> </span>status
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NNF_VERSION</span><span class="o">=</span>v0.0.7
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>git@github.com:NearNodeFlash/nnf-deploy<span class="w"> </span>nnf-deploy-<span class="nv">$NNF_VERSION</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nb">cd</span><span class="w"> </span>nnf-deploy-<span class="nv">$NNF_VERSION</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>git<span class="w"> </span>-c<span class="w"> </span>advice.detachedHead<span class="o">=</span><span class="nb">false</span><span class="w"> </span>checkout<span class="w"> </span><span class="nv">$NNF_VERSION</span><span class="w"> </span>--recurse-submodules
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>git<span class="w"> </span>submodule<span class="w"> </span>status
 </code></pre></div>
 
 
