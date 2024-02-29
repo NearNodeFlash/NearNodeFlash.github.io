@@ -155,13 +155,13 @@ that everything is current on `master` for `nnf-deploy`.
     git submodule foreach 'git checkout `git describe --match="v*" HEAD`'
     ```
 
-6. Verify that each submodule is now at the proper tagged version.
+6. Add each submodule to the commit with `git add`.
+
+7. Verify that each submodule is now at the proper tagged version.
 
     ```shell
     git submodule
     ```
-
-7. Do a `git add` for each of the submodules.
 
 8. Update `config/repositories.yaml` with the referenced versions for:
 
