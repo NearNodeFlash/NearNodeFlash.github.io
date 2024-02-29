@@ -183,6 +183,7 @@ that everything is current on `master` for `nnf-deploy`.
 
 12. Follow steps 6-7 from the previous section to finalize the release of `nnf-deploy`.
 
+**Please review documenation for changes you may have made**
 **The software is now released!**
 
 ## Clone a release
