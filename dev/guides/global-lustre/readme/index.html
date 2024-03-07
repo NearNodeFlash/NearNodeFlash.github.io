@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../">
+        <link rel="prev" href="../../external-mgs/readme/">
       
       
-        <link rel="next" href="../../compute-daemons/readme/">
+        <link rel="next" href="../../../rfcs/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Initial Setup - NNF</title>
+        <title>Global Lustre - NNF</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#initial-setup-instructions" class="md-skip">
+        <a href="#global-lustre" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Initial Setup
+              Global Lustre
             
           </span>
         </div>
@@ -386,30 +386,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Initial Setup
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -418,101 +398,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#lvm-configuration-on-rabbit" class="md-nav__link">
-    <span class="md-ellipsis">
-      LVM Configuration on Rabbit
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="LVM Configuration on Rabbit">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#zfs" class="md-nav__link">
-    <span class="md-ellipsis">
-      ZFS
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kubernetes-initial-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Initial Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Kubernetes Initial Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#certificate-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      Certificate manager
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Labels
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-taints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Taints
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rabbit-system-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rabbit System Configuration
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -711,10 +596,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../global-lustre/readme/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Global Lustre
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -723,6 +628,71 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nnf-data-movement-manager" class="md-nav__link">
+    <span class="md-ellipsis">
+      NNF Data Movement Manager
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-global-lustre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Global Lustre
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-global-lustre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing Global Lustre
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -923,75 +893,45 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#lvm-configuration-on-rabbit" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      LVM Configuration on Rabbit
+      Background
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="LVM Configuration on Rabbit">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#zfs" class="md-nav__link">
-    <span class="md-ellipsis">
-      ZFS
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#kubernetes-initial-setup" class="md-nav__link">
+  <a href="#namespaces" class="md-nav__link">
     <span class="md-ellipsis">
-      Kubernetes Initial Setup
+      Namespaces
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Kubernetes Initial Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#certificate-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      Certificate manager
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Labels
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-taints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Taints
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#rabbit-system-configuration" class="md-nav__link">
+  <a href="#nnf-data-movement-manager" class="md-nav__link">
     <span class="md-ellipsis">
-      Rabbit System Configuration
+      NNF Data Movement Manager
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-global-lustre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding Global Lustre
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-global-lustre" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing Global Lustre
     </span>
   </a>
   
@@ -1015,144 +955,61 @@
   
 
 
-<h1 id="initial-setup-instructions">Initial Setup Instructions</h1>
-<p>Instructions for the initial setup of a Rabbit are included in this document.</p>
-<h2 id="lvm-configuration-on-rabbit">LVM Configuration on Rabbit</h2>
-<details>
-<summary>LVM Details</summary>
-<p>Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the <code>nnf-node-manager</code> Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.</p>
-<p>3 options to solve this problem are:</p>
-<ol>
-<li>Disable UDEV sync at the host operating system level</li>
-<li>Disable UDEV sync using the <code>–noudevsync</code> command option for each LVM command</li>
-<li>Clear the UDEV cookie using the <code>dmsetup udevcomplete_all</code> command after the lvcreate/lvremove command.</li>
-</ol>
-<p>Taking these in reverse order using option 3 above which allows UDEV settings within the host OS to remain unchanged from the default, one would need to start the   <code>dmsetup</code> command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.</p>
-<p>Option 2 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary   because the host OS is PXE-booted onto the node vs loaded from an device that is discovered by UDEV.</p>
-<p>Option 1 above is what we chose to implement because it is the simplest. The following sections discuss this setting.</p>
-</details>
-</details>
-<p>In order for LVM commands to run within the container environment on a Rabbit, the following change is required to the <code>/etc/lvm/lvm.conf</code> file on Rabbit.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/udev_sync = 1/udev_sync = 0/g&#39;</span><span class="w"> </span>/etc/lvm/lvm.conf
+<h1 id="global-lustre">Global Lustre</h1>
+<h2 id="background">Background</h2>
+<p>Adding global lustre to rabbit systems allows access to external file systems. This is primarily
+used for Data Movement, where a user can perform <code>copy_in</code> and <code>copy_out</code> directives with global
+lustre being the source and destination, respectively.</p>
+<p>Global lustre fileystems are represented by the <code>lustrefilesystems</code> resource in Kubernetes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>lustrefilesystems<span class="w"> </span>-A
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>NAMESPACE<span class="w">   </span>NAME<span class="w">       </span>FSNAME<span class="w">   </span>MGSNIDS<span class="w">          </span>AGE
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>default<span class="w">     </span>mylustre<span class="w">   </span>mylustre<span class="w"> </span><span class="m">10</span>.1.1.113@tcp<span class="w">   </span>20d
 </code></pre></div>
-<h3 id="zfs">ZFS</h3>
-<p>ZFS kernel module must be enabled to run on boot. This can be done by creating a file, <code>zfs.conf</code>, containing the string "zfs" in your systems modules-load.d directory.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;zfs&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/modules-load.d/zfs.conf
+<p>An example resource is as follows:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lus.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LustreFileSystem</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mylustre</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">mgsNids</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.1.1.100@tcp</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">mountRoot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/p/mylustre</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mylustre</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">namespaces</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">default</span><span class="p">:</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">modes</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteMany</span>
 </code></pre></div>
-<h2 id="kubernetes-initial-setup">Kubernetes Initial Setup</h2>
-<p>Installation of Kubernetes (k8s) nodes proceeds by installing k8s components onto the master node(s) of the cluster, then installing k8s components onto the worker nodes and joining those workers to the cluster. The k8s cluster setup for Rabbit requires 3 distinct k8s node types for operation:</p>
-<ul>
-<li>Master: 1 or more master nodes which serve as the Kubernetes API server and control access to the system. For HA, at least 3 nodes should be dedicated to this role.</li>
-<li>Worker: 1 or more worker nodes which run the system level controller manager (SLCM) and Data Workflow Services (DWS) pods. In production, at least 3 nodes should be dedicated to this role.</li>
-<li>Rabbit: 1 or more Rabbit nodes which run the node level controller manager (NLCM) code. The NLCM daemonset pods are exclusively scheduled on Rabbit nodes. All Rabbit nodes are joined to the cluster as k8s workers, and they are tainted to restrict the type of work that may be scheduled on them. The NLCM pod has a toleration that allows it to run on the tainted (i.e. Rabbit) nodes.</li>
-</ul>
-<h3 id="certificate-manager">Certificate manager</h3>
-<p>Webhooks require the Jetstack <code>cert-manager</code>. Installation is shown below.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">certver</span><span class="o">=</span><span class="s2">&quot;v1.13.1&quot;</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># Required for webhooks</span>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>https://github.com/jetstack/cert-manager/releases/download/<span class="s2">&quot;</span><span class="nv">$certver</span><span class="s2">&quot;</span>/cert-manager.yaml
-</code></pre></div>
-<h3 id="kubernetes-node-labels">Kubernetes Node Labels</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Node Type</th>
-<th style="text-align: left;">Node Label</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Generic Kubernetes Worker Node</td>
-<td style="text-align: left;">cray.nnf.manager=true</td>
-</tr>
-<tr>
-<td style="text-align: left;">Rabbit Node</td>
-<td style="text-align: left;">cray.nnf.node=true</td>
-</tr>
-</tbody>
-</table>
-<h3 id="kubernetes-node-taints">Kubernetes Node Taints</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Node Type</th>
-<th style="text-align: left;">Node Label</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Rabbit Node</td>
-<td style="text-align: left;">cray.nnf.node=true:NoSchedule</td>
-</tr>
-</tbody>
-</table>
-<p>See <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">Taints and Tolerations</a>. The <a href="https://github.com/NearNodeFlash/nnf-deploy"><code>nnf-deploy init</code></a> command provides examples of labeling and tainting k8s nodes for use with Rabbit.</p>
-<h2 id="rabbit-system-configuration">Rabbit System Configuration</h2>
-<p>The SystemConfiguration Custom Resource Definition (CRD) is a DWS resource that describes the hardware layout of the whole system. It is expected that an administrator creates a single SystemConfiguration resource when the system is being set up. There is no need to update the SystemConfiguration resource unless hardware is added to or removed from the system.</p>
-<details>
-<summary>System Configuration Details</summary>
-<p>Rabbit software looks for a SystemConfiguration named <code>default</code> in the <code>default</code> namespace. This resource contains a list of compute nodes and storage nodes, and it describes the mapping between them. There are two different consumers of the SystemConfiguration resource in the NNF software:</p>
-<p><code>NnfNodeReconciler</code> - The reconciler for the NnfNode resource running on the Rabbit nodes reads the SystemConfiguration resource. It uses the Storage to compute mapping information to fill in the HostName section of the NnfNode resource. This information is then used to populate the DWS Storage resource.</p>
-<p><code>NnfSystemConfigurationReconciler</code> - This reconciler runs in the <code>nnf-controller-manager</code>. It creates a Namespace for each compute node listed in the SystemConfiguration. These namespaces are used by the client mount code.</p>
-</details>
-</details>
-<p>Here is an example <code>SystemConfiguration</code>:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Spec Section</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">computeNodes</td>
-<td>List of names of compute nodes in the system</td>
-</tr>
-<tr>
-<td style="text-align: left;">storageNodes</td>
-<td>List of Rabbits and the compute nodes attached</td>
-</tr>
-<tr>
-<td style="text-align: left;">storageNodes[].type</td>
-<td>Must be "Rabbit"</td>
-</tr>
-<tr>
-<td style="text-align: left;">storageNodes[].computeAccess</td>
-<td>List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dataworkflowservices.github.io/v1alpha2</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SystemConfiguration</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">metadata</span><span class="p">:</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nt">spec</span><span class="p">:</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">computeNodes</span><span class="p">:</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-01</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-02</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-03</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-04</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000-5999</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="nt">portsCooldownInSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="nt">storageNodes</span><span class="p">:</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">computesAccess</span><span class="p">:</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-01</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-02</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-03</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbit-name-01</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Rabbit</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">computesAccess</span><span class="p">:</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-04</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbit-name-02</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Rabbit</span>
-</code></pre></div>
+<h2 id="namespaces">Namespaces</h2>
+<p>Note the <code>spec.namespaces</code> field. For each namespace listed, the <code>lustre-fs-operator</code> creates a
+PV/PVC pair in that namespace. This allows pods in that namespace to access global lustre.</p>
+<p>It is recommended to create <code>lustrefilesystem</code> resources in the <code>default</code> namespace (i.e.
+<code>metadata.namespace</code>). Adding <code>lustrefilesystems</code> to the <code>nnf-dm-system</code> namespace can cause issues
+with namespace deletion if you are undeploying <code>nnf-dm</code>. This also makes the <code>lustrefilesystem</code>
+resource available to the <code>default</code> namespace, which makes it available to containers (e.g.
+container workflows) running in the <code>default</code> namespace.</p>
+<h2 id="nnf-data-movement-manager">NNF Data Movement Manager</h2>
+<p>The NNF Data Movement Manager is responsible for monitoring these resources and uses it to mount the
+global lustre filesystem into each of the NNF DM Worker pods. These pods run on each of the NNF
+nodes. This means with each addition or removal of <code>lustrefilesystems</code> resources, the DM worker pods
+restart to adjust their mount points.</p>
+<p>The NNF Data Movement Manager also places a finalizer on the <code>lustrefilesystem</code> resource to indicate
+that the resource is in use by Data Movement. This is to prevent the PV/PVC being deleted while they
+are being used by pods.</p>
+<h2 id="adding-global-lustre">Adding Global Lustre</h2>
+<p>As mentioned previously, the NNF Data Movement Manager monitors these resources and automatically
+adds the <code>nnf-dm-system</code> namespace to all <code>lustrefilesystem</code> resources. Once this happens, a PV/PVC
+is created for the <code>nnf-dm-system</code> namespace to access global lustre. The Manager updates the NNF DM
+Worker pods, which are then restarted to mount the global lustre file system.</p>
+<h2 id="removing-global-lustre">Removing Global Lustre</h2>
+<p>When a <code>lustrefilesystem</code> is deleted, the NNF DM Manager takes notice and starts to unmount the file
+system from the DM Worker pods - causing another restart of the DM Worker pods. Once this is
+finished, the DM finalizer is removed from the <code>lustrefilesystem</code> resource to signal that it is no
+longer in use by Data Movement.</p>
+<p>If a <code>lustrefilesystem</code> does not delete, check the finalizers to see what might still be using it.
+It is possible to get into a situation where <code>nnf-dm</code> has been undeployed, so there is nothing to
+remove the DM finalizer from the <code>lustrefilesystem</code> resource. If that is the case, then manually
+remove the DM finalizer so the deletion of the <code>lustrefilesystem</code> resource can continue.</p>
 
 
 
@@ -1191,7 +1048,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: User Guides">
+          <a href="../../external-mgs/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lustre External MGT">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -1201,20 +1058,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                User Guides
+                Lustre External MGT
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../compute-daemons/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Compute Daemons">
+          <a href="../../../rfcs/" class="md-footer__link md-footer__link--next" aria-label="Next: RFCs">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Compute Daemons
+                RFCs
               </div>
             </div>
             <div class="md-footer__button md-icon">
