@@ -18,6 +18,7 @@ nav:
       - 'Storage Profiles': 'guides/storage-profiles/readme.md'
       - 'User Containers': 'guides/user-containers/readme.md'
       - 'Lustre External MGT': 'guides/external-mgs/readme.md'
+      - 'Global Lustre': 'guides/global-lustre/readme.md'
   - 'RFCs':
       - rfcs/index.md
       - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
