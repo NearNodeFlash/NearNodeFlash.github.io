@@ -982,12 +982,13 @@ lustre being the source and destination, respectively.</p>
 </code></pre></div>
 <h2 id="namespaces">Namespaces</h2>
 <p>Note the <code>spec.namespaces</code> field. For each namespace listed, the <code>lustre-fs-operator</code> creates a
-PV/PVC pair in that namespace. This allows pods in that namespace to access global lustre.</p>
-<p>It is recommended to create <code>lustrefilesystem</code> resources in the <code>default</code> namespace (i.e.
-<code>metadata.namespace</code>). Adding <code>lustrefilesystems</code> to the <code>nnf-dm-system</code> namespace can cause issues
-with namespace deletion if you are undeploying <code>nnf-dm</code>. This also makes the <code>lustrefilesystem</code>
-resource available to the <code>default</code> namespace, which makes it available to containers (e.g.
-container workflows) running in the <code>default</code> namespace.</p>
+PV/PVC pair in that namespace. This allows pods in that namespace to access global lustre. The
+<code>default</code> namespace should appear in this list. This makes the <code>lustrefilesystem</code> resource available
+to the <code>default</code> namespace, which makes it available to containers (e.g.  container workflows)
+running in the <code>default</code> namespace. The <code>nnf-dm-system</code> namespace is added automatically - no need
+to specify that manually here.</p>
+<p>The <code>lustrefilesystem</code> resource itself should be created in the <code>default</code> namespace (i.e.
+<code>metadata.namespace</code>).</p>
 <h2 id="nnf-data-movement-manager">NNF Data Movement Manager</h2>
 <p>The NNF Data Movement Manager is responsible for monitoring these resources and uses it to mount the
 global lustre filesystem into each of the NNF DM Worker pods. These pods run on each of the NNF
