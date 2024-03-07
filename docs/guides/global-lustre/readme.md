@@ -51,10 +51,10 @@ The `lustrefilesystem` resource itself should be created in the `default` namesp
 
 ## NNF Data Movement Manager
 
-The NNF Data Movement Manager is responsible for monitoring these resources and uses it to mount the
-global lustre filesystem into each of the NNF DM Worker pods. These pods run on each of the NNF
-nodes. This means with each addition or removal of `lustrefilesystems` resources, the DM worker pods
-restart to adjust their mount points.
+The NNF Data Movement Manager is responsible for monitoring `lustrefilesystem` resources to mount
+(or umount) the global lustre filesystem in each of the NNF DM Worker pods. These pods run on each
+of the NNF nodes. This means with each addition or removal of `lustrefilesystems` resources, the DM
+worker pods restart to adjust their mount points.
 
 The NNF Data Movement Manager also places a finalizer on the `lustrefilesystem` resource to indicate
 that the resource is in use by Data Movement. This is to prevent the PV/PVC being deleted while they
