@@ -43,8 +43,13 @@ Note the `spec.namespaces` field. For each namespace listed, the `lustre-fs-oper
 PV/PVC pair in that namespace. This allows pods in that namespace to access global lustre. The
 `default` namespace should appear in this list. This makes the `lustrefilesystem` resource available
 to the `default` namespace, which makes it available to containers (e.g.  container workflows)
-running in the `default` namespace. The `nnf-dm-system` namespace is added automatically - no need
-to specify that manually here.
+running in the `default` namespace.
+
+The `nnf-dm-system` namespace is added automatically - no need to specify that manually here. The
+NNF Data Movement Manager is responsible for ensuring that the `nnf-dm-system` is in
+`spec.namespaces`. This is to ensure that the NNF DM Worker pods have global lustre mounted as long
+as `nnf-dm` is deployed. **To unmount global lustre from the NNF DM Worker pods, the
+`lustrefilesystem` resource must be deleted**.
 
 The `lustrefilesystem` resource itself should be created in the `default` namespace (i.e.
 `metadata.namespace`).
