@@ -22,7 +22,7 @@ default     mylustre   mylustre 10.1.1.113@tcp   20d
 An example resource is as follows:
 
 ```yaml
-apiVersion: lus.cray.hpe.com/v1alpha1
+apiVersion: lus.cray.hpe.com/v1beta1
 kind: LustreFileSystem
 metadata:
   name: mylustre
