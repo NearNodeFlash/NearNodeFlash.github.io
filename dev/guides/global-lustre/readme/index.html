@@ -14,7 +14,7 @@
         <link rel="prev" href="../../external-mgs/readme/">
       
       
-        <link rel="next" href="../../node-management/drain/">
+        <link rel="next" href="../../../rfcs/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -698,27 +698,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../node-management/drain/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Draining A Node
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1006,8 +985,12 @@ lustre being the source and destination, respectively.</p>
 PV/PVC pair in that namespace. This allows pods in that namespace to access global lustre. The
 <code>default</code> namespace should appear in this list. This makes the <code>lustrefilesystem</code> resource available
 to the <code>default</code> namespace, which makes it available to containers (e.g.  container workflows)
-running in the <code>default</code> namespace. The <code>nnf-dm-system</code> namespace is added automatically - no need
-to specify that manually here.</p>
+running in the <code>default</code> namespace.</p>
+<p>The <code>nnf-dm-system</code> namespace is added automatically - no need to specify that manually here. The
+NNF Data Movement Manager is responsible for ensuring that the <code>nnf-dm-system</code> is in
+<code>spec.namespaces</code>. This is to ensure that the NNF DM Worker pods have global lustre mounted as long
+as <code>nnf-dm</code> is deployed. <strong>To unmount global lustre from the NNF DM Worker pods, the
+<code>lustrefilesystem</code> resource must be deleted</strong>.</p>
 <p>The <code>lustrefilesystem</code> resource itself should be created in the <code>default</code> namespace (i.e.
 <code>metadata.namespace</code>).</p>
 <h2 id="nnf-data-movement-manager">NNF Data Movement Manager</h2>
@@ -1087,13 +1070,13 @@ remove the DM finalizer so the deletion of the <code>lustrefilesystem</code> res
         
         
           
-          <a href="../../node-management/drain/" class="md-footer__link md-footer__link--next" aria-label="Next: Draining A Node">
+          <a href="../../../rfcs/" class="md-footer__link md-footer__link--next" aria-label="Next: RFCs">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Draining A Node
+                RFCs
               </div>
             </div>
             <div class="md-footer__button md-icon">
