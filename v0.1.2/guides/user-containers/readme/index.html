@@ -1,0 +1,2286 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Near Node Flash">
+      
+      
+      
+      
+        <link rel="prev" href="../../storage-profiles/readme/">
+      
+      
+        <link rel="next" href="../../external-mgs/readme/">
+      
+      
+      <link rel="icon" href="../../../img/logo.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.20">
+    
+    
+      
+        <title>User Containers - NNF</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.66ac8b77.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nnf-user-containers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NNF
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Containers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../" class="md-tabs__link">
+        
+  
+    
+  
+  User Guides
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../rfcs/" class="md-tabs__link">
+        
+  
+    
+  
+  RFCs
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
+          
+  
+  Repo Admin Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    NNF
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guides
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initial Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compute-daemons/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute Daemons
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Movement
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/copy-offload-api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Copy Offload API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../firmware-upgrade/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ha-cluster/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High Availability Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rbac-for-users/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RBAC for Users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-profiles/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    User Containers
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    User Containers
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#before-creating-a-container-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before Creating a Container Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Before Creating a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Profiles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-storages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Storages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Spec
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Ports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemconfiguration-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      SystemConfiguration Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SystemConfiguration Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricting-to-user-id-or-group-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restricting To User ID or Group ID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-container-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Container Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#targeting-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Targeting Nodes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-a-container-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running a Container Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerun" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreRun
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PreRun">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Init Containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerun-completed" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreRun Completed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostRun
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-retries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Failure Retries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting it All Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Environment Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gfs2-index-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      GFS2 Index Mounts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostnames-and-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hostnames and Domains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-node-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compute Node Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnf_container_ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      NNF_CONTAINER_PORTS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-private-container-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a Private Container Repository
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using a Private Container Repository">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-the-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      About the Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-the-private-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing the Private Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-and-push-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create and Push a Container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-read-only-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a Read-Only Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#store-the-read-only-token-as-a-kubernetes-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Store the Read-Only Token as a Kubernetes Secret
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-secret-to-the-nnfcontainerprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Secret to the NnfContainerProfile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-private-container-repository-for-mpi-application-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a Private Container Repository for MPI Application Containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-mgs/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lustre External MGT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../global-lustre/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Global Lustre
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/drain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Draining A Node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../rfcs/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    RFCs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            RFCs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rfcs/0001/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rabbit Request For Comment Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rfcs/0002/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rabbit Storage For Containerized Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Repo Admin Guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Repo Admin Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Releasing NNF Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#before-creating-a-container-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Before Creating a Container Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Before Creating a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Profiles
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container Profiles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-storages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Storages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-spec" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Spec
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Ports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systemconfiguration-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      SystemConfiguration Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SystemConfiguration Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restricting-to-user-id-or-group-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restricting To User ID or Group ID
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-container-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating a Container Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#targeting-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Targeting Nodes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-a-container-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running a Container Workflow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running a Container Workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerun" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreRun
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PreRun">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#init-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Init Containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerun-completed" class="md-nav__link">
+    <span class="md-ellipsis">
+      PreRun Completed
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postrun" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostRun
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#failure-retries" class="md-nav__link">
+    <span class="md-ellipsis">
+      Failure Retries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#putting-it-all-together" class="md-nav__link">
+    <span class="md-ellipsis">
+      Putting it All Together
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#container-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Container Environment Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Container Environment Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storages
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Storages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gfs2-index-mounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      GFS2 Index Mounts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostnames-and-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hostnames and Domains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ports
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-node-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compute Node Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnf_container_ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      NNF_CONTAINER_PORTS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creating-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating Images
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-private-container-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a Private Container Repository
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using a Private Container Repository">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#about-the-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      About the Example
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-the-private-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing the Private Repository
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-and-push-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create and Push a Container
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-read-only-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a Read-Only Token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#store-the-read-only-token-as-a-kubernetes-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Store the Read-Only Token as a Kubernetes Secret
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-the-secret-to-the-nnfcontainerprofile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Add the Secret to the NnfContainerProfile
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-a-private-container-repository-for-mpi-application-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using a Private Container Repository for MPI Application Containers
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="nnf-user-containers">NNF User Containers</h1>
+<p>NNF User Containers are a mechanism to allow user-defined containerized applications to be run on
+Rabbit nodes with access to NNF ephemeral and persistent storage.</p>
+<h2 id="overview">Overview</h2>
+<p>Container workflows are orchestrated through the use of two components: Container Profiles and
+Container Directives. A Container Profile defines the container to be executed. Most
+importantly, it allows you to specify which NNF storages are accessible within the container and
+which container image to run. The containers are executed on the NNF nodes that are allocated to
+your container workflow. These containers can be executed in either of two modes: Non-MPI and MPI.</p>
+<p>For Non-MPI applications, the image and command are launched across all the targeted NNF Nodes
+in a uniform manner. This is useful in simple applications, where non-distributed behavior is
+desired.</p>
+<p>For MPI applications, a single launcher container serves as the point of contact, responsible for
+distributing tasks to various worker containers. Each of the NNF nodes targeted by the workflow
+receives its corresponding worker container. The focus of this documentation will be on MPI
+applications.</p>
+<p>To see a full working example before diving into these docs, see <a href="#putting-it-all-together">Putting It All
+Together</a>.</p>
+<h2 id="before-creating-a-container-workflow">Before Creating a Container Workflow</h2>
+<p>Before creating a workflow, a working <code>NnfContainerProfile</code> must exist. This profile is referenced
+in the container directive supplied with the workflow.</p>
+<h3 id="container-profiles">Container Profiles</h3>
+<p>The author of a containerized application will work with the administrator to define a pod
+specification template for the container and to create an appropriate <code>NnfContainerProfile</code> resource
+for the container. The image and tag for the user's container will be specified in the profile.</p>
+<p>The image must be available in a registry that is available to your system. This could be docker.io,
+ghcr.io, etc., or a private registry. Note that for a private registry, some additional setup is
+required. See <a href="#using-a-private-container-repository">here</a> for more info.</p>
+<p>The image itself has a few requirements. See <a href="#creating-images">here</a> for more info on building images.</p>
+<p>New <code>NnfContainerProfile</code> resources may be created by copying one of the provided example profiles
+from the <code>nnf-system</code> namespace . The examples may be found by listing them with <code>kubectl</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get nnfcontainerprofiles -n nnf-system</span>
+</code></pre></div>
+<p>The next few subsections provide an overview of the primary components comprising an
+<code>NnfContainerProfile</code>. However, it's important to note that while these sections cover the key
+aspects, they don't encompass every single detail. For an in-depth understanding of the capabilities
+offered by container profiles, we recommend referring to the following resources:</p>
+<ul>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha1/nnfcontainerprofile_types.go#L35">Type definition</a> for <code>NnfContainerProfile</code></li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfcontainerprofile.yaml">Sample</a> for <code>NnfContainerProfile</code></li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfcontainerprofiles.yaml">Online Examples</a> for <code>NnfContainerProfile</code> (same as <code>kubectl get</code> above)</li>
+</ul>
+<h4 id="container-storages">Container Storages</h4>
+<p>The <code>Storages</code> defined in the profile allow NNF filesystems to be made available inside of the
+container. These storages need to be referenced in the container workflow unless they are marked as
+optional.</p>
+<p>There are three types of storages available to containers:</p>
+<ul>
+<li>local non-persistent storage (created via <code>#DW jobdw</code> directives)</li>
+<li>persistent storage (created via <code>#DW create_persistent</code> directives)</li>
+<li>global lustre storage (defined by <code>LustreFilesystems</code>)</li>
+</ul>
+<p>For local and persistent storage, only GFS2 and Lustre filesystems are supported. Raw and XFS
+filesystems cannot be mounted more than once, so they cannot be mounted inside of a container while
+also being mounted on the NNF node itself.</p>
+<p>For each storage in the profile, the name must follow these patterns (depending on the storage type):</p>
+<ul>
+<li><code>DW_JOB_&lt;storage_name&gt;</code></li>
+<li><code>DW_PERSISTENT_&lt;storage_name&gt;</code></li>
+<li><code>DW_GLOBAL_&lt;storage_name&gt;</code></li>
+</ul>
+<p><code>&lt;storage_name&gt;</code> is provided by the user and needs to be a name compatible with Linux environment
+variables (so underscores must be used, not dashes), since the storage mount directories are
+provided to the container via environment variables.</p>
+<p>This storage name is used in container workflow directives to reference the NNF storage name that
+defines the filesystem. Find more info on that in <a href="#creating-a-container-workflow">Creating a Container
+Workflow</a>.</p>
+<p>Storages may be deemed as <code>optional</code> in a profile. If a storage is not optional, the storage name
+must be set to the name of an NNF filesystem name in the container workflow.</p>
+<p>For global lustre, there is an additional field for <code>pvcMode</code>, which must match the mode that is
+configured in the <code>LustreFilesystem</code> resource that represents the global lustre filesystem. This
+defaults to <code>ReadWriteMany</code>.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">  </span><span class="nt">storages</span><span class="p">:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_JOB_foo_local_storage</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_PERSISTENT_foo_persistent_storage</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_GLOBAL_foo_global_lustre</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">pvcMode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteMany</span>
+</code></pre></div>
+<h4 id="container-spec">Container Spec</h4>
+<p>As mentioned earlier, container workflows can be categorized into two types: MPI and Non-MPI. It's
+essential to choose and define only one of these types within the container profile. Regardless of
+the type chosen, the data structure that implements the specification is equipped with two
+"standard" resources that are distinct from NNF custom resources.</p>
+<p>For Non-MPI containers, the specification utilizes the <code>spec</code> resource. This is the standard
+Kubernetes
+<a href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec"><code>PodSpec</code></a>
+that outlines the desired configuration for the pod.</p>
+<p>For MPI containers, <code>mpiSpec</code> is used. This custom resource, available through <code>MPIJobSpec</code> from
+<code>mpi-operator</code>, serves as a facilitator for executing MPI applications across worker containers.
+This resource can be likened to a wrapper around a <code>PodSpec</code>, but users need to define a <code>PodSpec</code>
+for both Launcher and Worker containers.</p>
+<p>See the <a href="https://github.com/kubeflow/mpi-operator/blob/v0.4.0/pkg/apis/kubeflow/v2beta1/types.go#L137"><code>MPIJobSpec</code>
+definition</a>
+for more details on what can be configured for an MPI application.</p>
+<p>It's important to bear in mind that the NNF Software is designed to override specific values within
+the <code>MPIJobSpec</code> for ensuring the desired behavior in line with NNF software requirements. To
+prevent complications, it's advisable not to delve too deeply into the specification. A few
+illustrative examples of fields that are overridden by the NNF Software include:</p>
+<ul>
+<li>Replicas</li>
+<li>RunPolicy.BackoffLimit</li>
+<li>Worker/Launcher.RestartPolicy</li>
+<li>SSHAuthMountPath</li>
+</ul>
+<p>By keeping these considerations in mind and refraining from extensive alterations to the
+specification, you can ensure a smoother integration with the NNF Software and mitigate any
+potential issues that may arise.</p>
+<p>Please see the Sample and Examples listed above for more detail on container Specs.</p>
+<h4 id="container-ports">Container Ports</h4>
+<p>Container Profiles allow for ports to be reserved for a container workflow. <code>numPorts</code> can be used
+to specify the number of ports needed for a container workflow. The ports are opened on each
+targeted NNF node and are accessible outside of the cluster. Users must know how to contact the
+specific NNF node. It is recommend that DNS entries are made for this purpose.</p>
+<p>In the workflow, the allocated port numbers are made available via the
+<a href="#nnf_container_ports"><code>NNF_CONTAINER_PORTS</code></a> environment variable.</p>
+<p>The workflow requests this number of ports from the <code>NnfPortManager</code>, which is responsible for
+managing the ports allocated to container workflows. This resource can be inspected to see which
+ports are allocated.</p>
+<p>Once a port is assigned to a workflow, that port number becomes unavailable for use by any other
+workflow until it is released.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>SystemConfiguration</code> must be configured to allow for a range of ports, otherwise container
+workflows will fail in the <code>Setup</code> state due to insufficient resources. See <a href="#systemconfiguration-setup">SystemConfiguration
+Setup</a>.</p>
+</div>
+<h3 id="systemconfiguration-setup">SystemConfiguration Setup</h3>
+<p>In order for container workflows to request ports from the <code>NnfPortManager</code>, the
+<code>SystemConfiguration</code> must be configured for a range of ports:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SystemConfiguration</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="c1"># Ports is the list of ports available for communication between nodes in the</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">  </span><span class="c1"># system. Valid values are single integers, or a range of values of the form</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">  </span><span class="c1"># &quot;START-END&quot; where START is an integer value that represents the start of a</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">  </span><span class="c1"># port range and END is an integer value that represents the end of the port</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="c1"># range (inclusive).</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4000-4999</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">  </span><span class="c1"># PortsCooldownInSeconds is the number of seconds to wait before a port can be</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">  </span><span class="c1"># reused. Defaults to 60 seconds (to match the typical value for the kernel&#39;s</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">  </span><span class="c1"># TIME_WAIT). A value of 0 means the ports can be reused immediately.</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">  </span><span class="c1"># Defaults to 60s if not set.</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span><span class="nt">portsCooldownInSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">60</span>
+</code></pre></div>
+<p><code>ports</code> is empty by default, and <strong>must</strong> be set by an administrator.</p>
+<p>Multiple port ranges can be specified in this list, as well as single integers. This must be a safe
+port range that does not interfere with the ephemeral port range of the Linux kernel. The range
+should also account for the estimated number of simultaneous users that are running container
+workflows.</p>
+<p>Once a container workflow is done, the port is released and the <code>NnfPortManager</code> will not allow
+reuse of the port until the amount of time specified by <code>portsCooldownInSeconds</code> has elapsed. Then
+the port can be reused by another container workflow.</p>
+<h4 id="restricting-to-user-id-or-group-id">Restricting To User ID or Group ID</h4>
+<p>New NnfContainerProfile resources may be restricted to a specific user ID or group ID . When a
+<code>data.userID</code> or <code>data.groupID</code> is specified in the profile, only those Workflow resources having a
+matching user ID or group ID will be allowed to use that profile . If the profile specifies both of
+these IDs, then the Workflow resource must match both of them.</p>
+<h2 id="creating-a-container-workflow">Creating a Container Workflow</h2>
+<p>The user's workflow will specify the name of the <code>NnfContainerProfile</code> in a DW directive. If the
+custom profile is named <code>red-rock-slushy</code> then it will be specified in the <code>#DW container</code> directive
+with the <code>profile</code> parameter.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">#DW container profile=red-rock-slushy  [...]</span>
+</code></pre></div>
+<p>Furthermore, to set the container storages for the workflow, storage parameters must also be
+supplied in the workflow. This is done using the <code>&lt;storage_name&gt;</code> (see <a href="#container-storages">Container
+Storages</a>) and setting it to the name of a storage directive that defines an
+NNF filesystem. That storage directive must already exist as part of another workflow (e.g.
+persistent storage) or it can be supplied in the same workflow as the container. For global lustre,
+the <code>LustreFilesystem</code> must exist that represents the global lustre filesystem.</p>
+<p>In this example, we're creating a GFS2 filesystem to accompany the container directive. We're using
+the <code>red-rock-slushy</code> profile which contains a non-optional storage called <code>DW_JOB_local_storage</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfContainerProfile</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red-rock-slushy</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">storages</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_JOB_local_storage</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span><span class="nt">mpiSpec</span><span class="p">:</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">      </span><span class="l l-Scalar l-Scalar-Plain">...</span>
+</code></pre></div>
+<p>The resulting container directive looks like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">#DW jobdw name=my-gfs2 type=gfs2 capacity=100GB&quot;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">#DW container name=my-container profile=red-rock-slushy DW_JOB_local_storage=my-gfs2</span>
+</code></pre></div>
+<p>Once the workflow progresses, this will create a 100GB GFS2 filesystem that is then mounted into the
+container upon creation. An environment variable called <code>DW_JOB_local_storage</code> is made available
+inside of the container and provides the path to the mounted NNF GFS2 filesystem. An application
+running inside of the container can then use this variable to get to the filesystem mount directory.
+See <a href="#container-environment-variables">here</a>.</p>
+<p>Multiple storages can be defined in the container directives. Only one container directive is
+allowed per workflow.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GFS2 filesystems have special considerations since the mount directory contains directories for
+every compute node. See <a href="#gfs2-index-mounts">GFS2 Index Mounts</a> for more info.</p>
+</div>
+<h3 id="targeting-nodes">Targeting Nodes</h3>
+<p>For container directives, compute nodes must be assigned to the workflow. The NNF software will
+trace the compute nodes back to their local NNF nodes and the containers will be executed on those
+NNF nodes. The act of assigning compute nodes to your container workflow instructs the NNF software
+to select the NNF nodes that run the containers.</p>
+<p>For the <code>jobdw</code> directive that is included above, the servers (i.e. NNF nodes) must also be assigned
+along with the computes.</p>
+<h2 id="running-a-container-workflow">Running a Container Workflow</h2>
+<p>Once the workflow is created, the WLM progresses it through the following states. This is a quick
+overview of the container-related behavior that occurs:</p>
+<ul>
+<li>Proposal: Verify <a href="#container-storages">storages</a> are provided according to the container profile.</li>
+<li>Setup: If applicable, <a href="#container-ports">request ports</a> from NnfPortManager.</li>
+<li>DataIn: No container related activity.</li>
+<li>PreRun: Appropriate <code>MPIJob</code> or <code>Job(s)</code> are created for the workflow. In turn, user containers
+are created and launched by Kubernetes. Containers are expected to start in this state.</li>
+<li>PostRun: Once in PostRun, user containers are expected to complete (non-zero exit)
+successfully.</li>
+<li>DataOut: No container related activity.</li>
+<li>Teardown: Ports are released; <code>MPIJob</code> or <code>Job(s)</code> are deleted, which in turn deletes the user
+containers.</li>
+</ul>
+<p>The two main states of a container workflow (i.e. PreRun, PostRun) are discussed further in the
+following sections.</p>
+<h3 id="prerun">PreRun</h3>
+<p>In PreRun, the containers are created and expected to start. Once the containers reach a
+non-initialization state (i.e. Running), the containers are considered to be started and the
+workflow can advance.</p>
+<p>By default, containers are expected to start within 60 seconds. If not, the workflow reports an
+Error that the containers cannot be started. This value is configurable via the
+<code>preRunTimeoutSeconds</code> field in the container profile.</p>
+<p>To summarize the PreRun behavior:</p>
+<ul>
+<li>If the container starts successfully (running), transition to <code>Completed</code> status.</li>
+<li>If the container fails to start, transition to the <code>Error</code> status.</li>
+<li>If the container is initializing and has not started after <code>preRunTimeoutSeconds</code> seconds,
+terminate the container and transition to the <code>Error</code> status.</li>
+</ul>
+<h4 id="init-containers">Init Containers</h4>
+<p>The NNF Software injects <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">Init
+Containers</a> into the container
+specification to perform initialization tasks. These containers must run to completion before the
+main container can start.</p>
+<p>These initialization tasks include:</p>
+<ul>
+<li>Ensuring the proper permissions (i.e. UID/GID) are available in the main container</li>
+<li>For MPI jobs, ensuring the launcher pod can contact each worker pod via DNS</li>
+</ul>
+<h3 id="prerun-completed">PreRun Completed</h3>
+<p>Once PreRun has transitioned to <code>Completed</code> status, the user container is now running and the WLM
+should initiate applications on the compute nodes. Utilizing <a href="#container-ports">container ports</a>,
+the applications on the compute nodes can establish communication with the user containers, which
+are running on the local NNF node attached to the computes.</p>
+<p>This communication allows for the compute node applications to drive certain behavior inside of the
+user container. For example, once the compute node application is complete, it can signal to the
+user container that it is time to perform cleanup or data migration action.</p>
+<h3 id="postrun">PostRun</h3>
+<p>In PostRun, the containers are expected to exit cleanly with a zero exit code. If a container fails to
+exit cleanly, the Kubernetes software attempts a number of retries based on the
+configuration of the container profile. It continues to do this until the container exits
+successfully, or until the <code>retryLimit</code> is hit - whichever occurs first. In the latter case, the
+workflow reports an Error.</p>
+<p>Read up on the <a href="#failure-retries">Failure Retries</a> for more information on retries.</p>
+<p>Furthermore, the container profile features a <code>postRunTimeoutSeconds</code> field. If this timeout is
+reached before the container successfully exits, it triggers an <code>Error</code> status. The timer for this
+timeout begins upon entry into the PostRun phase, allowing the containers the specified period to
+execute before the workflow enters an <code>Error</code> status.</p>
+<p>To recap the PostRun behavior:</p>
+<ul>
+<li>If the container exits successfully, transition to <code>Completed</code> status.</li>
+<li>If the container exits unsuccessfully after <code>retryLimit</code> number of retries, transition to the
+<code>Error</code> status.</li>
+<li>If the container is running and has not exited after <code>postRunTimeoutSeconds</code> seconds, terminate
+the container and transition to the <code>Error</code> status.</li>
+</ul>
+<h3 id="failure-retries">Failure Retries</h3>
+<p>If a container fails (non-zero exit code), the Kubernetes software implements retries. The number of
+retries can be set via the <code>retryLimit</code> field in the container profile. If a non-zero exit code is
+detected, the Kubernetes software creates a new instance of the pod and retries. The
+default number of retries for <code>retryLimit</code> is set to 6, which is the default value for Kubernetes
+Jobs. This means that if the pods fails every single time, there will be 7 failed pods in total
+since it attempted 6 retries after the first failure.</p>
+<p>To understand this behavior more, see <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/#pod-backoff-failure-policy">Pod backoff failure
+policy</a>
+in the Kubernetes documentation. This explains the retry (i.e. backoff) behavior in more detail.</p>
+<p>It is important to note that due to the configuration of the <code>MPIJob</code> and/or <code>Job</code> that is created
+for User Containers, the container retries are immediate - there is no backoff timeout between
+retires. This is due to the NNF Software setting the <code>RestartPolicy</code> to <code>Never</code>, which causes a new
+pod to spin up after every failure rather than re-use (i.e. restart) the previously failed pod. This
+allows a user to see a complete history of the failed pod(s) and the logs can easily be obtained.
+See more on this at <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures">Handling Pod and container
+failures</a>
+in the Kubernetes documentation.</p>
+<h2 id="putting-it-all-together">Putting it All Together</h2>
+<p>See the <a href="https://github.com/NearNodeFlash/nnf-container-example">NNF Container Example</a> for a
+working example of how to run a simple MPI application inside of an NNF User Container and run it
+through a Container Workflow.</p>
+<h2 id="reference">Reference</h2>
+<h3 id="environment-variables">Environment Variables</h3>
+<p>Two sets of environment variables are available with container workflows: Container and Compute
+Node. The former are the variables that are available inside the user containers. The latter are the
+variables that are provided back to the DWS workflow, which in turn are collected by the WLM and
+provided to compute nodes. See the WLM documentation for more details.</p>
+<h4 id="container-environment-variables">Container Environment Variables</h4>
+<p>These variables are provided for use inside the container. They can be used as part of the
+container command in the NNF Container Profile or within the container itself.</p>
+<h5 id="storages">Storages</h5>
+<p>Each storage defined by a container profile and used in a container workflow results in a
+corresponding environment variable. This variable is used to hold the mount directory of the
+filesystem.</p>
+<h6 id="gfs2-index-mounts">GFS2 Index Mounts</h6>
+<p>When using a GFS2 file system, each compute is allocated its own NNF volume. The NNF software mounts
+a collection of directories that are indexed (e.g. <code>0/</code>, <code>1/</code>, etc) to the compute nodes.</p>
+<p>Application authors must be aware that their desired GFS2 mount-point really a collection of
+directories, one for each compute node. It is the responsibility of the author to understand the
+underlying filesystem mounted at the storage environment variable (e.g. <code>$DW_JOB_my_gfs2_storage</code>).</p>
+<p>Each compute node's application can leave breadcrumbs (e.g. hostnames) somewhere on the GFS2
+filesystem mounted on the compute node. This can be used to identify the index mount directory to a
+compute node from the application running inside of the user container.</p>
+<p>Here is an example of 3 compute nodes on an NNF node targeted in a GFS2 workflow:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>ls<span class="w"> </span><span class="nv">$DW_JOB_my_gfs2_storage</span>/*
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>/mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0/0
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>/mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0/1
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>/mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0/2
+</code></pre></div>
+<p>Node positions are <em>not</em> absolute locations. The WLM could, in theory, select 6 physical compute
+nodes at physical location 1, 2, 3, 5, 8, 13, which would appear as directories <code>/0</code> through <code>/5</code> in
+the container mount path.</p>
+<p>Additionally, not all container instances could see the same number of compute nodes in an
+indexed-mount scenario. If 17 compute nodes are required for the job, WLM may assign 16 nodes to run
+one NNF node, and 1 node to another NNF. The first NNF node would have 16 index directories, whereas
+the 2nd would only contain 1.</p>
+<h5 id="hostnames-and-domains">Hostnames and Domains</h5>
+<p>Containers can contact one another via Kubernetes cluster networking. This functionality is provided
+by DNS. Environment variables are provided that allow a user to be able to piece together the FQDN
+so that the other containers can be contacted.</p>
+<p>This example demonstrates an MPI container workflow, with two worker pods. Two worker pods means two
+pods/containers running on two NNF nodes.</p>
+<h5 id="ports">Ports</h5>
+<p>See the <code>NNF_CONTAINER_PORTS</code><a href="#nnf_container_ports"></a> section under <a href="#compute-node-environment-variables">Compute Node Environment
+Variables</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp">mpiuser@my-container-workflow-launcher:~$ </span>env<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>NNF
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="go">NNF_CONTAINER_HOSTNAMES=my-container-workflow-launcher my-container-workflow-worker-0 my-container-workflow-worker-1</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">NNF_CONTAINER_DOMAIN=default.svc.cluster.local</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="go">NNF_CONTAINER_SUBDOMAIN=my-container-workflow-worker</span>
+</code></pre></div>
+<p>The container FQDN consists of the following: <code>&lt;HOSTNAME&gt;.&lt;SUBDOMAIN&gt;.&lt;DOMAIN&gt;</code>. To contact the
+other worker container from worker 0,
+<code>my-container-workflow-worker-1.my-container-workflow-worker.default.svc.cluster.local</code> would be
+used.</p>
+<p>For MPI-based containers, an alternate way to retrieve this information is to look at the default
+<code>hostfile</code>, provided by <code>mpi-operator</code>. This file lists out all the worker nodes' FQDNs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp">mpiuser@my-container-workflow-launcher:~$ </span>cat<span class="w"> </span>/etc/mpi/hostfile
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="go">my-container-workflow-worker-0.my-container-workflow-worker.default.svc slots=1</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="go">my-container-workflow-worker-1.my-container-workflow-worker.default.svc slots=1</span>
+</code></pre></div>
+<h4 id="compute-node-environment-variables">Compute Node Environment Variables</h4>
+<p>These environment variables are provided to the compute node via the WLM by way of the DWS Workflow.
+Note that these environment variables are consistent across all the compute nodes for a given
+workflow.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It's important to note that the variables presented here pertain exclusively to User
+Container-related variables. This list does not encompass the entirety of NNF environment
+variables accessible to the compute node through the Workload Manager (WLM)</p>
+</div>
+<h4 id="nnf_container_ports"><code>NNF_CONTAINER_PORTS</code></h4>
+<p>If the NNF Container Profile requests container ports, then this environment variable provides the
+allocated ports for the container. This is a comma separated list of ports if multiple ports are
+requested.</p>
+<p>This allows an application on the compute node to contact the user container running on its local
+NNF node via these port numbers. The compute node must have proper routing to the NNF Node and needs
+a generic way of contacting the NNF node. It is suggested than a DNS entry is provided via
+<code>/etc/hosts</code>, or similar.</p>
+<p>For cases where one port is requested, the following can be used to contact the user container
+running on the NNF node (assuming a DNS entry for <code>local-rabbit</code> is provided via <code>/etc/hosts</code>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">local-rabbit:$(NNF_CONTAINER_PORTS)</span>
+</code></pre></div>
+<h3 id="creating-images">Creating Images</h3>
+<p>For details, refer to the <a href="https://github.com/NearNodeFlash/nnf-container-example#making-a-container-image">NNF Container Example
+Readme</a>. However,
+in broad terms, an image that is capable of supporting MPI necessitates the following components:</p>
+<ul>
+<li>User Application: Your specific application</li>
+<li>Open MPI: Incorporate Open MPI to facilitate MPI operations</li>
+<li>SSH Server: Including an SSH server to enable communication</li>
+<li>nslookup: To validate Launcher/Worker container communication over the network</li>
+</ul>
+<p>By ensuring the presence of these components, users can create an image that supports MPI operations
+on the NNF platform.</p>
+<p>The <a href="https://github.com/NearNodeFlash/nnf-mfu">nnf-mfu image</a> serves as a suitable base image,
+encompassing all the essential components required for this purpose.</p>
+<h3 id="using-a-private-container-repository">Using a Private Container Repository</h3>
+<p>The user's containerized application may be placed in a private repository . In
+this case, the user must define an access token to be used with that repository,
+and that token must be made available to the Rabbit's Kubernetes environment
+so that it can pull that container from the private repository.</p>
+<p>See <a href="https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/">Pull an Image from a Private
+Registry</a> in
+the Kubernetes documentation for more information.</p>
+<h4 id="about-the-example">About the Example</h4>
+<p>Each container registry will have its own way of letting its users create tokens to
+be used with their repositories . Docker Hub will be used for the private repository in this
+example, and the user's account on Docker Hub will be "dean".</p>
+<h4 id="preparing-the-private-repository">Preparing the Private Repository</h4>
+<p>The user's application container is named "red-rock-slushy" . To store this container on Docker Hub
+the user must log into docker.com with their browser and click the "Create repository" button to
+create a repository named "red-rock-slushy", and the user must check the box that marks the
+repository as private . The repository's name will be displayed as "dean/red-rock-slushy" with a
+lock icon to show that it is private.</p>
+<h4 id="create-and-push-a-container">Create and Push a Container</h4>
+<p>The user will create their container image in the usual ways, naming it for their private repository
+and tagging it according to its release.</p>
+<p>Prior to pushing images to the repository, the user must complete a one-time login to the Docker
+registry using the docker command-line tool.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">docker login -u dean</span>
+</code></pre></div>
+<p>After completing the login, the user may then push their images to the repository.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="go">docker push dean/red-rock-slushy:v1.0</span>
+</code></pre></div>
+<h4 id="generate-a-read-only-token">Generate a Read-Only Token</h4>
+<p>A read-only token must be generated to allow Kubernetes to pull that container
+image from the private repository, because Kubernetes will not be running as that user . <strong>This
+token must be given to the administrator, who will use it to create a Kubernetes secret.</strong></p>
+<p>To log in and generate a read-only token to share with the administrator, the user must follow these
+steps:</p>
+<ul>
+<li>Visit docker.com and log in using their browser.</li>
+<li>Click on the username in the upper right corner.</li>
+<li>Select "Account Settings" and navigate to "Security".</li>
+<li>Click the "New Access Token" button to create a read-only token.</li>
+<li>Keep a copy of the generated token to share with the administrator.</li>
+</ul>
+<h4 id="store-the-read-only-token-as-a-kubernetes-secret">Store the Read-Only Token as a Kubernetes Secret</h4>
+<p>The administrator must store the user's read-only token as a kubernetes secret . The secret must be
+placed in the <code>default</code> namespace, which is the same namespace where the user containers will be
+run . The secret must include the user's Docker Hub username and the email address they have
+associated with that username . In this case, the secret will be named <code>readonly-red-rock-slushy</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="go">USER_TOKEN=users-token-text</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="go">USER_NAME=dean</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="go">USER_EMAIL=dean@myco.com</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="go">SECRET_NAME=readonly-red-rock-slushy</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="go">kubectl create secret docker-registry $SECRET_NAME -n default --docker-server=&quot;https://index.docker.io/v1/&quot; --docker-username=$USER_NAME --docker-password=$USER_TOKEN --docker-email=$USER_EMAIL</span>
+</code></pre></div>
+<h4 id="add-the-secret-to-the-nnfcontainerprofile">Add the Secret to the NnfContainerProfile</h4>
+<p>The administrator must add an <code>imagePullSecrets</code> list to the NnfContainerProfile resource that was
+created for this user's containerized application.</p>
+<p>The following profile shows the placement of the <code>readonly-red-rock-slushy</code> secret which was created
+in the previous step, and points to the user's <code>dean/red-rock-slushy:v1.0</code> container.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfContainerProfile</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red-rock-slushy</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">  </span><span class="nt">pinned</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">  </span><span class="nt">retryLimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">  </span><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">readonly-red-rock-slushy</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">    </span><span class="nt">containers</span><span class="p">:</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/users-application</span>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dean/red-rock-slushy:v1.0</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red-rock-app</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">  </span><span class="nt">storages</span><span class="p">:</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_JOB_foo_local_storage</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_PERSISTENT_foo_persistent_storage</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Now any user can select this profile in their Workflow by specifying it in a <code>#DW container</code>
+directive.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">#DW container profile=red-rock-slushy  [...]</span>
+</code></pre></div>
+<h4 id="using-a-private-container-repository-for-mpi-application-containers">Using a Private Container Repository for MPI Application Containers</h4>
+<p>If our user's containerized application instead contains an MPI application, because perhaps it's a
+private copy of <a href="https://github.com/NearNodeFlash/nnf-mfu">nnf-mfu</a>, then the administrator would
+insert two <code>imagePullSecrets</code> lists into the <code>mpiSpec</code> of the NnfContainerProfile for the MPI
+launcher and the MPI worker.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfContainerProfile</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpi-red-rock-slushy</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="nt">mpiSpec</span><span class="p">:</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="nt">mpiImplementation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenMPI</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="nt">mpiReplicaSpecs</span><span class="p">:</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">      </span><span class="nt">Launcher</span><span class="p">:</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">        </span><span class="nt">template</span><span class="p">:</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">          </span><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">            </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">readonly-red-rock-slushy</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">            </span><span class="nt">containers</span><span class="p">:</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">command</span><span class="p">:</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpirun</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dcmp</span>
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(DW_JOB_foo_local_storage)/0</span>
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">              </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(DW_JOB_foo_local_storage)/1</span>
+<a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="w">              </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dean/red-rock-slushy:v2.0</span>
+<a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red-rock-launcher</span>
+<a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a><span class="w">      </span><span class="nt">Worker</span><span class="p">:</span>
+<a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="w">        </span><span class="nt">template</span><span class="p">:</span>
+<a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a><span class="w">          </span><span class="nt">spec</span><span class="p">:</span>
+<a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="w">            </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
+<a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">readonly-red-rock-slushy</span>
+<a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="w">            </span><span class="nt">containers</span><span class="p">:</span>
+<a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a><span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dean/red-rock-slushy:v2.0</span>
+<a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="w">              </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red-rock-worker</span>
+<a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="w">    </span><span class="nt">runPolicy</span><span class="p">:</span>
+<a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="w">      </span><span class="nt">cleanPodPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Running</span>
+<a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="w">      </span><span class="nt">suspend</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-34" name="__codelineno-15-34" href="#__codelineno-15-34"></a><span class="w">    </span><span class="nt">slotsPerWorker</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<a id="__codelineno-15-35" name="__codelineno-15-35" href="#__codelineno-15-35"></a><span class="w">    </span><span class="nt">sshAuthMountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/root/.ssh</span>
+<a id="__codelineno-15-36" name="__codelineno-15-36" href="#__codelineno-15-36"></a><span class="w">  </span><span class="nt">pinned</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-37" name="__codelineno-15-37" href="#__codelineno-15-37"></a><span class="w">  </span><span class="nt">retryLimit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
+<a id="__codelineno-15-38" name="__codelineno-15-38" href="#__codelineno-15-38"></a><span class="w">  </span><span class="nt">storages</span><span class="p">:</span>
+<a id="__codelineno-15-39" name="__codelineno-15-39" href="#__codelineno-15-39"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_JOB_foo_local_storage</span>
+<a id="__codelineno-15-40" name="__codelineno-15-40" href="#__codelineno-15-40"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-41" name="__codelineno-15-41" href="#__codelineno-15-41"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DW_PERSISTENT_foo_persistent_storage</span>
+<a id="__codelineno-15-42" name="__codelineno-15-42" href="#__codelineno-15-42"></a><span class="w">    </span><span class="nt">optional</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Now any user can select this profile in their Workflow by specifying it in a <code>#DW container</code>
+directive.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1">#DW container profile=mpi-red-rock-slushy  [...]</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../storage-profiles/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Storage Profiles">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Storage Profiles
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../external-mgs/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Lustre External MGT">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Lustre External MGT
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; Copyright 2023 Hewlett Packard Enterprise Development LP
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.dd8806f2.min.js"></script>
+      
+    
+  </body>
+</html>
