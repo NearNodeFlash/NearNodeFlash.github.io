@@ -35,7 +35,7 @@ need to be released separately.
 ## Primer
 
 This document is based on the process set forth by the [DataWorkflowServices Release
-Process](https://dataworkflowservices.github.io/v0.0.2/repo-guides/create-a-release/readme/).
+Process](https://dataworkflowservices.github.io/latest/repo-guides/create-a-release/readme/).
 Please read that as a background for this document before going any further.
 
 ## Requirements
@@ -93,7 +93,7 @@ just an example.
 
     |Repo                 |Update|
     |---------------------|------|
-    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag.<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version.<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>.`|
+    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag.<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version.<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>.`<br><br>`nnf-deploy`<br>1. In `config/repositories.yaml` replace `NNFMFU_VERSION` with the new version.|
     |`lustre-fs-operator` |update `config/manager/kustomization.yaml` with the correct version.|
     |`dws`                |update `config/manager/kustomization.yaml` with the correct version.|
     |`nnf-sos`            |update `config/manager/kustomization.yaml` with the correct version.|
@@ -183,6 +183,7 @@ that everything is current on `master` for `nnf-deploy`.
 
 12. Follow steps 6-7 from the previous section to finalize the release of `nnf-deploy`.
 
+**Please review documenation for changes you may have made**
 **The software is now released!**
 
 ## Clone a release
