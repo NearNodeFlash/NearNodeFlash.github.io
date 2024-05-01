@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.18">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.20">
     
     
       
@@ -1021,7 +1021,7 @@ other components.</p>
 <p><a href="https://github.com/NearNodeFlash/nnf-ec">nnf-ec</a> is vendored in as part of <code>nnf-sos</code> and does not
 need to be released separately.</p>
 <h2 id="primer">Primer</h2>
-<p>This document is based on the process set forth by the <a href="https://dataworkflowservices.github.io/v0.0.2/repo-guides/create-a-release/readme/">DataWorkflowServices Release
+<p>This document is based on the process set forth by the <a href="https://dataworkflowservices.github.io/latest/repo-guides/create-a-release/readme/">DataWorkflowServices Release
 Process</a>.
 Please read that as a background for this document before going any further.</p>
 <h2 id="requirements">Requirements</h2>
@@ -1078,7 +1078,7 @@ track the version number as well, which allow them to be installed with <code>ku
 <tbody>
 <tr>
 <td><code>nnf-mfu</code></td>
-<td>The new version of <code>nnf-mfu</code> is referenced by the <code>NNFMFU</code> variable in several places:<br><br><code>nnf-sos</code><br>1. <code>Makefile</code> replace <code>NNFMFU</code> with <code>nnf-mfu's</code> tag.<br><br><code>nnf-dm</code><br>1. In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMU_VERSION</code> with the new version.<br>2. In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;.</code></td>
+<td>The new version of <code>nnf-mfu</code> is referenced by the <code>NNFMFU</code> variable in several places:<br><br><code>nnf-sos</code><br>1. <code>Makefile</code> replace <code>NNFMFU</code> with <code>nnf-mfu's</code> tag.<br><br><code>nnf-dm</code><br>1. In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMU_VERSION</code> with the new version.<br>2. In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;.</code><br><br><code>nnf-deploy</code><br>1. In <code>config/repositories.yaml</code> replace <code>NNFMFU_VERSION</code> with the new version.</td>
 </tr>
 <tr>
 <td><code>lustre-fs-operator</code></td>
@@ -1290,7 +1290,7 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.3220b9d7.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.dd8806f2.min.js"></script>
       
     
   </body>
