@@ -1,8 +1,6 @@
 name: Publish `main` Documentation
-on:
-  push:
-    branches:
-      - main
+
+on: [push]
 
 jobs:
   build:
@@ -34,3 +32,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mike deploy --push dev
+

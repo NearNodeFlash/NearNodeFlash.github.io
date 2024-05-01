@@ -45,6 +45,52 @@ To clear the default flag on a profile
 $ kubectl patch nnfstorageprofile durable -n nnf-system --type merge -p '{"data":{"default":false}}'
 ```
 
+# Creating The Initial Default Profile
+
+Create the initial default profile from scratch or by using the [NnfStorageProfile/template](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfstorageprofile.yaml) resource as a template. If `nnf-deploy` was used to install nnf-sos then the default profile described below will have been created automatically.
+
+To use the `template` resource begin by obtaining a copy of it either from the nnf-sos repo or from a live system. To get it from a live system use the following command:
+
+```shell
+kubectl get nnfstorageprofile -n nnf-system template -o yaml > profile.yaml
+```
+
+Edit the `profile.yaml` file to trim the metadata section to contain only a name and namespace. The namespace must be left as nnf-system, but the name should be set to signify that this is the new default profile. In this example we will name it `default`.  The metadata section will look like the following, and will contain no other fields:
+
+```yaml
+metadata:
+  name: default
+  namespace: nnf-system
+```
+
+Mark this new profile as the default profile by setting `default: true` in the data section of the resource:
+
+```yaml
+data:
+  default: true
+```
+
+Apply this resource to the system and verify that it is the only one marked as the default resource:
+
+```shell
+kubectl get nnfstorageprofile -A
+```
+
+The output will appear similar to the following:
+
+```shell
+NAMESPACE    NAME       DEFAULT   AGE
+nnf-system   default    true      9s
+nnf-system   template   false     11s
+```
+
+The administrator should edit the `default` profile to record any cluster-specific settings.
+Maintain a copy of this resource YAML in a safe place so it isn't lost across upgrades.
+
+## Keeping The Default Profile Updated
+
+An upgrade of nnf-sos may include updates to the `template` profile. It may be necessary to manually copy these updates into the `default` profile.
+
 # Profile Parameters
 
 ## XFS

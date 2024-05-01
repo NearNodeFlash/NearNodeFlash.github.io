@@ -125,15 +125,15 @@ Generate a key and certificate for our "flux" user, similar to the way we create
 
 After the keys have been generated, a new kubeconfig file can be created for the "flux" user, similar to the one for the "hpe" user above.  Again, substitute "flux" in place of "hpe".
 
-### Apply the provided ClusterRole and create a ClusterRoleBinding
+### Use the provided ClusterRole and create a ClusterRoleBinding
 
-DataWorkflowServices has already defined the role to be used with WLMs.  Simply apply the `workload-manager` ClusterRole from DataWorkflowServices to the system:
+DataWorkflowServices has already defined the role to be used with WLMs, named `dws-workload-manager`:
 
 ```console
-kubectl apply -f https://github.com/DataWorkflowServices/dws/raw/master/config/rbac/workload_manager_role.yaml
+kubectl get clusterrole dws-workload-manager
 ```
 
-Create and apply a ClusterRoleBinding to associate the "flux" user with the `workload-manager` ClusterRole:
+Create and apply a ClusterRoleBinding to associate the "flux" user with the `dws-workload-manager` ClusterRole:
 
 ClusterRoleBinding
 ```yaml
