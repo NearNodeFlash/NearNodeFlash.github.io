@@ -147,7 +147,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: workload-manager
+  name: dws-workload-manager
   apiGroup: rbac.authorization.k8s.io
 ```
 
