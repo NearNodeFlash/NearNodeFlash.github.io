@@ -183,7 +183,16 @@ that everything is current on `master` for `nnf-deploy`.
 
 12. Follow steps 6-7 from the previous section to finalize the release of `nnf-deploy`.
 
-**Please review documenation for changes you may have made**
+## Release `NearNodeFlash.github.io`
+
+**Please review and update the documentation for changes you may have made.**
+
+After nnf-deploy has a release tag, you may release the documentation. Use the same steps found above in "Release Each Component". Note that the default branch for this repo is "main" instead of "master".
+
+Give this release a tag that matches the nnf-deploy release, to show that they go together. Create the release by using the "Create release" or "Draft a new release" button in the GUI, or by using the `gh release create` CLI command. Whether using the GUI or the CLI, mark the release as "latest" and select the appropriate option to generate release notes.
+
+Wait for the `mike` tool in `.github/workflow/release.yaml` to finish building the new doc. You can check its status by going to the `gh-pages` branch in the repo. When you visit the release at [https://nearnodeflash.github.io](https://nearnodeflash.github.io), you should see the new release in the drop-down menu and the new release should be the default display.
+
 **The software is now released!**
 
 ## Clone a release
