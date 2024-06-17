@@ -22,4 +22,4 @@
 
 ## Node Management
 
-* [Draining A Node] (node-management/drain.md)
+* [Draining A Node](node-management/drain.md)
