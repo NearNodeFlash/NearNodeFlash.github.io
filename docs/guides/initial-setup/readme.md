@@ -47,15 +47,6 @@ Installation of Kubernetes (k8s) nodes proceeds by installing k8s components ont
 - Worker: 1 or more worker nodes which run the system level controller manager (SLCM) and Data Workflow Services (DWS) pods. In production, at least 3 nodes should be dedicated to this role.
 - Rabbit: 1 or more Rabbit nodes which run the node level controller manager (NLCM) code. The NLCM daemonset pods are exclusively scheduled on Rabbit nodes. All Rabbit nodes are joined to the cluster as k8s workers, and they are tainted to restrict the type of work that may be scheduled on them. The NLCM pod has a toleration that allows it to run on the tainted (i.e. Rabbit) nodes.
 
-### Certificate manager
-
-Webhooks require the Jetstack `cert-manager`. Installation is shown below.
-
-```bash
-export certver="v1.13.1"
-# Required for webhooks
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$certver"/cert-manager.yaml
-```
 
 ### Kubernetes Node Labels
 
@@ -70,7 +61,7 @@ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/"$ce
 | :------------------------------| :---------------------------- |
 | Rabbit Node                    | cray.nnf.node=true:NoSchedule |
 
-See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). The [`nnf-deploy init`](https://github.com/NearNodeFlash/nnf-deploy) command provides examples of labeling and tainting k8s nodes for use with Rabbit.
+See [Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/). The SystemConfiguration controller will handle node taints and labels for the rabbit nodes based on the contents of the SystemConfiguration resource described below.
 
 ## Rabbit System Configuration
 
