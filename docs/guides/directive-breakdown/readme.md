@@ -7,11 +7,11 @@ categories: provisioning
 
 ## Background
 
-The `#DW` directives in a job script are not intended to be interpreted by the workload manager. The workload manager passes the `#DW` directives to the NNF software through the DWS `workflow` resource, and the NNF software determines what resources are needed to satisfy the directives. The NNF software communicates this information back to the workload manager through the DWS `DirectiveBreakdown` resource. This document describes how to interpret the information in the `DirectiveBreakdown`.
+The `#DW` directives in a job script are not intended to be interpreted by the workload manager. The workload manager passes the `#DW` directives to the NNF software through the DWS `workflow` resource, and the NNF software determines what resources are needed to satisfy the directives. The NNF software communicates this information back to the workload manager through the DWS `DirectiveBreakdown` resource. This document describes how the WLM should interpret the information in the `DirectiveBreakdown`.
 
 ## DirectiveBreakdown Overview
 
-The DWS `DirectiveBreakdown` contains all the information to inform the WLM how to pick storage and compute nodes for a job. The `DirectiveBreakdown` resource is created by the NNF software during the `proposal` phase of the DWS workflow. The `spec` section of the `DirectiveBreakdown` is filled in with the `#DW` directive by the NNF software, and the `status` section contains the information for the WLM. The WLM should wait until the `status.ready` field is true before interpreting the rest of the `status` fields.
+The DWS `DirectiveBreakdown` contains all the information necessary to inform the WLM how to pick storage and compute nodes for a job. The `DirectiveBreakdown` resource is created by the NNF software during the `Proposal` phase of the DWS workflow. The `spec` section of the `DirectiveBreakdown` is filled in with the `#DW` directive by the NNF software, and the `status` section contains the information for the WLM. The WLM should wait until the `status.ready` field is true before interpreting the rest of the `status` fields.
 
 The contents of the `DirectiveBreakdown` will look different depending on the file system type and options specified by the user. The `status` section contains enough information that the WLM may be able to figure out the underlying file system type requested by the user, but the WLM should not make any decisions based on the file system type. Instead, the WLM should make storage and compute allocation decisions based on the generic information provided in the `DirectiveBreakdown` since the storage and compute allocations needed to satisfy a `#DW` directive may differ based on options other than the file system type.
 
@@ -86,7 +86,7 @@ metadata:
   ...
 ```
 
-* `colocation` specifies how two or more allocations influence the location of each other. The colocation constraint has two fields, `type` and `key`. Currently, the only value for `type` is `exlusive`. `key` can be any value. This constraint means that the allocations from an allocation set with the colocation constraint can't be placed on an NNF node with another allocation whose allocation set has a colocation constraint with the same key. Allocations from allocation sets with colocation constraints with different keys or allocation sets without the colocation constraint are okay to put on the same NNF node.
+* `colocation` specifies how two or more allocations influence the location of each other. The colocation constraint has two fields, `type` and `key`. Currently, the only value for `type` is `exclusive`. `key` can be any value. This constraint means that the allocations from an allocation set with the colocation constraint can't be placed on an NNF node with another allocation whose allocation set has a colocation constraint with the same key. Allocations from allocation sets with colocation constraints with different keys or allocation sets without the colocation constraint are okay to put on the same NNF node.
 ```yaml
 constraints:
   colocation:
@@ -94,7 +94,7 @@ constraints:
     key: lustre-mgt
 ```
 
-* `count` this field specified the number of allocations to make when `status.storage.allocationSets.allocationStrategy` is `AllocateAcrossServers`
+* `count` this field specifies the number of allocations to make when `status.storage.allocationSets.allocationStrategy` is `AllocateAcrossServers`
 ```yaml
 constraints:
   count: 5
