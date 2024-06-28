@@ -1038,6 +1038,42 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mballoc</span>
 <a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
 </code></pre></div>
+<h3 id="target-layout">Target Layout</h3>
+<p>Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. A FPP workload might want as many OSSs as posible to avoid contention.</p>
+<p>The <code>NnfStorageProfile</code> allows admins to specify where and how many Lustre targets are allocated by the WLM. During the proposal phase of the workflow, the NNF software uses the information in the <code>NnfStorageProfile</code> to add extra constraints in the <code>DirectiveBreakdown</code>. The WLM uses these constraints when picking storage.</p>
+<p>The <code>NnfStorageProfile</code> has three fields in the <code>mgtOptions</code>, <code>mdtOptions</code>, and <code>ostOptions</code> to specify target layout. The fields are:</p>
+<ul>
+<li><code>count</code> - A static value for how many Lustre targets to create.</li>
+<li><code>scale</code> - A value from 1-10 that the WLM can use to determine how many Lustre targets to allocate. This is up to the WLM and the admins to agree on how to interpret this field. A value of 1 might indicate the minimum number of NNF nodes needed to reach the minimum capacity, while 10 might result in a Lustre target on every Rabbit attached to the computes in the job. Scale takes into account allocation size, compute node count, and Rabbit count.</li>
+<li><code>colocateComputes</code> - true/false value. When "true", this adds a location constraint in the <code>DirectiveBreakdown</code> that limits the WLM to picking storage with a physical connection to the compute resources. In practice this means that Rabbit storage is restricted to the chassis used by the job. This can be set individually for each of the Lustre target types. When this is "false", any Rabbit storage can be picked, even if the Rabbit doesn't share a chassis with any of the compute nodes in the job.</li>
+</ul>
+<p>Only one of <code>scale</code> and <code>count</code> can be set for a particular target type.</p>
+<p>The <code>DirectiveBreakdown</code> for "create_persistent" #DWs won't include the constraint from <code>colocateCompute=true</code> since there may not be any compute nodes associated with the job.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-metadata</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nn">...</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">  </span><span class="nt">lustreStorage</span><span class="p">:</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="nt">combinedMgtMdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="nt">capacityMdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500GiB</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="nt">capacityMgt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1GiB</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="nt">ostOptions</span><span class="p">:</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">      </span><span class="nt">colocateComputes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">    </span><span class="nt">mdtOptions</span><span class="p">:</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</code></pre></div>
+<h4 id="example-layouts">Example Layouts</h4>
+<p><code>scale</code> with <code>colocateComputes=true</code> will likely be the most common layout type to use for <code>jobdw</code> directives. This will result in a Lustre file system whose performance scales with the number of compute nodes in the job.</p>
+<p><code>count</code> may be used when a specific performance characteristic is desired such as a single shared file workload that has low metadata requirements and only needs a single MDT. It may also be useful when a consistently performing file system is required across different jobs.</p>
+<p><code>colocatedComputes=false</code> may be useful for placing MDTs on NNF nodes without an OST (within the same file system).</p>
+<p>The <code>count</code> fields may be useful when creating a persistent file system since the job with the <code>create_persistent</code> directive may only have a single compute node.</p>
+<p>In general, <code>scale</code> gives a simple way for users to get a filesystem that has performance consistent with their job size. <code>count</code> is useful for times when a user wants full control of the file system layout.</p>
 <h1 id="command-line-variables">Command Line Variables</h1>
 <h2 id="pvcreate">pvcreate</h2>
 <ul>
