@@ -1117,11 +1117,11 @@ track the version number as well, which allow them to be installed with <code>ku
 <tbody>
 <tr>
 <td><code>nnf-mfu</code></td>
-<td>The new version of <code>nnf-mfu</code> is referenced by the <code>NNFMFU</code> variable in several places:<br><br><code>nnf-sos</code><br>1. <code>Makefile</code> replace <code>NNFMFU</code> with <code>nnf-mfu's</code> tag.<br><br><code>nnf-dm</code><br>1. In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMU_VERSION</code> with the new version.<br>2. In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;.</code><br><br><code>nnf-deploy</code><br>1. In <code>config/repositories.yaml</code> replace <code>NNFMFU_VERSION</code> with the new version.</td>
+<td>The new version of <code>nnf-mfu</code> is referenced by the <code>NNFMFU</code> variable in several places:<br><br><code>nnf-sos</code><br>1. <code>Makefile</code> replace <code>NNFMFU</code> with <code>nnf-mfu's</code> tag.<br><br><code>nnf-dm</code><br>1. In <code>Dockerfile</code> and <code>Makefile</code>, replace <code>NNFMFU_VERSION</code> with the new version.<br>2. In <code>config/manager/kustomization.yaml</code>, replace <code>nnf-mfu</code>'s <code>newTag: &lt;X.Y.Z&gt;.</code><br><br><code>nnf-deploy</code><br>1. In <code>config/repositories.yaml</code> replace <code>NNFMFU_VERSION</code> with the new version.</td>
 </tr>
 <tr>
 <td><code>lustre-fs-operator</code></td>
-<td>update <code>config/manager/kustomization.yaml</code> with the correct version.</td>
+<td>update <code>config/manager/kustomization.yaml</code> with the correct version.<br><br><code>nnf-deploy</code><br>1. In <code>config/repositories.yaml</code> replace the lustre-fs-operator version.</td>
 </tr>
 <tr>
 <td><code>dws</code></td>
@@ -1137,7 +1137,7 @@ track the version number as well, which allow them to be installed with <code>ku
 </tr>
 <tr>
 <td><code>lustre-csi-driver</code></td>
-<td>update <code>deploy/kubernetes/base/kustomization.yaml</code> and <code>charts/lustre-csi-driver/values.yaml</code> with the correct version.</td>
+<td>update <code>deploy/kubernetes/base/kustomization.yaml</code> and <code>charts/lustre-csi-driver/values.yaml</code> with the correct version.<br><br><code>nnf-deploy</code><br>1. In <code>config/repositories.yaml</code> replace the lustre-csi-driver version.</td>
 </tr>
 </tbody>
 </table>
