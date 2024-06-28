@@ -15,6 +15,7 @@
 * [Copy Offload API](data-movement/copy-offload-api.html)
 * [Lustre External MGT](external-mgs/readme.md)
 * [Global Lustre](global-lustre/readme.md)
+* [Directive Breakdown](directive-breakdown/readme.md)
 
 ## NNF User Containers
 

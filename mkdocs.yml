@@ -20,6 +20,7 @@ nav:
       - 'Lustre External MGT': 'guides/external-mgs/readme.md'
       - 'Global Lustre': 'guides/global-lustre/readme.md'
       - 'Draining A Node': 'guides/node-management/drain.md'
+      - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
   - 'RFCs':
       - rfcs/index.md
       - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
