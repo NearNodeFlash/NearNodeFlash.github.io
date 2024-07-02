@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
     
     
       
@@ -1039,7 +1039,7 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 <h3 id="target-layout">Target Layout</h3>
-<p>Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. A FPP workload might want as many OSSs as posible to avoid contention.</p>
+<p>Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. An FPP workload might want as many OSSs as posible to avoid contention.</p>
 <p>The <code>NnfStorageProfile</code> allows admins to specify where and how many Lustre targets are allocated by the WLM. During the proposal phase of the workflow, the NNF software uses the information in the <code>NnfStorageProfile</code> to add extra constraints in the <code>DirectiveBreakdown</code>. The WLM uses these constraints when picking storage.</p>
 <p>The <code>NnfStorageProfile</code> has three fields in the <code>mgtOptions</code>, <code>mdtOptions</code>, and <code>ostOptions</code> to specify target layout. The fields are:</p>
 <ul>
@@ -1048,7 +1048,7 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <li><code>colocateComputes</code> - true/false value. When "true", this adds a location constraint in the <code>DirectiveBreakdown</code> that limits the WLM to picking storage with a physical connection to the compute resources. In practice this means that Rabbit storage is restricted to the chassis used by the job. This can be set individually for each of the Lustre target types. When this is "false", any Rabbit storage can be picked, even if the Rabbit doesn't share a chassis with any of the compute nodes in the job.</li>
 </ul>
 <p>Only one of <code>scale</code> and <code>count</code> can be set for a particular target type.</p>
-<p>The <code>DirectiveBreakdown</code> for "create_persistent" #DWs won't include the constraint from <code>colocateCompute=true</code> since there may not be any compute nodes associated with the job.</p>
+<p>The <code>DirectiveBreakdown</code> for <code>create_persistent</code> #DWs won't include the constraint from <code>colocateCompute=true</code> since there may not be any compute nodes associated with the job.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nt">metadata</span><span class="p">:</span>
@@ -1072,7 +1072,7 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <p><code>scale</code> with <code>colocateComputes=true</code> will likely be the most common layout type to use for <code>jobdw</code> directives. This will result in a Lustre file system whose performance scales with the number of compute nodes in the job.</p>
 <p><code>count</code> may be used when a specific performance characteristic is desired such as a single shared file workload that has low metadata requirements and only needs a single MDT. It may also be useful when a consistently performing file system is required across different jobs.</p>
 <p><code>colocatedComputes=false</code> may be useful for placing MDTs on NNF nodes without an OST (within the same file system).</p>
-<p>The <code>count</code> fields may be useful when creating a persistent file system since the job with the <code>create_persistent</code> directive may only have a single compute node.</p>
+<p>The <code>count</code> field may be useful when creating a persistent file system since the job with the <code>create_persistent</code> directive may only have a single compute node.</p>
 <p>In general, <code>scale</code> gives a simple way for users to get a filesystem that has performance consistent with their job size. <code>count</code> is useful for times when a user wants full control of the file system layout.</p>
 <h1 id="command-line-variables">Command Line Variables</h1>
 <h2 id="pvcreate">pvcreate</h2>
@@ -1219,7 +1219,7 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
