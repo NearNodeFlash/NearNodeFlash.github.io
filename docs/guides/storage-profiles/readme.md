@@ -234,7 +234,7 @@ data:
 
 ### Target Layout
 
-Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. A FPP workload might want as many OSSs as posible to avoid contention.
+Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. An FPP workload might want as many OSSs as posible to avoid contention.
 
 The `NnfStorageProfile` allows admins to specify where and how many Lustre targets are allocated by the WLM. During the proposal phase of the workflow, the NNF software uses the information in the `NnfStorageProfile` to add extra constraints in the `DirectiveBreakdown`. The WLM uses these constraints when picking storage.
 
@@ -246,7 +246,7 @@ The `NnfStorageProfile` has three fields in the `mgtOptions`, `mdtOptions`, and 
 
 Only one of `scale` and `count` can be set for a particular target type.
 
-The `DirectiveBreakdown` for "create_persistent" #DWs won't include the constraint from `colocateCompute=true` since there may not be any compute nodes associated with the job.
+The `DirectiveBreakdown` for `create_persistent` #DWs won't include the constraint from `colocateCompute=true` since there may not be any compute nodes associated with the job.
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha1
@@ -277,7 +277,7 @@ data:
 
 `colocatedComputes=false` may be useful for placing MDTs on NNF nodes without an OST (within the same file system).
 
-The `count` fields may be useful when creating a persistent file system since the job with the `create_persistent` directive may only have a single compute node.
+The `count` field may be useful when creating a persistent file system since the job with the `create_persistent` directive may only have a single compute node.
 
 In general, `scale` gives a simple way for users to get a filesystem that has performance consistent with their job size. `count` is useful for times when a user wants full control of the file system layout.
 
