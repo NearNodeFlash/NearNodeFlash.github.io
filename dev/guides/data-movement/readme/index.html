@@ -1115,6 +1115,7 @@ available to quickly switch between different settings for a particular workflow
 <p>The <code>CreateRequest</code> API call that is used to create Data Movement with the Copy Offload API has some
 options to allow a user to specify some options for that particular Data Movement. These settings
 are on a per-request basis.</p>
+<p>The Copy Offload API requires the <code>nnf-dm</code> daemon to be running on the compute node. This daemon may be configured to run full-time, or it may left in a disabled state if the WLM is expected to run it only when a user requests it. See <a href="../../compute-daemons/readme/">Compute Daemons</a> for the systemd service configuration of the daemon. See <code>RequiredDaemons</code> in <a href="../../directive-breakdown/readme/">Directive Breakdown</a> for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</p>
 <p>See the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest API</a>
 definition for what can be configured.</p>
 <h2 id="selinux-and-data-movement">SELinux and Data Movement</h2>
