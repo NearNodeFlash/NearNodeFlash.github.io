@@ -737,6 +737,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#requireddaemons" class="md-nav__link">
+    <span class="md-ellipsis">
+      RequiredDaemons
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RequiredDaemons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valid-daemons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Valid Daemons
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -991,6 +1015,30 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#requireddaemons" class="md-nav__link">
+    <span class="md-ellipsis">
+      RequiredDaemons
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RequiredDaemons">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#valid-daemons" class="md-nav__link">
+    <span class="md-ellipsis">
+      Valid Daemons
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1155,6 +1203,23 @@
 </ul>
 </li>
 </ul>
+<h2 id="requireddaemons">RequiredDaemons</h2>
+<p>The <code>status.requiredDaemons</code> section of the <code>DirectiveBreakdown</code> tells the WLM about any driver-specific daemons it must enable for the job; it is assumed that the WLM knows about the driver-specific daemons and that if the users are specifying these then the WLM knows how to start them. The <code>status.requiredDaemons</code> section will exist only for <code>jobdw</code> and <code>persistentdw</code> directives. An example of the <code>status.requiredDaemons</code> section is included below.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">status</span><span class="p">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nn">...</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">requiredDaemons</span><span class="p">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">copy-offload</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nn">...</span>
+</code></pre></div>
+<p>The allowed list of required daemons that may be specified is defined in the <a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/dws/nnf-ruleset.yaml">nnf-ruleset.yaml for DWS</a>, found in the <code>nnf-sos</code> repository. The <code>ruleDefs.key[requires]</code> statement is specified in two places in the ruleset, one for <code>jobdw</code> and the second for <code>persistentdw</code>. The ruleset allows a list of patterns to be specified, allowing one for each of the allowed daemons.</p>
+<p>The <code>DW</code> directive will include a comma-separated list of daemons after the <code>requires</code> keyword. The following is an example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">#DW jobdw type=xfs capacity=1GB name=stg1 requires=copy-offload</span>
+</code></pre></div>
+<p>The DWDirectiveRule resource currently active on the system can be viewed with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">kubectl get -n dws-system dwdirectiverule nnf -o yaml</span>
+</code></pre></div>
+<h3 id="valid-daemons">Valid Daemons</h3>
+<p>Each site should define the list of daemons that are valid for that site and recognized by that site's WLM. The initial <code>nnf-ruleset.yaml</code> defines only one, called <code>copy-offload</code>. When a user specifies <code>copy-offload</code> in their <code>DW</code> directive, they are stating that their compute-node application will use the Copy Offload API Daemon described in the <a href="../../data-movement/readme/">Data Movement Configuration</a>.</p>
 
 
 
