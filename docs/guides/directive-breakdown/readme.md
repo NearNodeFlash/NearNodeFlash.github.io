@@ -149,3 +149,33 @@ A location constraint consists of an `access` list and a `reference`.
 * `status.compute.constraints.location.access` is a list that specifies what type of access the compute nodes need to have to the storage allocations in the allocation set. An allocation set may have multiple access types that are required
     * `status.compute.constraints.location.access.type` specifies the connection type for the storage. This can be `network` or `physical`
     * `status.compute.constraints.location.access.priority` specifies how necessary the connection type is. This can be `mandatory` or `bestEffort`
+
+## RequiredDaemons
+
+The `status.requiredDaemons` section of the `DirectiveBreakdown` tells the WLM about any driver-specific daemons it must enable for the job; it is assumed that the WLM knows about the driver-specific daemons and that if the users are specifying these then the WLM knows how to start them. The `status.requiredDaemons` section will exist only for `jobdw` and `persistentdw` directives. An example of the `status.requiredDaemons` section is included below.
+
+```yaml
+status:
+...
+  requiredDaemons:
+  - copy-offload
+...
+```
+
+The allowed list of required daemons that may be specified is defined in the [nnf-ruleset.yaml for DWS](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/dws/nnf-ruleset.yaml), found in the `nnf-sos` repository. The `ruleDefs.key[requires]` statement is specified in two places in the ruleset, one for `jobdw` and the second for `persistentdw`. The ruleset allows a list of patterns to be specified, allowing one for each of the allowed daemons.
+
+The `DW` directive will include a comma-separated list of daemons after the `requires` keyword. The following is an example:
+
+```bash
+#DW jobdw type=xfs capacity=1GB name=stg1 requires=copy-offload
+```
+
+The DWDirectiveRule resource currently active on the system can be viewed with:
+
+```console
+kubectl get -n dws-system dwdirectiverule nnf -o yaml
+```
+
+### Valid Daemons
+
+Each site should define the list of daemons that are valid for that site and recognized by that site's WLM. The initial `nnf-ruleset.yaml` defines only one, called `copy-offload`. When a user specifies `copy-offload` in their `DW` directive, they are stating that their compute-node application will use the Copy Offload API Daemon described in the [Data Movement Configuration](../data-movement/readme.md).
