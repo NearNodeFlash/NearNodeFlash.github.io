@@ -170,7 +170,7 @@ The `DW` directive will include a comma-separated list of daemons after the `req
 #DW jobdw type=xfs capacity=1GB name=stg1 requires=copy-offload
 ```
 
-The DWDirectiveRule resource currently active on the system can be viewed with:
+The `DWDirectiveRule` resource currently active on the system can be viewed with:
 
 ```console
 kubectl get -n dws-system dwdirectiverule nnf -o yaml
