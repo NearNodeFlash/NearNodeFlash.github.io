@@ -1215,7 +1215,7 @@
 <p>The <code>DW</code> directive will include a comma-separated list of daemons after the <code>requires</code> keyword. The following is an example:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">#DW jobdw type=xfs capacity=1GB name=stg1 requires=copy-offload</span>
 </code></pre></div>
-<p>The DWDirectiveRule resource currently active on the system can be viewed with:</p>
+<p>The <code>DWDirectiveRule</code> resource currently active on the system can be viewed with:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">kubectl get -n dws-system dwdirectiverule nnf -o yaml</span>
 </code></pre></div>
 <h3 id="valid-daemons">Valid Daemons</h3>
