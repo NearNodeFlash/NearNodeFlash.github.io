@@ -4,7 +4,7 @@
 
 Find the total space available, and the total space used, on a Rabbit node using the Redfish API. One way to access the API is to use the `nnf-node-manager` pod on that node.
 
-To view the space on node ee50, find its nnf-node-manager pod and then exec into it to query the Redfish API:
+To view the space on node ee50, find its `nnf-node-manager` pod and then exec into it to query the Redfish API:
 
 ```console
 [richerso@ee1:~]$ kubectl get pods -A -o wide | grep ee50 | grep node-manager
