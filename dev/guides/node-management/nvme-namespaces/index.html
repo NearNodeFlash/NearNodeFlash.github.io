@@ -967,7 +967,7 @@
 <h1 id="debugging-nvme-namespaces">Debugging NVMe Namespaces</h1>
 <h2 id="total-space-available-or-used">Total Space Available or Used</h2>
 <p>Find the total space available, and the total space used, on a Rabbit node using the Redfish API. One way to access the API is to use the <code>nnf-node-manager</code> pod on that node.</p>
-<p>To view the space on node ee50, find its nnf-node-manager pod and then exec into it to query the Redfish API:</p>
+<p>To view the space on node ee50, find its <code>nnf-node-manager</code> pod and then exec into it to query the Redfish API:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">[richerso@ee1:~]$ </span>kubectl<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-A<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ee50<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>node-manager
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">nnf-system             nnf-node-manager-jhglm                               1/1     Running                     0                 61m     10.85.71.11       ee50   &lt;none&gt;           &lt;none&gt;</span>
 </code></pre></div>
