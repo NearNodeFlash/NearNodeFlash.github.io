@@ -133,9 +133,11 @@ DataWorkflowServices has already defined the role to be used with WLMs, named `d
 kubectl get clusterrole dws-workload-manager
 ```
 
-Create and apply a ClusterRoleBinding to associate the "flux" user with the `dws-workload-manager` ClusterRole:
+If the "flux" user requires only the normal WLM permissions, then create and apply a ClusterRoleBinding to associate the "flux" user with the `dws-workload-manager` ClusterRole.
 
-ClusterRoleBinding
+The `dws-workload-manager role is defined in [workload_manager_role.yaml](https://github.com/DataWorkflowServices/dws/blob/master/config/rbac/workload_manager_role.yaml).
+
+ClusterRoleBinding for WLM permissions only:
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -148,6 +150,26 @@ subjects:
 roleRef:
   kind: ClusterRole
   name: dws-workload-manager
+  apiGroup: rbac.authorization.k8s.io
+```
+
+If the "flux" user requires the normal WLM permissions as well as some of the NNF permissions, perhaps to collect some NNF resources for debugging, then create and apply a ClusterRoleBinding to associate the "flux" user with the `nnf-workload-manager` ClusterRole.
+
+The `nnf-workload-manager` role is defined in [workload_manager_nnf_role.yaml](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/rbac/workload_manager_nnf_role.yaml).
+
+ClusterRoleBinding for WLM and NNF permissions:
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: flux
+subjects:
+- kind: User
+  name: flux
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: nnf-workload-manager
   apiGroup: rbac.authorization.k8s.io
 ```
 
