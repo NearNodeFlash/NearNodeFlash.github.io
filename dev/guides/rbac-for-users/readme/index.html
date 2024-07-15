@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.28">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.29">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.76a95c52.min.css">
       
       
 
@@ -1223,6 +1223,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">kubectl get clusterrole dws-workload-manager</span>
 </code></pre></div>
 <p>If the "flux" user requires only the normal WLM permissions, then create and apply a ClusterRoleBinding to associate the "flux" user with the <code>dws-workload-manager</code> ClusterRole.</p>
+<p>The `dws-workload-manager role is defined in <a href="https://github.com/DataWorkflowServices/dws/blob/master/config/rbac/workload_manager_role.yaml">workload_manager_role.yaml</a>.</p>
 <p>ClusterRoleBinding for WLM permissions only:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
@@ -1237,7 +1238,8 @@
 <a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dws-workload-manager</span>
 <a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
 </code></pre></div></p>
-<p>If the "flux" user requires the normal WLM permissions as well as some of the NNF permissions, then create and apply a ClusterRoleBinding to associate the "flux" user with the <code>nnf-workload-manager</code> ClusterRole.</p>
+<p>If the "flux" user requires the normal WLM permissions as well as some of the NNF permissions, perhaps to collect some NNF resources for debugging, then create and apply a ClusterRoleBinding to associate the "flux" user with the <code>nnf-workload-manager</code> ClusterRole.</p>
+<p>The <code>nnf-workload-manager</code> role is defined in <a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/rbac/workload_manager_nnf_role.yaml">workload_manager_nnf_role.yaml</a>.</p>
 <p>ClusterRoleBinding for WLM and NNF permissions:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
