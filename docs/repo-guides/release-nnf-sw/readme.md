@@ -93,12 +93,12 @@ just an example.
 
     |Repo                 |Update|
     |---------------------|------|
-    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag.<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMU_VERSION` with the new version.<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>.`<br><br>`nnf-deploy`<br>1. In `config/repositories.yaml` replace `NNFMFU_VERSION` with the new version.|
-    |`lustre-fs-operator` |update `config/manager/kustomization.yaml` with the correct version.|
+    |`nnf-mfu`            |The new version of `nnf-mfu` is referenced by the `NNFMFU` variable in several places:<br><br>`nnf-sos`<br>1. `Makefile` replace `NNFMFU` with `nnf-mfu's` tag.<br><br>`nnf-dm`<br>1. In `Dockerfile` and `Makefile`, replace `NNFMFU_VERSION` with the new version.<br>2. In `config/manager/kustomization.yaml`, replace `nnf-mfu`'s `newTag: <X.Y.Z>.`<br><br>`nnf-deploy`<br>1. In `config/repositories.yaml` replace `NNFMFU_VERSION` with the new version.|
+    |`lustre-fs-operator` |update `config/manager/kustomization.yaml` with the correct version.<br><br>`nnf-deploy`<br>1. In `config/repositories.yaml` replace the lustre-fs-operator version.|
     |`dws`                |update `config/manager/kustomization.yaml` with the correct version.|
     |`nnf-sos`            |update `config/manager/kustomization.yaml` with the correct version.|
     |`nnf-dm`             |update `config/manager/kustomization.yaml` with the correct version.|
-    |`lustre-csi-driver`  |update `deploy/kubernetes/base/kustomization.yaml` and `charts/lustre-csi-driver/values.yaml` with the correct version.|
+    |`lustre-csi-driver`  |update `deploy/kubernetes/base/kustomization.yaml` and `charts/lustre-csi-driver/values.yaml` with the correct version.<br><br>`nnf-deploy`<br>1. In `config/repositories.yaml` replace the lustre-csi-driver version.|
 
 6. **Target the `releases/v0` branch** with a Pull Request from your branch.  When merging the Pull
 Request, **you must use a Merge Commit.**

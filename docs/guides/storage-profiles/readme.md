@@ -232,6 +232,55 @@ data:
 [...]
 ```
 
+### Target Layout
+
+Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. An FPP workload might want as many OSSs as posible to avoid contention.
+
+The `NnfStorageProfile` allows admins to specify where and how many Lustre targets are allocated by the WLM. During the proposal phase of the workflow, the NNF software uses the information in the `NnfStorageProfile` to add extra constraints in the `DirectiveBreakdown`. The WLM uses these constraints when picking storage.
+
+The `NnfStorageProfile` has three fields in the `mgtOptions`, `mdtOptions`, and `ostOptions` to specify target layout. The fields are:
+
+- `count` - A static value for how many Lustre targets to create.
+- `scale` - A value from 1-10 that the WLM can use to determine how many Lustre targets to allocate. This is up to the WLM and the admins to agree on how to interpret this field. A value of 1 might indicate the minimum number of NNF nodes needed to reach the minimum capacity, while 10 might result in a Lustre target on every Rabbit attached to the computes in the job. Scale takes into account allocation size, compute node count, and Rabbit count.
+- `colocateComputes` - true/false value. When "true", this adds a location constraint in the `DirectiveBreakdown` that limits the WLM to picking storage with a physical connection to the compute resources. In practice this means that Rabbit storage is restricted to the chassis used by the job. This can be set individually for each of the Lustre target types. When this is "false", any Rabbit storage can be picked, even if the Rabbit doesn't share a chassis with any of the compute nodes in the job.
+
+Only one of `scale` and `count` can be set for a particular target type.
+
+The `DirectiveBreakdown` for `create_persistent` #DWs won't include the constraint from `colocateCompute=true` since there may not be any compute nodes associated with the job.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfStorageProfile
+metadata:
+  name: high-metadata
+  namespace: default
+data:
+  default: false
+...
+  lustreStorage:
+    combinedMgtMdt: false
+    capacityMdt: 500GiB
+    capacityMgt: 1GiB
+[...]
+    ostOptions:
+      scale: 5
+      colocateComputes: true
+    mdtOptions:
+      count: 10
+```
+
+#### Example Layouts
+
+`scale` with `colocateComputes=true` will likely be the most common layout type to use for `jobdw` directives. This will result in a Lustre file system whose performance scales with the number of compute nodes in the job.
+
+`count` may be used when a specific performance characteristic is desired such as a single shared file workload that has low metadata requirements and only needs a single MDT. It may also be useful when a consistently performing file system is required across different jobs.
+
+`colocatedComputes=false` may be useful for placing MDTs on NNF nodes without an OST (within the same file system).
+
+The `count` field may be useful when creating a persistent file system since the job with the `create_persistent` directive may only have a single compute node.
+
+In general, `scale` gives a simple way for users to get a filesystem that has performance consistent with their job size. `count` is useful for times when a user wants full control of the file system layout.
+
 # Command Line Variables
 
 ## pvcreate
