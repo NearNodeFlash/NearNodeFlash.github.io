@@ -16,6 +16,7 @@
 * [Lustre External MGT](external-mgs/readme.md)
 * [Global Lustre](global-lustre/readme.md)
 * [Directive Breakdown](directive-breakdown/readme.md)
+* [User Interactions](user-interactions/readme.md)
 
 ## NNF User Containers
 

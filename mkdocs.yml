@@ -10,6 +10,7 @@ nav:
       - guides/index.md
       - 'Initial Setup': 'guides/initial-setup/readme.md'
       - 'Compute Daemons': 'guides/compute-daemons/readme.md'
+      - 'User Interactions': 'guides/user-interactions/readme.md'
       - 'Data Movement': 'guides/data-movement/readme.md'
       - 'Copy Offload API': 'guides/data-movement/copy-offload-api.html'
       - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
