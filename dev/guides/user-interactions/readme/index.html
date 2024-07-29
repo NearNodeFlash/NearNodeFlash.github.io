@@ -486,13 +486,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#directives" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
-      Directives
+      Commands
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Directives">
+    <nav class="md-nav" aria-label="Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1172,13 +1172,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#directives" class="md-nav__link">
+  <a href="#commands" class="md-nav__link">
     <span class="md-ellipsis">
-      Directives
+      Commands
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Directives">
+    <nav class="md-nav" aria-label="Commands">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1415,7 +1415,7 @@
 <h2 id="overview">Overview</h2>
 <p>A user may include one or more Data Workflow directives in their job script to request Rabbit services. Directives take the form <code>#DW [command] [command args]</code>, and are passed from the workload manager to the Rabbit software for processing. The directives can be used to allocate Rabbit file systems, copy files, and run user containers on the Rabbit nodes.</p>
 <p>Once the job is running on compute nodes, the application can find access to Rabbit specific resources through a set of environment variables that provide mount and network access information.</p>
-<h2 id="directives">Directives</h2>
+<h2 id="commands">Commands</h2>
 <h3 id="jobdw">jobdw</h3>
 <p>The <code>jobdw</code> directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a <code>copy_out</code> directive will be lost. Multiple <code>jobdw</code> directives can be listed in the same job script. </p>
 <h4 id="command-arguments">Command Arguments</h4>
@@ -1451,13 +1451,13 @@
 <td><code>profile</code></td>
 <td>No</td>
 <td>Profile name</td>
-<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used.</td>
+<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide.</td>
 </tr>
 <tr>
 <td><code>requires</code></td>
 <td>No</td>
 <td><code>copy-offload</code></td>
-<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application</td>
+<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the <a href="../../directive-breakdown/readme/#requireddaemons">Required Daemons</a> section of the <a href="../../directive-breakdown/readme/">Directive Breakdown</a> guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</td>
 </tr>
 </tbody>
 </table>
@@ -1470,9 +1470,9 @@
 <p>This directive results in a single 1TB Lustre file system being created that can be accessed from all the compute nodes in the job. It is using a storage profile that an admin created to give high Lustre metadata performance.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>#DW jobdw type=gfs2 capacity=50GB name=checkpoint requires=copy-offload
 </code></pre></div>
-<p>This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running.</p>
+<p>This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running using the Copy Offload API.</p>
 <h3 id="create_persistent">create_persistent</h3>
-<p>The <code>create_persistent</code> command results in a storage allocation on the Rabbit nodes that lasts beyond the lifetime of the job. This is useful for creating a file system that can share data between jobs. Only a single <code>create_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>destroy_persistent</code> directive.</p>
+<p>The <code>create_persistent</code> command results in a storage allocation on the Rabbit nodes that lasts beyond the lifetime of the job. This is useful for creating a file system that can share data between jobs. Only a single <code>create_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>destroy_persistent</code> directive. See <a href="./#persistentdw">persistentdw</a> to utilize the storage in a job.</p>
 <h4 id="command-arguments_1">Command Arguments</h4>
 <table>
 <thead>
@@ -1499,14 +1499,14 @@
 <tr>
 <td><code>name</code></td>
 <td>Yes</td>
-<td>String including numbers and '-'</td>
+<td>Lowercase string including numbers and '-'</td>
 <td>This is a name for the storage allocation that is unique within the system</td>
 </tr>
 <tr>
 <td><code>profile</code></td>
 <td>No</td>
 <td>Profile name</td>
-<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage.</td>
+<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide.</td>
 </tr>
 </tbody>
 </table>
@@ -1533,7 +1533,7 @@
 <tr>
 <td><code>name</code></td>
 <td>Yes</td>
-<td>String including numbers and '-'</td>
+<td>Lowercase string including numbers and '-'</td>
 <td>This is a name for the persistent storage allocation that will be destroyed</td>
 </tr>
 </tbody>
@@ -1559,14 +1559,14 @@
 <tr>
 <td><code>name</code></td>
 <td>Yes</td>
-<td>String including numbers and '-'</td>
+<td>Lowercase string including numbers and '-'</td>
 <td>This is a name for the persistent storage that will be accessed</td>
 </tr>
 <tr>
 <td><code>requires</code></td>
 <td>No</td>
 <td><code>copy-offload</code></td>
-<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application</td>
+<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the <a href="../../directive-breakdown/readme/#requireddaemons">Required Daemons</a> section of the <a href="../../directive-breakdown/readme/">Directive Breakdown</a> guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</td>
 </tr>
 </tbody>
 </table>
@@ -1618,7 +1618,7 @@
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>#DW copy_out source=$DW_PERSISTENT_shared_data1/a destination=$DW_PERSISTENT_shared_data2/a profile=no-xattr
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>#DW copy_out source=$DW_PERSISTENT_shared_data1/b destination=$DW_PERSISTENT_shared_data2/b profile=no-xattr
 </code></pre></div>
-<p>This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the <code>no-xattr</code> profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a guaranteed order.</p>
+<p>This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the <code>no-xattr</code> profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a deterministic order.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>#DW persistentdw name=shared-data
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>#DW jobdw type=lustre capacity=1TiB name=fast-storage profile=high-metadata
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
@@ -1627,7 +1627,7 @@
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
 <a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>#DW copy_out source=$DW_JOB_fast_storage/data destination=/lus/backup/johndoe/very_important_data profile=no-xattr
 </code></pre></div>
-<p>This set of directives makes use of a persistent storage allocation and a job storage allocation. There are two <code>copy_in</code> directives, one that copies data from the global lustre file system to the job allocation, and another that copies data from the persistent allocation to the job allocation. These copies do not occur in a guaranteed order. The <code>copy_out</code> directive occurs after the application has exited, and copies data from the Rabbit job storage to a global lustre file system.</p>
+<p>This set of directives makes use of a persistent storage allocation and a job storage allocation. There are two <code>copy_in</code> directives, one that copies data from the global lustre file system to the job allocation, and another that copies data from the persistent allocation to the job allocation. These copies do not occur in a deterministic order. The <code>copy_out</code> directive occurs after the application has exited, and copies data from the Rabbit job storage to a global lustre file system.</p>
 <h3 id="container">container</h3>
 <p>The <code>container</code> directive is used to launch user containers on the Rabbit nodes. The containers have access to <code>jobdw</code>, <code>persistentdw</code>, or global Lustre storage as specified in the <code>container</code> directive. More documentation for user containers can be found in the <a href="../../user-containers/readme/">User Containers</a> guide. Only a single <code>container</code> directive is allowed in a job.</p>
 <h4 id="command-arguments_5">Command Arguments</h4>
@@ -1644,7 +1644,7 @@
 <tr>
 <td><code>name</code></td>
 <td>Yes</td>
-<td>String including numbers and '-'</td>
+<td>Lowercase string including numbers and '-'</td>
 <td>This is a name for the container instance that is unique within a job</td>
 </tr>
 <tr>
