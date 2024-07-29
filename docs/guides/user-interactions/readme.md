@@ -11,7 +11,7 @@ A user may include one or more Data Workflow directives in their job script to r
 
 Once the job is running on compute nodes, the application can find access to Rabbit specific resources through a set of environment variables that provide mount and network access information.
 
-## Directives
+## Commands
 
 ### jobdw
 
@@ -23,8 +23,8 @@ The `jobdw` directive command tells the Rabbit software to create a file system 
 | `type` | Yes | `raw`, `xfs`, `gfs2`, `lustre` | Type defines how the storage should be formatted. For Lustre file systems, a single file system is created that is mounted by all computes in the job. For raw, xfs, and GFS2 storage, a separate file system is allocated for each compute node. | 
 | `capacity` | Yes | Allocation size with units. `1TiB`, `100GB`, etc. | Capacity interpretation varies by storage type. For Lustre file systems, capacity is the aggregate OST capacity. For raw, xfs, and GFS2 storage, capacity is the capacity of the file system for a single compute node. Capacity suffixes are: `KB`, `KiB`, `MB`, `MiB`, `GB`, `GiB`, `TB`, `TiB` |
 | `name` | Yes | String including numbers and '-' | This is a name for the storage allocation that is unique within a job |
-| `profile` | No | Profile name | This specifies which profile to use when allocating storage. Profiles include `mkfs` and `mount` arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. |
-| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application | 
+| `profile` | No | Profile name | This specifies which profile to use when allocating storage. Profiles include `mkfs` and `mount` arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. More information about storage profiles can be found in the [Storage Profiles](../storage-profiles/readme.md) guide. |
+| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requireddaemons) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. | 
 
 #### Examples
 
@@ -44,19 +44,19 @@ This directive results in a single 1TB Lustre file system being created that can
 #DW jobdw type=gfs2 capacity=50GB name=checkpoint requires=copy-offload
 ```
 
-This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running.
+This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running using the Copy Offload API.
 
 ### create_persistent
 
-The `create_persistent` command results in a storage allocation on the Rabbit nodes that lasts beyond the lifetime of the job. This is useful for creating a file system that can share data between jobs. Only a single `create_persistent` directive is allowed in a job, and it cannot be in the same job as a `destroy_persistent` directive.
+The `create_persistent` command results in a storage allocation on the Rabbit nodes that lasts beyond the lifetime of the job. This is useful for creating a file system that can share data between jobs. Only a single `create_persistent` directive is allowed in a job, and it cannot be in the same job as a `destroy_persistent` directive. See [persistentdw](readme.md#persistentdw) to utilize the storage in a job.
 
 #### Command Arguments
 | Argument | Required | Value | Notes |
 |----------|----------|-------|-------|
 | `type` | Yes | `raw`, `xfs`, `gfs2`, `lustre` | Type defines how the storage should be formatted. For Lustre file systems, a single file system is created. For raw, xfs, and GFS2 storage, a separate file system is allocated for each compute node in the job. | 
 | `capacity` | Yes | Allocation size with units. `1TiB`, `100GB`, etc. | Capacity interpretation varies by storage type. For Lustre file systems, capacity is the aggregate OST capacity. For raw, xfs, and GFS2 storage, capacity is the capacity of the file system for a single compute node. Capacity suffixes are: `KB`, `KiB`, `MB`, `MiB`, `GB`, `GiB`, `TB`, `TiB` |
-| `name` | Yes | String including numbers and '-' | This is a name for the storage allocation that is unique within the system |
-| `profile` | No | Profile name | This specifies which profile to use when allocating storage. Profiles include `mkfs` and `mount` arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage. |
+| `name` | Yes | Lowercase string including numbers and '-' | This is a name for the storage allocation that is unique within the system |
+| `profile` | No | Profile name | This specifies which profile to use when allocating storage. Profiles include `mkfs` and `mount` arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage. More information about storage profiles can be found in the [Storage Profiles](../storage-profiles/readme.md) guide.|
 
 #### Examples
 
@@ -78,7 +78,7 @@ The `destroy_persistent` command will delete persistent storage that was allocat
 #### Command Arguments
 | Argument | Required | Value | Notes |
 |----------|----------|-------|-------|
-| `name` | Yes | String including numbers and '-' | This is a name for the persistent storage allocation that will be destroyed |
+| `name` | Yes | Lowercase string including numbers and '-' | This is a name for the persistent storage allocation that will be destroyed |
 
 #### Examples
 
@@ -96,8 +96,8 @@ Persistent Lustre file systems can be accessed from any compute nodes in the sys
 #### Command Arguments
 | Argument | Required | Value | Notes |
 |----------|----------|-------|-------|
-| `name` | Yes | String including numbers and '-' | This is a name for the persistent storage that will be accessed |
-| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application |
+| `name` | Yes | Lowercase string including numbers and '-' | This is a name for the persistent storage that will be accessed |
+| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requireddaemons) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. |
 
 #### Examples
 
@@ -135,7 +135,7 @@ This set of directives creates an xfs file system on the Rabbits for each comput
 #DW copy_out source=$DW_PERSISTENT_shared_data1/b destination=$DW_PERSISTENT_shared_data2/b profile=no-xattr
 ```
 
-This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the `no-xattr` profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a guaranteed order.
+This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the `no-xattr` profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a deterministic order.
 
 ```
 #DW persistentdw name=shared-data
@@ -147,7 +147,7 @@ This set of directives copies two directories from one persistent storage alloca
 #DW copy_out source=$DW_JOB_fast_storage/data destination=/lus/backup/johndoe/very_important_data profile=no-xattr
 ```
 
-This set of directives makes use of a persistent storage allocation and a job storage allocation. There are two `copy_in` directives, one that copies data from the global lustre file system to the job allocation, and another that copies data from the persistent allocation to the job allocation. These copies do not occur in a guaranteed order. The `copy_out` directive occurs after the application has exited, and copies data from the Rabbit job storage to a global lustre file system.
+This set of directives makes use of a persistent storage allocation and a job storage allocation. There are two `copy_in` directives, one that copies data from the global lustre file system to the job allocation, and another that copies data from the persistent allocation to the job allocation. These copies do not occur in a deterministic order. The `copy_out` directive occurs after the application has exited, and copies data from the Rabbit job storage to a global lustre file system.
 
 ### container
 
@@ -156,7 +156,7 @@ The `container` directive is used to launch user containers on the Rabbit nodes.
 #### Command Arguments
 | Argument | Required | Value | Notes |
 |----------|----------|-------|-------|
-| `name` | Yes | String including numbers and '-' | This is a name for the container instance that is unique within a job |
+| `name` | Yes | Lowercase string including numbers and '-' | This is a name for the container instance that is unique within a job |
 | `profile` | Yes | Profile name | This specifies which container profile to use. The container profile contains information about which container to run, which file system types to expect, which network ports are needed, and many other options. An admin is responsible for creating the container profiles. |
 | `DW_JOB_[expected]` | No | `jobdw` storage allocation `name` | The container profile will list `jobdw` file systems that the container requires. `[expected]` is the name as specified in the container profile |
 | `DW_PERSISTENT_[expected]` | No | `persistentdw` storage allocation `name` | The container profile will list `persistentdw` file systems that the container requires. `[expected]` is the name as specified in the container profile |
