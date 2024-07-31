@@ -19,11 +19,29 @@ as it cleans up the NNF pods.
 kubectl taint node $NODE cray.nnf.node.drain=true:NoSchedule cray.nnf.node.drain=true:NoExecute
 ```
 
+This will cause the node's `Storage` resource to be disabled:
+
+```console
+$ kubectl get storages
+NAME           STATE     STATUS     MODE   AGE
+rabbit1        Enabled   Disabled   Live   3m18s
+rabbit2        Enabled   Ready      Live   3m18s
+```
+
+The `Storage` resource will contain the following message indicating the reason it has been disabled:
+
+```console
+$ kubectl get storages rabbit1 -o json | jq -rM .status.message
+Kubernetes node is tainted with cray.nnf.node.drain
+```
+
 To restore the node to service, remove the `cray.nnf.node.drain` taint.
 
 ```shell
 kubectl taint node $NODE cray.nnf.node.drain-
 ```
+
+The `Storage` resource will revert to a `Ready` status.
 
 ## The CSI Driver
 
