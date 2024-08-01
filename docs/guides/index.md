@@ -24,5 +24,5 @@
 
 ## Node Management
 
-* [Draining A Node](node-management/drain.md)
+* [Disable or Drain a Node](node-management/drain.md)
 * [Debugging NVMe Namespaces](node-management/nvme-namespaces.md)
