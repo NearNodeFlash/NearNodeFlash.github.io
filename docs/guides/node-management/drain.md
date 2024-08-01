@@ -47,7 +47,7 @@ as described in
 
 This would be used only after the WLM jobs have been removed from that Rabbit (preferably) and there is some reason to also remove the NNF software from it. This might be used before a Rabbit is powered off and pulled out of the cabinet, for example, to avoid leaving pods in "Terminating" state (harmless, but it's noise).
 
-If an admin used this taint before power-off it would mean there wouldn't be "Terminating" pods laying around for that Rabbit. After a new/same Rabbit is put back in its place, the NNF software won't jump back on it while the taint is present. The taint can be removed at any time, from immediately after the node is powered off up to some time after the new/same Rabbit is powered back on.
+If an admin used this taint before power-off it would mean there wouldn't be "Terminating" pods lying around for that Rabbit. After a new/same Rabbit is put back in its place, the NNF software won't jump back on it while the taint is present. The taint can be removed at any time, from immediately after the node is powered off up to some time after the new/same Rabbit is powered back on.
 
 ### Drain NNF pods from a rabbit node
 
