@@ -20,7 +20,7 @@ nav:
       - 'User Containers': 'guides/user-containers/readme.md'
       - 'Lustre External MGT': 'guides/external-mgs/readme.md'
       - 'Global Lustre': 'guides/global-lustre/readme.md'
-      - 'Draining A Node': 'guides/node-management/drain.md'
+      - 'Disable or Drain a Node': 'guides/node-management/drain.md'
       - 'Debugging NVMe Namespaces': 'guides/node-management/nvme-namespaces.md'
       - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
   - 'RFCs':
