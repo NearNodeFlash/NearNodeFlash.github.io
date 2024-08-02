@@ -1160,7 +1160,7 @@
 <p>For external MGTs, the <code>fsNameStartReference</code> should be used to point to a <code>ConfigMap</code> in the default namespace. The <code>ConfigMap</code> should not be removed during an argocd undeploy/deploy. This allows the nnf-sos sofware to be undeployed (including any <code>NnfLustreMGT</code> resources), without having the fsname reset back to the <code>fsNameStart</code> value on a redeploy. The Configmap that is created should be left empty initially.</p>
 <h3 id="argocd">Argocd</h3>
 <ul>
-<li>An empty ConfigMap should be deployed with the <code>0-early-config</code> application.</li>
+<li>An empty ConfigMap should be deployed with the <code>0-early-config</code> application. It should be created in the <code>default</code> namespace, and it can have any name.</li>
 <li>The argocd application for <code>0-early-config</code> should be updated to include the following under <code>ignoreDifferences</code>:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="nt">jsonPointers</span><span class="p">:</span>
