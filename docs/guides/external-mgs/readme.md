@@ -17,6 +17,7 @@ These three methods are not mutually exclusive on the system as a whole. Individ
 
 ## Configuration with an External MGT
 
+### Storage Profile
 An existing MGT external to the NNF cluster can be used to manage the Lustre file systems on the NNF nodes. An advantage to this configuration is that the MGT can be highly available through multiple MGSs. A disadvantage is that there is only a single MGT. An MGT shared between more than a handful of Lustre file systems is not a common use case, so the Lustre code may prove less stable.
 
 The following yaml provides an example of what the `NnfStorageProfile` should contain to use an MGT on an external server.
@@ -30,11 +31,63 @@ metadata:
 data:
 [...]
   lustreStorage:
-    externalMgs: 1.2.3.4@eth0
+    externalMgs: 1.2.3.4@eth0:1.2.3.5@eth0
     combinedMgtMdt: false
     standaloneMgtPoolName: ""
 [...]
 ```
+
+### NnfLustreMGT
+A `NnfLustreMGT` resource tracks which fsnames have been used on the MGT to prevent fsname re-use. Any Lustre file systems that are created through the NNF software will request an fsname to use from a `NnfLustreMGT` resource. Every MGT must have a corresponding `NnfLustreMGT` resource. For MGTs that are hosted on NNF hardware, the `NnfLustreMGT` resources are created automatically. The NNF software also erases any no longer used fsnames from disk for any internally hosted MGTs. For an MGT hosted on an external node, an admin must create an `NnfLustreMGT`. This resource ensures that fsnames will be created in a sequential order without any fsname re-use. However, after an fsname is no longer in use by a file system, it will not be erased from the MGT disk. An admin may decide to periodically run the `lctl erase_lcfg [fsname]` command to remove fsnames that are no longer in use.
+
+Below is an example `NnfLustreMGT` resource. The `NnfLustreMGT` resource for external MGSs should be created in the `nnf-system` namespace.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfLustreMGT
+metadata:
+  name: external-mgt
+  namespace: nnf-system
+spec:
+  addresses:
+  - "1.2.3.4@eth0:1.2.3.5@eth0"
+  fsNameStart: "aaaaaaaa"
+  fsNameBlackList:
+  - "mylustre"
+  fsNameStartReference:
+    name: external-mgt
+    namespace: default
+    kind: ConfigMap
+```
+
+* `addresses` - This is a list of LNet addresses that could be used for this MGT. This should match any values that are used in the `externalMgs` field in the `NnfStorageProfiles`.
+* `fsNameStart` - The first fsname to use. Subsequent fsnames will be incremented based on this starting fsname (e.g, `aaaaaaaa`, `aaaaaaab`, `aaaaaaac`). fsnames use lowercase letters `'a'`-`'z'`.
+* `fsNameBlackList` - This is a list of fsnames that should not be given to any NNF Lustre file systems. If the MGT is hosting any non-NNF Lustre file systems, their fsnames should be included in this blacklist.
+* `fsNameStartReference` - This is an optional ObjectReference to a `ConfigMap` that holds a starting fsname. If this field is specified, it takes precedence over the `fsNameStart` field in the spec. The `ConfigMap` will be updated to the next available fsname everytime an fsname is assigned to a new Lustre file system.
+
+### ConfigMap
+
+For external MGTs, the `fsNameStartReference` should be used to point to a `ConfigMap` in the default namespace. The `ConfigMap` should not be removed during an argocd undeploy/deploy. This allows the nnf-sos sofware to be undeployed (including any `NnfLustreMGT` resources), without having the fsname reset back to the `fsNameStart` value on a redeploy. The Configmap that is created should be left empty initially.
+
+### Argocd
+
+* An empty ConfigMap should be deployed with the `0-early-config` application. It should be created in the `default` namespace, and it can have any name.
+* The argocd application for `0-early-config` should be updated to include the following under `ignoreDifferences`:
+```yaml
+  - kind: ConfigMap
+    jsonPointers:
+    - /data
+```
+* A yaml file for the `NnfLustreMGT` resource should be deployed with the `2-nnf-sos` application. It should be created in the `nnf-system` namespace, and it can have any name. The `ConfigMap` should be listed in the `fsNameStartReference` field.
+* The argocd application for `2-nnf-sos` should be updated to include the following under `ignoreDifferences`:
+```yaml
+  - group: nnf.cray.hpe.com
+    kind: NnfLustreMGT
+    jsonPointers:
+    - /spec/claimList
+```
+
+A separate `ConfigMap` and `NnfLustreMGT` is needed for every external Lustre MGT.
 
 ## Configuration with Persistent Lustre
 
