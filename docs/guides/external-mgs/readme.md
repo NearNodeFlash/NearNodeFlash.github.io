@@ -39,9 +39,11 @@ data:
 
 ### NnfLustreMGT
 
-A `NnfLustreMGT` resource tracks which fsnames have been used on the MGT to prevent fsname re-use. Any Lustre file systems that are created through the NNF software will request an fsname to use from a `NnfLustreMGT` resource. Every MGT must have a corresponding `NnfLustreMGT` resource. For MGTs that are hosted on NNF hardware, the `NnfLustreMGT` resources are created automatically. The NNF software also erases any unused fsnames from the MGT disk for any internally hosted MGTs. For a MGT hosted on an external node, an admin must create an `NnfLustreMGT` resource. This resource ensures that fsnames will be created in a sequential order without any fsname re-use. However, after an fsname is no longer in use by a file system, it will not be erased from the MGT disk. An admin may decide to periodically run the `lctl erase_lcfg [fsname]` command to remove fsnames that are no longer in use.
+A `NnfLustreMGT` resource tracks which fsnames have been used on the MGT to prevent fsname re-use. Any Lustre file systems that are created through the NNF software will request an fsname to use from a `NnfLustreMGT` resource. Every MGT must have a corresponding `NnfLustreMGT` resource. For MGTs that are hosted on NNF hardware, the `NnfLustreMGT` resources are created automatically. The NNF software also erases any unused fsnames from the MGT disk for any internally hosted MGTs.
 
-Below is an example `NnfLustreMGT` resource. The `NnfLustreMGT` resource for external MGSs should be created in the `nnf-system` namespace.
+For a MGT hosted on an external node, an admin must create an `NnfLustreMGT` resource. This resource ensures that fsnames will be created in a sequential order without any fsname re-use. However, after an fsname is no longer in use by a file system, it will not be erased from the MGT disk. An admin may decide to periodically run the `lctl erase_lcfg [fsname]` command to remove fsnames that are no longer in use.
+
+Below is an example `NnfLustreMGT` resource. The `NnfLustreMGT` resource for external MGSs must be created in the `nnf-system` namespace.
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha1
@@ -64,31 +66,13 @@ spec:
 * `addresses` - This is a list of LNet addresses that could be used for this MGT. This should match any values that are used in the `externalMgs` field in the `NnfStorageProfiles`.
 * `fsNameStart` - The first fsname to use. Subsequent fsnames will be incremented based on this starting fsname (e.g, `aaaaaaaa`, `aaaaaaab`, `aaaaaaac`). fsnames use lowercase letters `'a'`-`'z'`. `fsNameStart` should be exactly 8 characters long.
 * `fsNameBlackList` - This is a list of fsnames that should not be given to any NNF Lustre file systems. If the MGT is hosting any non-NNF Lustre file systems, their fsnames should be included in this blacklist.
-* `fsNameStartReference` - This is an optional `ObjectReference` to a `ConfigMap` that holds a starting fsname. If this field is specified, it takes precedence over the `fsNameStart` field in the spec. The `ConfigMap` will be updated to the next available fsname everytime an fsname is assigned to a new Lustre file system.
+* `fsNameStartReference` - This is an optional `ObjectReference` to a `ConfigMap` that holds a starting fsname. If this field is specified, it takes precedence over the `fsNameStart` field in the spec. The `ConfigMap` will be updated to the next available fsname every time an fsname is assigned to a new Lustre file system.
 
 ### ConfigMap
 
-For external MGTs, the `fsNameStartReference` should be used to point to a `ConfigMap` in the default namespace. The `ConfigMap` should not be removed during an argocd undeploy/deploy. This allows the nnf-sos sofware to be undeployed (including any `NnfLustreMGT` resources), without having the fsname reset back to the `fsNameStart` value on a redeploy. The Configmap that is created should be left empty initially.
+For external MGTs, the `fsNameStartReference` should be used to point to a `ConfigMap` in the `default` namespace. The `ConfigMap` should be left empty initially. The `ConfigMap` is used to hold the value of the next available fsname, and it should not be deleted or modified while a `NnfLustreMGT` resource is referencing it. Removing the `ConfigMap` will cause the Rabbit software to lose track of which fsnames have already been used on the MGT. This is undesireable unless the external MGT is no longer being used by Rabbit software or if an admin has erased all previously used fsnames with the `lctl erase_lcfg [fsname]` command.
 
-### Argocd
-
-* An empty ConfigMap should be deployed with the `0-early-config` application. It should be created in the `default` namespace, and it can have any name.
-* The argocd application for `0-early-config` should be updated to include the following under `ignoreDifferences`:
-```yaml
-  - kind: ConfigMap
-    jsonPointers:
-    - /data
-```
-* A yaml file for the `NnfLustreMGT` resource should be deployed with the `2-nnf-sos` application. It should be created in the `nnf-system` namespace, and it can have any name. The `ConfigMap` should be listed in the `fsNameStartReference` field.
-* The argocd application for `2-nnf-sos` should be updated to include the following under `ignoreDifferences`:
-```yaml
-  - group: nnf.cray.hpe.com
-    kind: NnfLustreMGT
-    jsonPointers:
-    - /spec/claimList
-```
-
-A separate `ConfigMap` and `NnfLustreMGT` is needed for every external Lustre MGT.
+When using the `ConfigMap`, the nnf-sos software may be undeployed and redeployed without losing track of the next fsname value. During an undeploy, the `NnfLustreMGT` resource will be removed. During a deploy, the `NnfLustreMGT` resource will read the fsname value from the `ConfigMap` if it is present. The value in the `ConfigMap` will override the fsname in the `fsNameStart` field.
 
 ## Configuration with Persistent Lustre
 
