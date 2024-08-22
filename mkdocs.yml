@@ -10,6 +10,7 @@ nav:
       - guides/index.md
       - 'Initial Setup': 'guides/initial-setup/readme.md'
       - 'Compute Daemons': 'guides/compute-daemons/readme.md'
+      - 'User Interactions': 'guides/user-interactions/readme.md'
       - 'Data Movement': 'guides/data-movement/readme.md'
       - 'Copy Offload API': 'guides/data-movement/copy-offload-api.html'
       - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
@@ -19,7 +20,7 @@ nav:
       - 'User Containers': 'guides/user-containers/readme.md'
       - 'Lustre External MGT': 'guides/external-mgs/readme.md'
       - 'Global Lustre': 'guides/global-lustre/readme.md'
-      - 'Draining A Node': 'guides/node-management/drain.md'
+      - 'Disable or Drain a Node': 'guides/node-management/drain.md'
       - 'Debugging NVMe Namespaces': 'guides/node-management/nvme-namespaces.md'
       - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
   - 'RFCs':
