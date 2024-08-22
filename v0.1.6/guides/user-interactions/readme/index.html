@@ -1,0 +1,1815 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Near Node Flash">
+      
+      
+      
+      
+        <link rel="prev" href="../../compute-daemons/readme/">
+      
+      
+        <link rel="next" href="../../data-movement/readme/">
+      
+      
+      <link rel="icon" href="../../../img/logo.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.32">
+    
+    
+      
+        <title>User Interactions - NNF</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.3cba04c6.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rabbit-user-interactions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NNF
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Interactions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../" class="md-tabs__link">
+        
+  
+    
+  
+  User Guides
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../rfcs/" class="md-tabs__link">
+        
+  
+    
+  
+  RFCs
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
+          
+  
+  Repo Admin Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    NNF
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guides
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initial Setup
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compute-daemons/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute Daemons
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    User Interactions
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    User Interactions
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jobdw" class="md-nav__link">
+    <span class="md-ellipsis">
+      jobdw
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="jobdw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_persistent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="create_persistent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroy_persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      destroy_persistent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="destroy_persistent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistentdw" class="md-nav__link">
+    <span class="md-ellipsis">
+      persistentdw
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="persistentdw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy_incopy_out" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy_in/copy_out
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="copy_in/copy_out">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container" class="md-nav__link">
+    <span class="md-ellipsis">
+      container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Movement
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/copy-offload-api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Copy Offload API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../firmware-upgrade/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ha-cluster/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High Availability Cluster
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rbac-for-users/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RBAC for Users
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-profiles/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-containers/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Containers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-mgs/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lustre External MGT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../global-lustre/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Global Lustre
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/drain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disable or Drain a Node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging NVMe Namespaces
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../directive-breakdown/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directive Breakdown
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../rfcs/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    RFCs
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            RFCs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rfcs/0001/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rabbit Request For Comment Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rfcs/0002/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Rabbit Storage For Containerized Applications
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Repo Admin Guides
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Repo Admin Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Releasing NNF Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Commands
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Commands">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jobdw" class="md-nav__link">
+    <span class="md-ellipsis">
+      jobdw
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="jobdw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create_persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      create_persistent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="create_persistent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#destroy_persistent" class="md-nav__link">
+    <span class="md-ellipsis">
+      destroy_persistent
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="destroy_persistent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistentdw" class="md-nav__link">
+    <span class="md-ellipsis">
+      persistentdw
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="persistentdw">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#copy_incopy_out" class="md-nav__link">
+    <span class="md-ellipsis">
+      copy_in/copy_out
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="copy_in/copy_out">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container" class="md-nav__link">
+    <span class="md-ellipsis">
+      container
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="container">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#command-arguments_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Arguments
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#examples_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Variables
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="rabbit-user-interactions">Rabbit User Interactions</h1>
+<h2 id="overview">Overview</h2>
+<p>A user may include one or more Data Workflow directives in their job script to request Rabbit services. Directives take the form <code>#DW [command] [command args]</code>, and are passed from the workload manager to the Rabbit software for processing. The directives can be used to allocate Rabbit file systems, copy files, and run user containers on the Rabbit nodes.</p>
+<p>Once the job is running on compute nodes, the application can find access to Rabbit specific resources through a set of environment variables that provide mount and network access information.</p>
+<h2 id="commands">Commands</h2>
+<h3 id="jobdw">jobdw</h3>
+<p>The <code>jobdw</code> directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a <code>copy_out</code> directive will be lost. Multiple <code>jobdw</code> directives can be listed in the same job script. </p>
+<h4 id="command-arguments">Command Arguments</h4>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Required</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>Yes</td>
+<td><code>raw</code>, <code>xfs</code>, <code>gfs2</code>, <code>lustre</code></td>
+<td>Type defines how the storage should be formatted. For Lustre file systems, a single file system is created that is mounted by all computes in the job. For raw, xfs, and GFS2 storage, a separate file system is allocated for each compute node.</td>
+</tr>
+<tr>
+<td><code>capacity</code></td>
+<td>Yes</td>
+<td>Allocation size with units. <code>1TiB</code>, <code>100GB</code>, etc.</td>
+<td>Capacity interpretation varies by storage type. For Lustre file systems, capacity is the aggregate OST capacity. For raw, xfs, and GFS2 storage, capacity is the capacity of the file system for a single compute node. Capacity suffixes are: <code>KB</code>, <code>KiB</code>, <code>MB</code>, <code>MiB</code>, <code>GB</code>, <code>GiB</code>, <code>TB</code>, <code>TiB</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>String including numbers and '-'</td>
+<td>This is a name for the storage allocation that is unique within a job</td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>No</td>
+<td>Profile name</td>
+<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide.</td>
+</tr>
+<tr>
+<td><code>requires</code></td>
+<td>No</td>
+<td><code>copy-offload</code></td>
+<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the <a href="../../directive-breakdown/readme/#requireddaemons">Required Daemons</a> section of the <a href="../../directive-breakdown/readme/">Directive Breakdown</a> guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples">Examples</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>#DW jobdw type=xfs capacity=10GiB name=scratch
+</code></pre></div>
+<p>This directive results in a 10GiB xfs file system created for each compute node in the job using the default storage profile.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>#DW jobdw type=lustre capacity=1TB name=dw-temp profile=high-metadata
+</code></pre></div>
+<p>This directive results in a single 1TB Lustre file system being created that can be accessed from all the compute nodes in the job. It is using a storage profile that an admin created to give high Lustre metadata performance.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>#DW jobdw type=gfs2 capacity=50GB name=checkpoint requires=copy-offload
+</code></pre></div>
+<p>This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running using the Copy Offload API.</p>
+<h3 id="create_persistent">create_persistent</h3>
+<p>The <code>create_persistent</code> command results in a storage allocation on the Rabbit nodes that lasts beyond the lifetime of the job. This is useful for creating a file system that can share data between jobs. Only a single <code>create_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>destroy_persistent</code> directive. See <a href="./#persistentdw">persistentdw</a> to utilize the storage in a job.</p>
+<h4 id="command-arguments_1">Command Arguments</h4>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Required</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td>Yes</td>
+<td><code>raw</code>, <code>xfs</code>, <code>gfs2</code>, <code>lustre</code></td>
+<td>Type defines how the storage should be formatted. For Lustre file systems, a single file system is created. For raw, xfs, and GFS2 storage, a separate file system is allocated for each compute node in the job.</td>
+</tr>
+<tr>
+<td><code>capacity</code></td>
+<td>Yes</td>
+<td>Allocation size with units. <code>1TiB</code>, <code>100GB</code>, etc.</td>
+<td>Capacity interpretation varies by storage type. For Lustre file systems, capacity is the aggregate OST capacity. For raw, xfs, and GFS2 storage, capacity is the capacity of the file system for a single compute node. Capacity suffixes are: <code>KB</code>, <code>KiB</code>, <code>MB</code>, <code>MiB</code>, <code>GB</code>, <code>GiB</code>, <code>TB</code>, <code>TiB</code></td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>Lowercase string including numbers and '-'</td>
+<td>This is a name for the storage allocation that is unique within the system</td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>No</td>
+<td>Profile name</td>
+<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_1">Examples</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>#DW create_persistent type=xfs capacity=100GiB name=scratch
+</code></pre></div>
+<p>This directive results in a 100GiB xfs file system created for each compute node in the job using the default storage profile. Since xfs file systems are not network accessible, subsequent jobs that want to use the file system must have the same number of compute nodes, and be scheduled on compute nodes with access to the correct Rabbit nodes. This means the job with the <code>create_persistent</code> directive must schedule the desired number of compute nodes even if no application is run on the compute nodes as part of the job.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>#DW create_persistent type=lustre capacity=10TiB name=shared-data profile=read-only
+</code></pre></div>
+<p>This directive results in a single 10TiB Lustre file system being created that can be accessed later by any compute nodes in the system. Multiple jobs can access a Rabbit Lustre file system at the same time. This job can be scheduled with a single compute node (or zero compute nodes if the WLM allows), without any limitations on compute node counts for subsequent jobs using the persistent Lustre file system.</p>
+<h3 id="destroy_persistent">destroy_persistent</h3>
+<p>The <code>destroy_persistent</code> command will delete persistent storage that was allocated by a corresponding <code>create_persistent</code>. If the persistent storage is currently in use by a job, then the job containing the <code>destroy_persistent</code> command will fail. Only a single <code>destroy_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>create_persistent</code> directive.</p>
+<h4 id="command-arguments_2">Command Arguments</h4>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Required</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>Lowercase string including numbers and '-'</td>
+<td>This is a name for the persistent storage allocation that will be destroyed</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_2">Examples</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>#DW destroy_persistent name=shared-data
+</code></pre></div>
+<p>This directive will delete the persistent storage allocation with the name <code>shared-data</code></p>
+<h3 id="persistentdw">persistentdw</h3>
+<p>The <code>persistentdw</code> command makes an existing persistent storage allocation available to a job. The persistent storage must already be created from a <code>create_persistent</code> command in a different job script. Multiple <code>persistentdw</code> commands can be used in the same job script to request access to multiple persistent allocations.</p>
+<p>Persistent Lustre file systems can be accessed from any compute nodes in the system, and the compute node count for the job can vary as needed. Multiple jobs can access a persistent Lustre file system concurrently if desired. Raw, xfs, and GFS2 file systems can only be accessed by compute nodes that have a physical connection to the Rabbits hosting the storage, and jobs accessing these storage types must have the same compute node count as the job that made the persistent storage.</p>
+<h4 id="command-arguments_3">Command Arguments</h4>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Required</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>Lowercase string including numbers and '-'</td>
+<td>This is a name for the persistent storage that will be accessed</td>
+</tr>
+<tr>
+<td><code>requires</code></td>
+<td>No</td>
+<td><code>copy-offload</code></td>
+<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the <a href="../../directive-breakdown/readme/#requireddaemons">Required Daemons</a> section of the <a href="../../directive-breakdown/readme/">Directive Breakdown</a> guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_3">Examples</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>#DW persistentdw name=shared-data requires=copy-offload
+</code></pre></div>
+<p>This directive will cause the <code>shared-data</code> persistent storage allocation to be mounted onto the compute nodes for the job application to use. The copy-offload daemon will be started on the compute nodes so the application can request data movement during the application run.</p>
+<h3 id="copy_incopy_out">copy_in/copy_out</h3>
+<p>The <code>copy_in</code> and <code>copy_out</code> directives are used to move data to and from the storage allocations on Rabbit nodes. The <code>copy_in</code> directive requests that data be moved into the Rabbit file system before application launch, and the <code>copy_out</code> directive requests data to be moved off of the Rabbit file system after application exit. This is different from data-movement that is requested through the copy-offload API, which occurs during application runtime. Multiple <code>copy_in</code> and <code>copy_out</code> directives can be included in the same job script. More information about data movement can be found in the <a href="../../data-movement/readme/">Data Movement</a> documentation.</p>
+<h4 id="command-arguments_4">Command Arguments</h4>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Required</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>source</code></td>
+<td>Yes</td>
+<td><code>[path]</code>, <code>$DW_JOB_[name]/[path]</code>, <code>$DW_PERSISTENT_[name]/[path]</code></td>
+<td><code>[name]</code> is the name of the Rabbit persistent or job storage as specified in the <code>name</code> argument of the <code>jobdw</code> or <code>persistentdw</code> directive. Any <code>'-'</code> in the name from the <code>jobdw</code> or <code>persistentdw</code> directive should be changed to a <code>'_'</code> in the <code>copy_in</code> and <code>copy_out</code> directive.</td>
+</tr>
+<tr>
+<td><code>destination</code></td>
+<td>Yes</td>
+<td><code>[path]</code>, <code>$DW_JOB_[name]/[path]</code>, <code>$DW_PERSISTENT_[name]/[path]</code></td>
+<td><code>[name]</code> is the name of the Rabbit persistent or job storage as specified in the <code>name</code> argument of the <code>jobdw</code> or <code>persistentdw</code> directive. Any <code>'-'</code> in the name from the <code>jobdw</code> or <code>persistentdw</code> directive should be changed to a <code>'_'</code> in the <code>copy_in</code> and <code>copy_out</code> directive.</td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>No</td>
+<td>Profile name</td>
+<td>This specifies which profile to use when copying data. Profiles specify the copy command to use, MPI arguments, and how output gets logged. If no profile is specified then the default profile is used. Profiles are created by an admin.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_4">Examples</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>#DW jobdw type=xfs capacity=10GiB name=fast-storage
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>#DW copy_in source=/lus/backup/johndoe/important_data destination=$DW_JOB_fast_storage/data
+</code></pre></div>
+<p>This set of directives creates an xfs file system on the Rabbits for each compute node in the job, and then moves data from <code>/lus/backup/johndoe/important_data</code> to each of the xfs file systems. <code>/lus/backup</code> must be set up in the Rabbit software as a <a href="../../global-lustre/readme/">Global Lustre</a> file system by an admin. The copy takes place before the application is launched on the compute nodes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#DW persistentdw name=shared-data1
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>#DW persistentdw name=shared-data2
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>#DW copy_out source=$DW_PERSISTENT_shared_data1/a destination=$DW_PERSISTENT_shared_data2/a profile=no-xattr
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>#DW copy_out source=$DW_PERSISTENT_shared_data1/b destination=$DW_PERSISTENT_shared_data2/b profile=no-xattr
+</code></pre></div>
+<p>This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the <code>no-xattr</code> profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a deterministic order.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>#DW persistentdw name=shared-data
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>#DW jobdw type=lustre capacity=1TiB name=fast-storage profile=high-metadata
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>#DW copy_in source=/lus/shared/johndoe/shared-libraries destination=$DW_JOB_fast_storage/libraries
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>#DW copy_in source=$DW_PERSISTENT_shared_data/ destination=$DW_JOB_fast_storage/data
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>#DW copy_out source=$DW_JOB_fast_storage/data destination=/lus/backup/johndoe/very_important_data profile=no-xattr
+</code></pre></div>
+<p>This set of directives makes use of a persistent storage allocation and a job storage allocation. There are two <code>copy_in</code> directives, one that copies data from the global lustre file system to the job allocation, and another that copies data from the persistent allocation to the job allocation. These copies do not occur in a deterministic order. The <code>copy_out</code> directive occurs after the application has exited, and copies data from the Rabbit job storage to a global lustre file system.</p>
+<h3 id="container">container</h3>
+<p>The <code>container</code> directive is used to launch user containers on the Rabbit nodes. The containers have access to <code>jobdw</code>, <code>persistentdw</code>, or global Lustre storage as specified in the <code>container</code> directive. More documentation for user containers can be found in the <a href="../../user-containers/readme/">User Containers</a> guide. Only a single <code>container</code> directive is allowed in a job.</p>
+<h4 id="command-arguments_5">Command Arguments</h4>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Required</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>Lowercase string including numbers and '-'</td>
+<td>This is a name for the container instance that is unique within a job</td>
+</tr>
+<tr>
+<td><code>profile</code></td>
+<td>Yes</td>
+<td>Profile name</td>
+<td>This specifies which container profile to use. The container profile contains information about which container to run, which file system types to expect, which network ports are needed, and many other options. An admin is responsible for creating the container profiles.</td>
+</tr>
+<tr>
+<td><code>DW_JOB_[expected]</code></td>
+<td>No</td>
+<td><code>jobdw</code> storage allocation <code>name</code></td>
+<td>The container profile will list <code>jobdw</code> file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
+</tr>
+<tr>
+<td><code>DW_PERSISTENT_[expected]</code></td>
+<td>No</td>
+<td><code>persistentdw</code> storage allocation <code>name</code></td>
+<td>The container profile will list <code>persistentdw</code> file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
+</tr>
+<tr>
+<td><code>DW_GLOBAL_[expected]</code></td>
+<td>No</td>
+<td>Global lustre path</td>
+<td>The container profile will list global Lustre file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
+</tr>
+</tbody>
+</table>
+<h4 id="examples_5">Examples</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>#DW jobdw type=xfs capacity=10GiB name=fast-storage
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>#DW container name=backup profile=automatic-backup DW_JOB_source=fast-storage DW_GLOBAL_destination=/lus/backup/johndoe
+</code></pre></div>
+<p>These directives create an xfs Rabbit job allocation and specify a container that should run on the Rabbit nodes. The container profile specified two file systems that the container needs, <code>DW_JOB_source</code> and <code>DW_GLOBAL_destination</code>. <code>DW_JOB_source</code> requires a <code>jobdw</code> file system and <code>DW_GLOBAL_destination</code> requires a global Lustre file system. </p>
+<h2 id="environment-variables">Environment Variables</h2>
+<p>The WLM makes a set of environment variables available to the job application running on the compute nodes that provide Rabbit specific information. These environment variables are used to find the mount location of Rabbit file systems and port numbers for user containers.</p>
+<table>
+<thead>
+<tr>
+<th>Environment Variable</th>
+<th>Value</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DW_JOB_[name]</code></td>
+<td>Mount path of a <code>jobdw</code> file system</td>
+<td><code>[name]</code> is from the <code>name</code> argument in the <code>jobdw</code> directive. Any <code>'-'</code> characters in the <code>name</code> will be converted to <code>'_'</code> in the environment variable. There will be one of these environment variables per <code>jobdw</code> directive in the job.</td>
+</tr>
+<tr>
+<td><code>DW_PERSISTENT_[name]</code></td>
+<td>Mount path of a <code>persistentdw</code> file system</td>
+<td><code>[name]</code> is from the <code>name</code> argument in the <code>persistentdw</code> directive. Any <code>'-'</code> characters in the <code>name</code> will be converted to <code>'_'</code> in the environment variable. There will be one of these environment variables per <code>persistentdw</code> directive in the job.</td>
+</tr>
+<tr>
+<td><code>NNF_CONTAINER_PORTS</code></td>
+<td>Comma separated list of ports</td>
+<td>These ports are used together with the IP address of the local Rabbit to communicate with a user container specified by a <code>container</code> directive. More information can be found in the <a href="../../user-containers/readme/">User Containers</a> guide.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../compute-daemons/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Compute Daemons">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Compute Daemons
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../data-movement/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Data Movement">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Data Movement
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; Copyright 2023 Hewlett Packard Enterprise Development LP
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.471ce7a9.min.js"></script>
+      
+    
+  </body>
+</html>
