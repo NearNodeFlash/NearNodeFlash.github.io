@@ -23,6 +23,7 @@ nav:
       - 'Disable or Drain a Node': 'guides/node-management/drain.md'
       - 'Debugging NVMe Namespaces': 'guides/node-management/nvme-namespaces.md'
       - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
+      - 'System Storage': 'guides/system-storage/readme.md'
   - 'RFCs':
       - rfcs/index.md
       - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
