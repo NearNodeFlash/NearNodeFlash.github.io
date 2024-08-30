@@ -11,7 +11,7 @@ System storage allows an admin to configure Rabbit storage without a DWS workflo
 
 ## NnfSystemStorage Resource
 
-System storage is created through the `NnfSystemStorage` resource. By default, system storage creates an allocation on all Rabbits in the system and exposes the storage to all compute. This behavior can be modified through different fields in the `NnfSystemStorage` resource. A `NnfSystemStorage` storage resource has the following fields in its `Spec` section:
+System storage is created through the `NnfSystemStorage` resource. By default, system storage creates an allocation on all Rabbits in the system and exposes the storage to all computes. This behavior can be modified through different fields in the `NnfSystemStorage` resource. A `NnfSystemStorage` storage resource has the following fields in its `Spec` section:
 
 | Field | Required | Default | Value | Notes |
 |-------|----------|---------|-------|-------|
@@ -102,9 +102,7 @@ data:
         lockStop: --lock-stop $VG_NAME
       vgCreate: --shared --addtag lvmlockd_even $VG_NAME $DEVICE_LIST
       vgRemove: $VG_NAME
-```
-
-```yaml
+---
 apiVersion: nnf.cray.hpe.com/v1alpha1
 kind: NnfStorageProfile
 metadata:
@@ -148,9 +146,7 @@ spec:
     name: lvmlockd_even
     namespace: systemstorage
     kind: NnfStorageProfile
-```
-
-```yaml
+---
 apiVersion: nnf.cray.hpe.com/v1alpha1
 kind: NnfSystemStorage
 metadata:
