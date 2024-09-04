@@ -1104,7 +1104,7 @@ be configured to run full-time, or it may be left in a disabled state if the WLM
 it only when a user requests it. See <a href="../../compute-daemons/readme/">Compute Daemons</a> for the systemd
 service configuration of the daemon. See <code>RequiredDaemons</code> in <a href="../../directive-breakdown/readme/">Directive
 Breakdown</a> for a description of how the user may request the
-daemon, in the case where the WLM will run it only on demand.</p>
+daemon in the case where the WLM will run it only on demand.</p>
 <p>See the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest API</a>
 definition for what can be configured.</p>
 <h3 id="selinux-and-data-movement">SELinux and Data Movement</h3>
@@ -1121,7 +1121,7 @@ information.</p>
 <h3 id="sshd-configuration-for-data-movement-workers"><code>sshd</code> Configuration for Data Movement Workers</h3>
 <p>The <code>nnf-dm-worker-*</code> pods run <code>sshd</code> in order to listen for <code>mpirun</code> jobs to perform data movement.
 The number of simultaneous connections is limited via the sshd configuration (i.e. <code>MaxStartups</code>).
-<strong>If you see error messages in Data Movement where mpirun can not communication with target nodes,
+<strong>If you see error messages in Data Movement where mpirun cannot communicate with target nodes,
 and you have ruled out any networking issues, this may be due to sshd configuration.</strong> <code>sshd</code> still
 start rejecting connections once the limit is reached.</p>
 <p>The <code>sshd_config</code> is stored in the <code>nnf-dm-worker-config</code> <code>ConfigMap</code> so that it can be changed on
