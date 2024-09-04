@@ -42,7 +42,7 @@ be configured to run full-time, or it may be left in a disabled state if the WLM
 it only when a user requests it. See [Compute Daemons](../compute-daemons/readme.md) for the systemd
 service configuration of the daemon. See `RequiredDaemons` in [Directive
 Breakdown](../directive-breakdown/readme.md) for a description of how the user may request the
-daemon, in the case where the WLM will run it only on demand.
+daemon in the case where the WLM will run it only on demand.
 
 See the [DataMovementCreateRequest API](copy-offload-api.html#datamovement.DataMovementCreateRequest)
 definition for what can be configured.
@@ -66,7 +66,7 @@ information.
 
 The `nnf-dm-worker-*` pods run `sshd` in order to listen for `mpirun` jobs to perform data movement.
 The number of simultaneous connections is limited via the sshd configuration (i.e. `MaxStartups`).
-**If you see error messages in Data Movement where mpirun can not communication with target nodes,
+**If you see error messages in Data Movement where mpirun cannot communicate with target nodes,
 and you have ruled out any networking issues, this may be due to sshd configuration.** `sshd` still
 start rejecting connections once the limit is reached.
 
