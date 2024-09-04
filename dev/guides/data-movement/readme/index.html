@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-movement-configuration" class="md-skip">
+        <a href="#data-movement-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -498,39 +498,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nnfdatamovementprofiles" class="md-nav__link">
+  <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      NnfDataMovementProfiles
+      Configuration
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="NnfDataMovementProfiles">
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#command" class="md-nav__link">
+  <a href="#data-movement-profiles" class="md-nav__link">
     <span class="md-ellipsis">
-      command
+      Data Movement Profiles
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      Profiles
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#copy-offload-api-daemon" class="md-nav__link">
     <span class="md-ellipsis">
       Copy Offload API Daemon
@@ -538,8 +524,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#selinux-and-data-movement" class="md-nav__link">
     <span class="md-ellipsis">
       SELinux and Data Movement
@@ -547,13 +533,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#sshd-configuration-for-data-movement-workers" class="md-nav__link">
     <span class="md-ellipsis">
       sshd Configuration for Data Movement Workers
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1013,39 +1004,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#nnfdatamovementprofiles" class="md-nav__link">
+  <a href="#configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      NnfDataMovementProfiles
+      Configuration
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="NnfDataMovementProfiles">
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#command" class="md-nav__link">
+  <a href="#data-movement-profiles" class="md-nav__link">
     <span class="md-ellipsis">
-      command
+      Data Movement Profiles
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      Profiles
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#copy-offload-api-daemon" class="md-nav__link">
     <span class="md-ellipsis">
       Copy Offload API Daemon
@@ -1053,8 +1030,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#selinux-and-data-movement" class="md-nav__link">
     <span class="md-ellipsis">
       SELinux and Data Movement
@@ -1062,13 +1039,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#sshd-configuration-for-data-movement-workers" class="md-nav__link">
     <span class="md-ellipsis">
       sshd Configuration for Data Movement Workers
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1090,142 +1072,59 @@
   
 
 
-<h1 id="data-movement-configuration">Data Movement Configuration</h1>
+<h1 id="data-movement-overview">Data Movement Overview</h1>
+<h2 id="configuration">Configuration</h2>
 <p>Data Movement can be configured in multiple ways:</p>
 <ol>
 <li>Server side (<code>NnfDataMovementProfile</code>)</li>
 <li>Per Copy Offload API Request arguments</li>
 </ol>
-<p>The first method is a "global" configuration - it affects all data movement operations that use a a
+<p>The first method is a "global" configuration - it affects all data movement operations that use a
 particular <code>NnfDataMovementProfile</code> (or the default). The second is done per the Copy Offload API,
 which allows for some configuration on a per-case basis, but is limited in scope. Both methods are
 meant to work in tandem.</p>
-<h2 id="nnfdatamovementprofiles"><code>NnfDataMovementProfiles</code></h2>
-<p>The server side configuration is done by creating <code>NnfDataMovementProfiles</code> resources in kubernetes.
-These work similar to <code>NnfStorageProfiles</code> #TODO LINK.</p>
-<p>The config map allows you to configure the following:</p>
-<table>
-<thead>
-<tr>
-<th>Setting</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>slots</td>
-<td>The number of slots specified in the MPI hostfile. A value less than 1 disables the use of slots in the hostfile.</td>
-</tr>
-<tr>
-<td>maxSlots</td>
-<td>The number of max_slots specified in the MPI hostfile. A value less than 1 disables the use of max_slots in the hostfile.</td>
-</tr>
-<tr>
-<td>command</td>
-<td>The full command to execute data movement. More detail in the following section.</td>
-</tr>
-<tr>
-<td>progressIntervalSeconds</td>
-<td>interval to collect the progress data from the <code>dcp</code> command.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="command"><code>command</code></h3>
-<p>The full data movement <code>command</code> can be set here. By default, Data Movement uses <code>mpirun</code> to run
-<code>dcp</code> to perform the data movement. Changing the <code>command</code> is useful for tweaking <code>mpirun</code> or <code>dcp</code> options or to
-replace the command with something that can aid in debugging (e.g. <code>hostname</code>).</p>
-<p><code>mpirun</code> uses hostfiles to list the hosts to launch <code>dcp</code> on. This hostfile is created for each Data
-Movement operation, and it uses the config map to set the <code>slots</code> and <code>maxSlots</code> for each host (i.e. NNF
-node) in the hostfile. The number of <code>slots</code>/<code>maxSlots</code> is the same for every host in the hostfile.</p>
-<p>Additionally, Data Movement uses substitution to fill in dynamic information for each Data Movement
-operation. Each of these <strong>must</strong> be present in the command for Data Movement to work properly when
-using <code>mpirun</code> and <code>dcp</code>:</p>
-<table>
-<thead>
-<tr>
-<th>VAR</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>$HOSTFILE</code></td>
-<td>hostfile that is created and used for mpirun.</td>
-</tr>
-<tr>
-<td><code>$UID</code></td>
-<td>User ID that is inherited from the Workflow.</td>
-</tr>
-<tr>
-<td><code>$GID</code></td>
-<td>Group ID that is inherited from the Workflow.</td>
-</tr>
-<tr>
-<td><code>$SRC</code></td>
-<td>source for the data movement.</td>
-</tr>
-<tr>
-<td><code>$DEST</code></td>
-<td>destination for the data movement.</td>
-</tr>
-</tbody>
-</table>
-<p>By default, the command will look something like the following. Please see the config map itself for
-the most up to date default command:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mpirun<span class="w"> </span>--allow-run-as-root<span class="w"> </span>--hostfile<span class="w"> </span><span class="nv">$HOSTFILE</span><span class="w"> </span>dcp<span class="w"> </span>--progress<span class="w"> </span><span class="m">1</span><span class="w"> </span>--uid<span class="w"> </span><span class="nv">$UID</span><span class="w"> </span>--gid<span class="w"> </span><span class="nv">$GID</span><span class="w"> </span><span class="nv">$SRC</span><span class="w"> </span><span class="nv">$DEST</span>
-</code></pre></div>
-<h3 id="profiles">Profiles</h3>
-<p>Profiles can be specified in the in the <code>nnf-dm-config</code> config map. Users are able to select a
-profile using #DW directives (e.g .<code>copy_in profile=my-dm-profile</code>) and the Copy Offload API. If no
-profile is specified, the <code>default</code> profile is used. This default profile must exist in the config
-map.</p>
-<p><code>slots</code>, <code>maxSlots</code>, and <code>command</code> can be stored in Data Movement profiles. These profiles are
-available to quickly switch between different settings for a particular workflow.</p>
-<p>Example profiles:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">profiles</span><span class="p">:</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">      </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">      </span><span class="nt">maxSlots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --uid $UID --gid $GID $SRC $DEST</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">no-xattrs</span><span class="p">:</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">      </span><span class="nt">slots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">maxSlots</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress 1 --xattrs none --uid $UID --gid $GID $SRC $DEST</span>
-</code></pre></div>
-<h2 id="copy-offload-api-daemon">Copy Offload API Daemon</h2>
+<h3 id="data-movement-profiles">Data Movement Profiles</h3>
+<p>The server side configuration is controlled by creating <code>NnfDataMovementProfiles</code> resources in
+Kubernetes. These work similar to <code>NnfStorageProfiles</code>. See <a href="../../storage-profiles/readme/">here</a>
+for understanding how to use profiles, set a default, etc.</p>
+<p>For an in-depth understanding of the capabilities offered by Data Movement profiles, we recommend
+referring to the following resources:</p>
+<ul>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha1/nnfdatamovementprofile_types.go#L27">Type definition</a> for <code>NnfDataMovementProfile</code></li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Sample</a> for <code>NnfDataMovementProfile</code></li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Online Examples</a> for <code>NnfDataMovementProfile</code></li>
+</ul>
+<h3 id="copy-offload-api-daemon">Copy Offload API Daemon</h3>
 <p>The <code>CreateRequest</code> API call that is used to create Data Movement with the Copy Offload API has some
-options to allow a user to specify some options for that particular Data Movement. These settings
-are on a per-request basis.</p>
+options to allow a user to specify some options for that particular Data Movement operation. These
+settings are on a per-request basis. These supplement the configuration in the
+<code>NnfDataMovementProfile</code>.</p>
 <p>The Copy Offload API requires the <code>nnf-dm</code> daemon to be running on the compute node. This daemon may
 be configured to run full-time, or it may be left in a disabled state if the WLM is expected to run
 it only when a user requests it. See <a href="../../compute-daemons/readme/">Compute Daemons</a> for the systemd
 service configuration of the daemon. See <code>RequiredDaemons</code> in <a href="../../directive-breakdown/readme/">Directive
 Breakdown</a> for a description of how the user may request the
 daemon, in the case where the WLM will run it only on demand.</p>
-<p>If the WLM is running the <code>nnf-dm</code> daemon only on demand, then the user can request that the daemon
-be running for their job by specifying <code>requires=copy-offload</code> in their <code>DW</code> directive. The
-following is an example:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">#DW jobdw type=gfs2 capacity=1GB name=stg1 requires=copy-offload</span>
-</code></pre></div>
 <p>See the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest API</a>
 definition for what can be configured.</p>
-<h2 id="selinux-and-data-movement">SELinux and Data Movement</h2>
+<h3 id="selinux-and-data-movement">SELinux and Data Movement</h3>
 <p>Careful consideration must be taken when enabling SELinux on compute nodes. Doing so will result in
 SELinux Extended File Attributes (xattrs) being placed on files created by applications running on
 the compute node, which may not be supported by the destination file system (e.g. Lustre).</p>
 <p>Depending on the configuration of <code>dcp</code>, there may be an attempt to copy these xattrs. You may need
 to disable this by using <code>dcp --xattrs none</code> to avoid errors. For example, the <code>command</code> in the
-<code>nnf-dm-config</code> config map or <code>dcpOptions</code> in the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest
+<code>NnfDataMovementProfile</code> or <code>dcpOptions</code> in the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest
 API</a> could be used to set this
 option.</p>
 <p>See the <a href="https://mpifileutils.readthedocs.io/en/latest/dcp.1.html"><code>dcp</code> documentation</a> for more
 information.</p>
-<h2 id="sshd-configuration-for-data-movement-workers"><code>sshd</code> Configuration for Data Movement Workers</h2>
-<p>The nnf-dm-worker pods run <code>sshd</code> in order to listen for <code>mpirun</code> jobs to perform data movement. The
-number of simultaneous connections is limited via the sshd configuration (i.e. <code>MaxStartups</code>). <strong>If
-you see error messages in Data Movement where mpirun can not communication with target nodes, this
-may be due to sshd configuration.</strong></p>
-<p>This configuration is stored in the <code>nnf-dm-worker-config</code> <code>ConfigMap</code> so that it can be changed on
+<h3 id="sshd-configuration-for-data-movement-workers"><code>sshd</code> Configuration for Data Movement Workers</h3>
+<p>The <code>nnf-dm-worker-*</code> pods run <code>sshd</code> in order to listen for <code>mpirun</code> jobs to perform data movement.
+The number of simultaneous connections is limited via the sshd configuration (i.e. <code>MaxStartups</code>).
+<strong>If you see error messages in Data Movement where mpirun can not communication with target nodes,
+and you have ruled out any networking issues, this may be due to sshd configuration.</strong> <code>sshd</code> still
+start rejecting connections once the limit is reached.</p>
+<p>The <code>sshd_config</code> is stored in the <code>nnf-dm-worker-config</code> <code>ConfigMap</code> so that it can be changed on
 a running system without needing to roll new images. This also enables site-specific configuration.</p>
 
 
