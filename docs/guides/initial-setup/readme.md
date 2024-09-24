@@ -10,7 +10,7 @@ Instructions for the initial setup of a Rabbit are included in this document.
 ## LVM Configuration on Rabbit
 
 ??? "LVM Details"
-    Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.
+    Running LVM commands (`lvcreate`/`lvremove`) inside of a container is problematic. Rabbit Storage Orchestration code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the `lvcreate`/`lvremove` commands wait for a UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.
 
     4 options to solve this problem are:
 
@@ -19,9 +19,9 @@ Instructions for the initial setup of a Rabbit are included in this document.
     3. Disable UDEV sync using the `–noudevsync` command option for each LVM command
     4. Clear the UDEV cookie using the `dmsetup udevcomplete_all` command after the lvcreate/lvremove command.
 
-    Taking these in reverse order using option 4 above which allows UDEV settings within the host OS to remain unchanged from the default, one would need to start the   `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
+    Taking these in reverse order, using option 4 allows UDEV settings within the host OS to remain unchanged from the default. One would need to start the `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
 
-    Option 3 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary   because the host OS is PXE-booted onto the node vs loaded from an device that is discovered by UDEV.
+    Option 3 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary. This is because the host OS is PXE-booted onto the node vs loaded from a device that is discovered by UDEV.
 
     Option 2 above is our preferred way to disable UDEV syncing if disabling UDEV for LVM is not desired.
 
