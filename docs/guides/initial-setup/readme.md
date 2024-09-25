@@ -10,25 +10,37 @@ Instructions for the initial setup of a Rabbit are included in this document.
 ## LVM Configuration on Rabbit
 
 ??? "LVM Details"
-    Running LVM commands (lvcreate/lvremove) on a Rabbit to create logical volumes is problematic if those commands run within a container. Rabbit Storage Orchestration   code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the LVM create/remove commands wait for a   UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.
+    Running LVM commands (`lvcreate`/`lvremove`) inside of a container is problematic. Rabbit Storage Orchestration code contained in the `nnf-node-manager` Kubernetes pod executes LVM commands from within the container. The problem is that the `lvcreate`/`lvremove` commands wait for a UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.
 
-    3 options to solve this problem are:
+    4 options to solve this problem are:
 
-    1. Disable UDEV sync at the host operating system level
-    2. Disable UDEV sync using the `–noudevsync` command option for each LVM command
-    3. Clear the UDEV cookie using the `dmsetup udevcomplete_all` command after the lvcreate/lvremove command.
+    1. Disable UDEV for LVM
+    2. Disable UDEV sync at the host operating system level
+    3. Disable UDEV sync using the `–noudevsync` command option for each LVM command
+    4. Clear the UDEV cookie using the `dmsetup udevcomplete_all` command after the lvcreate/lvremove command.
 
-    Taking these in reverse order using option 3 above which allows UDEV settings within the host OS to remain unchanged from the default, one would need to start the   `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
+    Taking these in reverse order, using option 4 allows UDEV settings within the host OS to remain unchanged from the default. One would need to start the `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
 
-    Option 2 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary   because the host OS is PXE-booted onto the node vs loaded from an device that is discovered by UDEV.
+    Option 3 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary. This is because the host OS is PXE-booted onto the node vs loaded from a device that is discovered by UDEV.
 
-    Option 1 above is what we chose to implement because it is the simplest. The following sections discuss this setting.
+    Option 2 above is our preferred way to disable UDEV syncing if disabling UDEV for LVM is not desired.
+
+    If UDEV sync is disabled as described in options 2 and 3, then LVM must also be run with the option to verify UDEV operations. This adds extra checks to verify that the UDEV devices appear as LVM expects. For some LV types (like RAID configurations), the UDEV device takes longer to appear in `/dev`. Without the UDEV confirmation cookie, LVM won't wait long enough to find the device unless the LVM UDEV checks are done.
+
+    Option 1 above is the overall preferred method for managing LVM devices on Rabbit nodes. LVM will handle device files without input from UDEV.
 </details>
 
-In order for LVM commands to run within the container environment on a Rabbit, the following change is required to the `/etc/lvm/lvm.conf` file on Rabbit.
+In order for LVM commands to run within the container environment on a Rabbit, one of the following changes is required to the `/etc/lvm/lvm.conf` file on Rabbit.
 
+Option 1 as described above:
+```bash
+sed -i 's/udev_rules = 1/udev_rules = 0/g' /etc/lvm/lvm.conf
+```
+
+Option 2 as described above:
 ```bash
 sed -i 's/udev_sync = 1/udev_sync = 0/g' /etc/lvm/lvm.conf
+sed -i 's/verify_udev_operations = 0/verify_udev_operations = 1/g' /etc/lvm/lvm.conf
 ```
 
 ### ZFS

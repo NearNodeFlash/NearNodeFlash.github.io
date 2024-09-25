@@ -24,9 +24,9 @@ System storage is created through the `NnfSystemStorage` resource. By default, s
 | `ComputesPattern` | No | Empty | A list of integers [0-15] | If `ComputesTarget` is `pattern`, then the storage is made available on compute nodes with the indexes specified in this list. |
 | `Capacity` | Yes | `1073741824` | Integer | Number of bytes to allocate per Rabbit |
 | `Type` | Yes | `raw` | `raw`, `xfs`, `gfs2` | Type of file system to create on the Rabbit storage |
-| `StorageProfile` | Yes | None | `ObjectReference` to an `NnfStorageProfile`. This storage profile must be marked as `pinned` |
-| `MakeClientMounts` | Yes | `false` | Create `ClientMount` resources to mount the storage on the compute nodes. If this is `false`, then the devices are made available to the compute nodes without mounting the file system |
-| `ClientMountPath` | No | None | Path to mount the file system on the compute nodes |
+| `StorageProfile` | Yes | None | `ObjectReference` to an `NnfStorageProfile` | This storage profile must be marked as `pinned` |
+| `MakeClientMounts` | Yes | `false` | Bool | Create `ClientMount` resources to mount the storage on the compute nodes. If this is `false`, then the devices are made available to the compute nodes without mounting the file system |
+| `ClientMountPath` | No | None | Path | Path to mount the file system on the compute nodes |
 
 `NnfSystemResources` can be created in any namespace.
 
@@ -62,7 +62,7 @@ spec:
   clientMountPath: "/mnt/nnf/gfs2"
   storageProfile:
     name: gfs2-systemstorage
-    namespace: systemstorage
+    namespace: default
     kind: NnfStorageProfile
 ```
 
@@ -80,8 +80,8 @@ The following example resources show how to create two system storages to use fo
 apiVersion: nnf.cray.hpe.com/v1alpha1
 kind: NnfStorageProfile
 metadata:
-  name: lvmlockd_even
-  namespace: systemstorage
+  name: lvmlockd-even
+  namespace: default
 data:
   xfsStorage:
     capacityScalingFactor: "1.0"
@@ -100,14 +100,14 @@ data:
       vgChange:
         lockStart: --lock-start $VG_NAME
         lockStop: --lock-stop $VG_NAME
-      vgCreate: --shared --addtag lvmlockd_even $VG_NAME $DEVICE_LIST
+      vgCreate: --shared --addtag lvmlockd-even $VG_NAME $DEVICE_LIST
       vgRemove: $VG_NAME
 ---
 apiVersion: nnf.cray.hpe.com/v1alpha1
 kind: NnfStorageProfile
 metadata:
-  name: lvmlockd_odd
-  namespace: systemstorage
+  name: lvmlockd-odd
+  namespace: default
 data:
   xfsStorage:
     capacityScalingFactor: "1.0"
@@ -126,7 +126,7 @@ data:
       vgChange:
         lockStart: --lock-start $VG_NAME
         lockStop: --lock-stop $VG_NAME
-      vgCreate: --shared --addtag lvmlockd_odd $VG_NAME $DEVICE_LIST
+      vgCreate: --shared --addtag lvmlockd-odd $VG_NAME $DEVICE_LIST
       vgRemove: $VG_NAME
 ```
 
@@ -136,29 +136,29 @@ Note that the `NnfStorageProfile` resources are marked as `default: false` and `
 apiVersion: nnf.cray.hpe.com/v1alpha1
 kind: NnfSystemStorage
 metadata:
-  name: lvmlockd_even
+  name: lvmlockd-even
   namespace: systemstorage
 spec:
   type: "raw"
   computesTarget: "even"
   makeClientMounts: false
   storageProfile:
-    name: lvmlockd_even
-    namespace: systemstorage
+    name: lvmlockd-even
+    namespace: default
     kind: NnfStorageProfile
 ---
 apiVersion: nnf.cray.hpe.com/v1alpha1
 kind: NnfSystemStorage
 metadata:
-  name: lvmlockd_odd
+  name: lvmlockd-odd
   namespace: systemstorage
 spec:
   type: "raw"
   computesTarget: "odd"
   makeClientMounts: false
   storageProfile:
-    name: lvmlockd_odd
-    namespace: systemstorage
+    name: lvmlockd-odd
+    namespace: default
     kind: NnfStorageProfile
 ```
 
