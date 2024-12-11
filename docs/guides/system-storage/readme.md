@@ -23,6 +23,7 @@ System storage is created through the `NnfSystemStorage` resource. By default, s
 | `ComputesTarget` | Yes | `all` | `all`,`even`,`odd`,`pattern` | Only use certain compute nodes based on their index as determined from the `SystemConfiguration`. `all` uses all computes. `even` uses computes with an even index. `odd` uses computes with an odd index. `pattern` uses computes with the indexes specified in `Spec.ComputesPattern` |
 | `ComputesPattern` | No | Empty | A list of integers [0-15] | If `ComputesTarget` is `pattern`, then the storage is made available on compute nodes with the indexes specified in this list. |
 | `Capacity` | Yes | `1073741824` | Integer | Number of bytes to allocate per Rabbit |
+| `Shared` | Yes | `true` | Bool | If `shared` is `true`, a single allocation per Rabbit is shared by all computes. When `shared` is `false`, an allocation is made for each compute node |
 | `Type` | Yes | `raw` | `raw`, `xfs`, `gfs2` | Type of file system to create on the Rabbit storage |
 | `StorageProfile` | Yes | None | `ObjectReference` to an `NnfStorageProfile` | This storage profile must be marked as `pinned` |
 | `MakeClientMounts` | Yes | `false` | Bool | Create `ClientMount` resources to mount the storage on the compute nodes. If this is `false`, then the devices are made available to the compute nodes without mounting the file system |
