@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../global-lustre/readme/">
+        <link rel="prev" href="../../node-management/drain/">
       
       
-        <link rel="next" href="../../monitoring-cluster/auditing/">
+        <link rel="next" href="../../node-management/nvme-namespaces/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Disable or Drain a Node - NNF</title>
+        <title>Auditing - NNF</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#disable-or-drain-a-node" class="md-skip">
+        <a href="#kubernetes-auditing" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Disable or Drain a Node
+              Auditing
             
           </span>
         </div>
@@ -638,6 +638,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/drain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disable or Drain a Node
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -654,7 +675,7 @@
           
   
   <span class="md-ellipsis">
-    Disable or Drain a Node
+    Auditing
   </span>
   
 
@@ -665,7 +686,7 @@
         
   
   <span class="md-ellipsis">
-    Disable or Drain a Node
+    Auditing
   </span>
   
 
@@ -687,37 +708,79 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#disabling-a-node" class="md-nav__link">
+  <a href="#enable-auditing" class="md-nav__link">
     <span class="md-ellipsis">
-      Disabling a node
+      Enable Auditing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enable Auditing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-an-audit-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install an audit policy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-log-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a log directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-kube-apiserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the kube-apiserver
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-audit-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example audit policies
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#draining-a-node" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
-      Draining a node
+      References
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Draining a node">
+    <nav class="md-nav" aria-label="References">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#drain-nnf-pods-from-a-rabbit-node" class="md-nav__link">
+  <a href="#kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Drain NNF pods from a rabbit node
+      Kubernetes
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-csi-driver" class="md-nav__link">
+  <a href="#nnf-deploy" class="md-nav__link">
     <span class="md-ellipsis">
-      The CSI driver
+      nnf-deploy
     </span>
   </a>
   
@@ -744,28 +807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../monitoring-cluster/auditing/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Auditing
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../nvme-namespaces/" class="md-nav__link">
+      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1016,37 +1058,79 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#disabling-a-node" class="md-nav__link">
+  <a href="#enable-auditing" class="md-nav__link">
     <span class="md-ellipsis">
-      Disabling a node
+      Enable Auditing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enable Auditing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-an-audit-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install an audit policy
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-log-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a log directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-the-kube-apiserver" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configure the kube-apiserver
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-audit-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example audit policies
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#draining-a-node" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
-      Draining a node
+      References
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Draining a node">
+    <nav class="md-nav" aria-label="References">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#drain-nnf-pods-from-a-rabbit-node" class="md-nav__link">
+  <a href="#kubernetes" class="md-nav__link">
     <span class="md-ellipsis">
-      Drain NNF pods from a rabbit node
+      Kubernetes
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#the-csi-driver" class="md-nav__link">
+  <a href="#nnf-deploy" class="md-nav__link">
     <span class="md-ellipsis">
-      The CSI driver
+      nnf-deploy
     </span>
   </a>
   
@@ -1075,73 +1159,132 @@
   
 
 
-<h1 id="disable-or-drain-a-node">Disable Or Drain A Node</h1>
-<h2 id="disabling-a-node">Disabling a node</h2>
-<p>A Rabbit node can be manually disabled, indicating to the WLM that it should not schedule more jobs on the node. Jobs currently on the node will be allowed to complete at the discretion of the WLM.</p>
-<p>Disable a node by setting its Storage state to <code>Disabled</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>kubectl<span class="w"> </span>patch<span class="w"> </span>storage<span class="w"> </span><span class="nv">$NODE</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;[{&quot;op&quot;:&quot;replace&quot;, &quot;path&quot;:&quot;/spec/state&quot;, &quot;value&quot;: &quot;Disabled&quot;}]&#39;</span>
+<h1 id="kubernetes-auditing">Kubernetes Auditing</h1>
+<p>Auditing provides records of each request that arrives in the kube-apiserver. The audit record will indicate what happened and who requested it.</p>
+<h2 id="enable-auditing">Enable Auditing</h2>
+<p>Enable auditing by installing an audit policy configuration file on each k8s master, creating a directory on the master to hold the audit logs, and providing the appropriate commandline options to kube-apiserver.</p>
+<h3 id="install-an-audit-policy">Install an audit policy</h3>
+<p>The audit policy file will be installed on each k8s master node as <code>/etc/kubernetes/policies/audit-policy.yaml</code>.</p>
+<p>The following is an example audit policy file that captures events for the NNF stack. Other examples can be found later in this document.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>apiVersion:<span class="w"> </span>audit.k8s.io/v1
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>kind:<span class="w"> </span>Policy
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>omitStages:
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>-<span class="w"> </span>RequestReceived
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>rules:
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>-<span class="w"> </span>level:<span class="w"> </span>Metadata
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span>verbs:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;watch&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>,<span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="o">]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span>resources:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>lus.cray.hpe.com
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>dataworkflowservices.github.io
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>nnf.cray.hpe.com
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>dm.cray.hpe.com
 </code></pre></div>
-<p>When the Storage is queried by the WLM, it will show the disabled status.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">$ </span>kubectl<span class="w"> </span>get<span class="w"> </span>storages
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">NAME           STATE      STATUS     MODE   AGE</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="go">kind-worker2   Enabled    Ready      Live   10m</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="go">kind-worker3   Disabled   Disabled   Live   10m</span>
+<h3 id="create-a-log-directory">Create a log directory</h3>
+<p>Create a directory on each k8s master to contain the audit logs.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">mkdir /var/log/kubernetes</span>
 </code></pre></div>
-<p>To re-enable a node, set its Storage state to <code>Enabled</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl<span class="w"> </span>patch<span class="w"> </span>storage<span class="w"> </span><span class="nv">$NODE</span><span class="w"> </span>--type<span class="o">=</span>json<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;[{&quot;op&quot;:&quot;replace&quot;, &quot;path&quot;:&quot;/spec/state&quot;, &quot;value&quot;: &quot;Enabled&quot;}]&#39;</span>
+<h3 id="configure-the-kube-apiserver">Configure the kube-apiserver</h3>
+<p>The following is an example patch to apply to the <code>/etc/kubernetes/manifests/kube-apiserver.yaml</code> file on each k8s master node. The arguments in this patch refer to the audit policy file location and audit log location used earlier in this document.</p>
+<p><strong>Do not copy the <code>kube-apiserver.yaml</code> file to other master nodes. It contains IP addresses that are specific to one master node.</strong></p>
+<p>After applying this patch to <code>kube-apiserver.yaml</code>, clear any extra patch or backup files out of <code>/etc/kubernetes/manifests</code> because kubelet will read all of them, regardless of the file suffix.</p>
+<p>The kubelet on that master will detect the change to the <code>kube-apiserver.yaml</code> file and will restart the kube-apiserver.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>---<span class="w"> </span>a/kube-apiserver.yaml-orig<span class="w"> </span><span class="m">2024</span>-05-13<span class="w"> </span><span class="m">12</span>:18:48.256680095<span class="w"> </span>-0700
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>+++<span class="w"> </span>b/kube-apiserver.yaml<span class="w"> </span><span class="m">2024</span>-05-28<span class="w"> </span><span class="m">13</span>:39:50.342694448<span class="w"> </span>-0700
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>@@<span class="w"> </span>-41,6<span class="w"> </span>+41,9<span class="w"> </span>@@
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">     </span>-<span class="w"> </span>--service-cluster-ip-range<span class="o">=</span><span class="m">10</span>.96.0.0/12
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">     </span>-<span class="w"> </span>--tls-cert-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.crt
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">     </span>-<span class="w"> </span>--tls-private-key-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.key
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>+<span class="w">    </span>-<span class="w"> </span>--audit-policy-file<span class="o">=</span>/etc/kubernetes/policies/audit-policy.yaml
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>+<span class="w">    </span>-<span class="w"> </span>--audit-log-path<span class="o">=</span>/var/log/kubernetes/kube-apiserver-audit.log
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>+<span class="w">    </span>-<span class="w"> </span>--audit-log-maxsize<span class="o">=</span><span class="m">100</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">     </span>image:<span class="w"> </span>registry.k8s.io/kube-apiserver:v1.29.3
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">     </span>imagePullPolicy:<span class="w"> </span>IfNotPresent
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">     </span>livenessProbe:
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>@@<span class="w"> </span>-86,6<span class="w"> </span>+89,12<span class="w"> </span>@@
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">     </span>-<span class="w"> </span>mountPath:<span class="w"> </span>/etc/kubernetes/pki
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">       </span>name:<span class="w"> </span>k8s-certs
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">       </span>readOnly:<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>+<span class="w">    </span>-<span class="w"> </span>mountPath:<span class="w"> </span>/etc/kubernetes/policies/audit-policy.yaml
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>+<span class="w">      </span>name:<span class="w"> </span>k8s-policies
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>+<span class="w">      </span>readOnly:<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>+<span class="w">    </span>-<span class="w"> </span>mountPath:<span class="w"> </span>/var/log/kubernetes/
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>+<span class="w">      </span>name:<span class="w"> </span>k8s-log
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>+<span class="w">      </span>readOnly:<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">   </span>hostNetwork:<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">   </span>priority:<span class="w"> </span><span class="m">2000001000</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">   </span>priorityClassName:<span class="w"> </span>system-node-critical
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>@@<span class="w"> </span>-105,4<span class="w"> </span>+114,12<span class="w"> </span>@@
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="w">       </span>path:<span class="w"> </span>/etc/kubernetes/pki
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="w">       </span>type:<span class="w"> </span>DirectoryOrCreate
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a><span class="w">     </span>name:<span class="w"> </span>k8s-certs
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>+<span class="w">  </span>-<span class="w"> </span>hostPath:
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>+<span class="w">      </span>path:<span class="w"> </span>/etc/kubernetes/policies/audit-policy.yaml
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>+<span class="w">      </span>type:<span class="w"> </span>File
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>+<span class="w">    </span>name:<span class="w"> </span>k8s-policies
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>+<span class="w">  </span>-<span class="w"> </span>hostPath:
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>+<span class="w">      </span>path:<span class="w"> </span>/var/log/kubernetes/
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>+<span class="w">      </span>type:<span class="w"> </span>DirectoryOrCreate
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>+<span class="w">    </span>name:<span class="w"> </span>k8s-log
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w"> </span>status:<span class="w"> </span><span class="o">{}</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w"> </span><span class="sb">```</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a><span class="c1">## Disable auditing</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>Disable<span class="w"> </span>auditing<span class="w"> </span>by<span class="w"> </span>editing<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>/etc/kubernetes/manifests/kube-apiserver.yaml<span class="sb">`</span><span class="w"> </span>on<span class="w"> </span>each<span class="w"> </span>master<span class="w"> </span>to<span class="w"> </span>remove<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>--audit-*<span class="sb">`</span><span class="w"> </span>commandline<span class="w"> </span>options<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>kube-apiserver<span class="w"> </span>configuration.<span class="w"> </span>The<span class="w"> </span>kubelet<span class="w"> </span>on<span class="w"> </span>that<span class="w"> </span>master<span class="w"> </span>will<span class="w"> </span>detect<span class="w"> </span>the<span class="w"> </span>change<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span><span class="sb">`</span>kube-apiserver.yaml<span class="sb">`</span><span class="w"> </span>file<span class="w"> </span>and<span class="w"> </span>will<span class="w"> </span>restart<span class="w"> </span>the<span class="w"> </span>kube-apiserver.
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>Clear<span class="w"> </span>any<span class="w"> </span>extra<span class="w"> </span>patch<span class="w"> </span>or<span class="w"> </span>backup<span class="w"> </span>files<span class="w"> </span>out<span class="w"> </span>of<span class="w"> </span><span class="sb">`</span>/etc/kubernetes/manifests<span class="sb">`</span><span class="w"> </span>because<span class="w"> </span>kubelet<span class="w"> </span>will<span class="w"> </span><span class="nb">read</span><span class="w"> </span>all<span class="w"> </span>of<span class="w"> </span>them,<span class="w"> </span>regardless<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>file<span class="w"> </span>suffix.
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a><span class="c1">## Auditing in KIND</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>The<span class="w"> </span>KIND<span class="w"> </span>environment<span class="w"> </span>that<span class="w"> </span>is<span class="w"> </span>created<span class="w"> </span>by<span class="w"> </span>the<span class="w"> </span>tools<span class="w"> </span><span class="k">in</span><span class="w"> </span>nnf-deploy<span class="w"> </span>already<span class="w"> </span>has<span class="w"> </span>auditing<span class="w"> </span>enabled.<span class="w"> </span>See<span class="w"> </span>the<span class="w"> </span>notes<span class="w"> </span><span class="k">in</span><span class="w"> </span>nnf-deploy<span class="err">&#39;</span>s<span class="w"> </span><span class="o">[</span>audit-policy.yaml<span class="o">](</span>https://github.com/NearNodeFlash/nnf-deploy/blob/master/config/audit-policy.yaml<span class="o">)</span><span class="w"> </span>to<span class="w"> </span>access<span class="w"> </span>the<span class="w"> </span>audit<span class="w"> </span>log.
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a><span class="c1">## Reading the audit log</span>
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>The<span class="w"> </span><span class="sb">`</span>jq<span class="o">(</span><span class="m">1</span><span class="o">)</span><span class="sb">`</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>can<span class="w"> </span>be<span class="w"> </span>used<span class="w"> </span>to<span class="w"> </span>make<span class="w"> </span>sense<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>audit<span class="w"> </span>logs.<span class="w"> </span>The<span class="w"> </span>following<span class="w"> </span><span class="sb">`</span>jq<span class="sb">`</span><span class="w"> </span>commands<span class="w"> </span>have<span class="w"> </span>proven<span class="w"> </span>useful<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>NNF<span class="w"> </span>project:
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>Pretty-print<span class="w"> </span>the<span class="w"> </span>log<span class="w"> </span>events:
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a><span class="sb">```</span>console
+<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>jq<span class="w"> </span>-M<span class="w"> </span>.<span class="w"> </span>kube-apiserver-audit.log<span class="w"> </span><span class="p">|</span><span class="w"> </span>less
 </code></pre></div>
-<p>The Storage state will show that it is enabled.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">kubectl get storages</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">NAME           STATE     STATUS   MODE   AGE</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="go">kind-worker2   Enabled   Ready    Live   10m</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">kind-worker3   Enabled   Ready    Live   10m</span>
+<p>Dump a quick-to-digest summary of the log events:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">jq -M &#39;[.auditID,.verb,.requestURI,.user.username,.responseStatus.code,.stageTimestamp]&#39; kube-apiserver-audit.log | less</span>
 </code></pre></div>
-<h2 id="draining-a-node">Draining a node</h2>
-<p>The NNF software consists of a collection of DaemonSets and Deployments. The pods
-on the Rabbit nodes are usually from DaemonSets. Because of this, the <code>kubectl drain</code>
-command is not able to remove the NNF software from a node.  See <a href="https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/">Safely Drain a Node</a> for details about
-the limitations posed by DaemonSet pods.</p>
-<p>Given the limitations of DaemonSets, the NNF software will be drained by using taints,
-as described in
-<a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">Taints and Tolerations</a>.</p>
-<p>This would be used only after the WLM jobs have been removed from that Rabbit (preferably) and there is some reason to also remove the NNF software from it. This might be used before a Rabbit is powered off and pulled out of the cabinet, for example, to avoid leaving pods in "Terminating" state (harmless, but it's noise).</p>
-<p>If an admin used this taint before power-off it would mean there wouldn't be "Terminating" pods lying around for that Rabbit. After a new/same Rabbit is put back in its place, the NNF software won't jump back on it while the taint is present. The taint can be removed at any time, from immediately after the node is powered off up to some time after the new/same Rabbit is powered back on.</p>
-<h3 id="drain-nnf-pods-from-a-rabbit-node">Drain NNF pods from a rabbit node</h3>
-<p>Drain the NNF software from a node by applying the <code>cray.nnf.node.drain</code> taint.
-The CSI driver pods will remain on the node to satisfy any unmount requests from k8s
-as it cleans up the NNF pods.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl<span class="w"> </span>taint<span class="w"> </span>node<span class="w"> </span><span class="nv">$NODE</span><span class="w"> </span>cray.nnf.node.drain<span class="o">=</span>true:NoSchedule<span class="w"> </span>cray.nnf.node.drain<span class="o">=</span>true:NoExecute
+<p>Extract a specific event record from the log:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">jq -M &#39;. | select(.auditID==&quot;d1053ee5-0734-4b40-815f-3f6831f82bac&quot;)&#39; kube-apiserver-audit.log | less</span>
 </code></pre></div>
-<p>This will cause the node's <code>Storage</code> resource to be drained:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">$ </span>kubectl<span class="w"> </span>get<span class="w"> </span>storages
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">NAME           STATE     STATUS    MODE   AGE</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="go">kind-worker2   Enabled   Drained   Live   5m44s</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="go">kind-worker3   Enabled   Ready     Live   5m45s</span>
+<h2 id="example-audit-policies">Example audit policies</h2>
+<p>Log all activity from the clientmountd daemon. Extract records from the log with:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">jq -M &#39;.|select(.user.username==&quot;system:serviceaccount:nnf-system:nnf-clientmount&quot;)&#39; kube-apiserver-audit.log</span>
 </code></pre></div>
-<p>The <code>Storage</code> resource will contain the following message indicating the reason it has been drained:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp">$ </span>kubectl<span class="w"> </span>get<span class="w"> </span>storages<span class="w"> </span>rabbit1<span class="w"> </span>-o<span class="w"> </span>json<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-rM<span class="w"> </span>.status.message
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">Kubernetes node is tainted with cray.nnf.node.drain</span>
+<p>This could also be adjusted to isolate any other ServiceAccount.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>apiVersion:<span class="w"> </span>audit.k8s.io/v1
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>kind:<span class="w"> </span>Policy
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>omitStages:
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>-<span class="w"> </span>RequestReceived
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>rules:
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>-<span class="w"> </span>level:<span class="w"> </span>Metadata
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span>users:<span class="w"> </span><span class="o">[</span><span class="s2">&quot;system:serviceaccount:nnf-system:nnf-clientmount&quot;</span><span class="o">]</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span>resources:
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="c1"># core</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>lus.cray.hpe.com
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>dataworkflowservices.github.io
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>nnf.cray.hpe.com
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">  </span>-<span class="w"> </span>group:<span class="w"> </span>dm.cray.hpe.com
 </code></pre></div>
-<p>To restore the node to service, remove the <code>cray.nnf.node.drain</code> taint.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>kubectl<span class="w"> </span>taint<span class="w"> </span>node<span class="w"> </span><span class="nv">$NODE</span><span class="w"> </span>cray.nnf.node.drain-
-</code></pre></div>
-<p>The <code>Storage</code> resource will revert to a <code>Ready</code> status.</p>
-<h3 id="the-csi-driver">The CSI driver</h3>
-<p>While the CSI driver pods may be drained from a Rabbit node, it is inadvisable to do so.</p>
-<p><strong>Warning</strong> K8s relies on the CSI driver to unmount any filesystems that may have
-been mounted into a pod's namespace. If it is not present when k8s is attempting
-to remove a pod then the pod may be left in "Terminating" state. This is most
-obvious when draining the <code>nnf-dm-worker</code> pods which usually have filesystems
-mounted in them.</p>
-<p>Drain the CSI driver pod from a node by applying the <code>cray.nnf.node.drain.csi</code>
-taint.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>kubectl<span class="w"> </span>taint<span class="w"> </span>node<span class="w"> </span><span class="nv">$NODE</span><span class="w"> </span>cray.nnf.node.drain.csi<span class="o">=</span>true:NoSchedule<span class="w"> </span>cray.nnf.node.drain.csi<span class="o">=</span>true:NoExecute
-</code></pre></div>
-<p>To restore the CSI driver pods to that node, remove the <code>cray.nnf.node.drain.csi</code> taint.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>kubectl<span class="w"> </span>taint<span class="w"> </span>node<span class="w"> </span><span class="nv">$NODE</span><span class="w"> </span>cray.nnf.node.drain.csi-
-</code></pre></div>
-<p>This taint will also drain the remaining NNF software if has not already been
-drained by the <code>cray.nnf.node.drain</code> taint.</p>
+<p>A more complex <a href="https://github.com/NearNodeFlash/nnf-deploy/blob/master/config/audit-policy.yaml">audit-policy.yaml</a> can be found in the nnf-deploy configuration for KIND environments.</p>
+<h2 id="references">References</h2>
+<h3 id="kubernetes">Kubernetes</h3>
+<p><a href="https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/">Auditing</a></p>
+<h3 id="nnf-deploy">nnf-deploy</h3>
+<p>Nnf-deploy contains a more complex audit policy:
+<a href="https://github.com/NearNodeFlash/nnf-deploy/blob/master/config/audit-policy.yaml">audit-policy.yaml</a></p>
 
 
 
@@ -1177,7 +1320,7 @@ drained by the <code>cray.nnf.node.drain</code> taint.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../global-lustre/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Global Lustre">
+          <a href="../../node-management/drain/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Disable or Drain a Node">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1187,20 +1330,20 @@ drained by the <code>cray.nnf.node.drain</code> taint.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Global Lustre
+                Disable or Drain a Node
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../monitoring-cluster/auditing/" class="md-footer__link md-footer__link--next" aria-label="Next: Auditing">
+          <a href="../../node-management/nvme-namespaces/" class="md-footer__link md-footer__link--next" aria-label="Next: Debugging NVMe Namespaces">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Auditing
+                Debugging NVMe Namespaces
               </div>
             </div>
             <div class="md-footer__button md-icon">
