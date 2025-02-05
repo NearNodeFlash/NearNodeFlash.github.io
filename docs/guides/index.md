@@ -31,3 +31,4 @@
 ## Monitoring the Cluster
 
 * [Auditing](monitoring-cluster/auditing.md)
+* [API Priority and Fairness](monitoring-cluster/api-priority-and-fairness.md)

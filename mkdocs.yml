@@ -22,6 +22,7 @@ nav:
       - 'Global Lustre': 'guides/global-lustre/readme.md'
       - 'Disable or Drain a Node': 'guides/node-management/drain.md'
       - 'Auditing': 'guides/monitoring-cluster/auditing.md'
+      - 'API Priority and Fairness': 'guides/monitoring-cluster/api-priority-and-fairness.md'
       - 'Debugging NVMe Namespaces': 'guides/node-management/nvme-namespaces.md'
       - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
       - 'System Storage': 'guides/system-storage/readme.md'
