@@ -73,6 +73,8 @@ a running system without needing to roll new images. This also enables site-spec
 
 ## Enabling Core Dumps
 
+### Mounting core dump Volumes
+
 First, you must determine how your nodes handle core dumps. For example, if `systemd-coredump` is
 used, then core dumps inside containers will be moved to the host node automatically. If that is
 not the case, then a directory on the host nodes will need to be mounted into the Data Movement
@@ -103,6 +105,8 @@ same location inside the containers.
 [`kustomization.yaml`](https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/kustomization.yaml#L13C1-L24C29)
 then applies these patches to the correct resources.
 
+### Editing the Data Movement Command
+
 Once the volume is in place, the Data Movement command must be updated to first `cd` into this
 directory. This ensures that the core dump is placed in that directory, making it accessible on the
 host node.
@@ -123,3 +127,25 @@ data:
 Note that core patterns for containers are inherited from the host and that Linux containers do not
 support a container-only core pattern without also affecting the host node. This is why we must use
 a preceding `cd <dir>` in the Data Movement command.
+
+### Data Movement Debug Images
+
+To help with debugging symbols, it is a good idea to use the `debug` version of the two images used by the Data Movement containers:
+
+- `nnf-mfu-debug`
+- `nnf-dm-debug`
+
+Both of these images include debugging symbols for [Open MPI](https://www.open-mpi.org/) and [mpiFileUtils](https://mpifileutils.readthedocs.io/en/v0.11.1/).
+
+To use these images, edit the `environments/<system>/nnf-dm/kustomization.yaml` in your gitops repository and add the following:
+
+```yaml
+# Use images with mpifileutils/mpirun debug symbols
+images:
+- name: ghcr.io/nearnodeflash/nnf-dm
+  newName: ghcr.io/nearnodeflash/nnf-dm-debug
+- name: ghcr.io/nearnodeflash/nnf-mfu
+  newName: ghcr.io/nearnodeflash/nnf-mfu-debug
+```
+
+This will override the default images and use the debug symbols instead.
