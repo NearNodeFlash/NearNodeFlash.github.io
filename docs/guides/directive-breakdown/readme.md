@@ -150,14 +150,14 @@ A location constraint consists of an `access` list and a `reference`.
     * `status.compute.constraints.location.access.type` specifies the connection type for the storage. This can be `network` or `physical`
     * `status.compute.constraints.location.access.priority` specifies how necessary the connection type is. This can be `mandatory` or `bestEffort`
 
-## RequiredDaemons
+## Requires
 
-The `status.requiredDaemons` section of the `DirectiveBreakdown` tells the WLM about any driver-specific daemons it must enable for the job; it is assumed that the WLM knows about the driver-specific daemons and that if the users are specifying these then the WLM knows how to start them. The `status.requiredDaemons` section will exist only for `jobdw` and `persistentdw` directives. An example of the `status.requiredDaemons` section is included below.
+The `status.requires` section of the `DirectiveBreakdown` tells the WLM about any driver-specific daemons it must enable for the job; it is assumed that the WLM knows about the driver-specific daemons and that if the users are specifying these then the WLM knows how to start them. The `status.requires` section will exist only for `jobdw` and `persistentdw` directives. An example of the `status.requires` section is included below.
 
 ```yaml
 status:
 ...
-  requiredDaemons:
+  requires:
   - copy-offload
 ...
 ```

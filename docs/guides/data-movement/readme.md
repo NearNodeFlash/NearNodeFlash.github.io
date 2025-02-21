@@ -40,7 +40,7 @@ settings are on a per-request basis. These supplement the configuration in the
 The Copy Offload API requires the `nnf-dm` daemon to be running on the compute node. This daemon may
 be configured to run full-time, or it may be left in a disabled state if the WLM is expected to run
 it only when a user requests it. See [Compute Daemons](../compute-daemons/readme.md) for the systemd
-service configuration of the daemon. See `RequiredDaemons` in [Directive
+service configuration of the daemon. See `Requires` in [Directive
 Breakdown](../directive-breakdown/readme.md) for a description of how the user may request the
 daemon in the case where the WLM will run it only on demand.
 
