@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
     
     
       
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-movement-configuration" class="md-skip">
+        <a href="#data-movement-overview" class="md-skip">
           Skip to content
         </a>
       
@@ -505,6 +505,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#data-movement-profiles" class="md-nav__link">
     <span class="md-ellipsis">
       Data Movement Profiles
@@ -512,8 +522,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#copy-offload-api-daemon" class="md-nav__link">
     <span class="md-ellipsis">
       Copy Offload API Daemon
@@ -521,8 +531,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#selinux-and-data-movement" class="md-nav__link">
     <span class="md-ellipsis">
       SELinux and Data Movement
@@ -530,48 +540,11 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#sshd-configuration-for-data-movement-workers" class="md-nav__link">
     <span class="md-ellipsis">
       sshd Configuration for Data Movement Workers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enabling-core-dumps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enabling Core Dumps
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Enabling Core Dumps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mounting-core-dump-volumes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mounting core dump Volumes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#editing-the-data-movement-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      Editing the Data Movement Command
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-movement-debug-images" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data Movement Debug Images
     </span>
   </a>
   
@@ -1099,6 +1072,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#data-movement-profiles" class="md-nav__link">
     <span class="md-ellipsis">
       Data Movement Profiles
@@ -1106,8 +1089,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#copy-offload-api-daemon" class="md-nav__link">
     <span class="md-ellipsis">
       Copy Offload API Daemon
@@ -1115,8 +1098,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#selinux-and-data-movement" class="md-nav__link">
     <span class="md-ellipsis">
       SELinux and Data Movement
@@ -1124,48 +1107,11 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#sshd-configuration-for-data-movement-workers" class="md-nav__link">
     <span class="md-ellipsis">
       sshd Configuration for Data Movement Workers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enabling-core-dumps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enabling Core Dumps
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Enabling Core Dumps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mounting-core-dump-volumes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mounting core dump Volumes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#editing-the-data-movement-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      Editing the Data Movement Command
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-movement-debug-images" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data Movement Debug Images
     </span>
   </a>
   
@@ -1195,7 +1141,8 @@
   
 
 
-<h1 id="data-movement-configuration">Data Movement Configuration</h1>
+<h1 id="data-movement-overview">Data Movement Overview</h1>
+<h2 id="configuration">Configuration</h2>
 <p>Data Movement can be configured in multiple ways:</p>
 <ol>
 <li>Server side (<code>NnfDataMovementProfile</code>)</li>
@@ -1205,7 +1152,7 @@
 particular <code>NnfDataMovementProfile</code> (or the default). The second is done per the Copy Offload API,
 which allows for some configuration on a per-case basis, but is limited in scope. Both methods are
 meant to work in tandem.</p>
-<h2 id="data-movement-profiles">Data Movement Profiles</h2>
+<h3 id="data-movement-profiles">Data Movement Profiles</h3>
 <p>The server side configuration is controlled by creating <code>NnfDataMovementProfiles</code> resources in
 Kubernetes. These work similar to <code>NnfStorageProfiles</code>. See <a href="../../storage-profiles/readme/">here</a>
 for understanding how to use profiles, set a default, etc.</p>
@@ -1216,7 +1163,7 @@ referring to the following resources:</p>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Sample</a> for <code>NnfDataMovementProfile</code></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Online Examples</a> for <code>NnfDataMovementProfile</code></li>
 </ul>
-<h2 id="copy-offload-api-daemon">Copy Offload API Daemon</h2>
+<h3 id="copy-offload-api-daemon">Copy Offload API Daemon</h3>
 <p>The <code>CreateRequest</code> API call that is used to create Data Movement with the Copy Offload API has some
 options to allow a user to specify some options for that particular Data Movement operation. These
 settings are on a per-request basis. These supplement the configuration in the
@@ -1224,12 +1171,12 @@ settings are on a per-request basis. These supplement the configuration in the
 <p>The Copy Offload API requires the <code>nnf-dm</code> daemon to be running on the compute node. This daemon may
 be configured to run full-time, or it may be left in a disabled state if the WLM is expected to run
 it only when a user requests it. See <a href="../../compute-daemons/readme/">Compute Daemons</a> for the systemd
-service configuration of the daemon. See <code>RequiredDaemons</code> in <a href="../../directive-breakdown/readme/">Directive
+service configuration of the daemon. See <code>Requires</code> in <a href="../../directive-breakdown/readme/">Directive
 Breakdown</a> for a description of how the user may request the
 daemon in the case where the WLM will run it only on demand.</p>
 <p>See the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest API</a>
 definition for what can be configured.</p>
-<h2 id="selinux-and-data-movement">SELinux and Data Movement</h2>
+<h3 id="selinux-and-data-movement">SELinux and Data Movement</h3>
 <p>Careful consideration must be taken when enabling SELinux on compute nodes. Doing so will result in
 SELinux Extended File Attributes (xattrs) being placed on files created by applications running on
 the compute node, which may not be supported by the destination file system (e.g. Lustre).</p>
@@ -1240,7 +1187,7 @@ API</a> could be used to set this
 option.</p>
 <p>See the <a href="https://mpifileutils.readthedocs.io/en/latest/dcp.1.html"><code>dcp</code> documentation</a> for more
 information.</p>
-<h2 id="sshd-configuration-for-data-movement-workers"><code>sshd</code> Configuration for Data Movement Workers</h2>
+<h3 id="sshd-configuration-for-data-movement-workers"><code>sshd</code> Configuration for Data Movement Workers</h3>
 <p>The <code>nnf-dm-worker-*</code> pods run <code>sshd</code> in order to listen for <code>mpirun</code> jobs to perform data movement.
 The number of simultaneous connections is limited via the sshd configuration (i.e. <code>MaxStartups</code>).
 <strong>If you see error messages in Data Movement where mpirun cannot communicate with target nodes,
@@ -1248,67 +1195,6 @@ and you have ruled out any networking issues, this may be due to sshd configurat
 start rejecting connections once the limit is reached.</p>
 <p>The <code>sshd_config</code> is stored in the <code>nnf-dm-worker-config</code> <code>ConfigMap</code> so that it can be changed on
 a running system without needing to roll new images. This also enables site-specific configuration.</p>
-<h2 id="enabling-core-dumps">Enabling Core Dumps</h2>
-<h3 id="mounting-core-dump-volumes">Mounting core dump Volumes</h3>
-<p>First, you must determine how your nodes handle core dumps. For example, if <code>systemd-coredump</code> is
-used, then core dumps inside containers will be moved to the host node automatically. If that is
-not the case, then a directory on the host nodes will need to be mounted into the Data Movement
-containers. This directory will contain any core dumps collected by data movement operations, mainly
-<code>mpirun</code> or <code>dcp</code>.</p>
-<p>For Data Movement, the pods are running on two types of Kubernetes nodes:</p>
-<ul>
-<li><code>nnf-dm-worker</code> pods on Rabbit nodes</li>
-<li><code>nnf-dm-controller</code> pods on Kubernetes worker nodes</li>
-</ul>
-<p>For all of these nodes, a core dump directory will need to be present and consistent across the
-nodes. Once in place, we can then edit the Kubernetes configuration to mount this directory from
-the host node to the containers using a <a href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath"><code>hostPath</code>
-Volume</a>.</p>
-<p>Adding this configuration will be done via the gitops repository for the system. Patches will be used
-to patch the <code>nnf-dm</code> containers to mount the core dump directory via a <code>hostPath</code> volume.</p>
-<p>An example of this configuration is provided in
-<a href="https://github.com/NearNodeFlash/argocd-boilerplate/tree/main/environments/example-env/nnf-dm"><code>argocd-boilerplate</code></a>.
-There are two patch files that add Volumes to mount <code>/localdisk/dumps</code> from the host node at the
-same location inside the containers.</p>
-<ul>
-<li><a href="https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/dm-controller-coredumps.yaml"><code>dm-controller-coredumps.yaml</code></a></li>
-<li><a href="https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/dm-manager-coredumps.yaml"><code>dm-manager-coredumps.yaml</code></a></li>
-</ul>
-<p><a href="https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/kustomization.yaml#L13C1-L24C29"><code>kustomization.yaml</code></a>
-then applies these patches to the correct resources.</p>
-<h3 id="editing-the-data-movement-command">Editing the Data Movement Command</h3>
-<p>Once the volume is in place, the Data Movement command must be updated to first <code>cd</code> into this
-directory. This ensures that the core dump is placed in that directory, making it accessible on the
-host node.</p>
-<p>To achieve this, update the Data Movement profiles in your gitops repository to include a preceding
-<code>cd /localdisk/dumps &amp;&amp; ...</code> in the <code>command</code> before the Data Movement command. For example, the default profile in <code>environments/&lt;system&gt;/nnf-sos/default-nnfdatamovementprofile.yaml</code> would look like the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfDataMovementProfile</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">metadata</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">data</span><span class="p">:</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ulimit -n 2048 &amp;&amp; cd /localdisk/dumps &amp;&amp; mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">1 --uid $UID --gid $GID $SRC $DEST</span>
-</code></pre></div>
-<p>Note that core patterns for containers are inherited from the host and that Linux containers do not
-support a container-only core pattern without also affecting the host node. This is why we must use
-a preceding <code>cd &lt;dir&gt;</code> in the Data Movement command.</p>
-<h3 id="data-movement-debug-images">Data Movement Debug Images</h3>
-<p>To help with debugging symbols, it is a good idea to use the <code>debug</code> version of the two images used by the Data Movement containers:</p>
-<ul>
-<li><code>nnf-mfu-debug</code></li>
-<li><code>nnf-dm-debug</code></li>
-</ul>
-<p>Both of these images include debugging symbols for <a href="https://www.open-mpi.org/">Open MPI</a> and <a href="https://mpifileutils.readthedocs.io/en/v0.11.1/">mpiFileUtils</a>.</p>
-<p>To use these images, edit the <code>environments/&lt;system&gt;/nnf-dm/kustomization.yaml</code> in your gitops repository and add the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Use images with mpifileutils/mpirun debug symbols</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">images</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-dm</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-dm-debug</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-mfu</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-mfu-debug</span>
-</code></pre></div>
-<p>This will override the default images and use the debug symbols instead.</p>
 
 
 

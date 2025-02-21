@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
     
     
       
@@ -842,13 +842,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#requireddaemons" class="md-nav__link">
+  <a href="#requires" class="md-nav__link">
     <span class="md-ellipsis">
-      RequiredDaemons
+      Requires
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="RequiredDaemons">
+    <nav class="md-nav" aria-label="Requires">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1147,13 +1147,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#requireddaemons" class="md-nav__link">
+  <a href="#requires" class="md-nav__link">
     <span class="md-ellipsis">
-      RequiredDaemons
+      Requires
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="RequiredDaemons">
+    <nav class="md-nav" aria-label="Requires">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1335,11 +1335,11 @@
 </ul>
 </li>
 </ul>
-<h2 id="requireddaemons">RequiredDaemons</h2>
-<p>The <code>status.requiredDaemons</code> section of the <code>DirectiveBreakdown</code> tells the WLM about any driver-specific daemons it must enable for the job; it is assumed that the WLM knows about the driver-specific daemons and that if the users are specifying these then the WLM knows how to start them. The <code>status.requiredDaemons</code> section will exist only for <code>jobdw</code> and <code>persistentdw</code> directives. An example of the <code>status.requiredDaemons</code> section is included below.</p>
+<h2 id="requires">Requires</h2>
+<p>The <code>status.requires</code> section of the <code>DirectiveBreakdown</code> tells the WLM about any driver-specific daemons it must enable for the job; it is assumed that the WLM knows about the driver-specific daemons and that if the users are specifying these then the WLM knows how to start them. The <code>status.requires</code> section will exist only for <code>jobdw</code> and <code>persistentdw</code> directives. An example of the <code>status.requires</code> section is included below.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">status</span><span class="p">:</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nn">...</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">requiredDaemons</span><span class="p">:</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nt">requires</span><span class="p">:</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">copy-offload</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nn">...</span>
 </code></pre></div>
