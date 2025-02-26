@@ -33,7 +33,7 @@ patches:
 ```
 
 Taint the nodes we're going to remove, to BUMP EXISTING PODS off them (this
-is different than the taint we used earlier). This will bump any DWS, NNF,
+is different from the taint we used earlier). This will bump any DWS, NNF,
 ArgoCD, cert-manager, mpi-operator, luster-fs-operator pods. This leaves any
 lustre-csi-driver pods in place to assist with any Lustre unmounts that k8s may
 request.
