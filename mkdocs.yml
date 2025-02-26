@@ -24,6 +24,7 @@ nav:
       - 'Auditing': 'guides/monitoring-cluster/auditing.md'
       - 'API Priority and Fairness': 'guides/monitoring-cluster/api-priority-and-fairness.md'
       - 'Debugging NVMe Namespaces': 'guides/node-management/nvme-namespaces.md'
+      - 'Switch a Node From Worker to Master': 'guides/node-management/worker-to-master.md'
       - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
       - 'System Storage': 'guides/system-storage/readme.md'
   - 'RFCs':
