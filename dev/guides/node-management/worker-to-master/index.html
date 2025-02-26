@@ -1168,13 +1168,14 @@ patient.</p>
     The one labeled for "managing TTL" controls the lifetime of the
     "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets,
     and this token, are deleted after the "managing TTL" token expires.
-    A worker can still join after that expires; a master cannot.
-  kubeadm certs check-expiration</p>
+    A worker can still join after that expires; a master cannot.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">kubeadm certs check-expiration</span>
+</code></pre></div>
 <p>Re-join that node as a master. When you ran "kubeadm init" to create the
 initial master node, you should have saved the output. It contains the "join"
 command that you need to create new masters. You want the commandline that
 includes the "--control-plane" option:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm join ... --control-plane ...</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm join ... --control-plane ...</span>
 </code></pre></div>
 <p>If that fails, it may tell you to generate new certs. Run the
 'kubeadm init phase' command it specifies, and note the certificate key in
