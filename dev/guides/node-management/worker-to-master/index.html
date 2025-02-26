@@ -11,22 +11,22 @@
       
       
       
-        <link rel="prev" href="../guides/system-storage/readme/">
+        <link rel="prev" href="../nvme-namespaces/">
       
       
-        <link rel="next" href="0001/readme/">
+        <link rel="next" href="../../directive-breakdown/readme/">
       
       
-      <link rel="icon" href="../img/logo.png">
+      <link rel="icon" href="../../../img/logo.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
     
     
       
-        <title>RFCs - NNF</title>
+        <title>Switch a Node From Worker to Master - NNF</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
@@ -45,7 +45,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#request-for-comment" class="md-skip">
+        <a href="#switch-a-node-from-worker-to-master" class="md-skip">
           Skip to content
         </a>
       
@@ -79,12 +79,12 @@
             <div class="md-banner__inner md-grid md-typeset">
               
   You're not viewing the latest version.
-  <a href="../.."> 
+  <a href="../../../.."> 
     <strong>Click here to go to latest.</strong>
   </a>
 
             </div>
-            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL(".."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
           </aside>
         
       </div>
@@ -94,9 +94,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
+    <a href="../../.." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
       
-  <img src="../img/logo.png" alt="logo">
+  <img src="../../../img/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              RFCs
+              Switch a Node From Worker to Master
             
           </span>
         </div>
@@ -201,7 +201,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
     
@@ -216,9 +216,11 @@
         
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../guides/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../" class="md-tabs__link">
         
   
     
@@ -233,11 +235,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../../rfcs/" class="md-tabs__link">
         
   
     
@@ -256,7 +256,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
+        <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
           
   
   Repo Admin Guides
@@ -289,9 +289,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
+    <a href="../../.." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
       
-  <img src="../img/logo.png" alt="logo">
+  <img src="../../../img/logo.png" alt="logo">
 
     </a>
     NNF
@@ -318,7 +318,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -328,478 +328,6 @@
   
 
       </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
-        
-          
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../guides/" class="md-nav__link ">
-              
-  
-  <span class="md-ellipsis">
-    User Guides
-    
-  </span>
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            User Guides
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/initial-setup/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Initial Setup
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/compute-daemons/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Compute Daemons
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/user-interactions/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    User Interactions
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/data-movement/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Data Movement
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/data-movement/copy-offload-api.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Copy Offload API
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/firmware-upgrade/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Firmware Upgrade
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/ha-cluster/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    High Availability Cluster
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/rbac-for-users/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    RBAC for Users
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/storage-profiles/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Storage Profiles
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/user-containers/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    User Containers
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/external-mgs/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Lustre External MGT
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/global-lustre/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Global Lustre
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/node-management/drain/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Disable or Drain a Node
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/monitoring-cluster/auditing/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Auditing
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    API Priority and Fairness
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/node-management/nvme-namespaces/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Debugging NVMe Namespaces
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/node-management/worker-to-master/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Switch a Node From Worker to Master
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/directive-breakdown/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Directive Breakdown
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../guides/system-storage/readme/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    System Storage
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -826,12 +354,543 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guides
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Initial Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compute-daemons/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Compute Daemons
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interactions/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Interactions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Movement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/copy-offload-api.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Copy Offload API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../firmware-upgrade/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ha-cluster/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    High Availability Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rbac-for-users/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RBAC for Users
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-profiles/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-containers/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-mgs/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lustre External MGT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../global-lustre/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Global Lustre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../drain/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Disable or Drain a Node
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/auditing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Auditing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    API Priority and Fairness
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nvme-namespaces/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging NVMe Namespaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remove-a-k8s-worker-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a k8s worker node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-a-node-as-a-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      Join a node as a master
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../directive-breakdown/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directive Breakdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-storage/readme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    System Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../rfcs/" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -843,13 +902,13 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_3" id="__nav_3_label" tabindex="">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             RFCs
@@ -863,7 +922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="0001/readme/" class="md-nav__link">
+      <a href="../../../rfcs/0001/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -885,7 +944,7 @@
   
   
     <li class="md-nav__item">
-      <a href="0002/readme/" class="md-nav__link">
+      <a href="../../../rfcs/0002/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -953,7 +1012,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
+      <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -995,6 +1054,32 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remove-a-k8s-worker-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a k8s worker node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-a-node-as-a-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      Join a node as a master
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1012,15 +1097,89 @@
   
 
 
-<h1 id="request-for-comment">Request for Comment</h1>
-<ol>
-<li>
-<p><a href="0001/readme">Rabbit Request For Comment Process</a>  - Published</p>
-</li>
-<li>
-<p><a href="0002/readme">Rabbit Storage For Containerized Applications</a>  - Published</p>
-</li>
-</ol>
+<h1 id="switch-a-node-from-worker-to-master">Switch a Node From Worker to Master</h1>
+<p>In this example, we have htx[40-42] as worker nodes. We will remove htx[40-41] as worker nodes and re-join them as master nodes.</p>
+<h2 id="remove-a-k8s-worker-node">Remove a k8s worker node</h2>
+<p>Begin by moving their existing pods to htx42.</p>
+<p>Taint the nodes we're going to remove, to prevent new pods from being
+SCHEDULED on them (this is different from the taint we'll use in a later step):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">NODE=htx40</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">kubectl taint node $NODE cray.nnf.node.drain=true:NoSchedule</span>
+</code></pre></div>
+<p>Set deploy/dws-webhook to 1 replica. <strong>This must be done via the gitops repo.</strong>
+Edit <code>environments/$ENV/dws/kustomization.yaml</code>, and add this, then wait
+for argocd to put it into effect. Or, force argocd to sync it with <code>argocd app sync 1-dws</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>patches:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-<span class="w"> </span>target:
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>kind:<span class="w"> </span>Deployment
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>name:<span class="w"> </span>dws-webhook
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>patch:<span class="w"> </span><span class="p">|</span>-
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span>apiVersion:<span class="w"> </span>apps/v1
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span>kind:<span class="w"> </span>Deployment
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span>metadata:
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span>name:<span class="w"> </span>dws-webhook
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span>spec:
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span>replicas:<span class="w"> </span><span class="m">1</span>
+</code></pre></div>
+<p>Taint the nodes we're going to remove, to BUMP EXISTING PODS off them (this
+is different than the taint we used earlier). This will bump any DWS, NNF,
+ArgoCD, cert-manager, mpi-operator, luster-fs-operator pods. This leaves any
+lustre-csi-driver pods in place to assist with any Lustre unmounts that k8s may
+request.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">kubectl taint node $NODE cray.nnf.node.drain=true:NoExecute</span>
+</code></pre></div>
+<p>Decommission <a href="https://docs.tigera.io/calico/latest/operations/decommissioning-a-node">calico node</a>.</p>
+<p>"If you are running the node controller or using the Kubernetes API datastore
+   in policy-only mode, you do not need to manually decommission nodes."</p>
+<p>Tell k8s to drain the nodes.</p>
+<p>Use the cray.nnf.node taints above before running 'kubectl drain'. Those
+  taints allow Workflows to be terminated cleanly, even when they have Lustre
+  filesystems mounted in the pods on that node. It's important that the
+  lustre-csi-driver pod on that node lives long enough to assist with those
+  unmounts to allow K8s to finish pod cleanup.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">kubectl drain --ignore-daemonsets $NODE</span>
+</code></pre></div>
+<p>Delete the worker nodes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">kubectl delete node $NODE</span>
+</code></pre></div>
+<p>Verify that the node is deleted from calico and k8s:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">kubectl calico get nodes (requires the calico plugin for kubectl)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">kubectl get nodes</span>
+</code></pre></div>
+<p>Remove etcd, if it was a master:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset remove-etcd-member</span>
+</code></pre></div>
+<p>It takes a while for all of the containers on the deleted node to stop, so be
+patient.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">crictl ps</span>
+</code></pre></div>
+<p>Reset everything that "kubeadm join" did to that node:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset cleanup-node</span>
+</code></pre></div>
+<h2 id="join-a-node-as-a-master">Join a node as a master</h2>
+<p>Check for expired "kubeadm init" or "kubeadm-certs" tokens, or expired certs:</p>
+<p>The certificate-key from 'kubeadm init' is deleted after two hours. Use
+  "kubeadm init phase upload-certs --upload-certs" to reload the certs later.
+  This is explained in the output of the 'kubeadm init' command.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">kubeadm token list</span>
+</code></pre></div>
+<p>The one labeled for "kubeadm init" is used as the token in "kubeadm join"
+    commands.
+    The one labeled for "managing TTL" controls the lifetime of the
+    "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets,
+    and this token, are deleted after the "managing TTL" token expires.
+    A worker can still join after that expires; a master cannot.
+  kubeadm certs check-expiration</p>
+<p>Re-join that node as a master. When you ran "kubeadm init" to create the
+initial master node, you should have saved the output. It contains the "join"
+command that you need to create new masters. You want the commandline that
+includes the "--control-plane" option:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm join ... --control-plane ...</span>
+</code></pre></div>
+<p>If that fails, it may tell you to generate new certs. Run the
+'kubeadm init phase' command it specifies, and note the certificate key in
+the output. Replace the certificate key from your original join command with
+this new key and run the new join command.</p>
 
 
 
@@ -1056,7 +1215,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../guides/system-storage/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: System Storage">
+          <a href="../nvme-namespaces/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Debugging NVMe Namespaces">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1066,20 +1225,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                System Storage
+                Debugging NVMe Namespaces
               </div>
             </div>
           </a>
         
         
           
-          <a href="0001/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Rabbit Request For Comment Process">
+          <a href="../../directive-breakdown/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Directive Breakdown">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Rabbit Request For Comment Process
+                Directive Breakdown
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1117,10 +1276,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
       
     
   </body>
