@@ -103,13 +103,16 @@ The certificate-key from 'kubeadm init' is deleted after two hours. Use
 kubeadm token list
 ```
 
-  The one labeled for "kubeadm init" is used as the token in "kubeadm join"
+The one labeled for "kubeadm init" is used as the token in "kubeadm join"
     commands.
     The one labeled for "managing TTL" controls the lifetime of the
     "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets,
     and this token, are deleted after the "managing TTL" token expires.
     A worker can still join after that expires; a master cannot.
-  kubeadm certs check-expiration
+
+```console
+kubeadm certs check-expiration
+```
 
 Re-join that node as a master. When you ran "kubeadm init" to create the
 initial master node, you should have saved the output. It contains the "join"
