@@ -78,7 +78,7 @@ Remove etcd, if it was a master:
 (on $NODE) kubeadm reset remove-etcd-member
 ```
 
-It takes a while for all of the containers on the deleted node to stop, so be
+It takes a while for all the containers on the deleted node to stop, so be
 patient.
 
 ```console
