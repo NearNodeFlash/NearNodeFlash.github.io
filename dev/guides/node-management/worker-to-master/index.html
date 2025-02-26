@@ -1149,7 +1149,7 @@ request.</p>
 <p>Remove etcd, if it was a master:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset remove-etcd-member</span>
 </code></pre></div>
-<p>It takes a while for all of the containers on the deleted node to stop, so be
+<p>It takes a while for all the containers on the deleted node to stop, so be
 patient.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">crictl ps</span>
 </code></pre></div>
@@ -1166,7 +1166,7 @@ patient.</p>
 <p>The one labeled for "kubeadm init" is used as the token in "kubeadm join"
     commands.
     The one labeled for "managing TTL" controls the lifetime of the
-    "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets,
+    "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets
     and this token, are deleted after the "managing TTL" token expires.
     A worker can still join after that expires; a master cannot.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">kubeadm certs check-expiration</span>
