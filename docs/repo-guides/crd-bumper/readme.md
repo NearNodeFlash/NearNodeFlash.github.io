@@ -91,7 +91,7 @@ REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git
 unserve.py -r $REPO --spoke-ver v1alpha1
 ```
 
-The repository with its adjusted API will be found under a directory named `workingspace/lustre-fs-operator`.
+The repository with its adjusted API is found under a directory named `workingspace/lustre-fs-operator`.
 
 The new `api-v1alpha1-unserve` branch will have a commit containing the adjusted API and adjusted code. This commit message will have **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.
 
