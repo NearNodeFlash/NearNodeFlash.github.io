@@ -1564,8 +1564,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">unserve.py -r $REPO --spoke-ver v1alpha1</span>
 </code></pre></div>
-<p>The repository with its adjusted API will be found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
-<p>The new <code>api-v1alpha1-unserve</code> branch will have a commit containing the adjusted API and adjusted code. This commit message will have <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.</p>
+<p>The repository with its adjusted API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
+<p>The new <code>api-v1alpha1-unserve</code> branch has a commit containing the adjusted API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
 <h2 id="library-and-tool-support">Library and Tool Support</h2>
 <p>The library and tool support is taken from the <a href="https://github.com/kubernetes-sigs/cluster-api">Cluster API</a> project. See <a href="https://github.com/kubernetes-sigs/cluster-api/tree/release-1.6">release v1.6.6</a> for a version that contains multi-version support for CRDs where they have a hub with one spoke. (Note: In v1.7.0 they removed the old API--the old spoke--and their repo contains only one version, the hub.)</p>
 <p>In the "References" section you'll find a link to a video from the Cluster API team where they go through an example of changing an API and providing conversion routines and tests for the change.</p>
