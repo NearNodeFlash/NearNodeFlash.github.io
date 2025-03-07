@@ -11,10 +11,6 @@
       
       
       
-        <link rel="prev" href="../../user-interactions/readme/">
-      
-      
-        <link rel="next" href="../copy-offload-api.html">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Data Movement - NNF</title>
+        <title>Copy-Offload - NNF</title>
       
     
     
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-movement-configuration" class="md-skip">
+        <a href="#copy-offload" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Data Movement
+              Copy-Offload
             
           </span>
         </div>
@@ -216,10 +212,8 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
+    <li class="md-tabs__item">
       <a href="../../" class="md-tabs__link">
         
   
@@ -336,25 +330,20 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
@@ -371,13 +360,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             User Guides
@@ -454,31 +443,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Data Movement
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -488,104 +456,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#data-movement-profiles" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data Movement Profiles
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#copy-offload-api-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      Copy Offload API Server
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#selinux-and-data-movement" class="md-nav__link">
-    <span class="md-ellipsis">
-      SELinux and Data Movement
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sshd-configuration-for-data-movement-workers" class="md-nav__link">
-    <span class="md-ellipsis">
-      sshd Configuration for Data Movement Workers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enabling-core-dumps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enabling Core Dumps
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Enabling Core Dumps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mounting-core-dump-volumes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mounting core dump Volumes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#editing-the-data-movement-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      Editing the Data Movement Command
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-movement-debug-images" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data Movement Debug Images
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1143,80 +1013,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#data-movement-profiles" class="md-nav__link">
+  <a href="#administrative-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Data Movement Profiles
+      Administrative Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#copy-offload-api-server" class="md-nav__link">
+  <a href="#per-workflow-token" class="md-nav__link">
     <span class="md-ellipsis">
-      Copy Offload API Server
+      Per-Workflow token
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#selinux-and-data-movement" class="md-nav__link">
+  <a href="#user-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      SELinux and Data Movement
+      User Configuration
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sshd-configuration-for-data-movement-workers" class="md-nav__link">
-    <span class="md-ellipsis">
-      sshd Configuration for Data Movement Workers
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enabling-core-dumps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enabling Core Dumps
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Enabling Core Dumps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#mounting-core-dump-volumes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Mounting core dump Volumes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#editing-the-data-movement-command" class="md-nav__link">
-    <span class="md-ellipsis">
-      Editing the Data Movement Command
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-movement-debug-images" class="md-nav__link">
-    <span class="md-ellipsis">
-      Data Movement Debug Images
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1239,120 +1058,59 @@
   
 
 
-<h1 id="data-movement-configuration">Data Movement Configuration</h1>
-<p>Data Movement can be configured in multiple ways:</p>
-<ol>
-<li>Server side (<code>NnfDataMovementProfile</code>)</li>
-<li>Copy offload API server</li>
-</ol>
-<p>The first method is a "global" configuration - it affects all data movement operations that use a
-particular <code>NnfDataMovementProfile</code> (or the default). The second is done per the <code>copy offload</code> API,
-which allows for some configuration on a per-case basis, but is limited in scope. Both methods are
-meant to work in tandem.</p>
-<h2 id="data-movement-profiles">Data Movement Profiles</h2>
-<p>The server side configuration is controlled by creating <code>NnfDataMovementProfiles</code> resources in
-Kubernetes. These work similar to <code>NnfStorageProfiles</code>. See <a href="../../storage-profiles/readme/">here</a>
-for understanding how to use profiles, set a default, etc.</p>
-<p>For an in-depth understanding of the capabilities offered by Data Movement profiles, we recommend
-referring to the following resources:</p>
-<ul>
-<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha1/nnfdatamovementprofile_types.go#L27">Type definition</a> for <code>NnfDataMovementProfile</code></li>
-<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Sample</a> for <code>NnfDataMovementProfile</code></li>
-<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Online Examples</a> for <code>NnfDataMovementProfile</code></li>
-</ul>
-<h2 id="copy-offload-api-server">Copy Offload API Server</h2>
-<p>The <code>copy offload</code> API allows the user's compute application to specify options for particular Data Movement operations. These settings are on a per-request basis and supplement the configuration in the <code>NnfDataMovementProfile</code>.</p>
-<p>The copy offload API requires the <code>copy-offload</code> server to be running on the Rabbit node. This server is implemented as a <a href="../../user-containers/readme/">User Container</a> and is activated by the user's <code>DW container</code> directive in their workflow script. The user's compute application must include the <code>libcopyoffload</code> library.</p>
-<p>See <a href="../copy-offload/">Copy Offload</a> for details about the usage and lifecycle of the copy offload API server.</p>
-<h2 id="selinux-and-data-movement">SELinux and Data Movement</h2>
-<p>Careful consideration must be taken when enabling SELinux on compute nodes. Doing so will result in
-SELinux Extended File Attributes (xattrs) being placed on files created by applications running on
-the compute node, which may not be supported by the destination file system (e.g. Lustre).</p>
-<p>Depending on the configuration of <code>dcp</code>, there may be an attempt to copy these xattrs. You may need
-to disable this by using <code>dcp --xattrs none</code> to avoid errors. For example, the <code>command</code> in the
-<code>NnfDataMovementProfile</code> or <code>dcpOptions</code> in the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest
-API</a> could be used to set this
-option.</p>
-<p>See the <a href="https://mpifileutils.readthedocs.io/en/latest/dcp.1.html"><code>dcp</code> documentation</a> for more
-information.</p>
-<h2 id="sshd-configuration-for-data-movement-workers"><code>sshd</code> Configuration for Data Movement Workers</h2>
-<p>The <code>nnf-dm-worker-*</code> pods run <code>sshd</code> in order to listen for <code>mpirun</code> jobs to perform data movement.
-The number of simultaneous connections is limited via the sshd configuration (i.e. <code>MaxStartups</code>).
-<strong>If you see error messages in Data Movement where mpirun cannot communicate with target nodes,
-and you have ruled out any networking issues, this may be due to sshd configuration.</strong> <code>sshd</code> still
-start rejecting connections once the limit is reached.</p>
-<p>The <code>sshd_config</code> is stored in the <code>nnf-dm-worker-config</code> <code>ConfigMap</code> so that it can be changed on
-a running system without needing to roll new images. This also enables site-specific configuration.</p>
-<h2 id="enabling-core-dumps">Enabling Core Dumps</h2>
-<h3 id="mounting-core-dump-volumes">Mounting core dump Volumes</h3>
-<p>First, you must determine how your nodes handle core dumps. For example, if <code>systemd-coredump</code> is
-used, then core dumps inside containers will be moved to the host node automatically. If that is
-not the case, then a directory on the host nodes will need to be mounted into the Data Movement
-containers. This directory will contain any core dumps collected by data movement operations, mainly
-<code>mpirun</code> or <code>dcp</code>.</p>
-<p>For Data Movement, the pods are running on two types of Kubernetes nodes:</p>
-<ul>
-<li><code>nnf-dm-worker</code> pods on Rabbit nodes</li>
-<li><code>nnf-dm-controller</code> pods on Kubernetes worker nodes</li>
-</ul>
-<p>For all of these nodes, a core dump directory will need to be present and consistent across the
-nodes. Once in place, we can then edit the Kubernetes configuration to mount this directory from
-the host node to the containers using a <a href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath"><code>hostPath</code>
-Volume</a>.</p>
-<p>Adding this configuration will be done via the gitops repository for the system. Patches will be used
-to patch the <code>nnf-dm</code> containers to mount the core dump directory via a <code>hostPath</code> volume.</p>
-<p>An example of this configuration is provided in
-<a href="https://github.com/NearNodeFlash/argocd-boilerplate/tree/main/environments/example-env/nnf-dm"><code>argocd-boilerplate</code></a>.
-There are two patch files that add Volumes to mount <code>/localdisk/dumps</code> from the host node at the
-same location inside the containers.</p>
-<ul>
-<li><a href="https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/dm-controller-coredumps.yaml"><code>dm-controller-coredumps.yaml</code></a></li>
-<li><a href="https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/dm-manager-coredumps.yaml"><code>dm-manager-coredumps.yaml</code></a></li>
-</ul>
-<p><a href="https://github.com/NearNodeFlash/argocd-boilerplate/blob/main/environments/example-env/nnf-dm/kustomization.yaml#L13C1-L24C29"><code>kustomization.yaml</code></a>
-then applies these patches to the correct resources.</p>
-<h3 id="editing-the-data-movement-command">Editing the Data Movement Command</h3>
-<p>Once the volume is in place, the Data Movement command must be updated to first <code>cd</code> into this
-directory. This ensures that the core dump is placed in that directory, making it accessible on the
-host node.</p>
-<p>To achieve this, update the Data Movement profiles in your gitops repository to include a preceding
-<code>cd /localdisk/dumps &amp;&amp; ...</code> in the <code>command</code> before the Data Movement command. For example, the default profile in <code>environments/&lt;system&gt;/nnf-sos/default-nnfdatamovementprofile.yaml</code> would look like the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfDataMovementProfile</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">metadata</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">data</span><span class="p">:</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ulimit -n 2048 &amp;&amp; cd /localdisk/dumps &amp;&amp; mpirun --allow-run-as-root --hostfile $HOSTFILE dcp --progress</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">1 --uid $UID --gid $GID $SRC $DEST</span>
+<h1 id="copy-offload">Copy-Offload</h1>
+<p>The copy-offload API allows a user's compute application to specify <a href="../readme/">Data Movement</a> requests. The user's application utilizes the <code>libcopyoffload</code> library to establish a secure connection to the copy-offload API server to initiate, list, query the status of, or cancel data movement requests.</p>
+<p>The copy-offload server is implemented as a special kind of <a href="../../user-containers/readme/">User Container</a>. Like all user containers, this is activated by a <code>DW container</code> directive in the user's workflow script and runs on the Rabbit nodes that are associated with the compute nodes in the user's job.</p>
+<h2 id="administrative-configuration">Administrative Configuration</h2>
+<p>A self-signed TLS certificate and signing key must be created and made available to the copy-offload server and the certificate must also be copied to each compute node. This certificate must have a SAN extension that describes all of the Rabbit nodes.</p>
+<p>Tools are available in the <code>nnf-dm</code> repository to assist in creating this certificate and its signing key. Begin by confirming that you can access your cluster's <code>SystemConfiguration</code> resource using the 'kubectl' command. This resource contains the information about all of the Rabbit nodes and will be used when creating the SAN extension for the certificate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get systemconfiguration</span>
 </code></pre></div>
-<p>Note that core patterns for containers are inherited from the host and that Linux containers do not
-support a container-only core pattern without also affecting the host node. This is why we must use
-a preceding <code>cd &lt;dir&gt;</code> in the Data Movement command.</p>
-<h3 id="data-movement-debug-images">Data Movement Debug Images</h3>
-<p>To help with debugging symbols, it is a good idea to use the <code>debug</code> version of the two images used by the Data Movement containers:</p>
-<ul>
-<li><code>nnf-mfu-debug</code></li>
-<li><code>nnf-dm-debug</code></li>
-</ul>
-<p>Both of these images include debugging symbols for <a href="https://www.open-mpi.org/">Open MPI</a> and <a href="https://mpifileutils.readthedocs.io/en/v0.11.1/">mpiFileUtils</a>.</p>
-<p>To use these images, edit the <code>environments/&lt;system&gt;/nnf-dm/kustomization.yaml</code> in your gitops repository and add the following:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Use images with mpifileutils/mpirun debug symbols</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">images</span><span class="p">:</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-dm</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-dm-debug</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-mfu</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">newName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ghcr.io/nearnodeflash/nnf-mfu-debug</span>
+<p>From your <code>nnf-deploy</code> workarea, change into the <code>nnf-dm</code> directory and run <code>tools/mk-usercontainer-secrets.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">cd nnf-dm</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">tools/mk-usercontainer-secrets.sh</span>
 </code></pre></div>
-<p>This will override the default images and use the debug symbols instead.</p>
+<p>That tool creates the certificate and stores it and its signing key in a Kubernetes secret named <code>nnf-dm-usercontainer-server-tls</code>. This secret will be mounted into the copy-offload server's pod when it is specified in a user's workflow script.</p>
+<p>It will also store the certificate alone in a Kubernetes secret named <code>nnf-dm-usercontainer-client-tls</code>. The content of this secret can be retrieved by the administrator and copied to each compute node.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM &#39;.data.&quot;tls.crt&quot;&#39; | base64 -d &gt; cert.pem</span>
+</code></pre></div>
+<blockquote>
+<p>[!IMPORTANT]
+Copy the certificate to <code>/etc/nnf-dm-usercontainer/cert.pem</code> on each compute node. It must be readable by your users' applications.</p>
+</blockquote>
+<h2 id="per-workflow-token">Per-Workflow token</h2>
+<p>In Workflow. Flux reads it, adds it as an env variable for the compute application. Libcopyoffload knows this env var. This env var is added to the <a href="../../user-containers/readme/#compute-node-environment-variables">Compute Node Environment Variables</a>.</p>
+<p>Lifecycle.</p>
+<h2 id="user-configuration">User Configuration</h2>
+<p>Authentication</p>
+<p>'DW jobdw' with 'requires'</p>
+<p>copy-offload server
+      - mounts k8s secret that has TLS cert and signing key
+      - mounts k8s secret that has token signing key</p>
+<p>Copy-offload NnfContainerProfile</p>
+<p>The copy-offload client library.</p>
+<p>The hostname of the compute's matching rabbit. Must already be in the compute's
+/etc/hosts file as "rabbit". (find other doc here that describes this)
+  (it's in user-containers doc)</p>
+<p>Lifecycle of the copy-offload server. This is implemented as a user-container,
+so it has the same lifecycle as other user-containers (find other doc that
+describes this):
+  (it's in "Running a Container Workflow" of user-containers doc)</p>
+<p>Proposal does ...
+  Setup does ...
+  PreRun does...</p>
+<p>Server shuts down at ...</p>
+<p>Copy-offload API version, between server and client library.</p>
+<p>User-containers</p>
+<p>How to request auth for your own user container application.
+  (Find doc that describes user-containers, and update with auth stuff.)</p>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -1377,44 +1135,6 @@ a preceding <code>cd &lt;dir&gt;</code> in the Data Movement command.</p>
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../../user-interactions/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: User Interactions">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                User Interactions
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../copy-offload-api.html" class="md-footer__link md-footer__link--next" aria-label="Next: Copy Offload API">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Copy Offload API
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
