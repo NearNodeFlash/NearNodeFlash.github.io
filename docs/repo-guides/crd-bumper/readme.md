@@ -37,7 +37,7 @@ crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new
 
 The repository with its new API is found under a directory named `workingspace/lustre-fs-operator`.
 
-The new `api-v1beta2` branch will have a series of commits showing a progression of steps. Some of these commit messages will have an **ACTION** comment describing something that must be manually verified, and possibly adjusted, before the tests will succeed.
+The new `api-v1beta2` branch has a series of commits showing a progression of steps. Some of these commit messages have an **ACTION** comment describing something that must be manually verified, and possibly adjusted, before the tests succeed.
 
 ### Verification
 
