@@ -76,7 +76,7 @@ vendor-new-api.py -r $DEST_REPO --hub-ver v1alpha3 --vendor-hub-ver v1beta2 --mo
 
 The repository with its new API is found under a directory named `workingspace/nnf-sos`.
 
-The new `api-lustre-fs-operator-v1beta2` branch will have a commit containing the newly-vendored API and adjusted code. This commit message will have **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.
+The new `api-lustre-fs-operator-v1beta2` branch has a commit containing the newly-vendored API and adjusted code. This commit message has **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.
 
 ## Removing an Old API Version
 
