@@ -63,7 +63,7 @@ Do not attempt to run `make vet` or `make test` between steps. The individual co
 
 ## Vendor the New API
 
-Vendor this new API into another repository using the `vendor-new-api` tool. This tool will update that repo to change its Go code references and its Kustomize config references to point at the new API.
+Vendor this new API into another repository using the `vendor-new-api` tool. This tool updates that repo to change its Go code references and its Kustomize config references to point at the new API.
 
 ### Executing the Tool
 
