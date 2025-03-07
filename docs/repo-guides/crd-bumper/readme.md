@@ -84,7 +84,7 @@ An old API version should first be shipped in a deprecated state. Use the `unser
 
 ### Unserve the API
 
-The following example will mark the old `v1alpha1` API in lustre-fs-operator as no longer being served. This will place a `+kubebuilder:unservedversion` in each CRD of that version, which `controller-gen` will translate into `served: false` for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named `api-v1alpha1-unserve`, where it will do all of its work.
+The following example marks the old `v1alpha1` API in lustre-fs-operator as no longer being served. This places a `+kubebuilder:unservedversion` in each CRD of that version, which `controller-gen` translates into `served: false` for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named `api-v1alpha1-unserve`, where it does all of its work.
 
 ```console
 REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git
