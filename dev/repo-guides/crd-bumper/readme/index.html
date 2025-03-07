@@ -1555,8 +1555,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">DEST_REPO=git@github.com:NearNodeFlash/nnf-sos.git</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">vendor-new-api.py -r $DEST_REPO --hub-ver v1alpha3 --vendor-hub-ver v1beta2 --module github.com/NearNodeFlash/lustre-fs-operator --version master</span>
 </code></pre></div>
-<p>The repository with its new API will be found under a directory named <code>workingspace/nnf-sos</code>.</p>
-<p>The new <code>api-lustre-fs-operator-v1beta2</code> branch will have a commit containing the newly-vendored API and adjusted code. This commit message will have <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.</p>
+<p>The repository with its new API is found under a directory named <code>workingspace/nnf-sos</code>.</p>
+<p>The new <code>api-lustre-fs-operator-v1beta2</code> branch has a commit containing the newly-vendored API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
 <h2 id="removing-an-old-api-version">Removing an Old API Version</h2>
 <p>An old API version should first be shipped in a deprecated state. Use the <code>unserve</code> tool to mark that API version as no longer being served by the API server. After that has shipped, that version of the API can be removed in a later release.</p>
 <h3 id="unserve-the-api">Unserve the API</h3>
