@@ -110,7 +110,7 @@ other components.
 Finalize the release by updating the `nnf-deploy` release notes to include the release notes from all submodules that were modified by this release. Do this after the release steps have been completed for all repositories, including the NearNodeFlash.github.io repository.
 
 1. Generate complete release notes for the specified `nnf-deploy` release for review:
-**Note: If this release does not include a new release of NearNodeFlash.github.io, the docs, then specify `-D` to skip the docs.**
+**Note: If this release does not include a new release of the NearNodeFlash.github.io docs, then specify `-D` to skip the docs.**
 
     ```bash
     ./final-release-notes.sh -r $NNF_RELEASE [-D]
