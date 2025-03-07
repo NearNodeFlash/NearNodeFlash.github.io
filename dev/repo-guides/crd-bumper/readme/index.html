@@ -1535,7 +1535,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new-ver v1beta2 all</span>
 </code></pre></div>
-<p>The repository with its new API will be found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
+<p>The repository with its new API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
 <p>The new <code>api-v1beta2</code> branch will have a series of commits showing a progression of steps. Some of these commit messages will have an <strong>ACTION</strong> comment describing something that must be manually verified, and possibly adjusted, before the tests will succeed.</p>
 <h3 id="verification">Verification</h3>
 <p>After the entire progression of steps has completed, verify the results by running <code>make vet</code>, and paying attention to any of the <strong>ACTION</strong> comments described above. Once <code>make vet</code> is clean, move to the next debug step by running <code>make test</code>.</p>
