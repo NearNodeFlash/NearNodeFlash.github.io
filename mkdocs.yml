@@ -30,8 +30,10 @@ nav:
       - rfcs/index.md
       - 'Rabbit Request For Comment Process': 'rfcs/0001/readme.md'
       - 'Rabbit Storage For Containerized Applications': 'rfcs/0002/readme.md'
-  - 'Repo Admin Guides':
+  - 'Repo Guides':
       - 'Releasing NNF Software': 'repo-guides/release-nnf-sw/readme.md'
+      - 'CRD Version Bumper': 'repo-guides/crd-bumper/readme.md'
+      - 'Editing APIs': 'repo-guides/crd-bumper/editing-apis.md'
 theme:
   name: 'material'
   custom_dir: overrides
