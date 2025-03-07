@@ -1531,7 +1531,7 @@
 <p>For the easiest vendoring experience, the downstream repos should be up to date with this repo prior to creating the new API, and this new API should be vendored into the downstream repos before any further changes go into this repo or any of the downstream repos.</p>
 <h3 id="run-the-tool">Run the Tool</h3>
 <p>Clone a fresh copy of the repository that contains the CRDs and controllers, checking out to the default branch (master or main). The tool expects a repository that is compatible with kubebuilder and will use the <code>./PROJECT</code> file that is maintained by kubebuilder.</p>
-<p>The following example will create a new API version <code>v1beta2</code> for the lustre-fs-operator repository, where <code>v1beta1</code> is the existing hub and <code>v1alpha1</code> is the most recent existing spoke. It begins by creating a new branch off "master" named <code>api-v1beta2</code>, where it will do all of its work.</p>
+<p>The following example creates a new API version <code>v1beta2</code> for the lustre-fs-operator repository, where <code>v1beta1</code> is the existing hub and <code>v1alpha1</code> is the most recent existing spoke. It begins by creating a new branch off "master" named <code>api-v1beta2</code>, where it does all of its work.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new-ver v1beta2 all</span>
 </code></pre></div>
