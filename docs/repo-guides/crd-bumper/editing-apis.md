@@ -108,7 +108,7 @@ index f409f9b2..e11a41eb 100644
  func Convert_v1alpha2_StorageSpec_To_v1alpha1_StorageSpec(in *dwsv1alpha2.StorageSpec, out *StorageSpec, s apiconversion.Scope) error {
 ```
 
-Confirm that it will compile:
+Confirm that it compiles:
 
 ```console
 make vet
