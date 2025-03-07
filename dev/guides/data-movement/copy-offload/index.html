@@ -11,18 +11,14 @@
       
       
       
-        <link rel="prev" href="../nvme-namespaces/">
-      
-      
-        <link rel="next" href="../../directive-breakdown/readme/">
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>Switch a Node From Worker to Master - NNF</title>
+        <title>Copy-Offload - NNF</title>
       
     
     
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#switch-a-node-from-worker-to-master" class="md-skip">
+        <a href="#copy-offload" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Switch a Node From Worker to Master
+              Copy-Offload
             
           </span>
         </div>
@@ -216,10 +212,8 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
+    <li class="md-tabs__item">
       <a href="../../" class="md-tabs__link">
         
   
@@ -336,25 +330,20 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
@@ -371,13 +360,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             User Guides
@@ -457,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-movement/readme/" class="md-nav__link">
+      <a href="../readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -479,7 +468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-movement/copy-offload-api.html" class="md-nav__link">
+      <a href="../copy-offload-api.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -655,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../drain/" class="md-nav__link">
+      <a href="../../node-management/drain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -721,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nvme-namespaces/" class="md-nav__link">
+      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -731,87 +720,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Switch a Node From Worker to Master
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    Switch a Node From Worker to Master
-    
-  </span>
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#remove-a-k8s-worker-node" class="md-nav__link">
-    <span class="md-ellipsis">
-      Remove a k8s worker node
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#join-a-node-as-a-master" class="md-nav__link">
-    <span class="md-ellipsis">
-      Join a node as a master
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1061,18 +969,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#remove-a-k8s-worker-node" class="md-nav__link">
+  <a href="#administrative-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Remove a k8s worker node
+      Administrative Configuration
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#join-a-node-as-a-master" class="md-nav__link">
+  <a href="#per-workflow-token" class="md-nav__link">
     <span class="md-ellipsis">
-      Join a node as a master
+      Per-Workflow token
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#user-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Configuration
     </span>
   </a>
   
@@ -1097,90 +1014,53 @@
   
 
 
-<h1 id="switch-a-node-from-worker-to-master">Switch a Node From Worker to Master</h1>
-<p>In this example, we have htx[40-42] as worker nodes. We will remove htx[40-41] as worker nodes and re-join them as master nodes.</p>
-<h2 id="remove-a-k8s-worker-node">Remove a k8s worker node</h2>
-<p>Begin by moving their existing pods to htx42.</p>
-<p>Taint the nodes we're going to remove, to prevent new pods from being
-SCHEDULED on them (this is different from the taint we'll use in a later step):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">NODE=htx40</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">kubectl taint node $NODE cray.nnf.node.drain=true:NoSchedule</span>
+<h1 id="copy-offload">Copy-Offload</h1>
+<p>The copy-offload API allows a user's compute application to specify <a href="../readme/">Data Movement</a> requests. The user's application utilizes the <code>libcopyoffload</code> library to establish a secure connection to the copy-offload API server to initiate, list, query the status of, or cancel data movement requests.</p>
+<p>The copy-offload server is implemented as a special kind of <a href="../../user-containers/readme/">User Container</a>. Like all user containers, this is activated by a <code>DW container</code> directive in the user's workflow script and runs on the Rabbit nodes that are associated with the compute nodes in the user's job.</p>
+<h2 id="administrative-configuration">Administrative Configuration</h2>
+<p>A self-signed TLS certificate and signing key must be created and made available to the copy-offload server and the certificate must also be copied to each compute node. This certificate must have a SAN extension that describes all of the Rabbit nodes.</p>
+<p>Tools are available in the <code>nnf-dm</code> repository to assist in creating this certificate and its signing key. Begin by confirming that you can access your cluster's <code>SystemConfiguration</code> resource using the 'kubectl' command. This resource contains the information about all of the Rabbit nodes and will be used when creating the SAN extension for the certificate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get systemconfiguration</span>
 </code></pre></div>
-<p>Set deploy/dws-webhook to 1 replica. <strong>This must be done via the gitops repo.</strong>
-Edit <code>environments/$ENV/dws/kustomization.yaml</code>, and add this, then wait
-for argocd to put it into effect. Or, force argocd to sync it with <code>argocd app sync 1-dws</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>patches:
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-<span class="w"> </span>target:
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>kind:<span class="w"> </span>Deployment
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>name:<span class="w"> </span>dws-webhook
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>patch:<span class="w"> </span><span class="p">|</span>-
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span>apiVersion:<span class="w"> </span>apps/v1
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span>kind:<span class="w"> </span>Deployment
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span>metadata:
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span>name:<span class="w"> </span>dws-webhook
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span>spec:
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span>replicas:<span class="w"> </span><span class="m">1</span>
+<p>From your <code>nnf-deploy</code> workarea, change into the <code>nnf-dm</code> directory and run <code>tools/mk-usercontainer-secrets.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">cd nnf-dm</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">tools/mk-usercontainer-secrets.sh</span>
 </code></pre></div>
-<p>Taint the nodes we're going to remove, to BUMP EXISTING PODS off them (this
-is different from the taint we used earlier). This will bump any DWS, NNF,
-ArgoCD, cert-manager, mpi-operator, luster-fs-operator pods. This leaves any
-lustre-csi-driver pods in place to assist with any Lustre unmounts that k8s may
-request.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">kubectl taint node $NODE cray.nnf.node.drain=true:NoExecute</span>
+<p>That tool creates the certificate and stores it and its signing key in a Kubernetes secret named <code>nnf-dm-usercontainer-server-tls</code>. This secret will be mounted into the copy-offload server's pod when it is specified in a user's workflow script.</p>
+<p>It will also store the certificate alone in a Kubernetes secret named <code>nnf-dm-usercontainer-client-tls</code>. The content of this secret can be retrieved by the administrator and copied to each compute node.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM &#39;.data.&quot;tls.crt&quot;&#39; | base64 -d &gt; cert.pem</span>
 </code></pre></div>
-<p>Decommission <a href="https://docs.tigera.io/calico/latest/operations/decommissioning-a-node">calico node</a>.</p>
-<p>"If you are running the node controller or using the Kubernetes API datastore
-   in policy-only mode, you do not need to manually decommission nodes."</p>
-<p>Tell k8s to drain the nodes.</p>
-<p>Use the cray.nnf.node taints above before running 'kubectl drain'. Those
-  taints allow Workflows to be terminated cleanly, even when they have Lustre
-  filesystems mounted in the pods on that node. It's important that the
-  lustre-csi-driver pod on that node lives long enough to assist with those
-  unmounts to allow K8s to finish pod cleanup.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">kubectl drain --ignore-daemonsets $NODE</span>
-</code></pre></div>
-<p>Delete the worker nodes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">kubectl delete node $NODE</span>
-</code></pre></div>
-<p>Verify that the node is deleted from calico and k8s:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">kubectl calico get nodes (requires the calico plugin for kubectl)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">kubectl get nodes</span>
-</code></pre></div>
-<p>Remove etcd, if it was a master:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset remove-etcd-member</span>
-</code></pre></div>
-<p>It takes a while for all the containers on the deleted node to stop, so be
-patient.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">crictl ps</span>
-</code></pre></div>
-<p>Reset everything that "kubeadm join" did to that node:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset cleanup-node</span>
-</code></pre></div>
-<h2 id="join-a-node-as-a-master">Join a node as a master</h2>
-<p>Check for expired "kubeadm init" or "kubeadm-certs" tokens, or expired certs:</p>
-<p>The certificate-key from 'kubeadm init' is deleted after two hours. Use
-  "kubeadm init phase upload-certs --upload-certs" to reload the certs later.
-  This is explained in the output of the 'kubeadm init' command.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">kubeadm token list</span>
-</code></pre></div>
-<p>The one labeled for "kubeadm init" is used as the token in "kubeadm join"
-    commands.
-    The one labeled for "managing TTL" controls the lifetime of the
-    "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets
-    and this token, are deleted after the "managing TTL" token expires.
-    A worker can still join after that expires; a master cannot.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">kubeadm certs check-expiration</span>
-</code></pre></div>
-<p>Re-join that node as a master. When you ran "kubeadm init" to create the
-initial master node, you should have saved the output. It contains the "join"
-command that you need to create new masters. You want the commandline that
-includes the "--control-plane" option:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm join ... --control-plane ...</span>
-</code></pre></div>
-<p>If that fails, it may tell you to generate new certs. Run the
-'kubeadm init phase' command it specifies, and note the certificate key in
-the output. Replace the certificate key from your original join command with
-this new key and run the new join command.</p>
+<blockquote>
+<p>[!IMPORTANT]
+Copy the certificate to <code>/etc/nnf-dm-usercontainer/cert.pem</code> on each compute node. It must be readable by your users' applications.</p>
+</blockquote>
+<h2 id="per-workflow-token">Per-Workflow token</h2>
+<p>In Workflow. Flux reads it, adds it as an env variable for the compute application. Libcopyoffload knows this env var. This env var is added to the <a href="../../user-containers/readme/#compute-node-environment-variables">Compute Node Environment Variables</a>.</p>
+<p>Lifecycle.</p>
+<h2 id="user-configuration">User Configuration</h2>
+<p>Authentication</p>
+<p>'DW jobdw' with 'requires'</p>
+<p>copy-offload server
+      - mounts k8s secret that has TLS cert and signing key
+      - mounts k8s secret that has token signing key</p>
+<p>Copy-offload NnfContainerProfile</p>
+<p>The copy-offload client library.</p>
+<p>The hostname of the compute's matching rabbit. Must already be in the compute's
+/etc/hosts file as "rabbit". (find other doc here that describes this)
+  (it's in user-containers doc)</p>
+<p>Lifecycle of the copy-offload server. This is implemented as a user-container,
+so it has the same lifecycle as other user-containers (find other doc that
+describes this):
+  (it's in "Running a Container Workflow" of user-containers doc)</p>
+<p>Proposal does ...
+  Setup does ...
+  PreRun does...</p>
+<p>Server shuts down at ...</p>
+<p>Copy-offload API version, between server and client library.</p>
+<p>User-containers</p>
+<p>How to request auth for your own user container application.
+  (Find doc that describes user-containers, and update with auth stuff.)</p>
 
 
 
@@ -1212,44 +1092,6 @@ this new key and run the new join command.</p>
         <footer class="md-footer">
   
     
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../nvme-namespaces/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Debugging NVMe Namespaces">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Debugging NVMe Namespaces
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../../directive-breakdown/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Directive Breakdown">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Directive Breakdown
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1280,7 +1122,7 @@ this new key and run the new join command.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>

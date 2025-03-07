@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.5">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
@@ -514,9 +514,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#copy-offload-api-daemon" class="md-nav__link">
+  <a href="#copy-offload-api-server" class="md-nav__link">
     <span class="md-ellipsis">
-      Copy Offload API Daemon
+      Copy Offload API Server
     </span>
   </a>
   
@@ -862,28 +862,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/worker-to-master/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Switch a Node From Worker to Master
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../directive-breakdown/readme/" class="md-nav__link">
         
   
@@ -1130,9 +1108,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#copy-offload-api-daemon" class="md-nav__link">
+  <a href="#copy-offload-api-server" class="md-nav__link">
     <span class="md-ellipsis">
-      Copy Offload API Daemon
+      Copy Offload API Server
     </span>
   </a>
   
@@ -1221,10 +1199,10 @@
 <p>Data Movement can be configured in multiple ways:</p>
 <ol>
 <li>Server side (<code>NnfDataMovementProfile</code>)</li>
-<li>Per Copy Offload API Request arguments</li>
+<li>Copy offload API server</li>
 </ol>
 <p>The first method is a "global" configuration - it affects all data movement operations that use a
-particular <code>NnfDataMovementProfile</code> (or the default). The second is done per the Copy Offload API,
+particular <code>NnfDataMovementProfile</code> (or the default). The second is done per the <code>copy offload</code> API,
 which allows for some configuration on a per-case basis, but is limited in scope. Both methods are
 meant to work in tandem.</p>
 <h2 id="data-movement-profiles">Data Movement Profiles</h2>
@@ -1238,19 +1216,10 @@ referring to the following resources:</p>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Sample</a> for <code>NnfDataMovementProfile</code></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfdatamovementprofile.yaml">Online Examples</a> for <code>NnfDataMovementProfile</code></li>
 </ul>
-<h2 id="copy-offload-api-daemon">Copy Offload API Daemon</h2>
-<p>The <code>CreateRequest</code> API call that is used to create Data Movement with the Copy Offload API has some
-options to allow a user to specify some options for that particular Data Movement operation. These
-settings are on a per-request basis. These supplement the configuration in the
-<code>NnfDataMovementProfile</code>.</p>
-<p>The Copy Offload API requires the <code>nnf-dm</code> daemon to be running on the compute node. This daemon may
-be configured to run full-time, or it may be left in a disabled state if the WLM is expected to run
-it only when a user requests it. See <a href="../../compute-daemons/readme/">Compute Daemons</a> for the systemd
-service configuration of the daemon. See <code>Requires</code> in <a href="../../directive-breakdown/readme/">Directive
-Breakdown</a> for a description of how the user may request the
-daemon in the case where the WLM will run it only on demand.</p>
-<p>See the <a href="../copy-offload-api.html#datamovement.DataMovementCreateRequest">DataMovementCreateRequest API</a>
-definition for what can be configured.</p>
+<h2 id="copy-offload-api-server">Copy Offload API Server</h2>
+<p>The <code>copy offload</code> API allows the user's compute application to specify options for particular Data Movement operations. These settings are on a per-request basis and supplement the configuration in the <code>NnfDataMovementProfile</code>.</p>
+<p>The copy offload API requires the <code>copy-offload</code> server to be running on the Rabbit node. This server is implemented as a <a href="../../user-containers/readme/">User Container</a> and is activated by the user's <code>DW container</code> directive in their workflow script. The user's compute application must include the <code>libcopyoffload</code> library.</p>
+<p>See <a href="../copy-offload/">Copy Offload</a> for details about the usage and lifecycle of the copy offload API server.</p>
 <h2 id="selinux-and-data-movement">SELinux and Data Movement</h2>
 <p>Careful consideration must be taken when enabling SELinux on compute nodes. Doing so will result in
 SELinux Extended File Attributes (xattrs) being placed on files created by applications running on
@@ -1433,7 +1402,7 @@ a preceding <code>cd &lt;dir&gt;</code> in the Data Movement command.</p>
     <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>
