@@ -2,7 +2,7 @@
 
 ## Management
 
-* [Releasing NNF Software](release-nnf-sw/readme.md)
+* [Releasing NNF Software](release-nnf-sw/release-all.md)
 
 ## Developer
 
