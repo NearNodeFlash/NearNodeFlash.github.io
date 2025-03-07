@@ -67,7 +67,7 @@ Vendor this new API into another repository using the `vendor-new-api` tool. Thi
 
 ### Executing the Tool
 
-The following example will vendor the new `v1beta2` API we created above for lustre-fs-operator into the nnf-sos repository. The current hub version for nnf-sos is `v1alpha3`, and is specified with the `--hub-ver` option. The module representing lustre-fs-operator is specified in the same form that it would appear in the `go.mod` file in nnf-sos. The `--version` option can be used to specify a version if necessary. It begins by creating a new branch in nnf-sos off "master" named `api-lustre-fs-operator-v1beta2`, where it will do all of its work.
+The following example vendors the new `v1beta2` API we created above for lustre-fs-operator into the nnf-sos repository. The current hub version for nnf-sos is `v1alpha3`, and is specified with the `--hub-ver` option. The module representing lustre-fs-operator is specified in the same form that it would appear in the `go.mod` file in nnf-sos. The `--version` option can be used to specify a version if necessary. It begins by creating a new branch in nnf-sos off "master" named `api-lustre-fs-operator-v1beta2`, where it does all of its work.
 
 ```console
 DEST_REPO=git@github.com:NearNodeFlash/nnf-sos.git
