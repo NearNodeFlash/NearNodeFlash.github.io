@@ -109,7 +109,7 @@ The libraries from the Cluster API project use an annotation on the spoke versio
 
 ### Conversion Library Lifecycle in Spoke APIs
 
-After an API version has been bumped, the spoke API should be frozen. However, the spoke API conversion library in `api/<spoke-ver>/conversion.go` will continue to be updated, following the progression and development of the hub.
+After an API version has been bumped, the spoke API should be frozen. However, the spoke API conversion library in `api/<spoke-ver>/conversion.go` continues to be updated, following the progression and development of the hub.
 
 ### Conversion Must Not Fail
 
