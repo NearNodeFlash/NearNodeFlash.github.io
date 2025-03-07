@@ -1560,7 +1560,7 @@
 <h2 id="removing-an-old-api-version">Removing an Old API Version</h2>
 <p>An old API version should first be shipped in a deprecated state. Use the <code>unserve</code> tool to mark that API version as no longer being served by the API server. After that has shipped, that version of the API can be removed in a later release.</p>
 <h3 id="unserve-the-api">Unserve the API</h3>
-<p>The following example will mark the old <code>v1alpha1</code> API in lustre-fs-operator as no longer being served. This will place a <code>+kubebuilder:unservedversion</code> in each CRD of that version, which <code>controller-gen</code> will translate into <code>served: false</code> for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named <code>api-v1alpha1-unserve</code>, where it will do all of its work.</p>
+<p>The following example marks the old <code>v1alpha1</code> API in lustre-fs-operator as no longer being served. This places a <code>+kubebuilder:unservedversion</code> in each CRD of that version, which <code>controller-gen</code> translates into <code>served: false</code> for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named <code>api-v1alpha1-unserve</code>, where it does all of its work.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">unserve.py -r $REPO --spoke-ver v1alpha1</span>
 </code></pre></div>
