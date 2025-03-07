@@ -93,7 +93,7 @@ unserve.py -r $REPO --spoke-ver v1alpha1
 
 The repository with its adjusted API is found under a directory named `workingspace/lustre-fs-operator`.
 
-The new `api-v1alpha1-unserve` branch will have a commit containing the adjusted API and adjusted code. This commit message will have **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.
+The new `api-v1alpha1-unserve` branch has a commit containing the adjusted API and adjusted code. This commit message has **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.
 
 ## Library and Tool Support
 
