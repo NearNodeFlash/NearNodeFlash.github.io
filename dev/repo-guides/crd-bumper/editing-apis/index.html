@@ -1257,7 +1257,7 @@
 </code></pre></div>
 <p>The generator is forcing us to acknowledge that we have conversion covered for that new field. We have to manually replace that entrypoint to hook up the conversion again.</p>
 <h3 id="step-3-restore-the-generated-conversion-entrypoint">Step 3: Restore the generated conversion entrypoint</h3>
-<p>At the end of <code>api/v1alpha1/conversion.go</code> we will find other entrypoint routines like this one, for earlier changes to the <code>SystemConfiguration</code> type. Cut-n-paste that entrypoint routine from the diff above into an appropriate place near the end of <code>conversion.go</code>, adjusting it just enough so <code>make vet</code> will succeed.</p>
+<p>At the end of <code>api/v1alpha1/conversion.go</code> we will find other entrypoint routines like this one, for earlier changes to the <code>SystemConfiguration</code> type. Cut-n-paste that entrypoint routine from the diff above into an appropriate place near the end of <code>conversion.go</code>, adjusting it just enough so <code>make vet</code> succeeds.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>git<span class="w"> </span>diff<span class="w"> </span>-U1<span class="w"> </span>api/v1alpha1/conversion.go
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">diff --git a/api/v1alpha1/conversion.go b/api/v1alpha1/conversion.go</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">index f409f9b2..e11a41eb 100644</span>
