@@ -91,7 +91,7 @@ The generator is forcing us to acknowledge that we have conversion covered for t
 
 ### Step 3: Restore the generated conversion entrypoint
 
-At the end of `api/v1alpha1/conversion.go` we will find other entrypoint routines like this one, for earlier changes to the `SystemConfiguration` type. Cut-n-paste that entrypoint routine from the diff above into an appropriate place near the end of `conversion.go`, adjusting it just enough so `make vet` will succeed.
+At the end of `api/v1alpha1/conversion.go` we will find other entrypoint routines like this one, for earlier changes to the `SystemConfiguration` type. Cut-n-paste that entrypoint routine from the diff above into an appropriate place near the end of `conversion.go`, adjusting it just enough so `make vet` succeeds.
 
 ```console
 $ git diff -U1 api/v1alpha1/conversion.go
