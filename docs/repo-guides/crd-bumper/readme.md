@@ -74,7 +74,7 @@ DEST_REPO=git@github.com:NearNodeFlash/nnf-sos.git
 vendor-new-api.py -r $DEST_REPO --hub-ver v1alpha3 --vendor-hub-ver v1beta2 --module github.com/NearNodeFlash/lustre-fs-operator --version master
 ```
 
-The repository with its new API will be found under a directory named `workingspace/nnf-sos`.
+The repository with its new API is found under a directory named `workingspace/nnf-sos`.
 
 The new `api-lustre-fs-operator-v1beta2` branch will have a commit containing the newly-vendored API and adjusted code. This commit message will have **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.
 
