@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../../external-mgs/readme/">
+        <link rel="prev" href="../nvme-namespaces/">
       
       
-        <link rel="next" href="../../node-management/drain/">
+        <link rel="next" href="../../directive-breakdown/readme/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Global Lustre - NNF</title>
+        <title>Switch a Node From Worker to Master - NNF</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#global-lustre" class="md-skip">
+        <a href="#switch-a-node-from-worker-to-master" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Global Lustre
+              Switch a Node From Worker to Master
             
           </span>
         </div>
@@ -630,31 +630,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Global Lustre
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../global-lustre/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -664,71 +643,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
-    <span class="md-ellipsis">
-      Background
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#namespaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      Namespaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#nnf-data-movement-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      NNF Data Movement Manager
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-global-lustre" class="md-nav__link">
-    <span class="md-ellipsis">
-      Adding Global Lustre
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#removing-global-lustre" class="md-nav__link">
-    <span class="md-ellipsis">
-      Removing Global Lustre
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -741,7 +655,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/drain/" class="md-nav__link">
+      <a href="../drain/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -807,7 +721,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
+      <a href="../nvme-namespaces/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -826,10 +740,31 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -839,6 +774,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remove-a-k8s-worker-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Remove a k8s worker node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#join-a-node-as-a-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      Join a node as a master
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1132,45 +1105,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#background" class="md-nav__link">
+  <a href="#remove-a-k8s-worker-node" class="md-nav__link">
     <span class="md-ellipsis">
-      Background
+      Remove a k8s worker node
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#namespaces" class="md-nav__link">
+  <a href="#join-a-node-as-a-master" class="md-nav__link">
     <span class="md-ellipsis">
-      Namespaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#nnf-data-movement-manager" class="md-nav__link">
-    <span class="md-ellipsis">
-      NNF Data Movement Manager
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#adding-global-lustre" class="md-nav__link">
-    <span class="md-ellipsis">
-      Adding Global Lustre
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#removing-global-lustre" class="md-nav__link">
-    <span class="md-ellipsis">
-      Removing Global Lustre
+      Join a node as a master
     </span>
   </a>
   
@@ -1195,75 +1141,73 @@
   
 
 
-<h1 id="global-lustre">Global Lustre</h1>
-<h2 id="background">Background</h2>
-<p>Adding global lustre to rabbit systems allows access to external file systems. This is primarily
-used for Data Movement, where a user can perform <code>copy_in</code> and <code>copy_out</code> directives with global
-lustre being the source and destination, respectively.</p>
-<p>Global lustre fileystems are represented by the <code>lustrefilesystems</code> resource in Kubernetes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>lustrefilesystems<span class="w"> </span>-A
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>NAMESPACE<span class="w">   </span>NAME<span class="w">       </span>FSNAME<span class="w">   </span>MGSNIDS<span class="w">          </span>AGE
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>default<span class="w">     </span>mylustre<span class="w">   </span>mylustre<span class="w"> </span><span class="m">10</span>.1.1.113@tcp<span class="w">   </span>20d
+<h1 id="switch-a-node-from-worker-to-master">Switch a Node From Worker to Master</h1>
+<p>In this example, we have htx[40-42] as worker nodes. We will remove htx[40-41] as worker nodes and re-join them as master nodes.</p>
+<h2 id="remove-a-k8s-worker-node">Remove a k8s worker node</h2>
+<p>Begin by moving their existing pods to htx42.</p>
+<p>Taint the nodes we're going to remove, to prevent new pods from being SCHEDULED on them (this is different from the taint we'll use in a later step):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">NODE=htx40</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">kubectl taint node $NODE cray.nnf.node.drain=true:NoSchedule</span>
 </code></pre></div>
-<p>An example resource is as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">lus.cray.hpe.com/v1beta1</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LustreFileSystem</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nt">metadata</span><span class="p">:</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mylustre</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nt">spec</span><span class="p">:</span>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">mgsNids</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.1.1.100@tcp</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">mountRoot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/p/mylustre</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mylustre</span>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="nt">namespaces</span><span class="p">:</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">default</span><span class="p">:</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">modes</span><span class="p">:</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ReadWriteMany</span>
+<p>Set deploy/dws-webhook to 1 replica. <strong>This must be done via the gitops repo.</strong> Edit <code>environments/$ENV/dws/kustomization.yaml</code>, and add this, then wait for argocd to put it into effect. Or, force argocd to sync it with <code>argocd app sync 1-dws</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>patches:
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-<span class="w"> </span>target:
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span>kind:<span class="w"> </span>Deployment
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span>name:<span class="w"> </span>dws-webhook
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span>patch:<span class="w"> </span><span class="p">|</span>-
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span>apiVersion:<span class="w"> </span>apps/v1
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span>kind:<span class="w"> </span>Deployment
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span>metadata:
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span>name:<span class="w"> </span>dws-webhook
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span>spec:
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">      </span>replicas:<span class="w"> </span><span class="m">1</span>
 </code></pre></div>
-<h2 id="namespaces">Namespaces</h2>
-<p>Note the <code>spec.namespaces</code> field. For each namespace listed, the <code>lustre-fs-operator</code> creates a
-PV/PVC pair in that namespace. This allows pods in that namespace to access global lustre. The
-<code>default</code> namespace should appear in this list. This makes the <code>lustrefilesystem</code> resource available
-to the <code>default</code> namespace, which makes it available to containers (e.g.  container workflows)
-running in the <code>default</code> namespace.</p>
-<p>The <code>nnf-dm-system</code> namespace is added automatically - no need to specify that manually here. The
-NNF Data Movement Manager is responsible for ensuring that the <code>nnf-dm-system</code> is in
-<code>spec.namespaces</code>. This is to ensure that the NNF DM Worker pods have global lustre mounted as long
-as <code>nnf-dm</code> is deployed. <strong>To unmount global lustre from the NNF DM Worker pods, the
-<code>lustrefilesystem</code> resource must be deleted</strong>.</p>
-<p>The <code>lustrefilesystem</code> resource itself should be created in the <code>default</code> namespace (i.e.
-<code>metadata.namespace</code>).</p>
-<h2 id="nnf-data-movement-manager">NNF Data Movement Manager</h2>
-<p>The NNF Data Movement Manager is responsible for monitoring <code>lustrefilesystem</code> resources to mount
-(or umount) the global lustre filesystem in each of the NNF DM Worker pods. These pods run on each
-of the NNF nodes. This means with each addition or removal of <code>lustrefilesystems</code> resources, the DM
-worker pods restart to adjust their mount points.</p>
-<p>The NNF Data Movement Manager also places a finalizer on the <code>lustrefilesystem</code> resource to indicate
-that the resource is in use by Data Movement. This is to prevent the PV/PVC being deleted while they
-are being used by pods.</p>
-<h2 id="adding-global-lustre">Adding Global Lustre</h2>
-<p>As mentioned previously, the NNF Data Movement Manager monitors these resources and automatically
-adds the <code>nnf-dm-system</code> namespace to all <code>lustrefilesystem</code> resources. Once this happens, a PV/PVC
-is created for the <code>nnf-dm-system</code> namespace to access global lustre. The Manager updates the NNF DM
-Worker pods, which are then restarted to mount the global lustre file system.</p>
-<h2 id="removing-global-lustre">Removing Global Lustre</h2>
-<p>When a <code>lustrefilesystem</code> is deleted, the NNF DM Manager takes notice and starts to unmount the file
-system from the DM Worker pods - causing another restart of the DM Worker pods. Once this is
-finished, the DM finalizer is removed from the <code>lustrefilesystem</code> resource to signal that it is no
-longer in use by Data Movement.</p>
-<p>If a <code>lustrefilesystem</code> does not delete, check the finalizers to see what might still be using it.
-It is possible to get into a situation where <code>nnf-dm</code> has been undeployed, so there is nothing to
-remove the DM finalizer from the <code>lustrefilesystem</code> resource. If that is the case, then manually
-remove the DM finalizer so the deletion of the <code>lustrefilesystem</code> resource can continue.</p>
+<p>Taint the nodes we're going to remove, to BUMP EXISTING PODS off them (this is different from the taint we used earlier). This will bump any DWS, NNF, ArgoCD, cert-manager, mpi-operator, luster-fs-operator pods. This leaves any lustre-csi-driver pods in place to assist with any Lustre unmounts that k8s may
+request.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">kubectl taint node $NODE cray.nnf.node.drain=true:NoExecute</span>
+</code></pre></div>
+<p>Decommission <a href="https://docs.tigera.io/calico/latest/operations/decommissioning-a-node">calico node</a>.</p>
+<blockquote>
+<p>If you are running the node controller or using the Kubernetes API datastore in policy-only mode, you do not need to manually decommission nodes.</p>
+</blockquote>
+<p>Tell k8s to drain the nodes.</p>
+<p>Use the cray.nnf.node taints above before running 'kubectl drain'. Those taints allow Workflows to be terminated cleanly, even when they have Lustre filesystems mounted in the pods on that node. It's important that the lustre-csi-driver pod on that node lives long enough to assist with those unmounts to allow K8s to finish pod cleanup.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">kubectl drain --ignore-daemonsets $NODE</span>
+</code></pre></div>
+<p>Delete the worker nodes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">kubectl delete node $NODE</span>
+</code></pre></div>
+<p>Verify that the node is deleted from calico and k8s:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">kubectl calico get nodes (requires the calico plugin for kubectl)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">kubectl get nodes</span>
+</code></pre></div>
+<p>Remove etcd, if it was a master:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset remove-etcd-member</span>
+</code></pre></div>
+<p>It takes a while for all the containers on the deleted node to stop, so be patient.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">crictl ps</span>
+</code></pre></div>
+<p>Reset everything that "kubeadm join" did to that node:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm reset cleanup-node</span>
+</code></pre></div>
+<h2 id="join-a-node-as-a-master">Join a node as a master</h2>
+<p>Check for expired "kubeadm init" or "kubeadm-certs" tokens, or expired certs:</p>
+<p>The certificate-key from 'kubeadm init' is deleted after two hours. Use "kubeadm init phase upload-certs --upload-certs" to reload the certs later. This is explained in the output of the 'kubeadm init' command.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">kubeadm token list</span>
+</code></pre></div>
+<p>The one labeled for "kubeadm init" is used as the token in "kubeadm join" commands. The one labeled for "managing TTL" controls the lifetime of the "kubeadm-certs" secret and the "bootstrap-token-XXX" secret. These secrets and this token, are deleted after the "managing TTL" token expires. A worker can still join after that expires; a master cannot.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="go">kubeadm certs check-expiration</span>
+</code></pre></div>
+<p>Re-join that node as a master. When you ran "kubeadm init" to create the initial master node, you should have saved the output. It contains the "join" command that you need to create new masters. You want the commandline that includes the "--control-plane" option:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp gp-VirtualEnv">(on $NODE)</span> <span class="go">kubeadm join ... --control-plane ...</span>
+</code></pre></div>
+<p>If that fails, it may tell you to generate new certs. Run the 'kubeadm init phase' command it specifies, and note the certificate key in the output. Replace the certificate key from your original join command with this new key and run the new join command.</p>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -1293,7 +1237,7 @@ remove the DM finalizer so the deletion of the <code>lustrefilesystem</code> res
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../external-mgs/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lustre External MGT">
+          <a href="../nvme-namespaces/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Debugging NVMe Namespaces">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1303,20 +1247,20 @@ remove the DM finalizer so the deletion of the <code>lustrefilesystem</code> res
                 Previous
               </span>
               <div class="md-ellipsis">
-                Lustre External MGT
+                Debugging NVMe Namespaces
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../node-management/drain/" class="md-footer__link md-footer__link--next" aria-label="Next: Disable or Drain a Node">
+          <a href="../../directive-breakdown/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Directive Breakdown">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Disable or Drain a Node
+                Directive Breakdown
               </div>
             </div>
             <div class="md-footer__button md-icon">
