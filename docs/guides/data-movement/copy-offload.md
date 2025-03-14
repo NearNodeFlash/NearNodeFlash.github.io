@@ -1,6 +1,6 @@
 # Copy-Offload
 
-The copy-offload API allows a user's compute application to specify [Data Movement](../data-movement/readme.md) requests. The user's application utilizes the `libcopyoffload` library to establish a secure connection to the copy-offload server to initiate, list, query the status of, or cancel data movement requests. The copy-offload server accepts only those requests that present that Workflow's token.
+The copy-offload API allows a user's compute application to specify [Data Movement](../data-movement/readme.md) requests. The user's application utilizes the `libcopyoffload` library to establish a secure connection to the copy-offload server to initiate, list, query the status of, or cancel data movement requests. The copy-offload server accepts only those requests that present its Workflow's token.
 
 The copy-offload server is implemented as a special kind of [User Container](../user-containers/readme.md). Like all user containers, this is activated by a `DW container` directive in the user's job script and runs on the Rabbit nodes that are associated with the compute nodes in the user's job.
 
