@@ -15,7 +15,7 @@ Once the job is running on compute nodes, the application can find access to Rab
 
 ### jobdw
 
-The `jobdw` directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a `copy_out` directive will be lost. Multiple `jobdw` directives can be listed in the same job script. 
+The `jobdw` directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a `copy_out` directive will be lost. Multiple `jobdw` directives can be listed in the same job script.
 
 #### Command Arguments
 | Argument | Required | Value | Notes |
@@ -24,27 +24,28 @@ The `jobdw` directive command tells the Rabbit software to create a file system 
 | `capacity` | Yes | Allocation size with units. `1TiB`, `100GB`, etc. | Capacity interpretation varies by storage type. For Lustre file systems, capacity is the aggregate OST capacity. For raw, xfs, and GFS2 storage, capacity is the capacity of the file system for a single compute node. Capacity suffixes are: `KB`, `KiB`, `MB`, `MiB`, `GB`, `GiB`, `TB`, `TiB` |
 | `name` | Yes | String including numbers and '-' | This is a name for the storage allocation that is unique within a job |
 | `profile` | No | Profile name | This specifies which profile to use when allocating storage. Profiles include `mkfs` and `mount` arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. More information about storage profiles can be found in the [Storage Profiles](../storage-profiles/readme.md) guide. |
-| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requires) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. | 
+| `requires` | No | `copy-offload` | Use this option with [Copy Offload](../data-movement/copy-offload.md). This is for users who want to initiate data movement to or from the Rabbit storage from within their application. |
+| `requires` | No | `user-container-auth` | Use this option with [User Containers](../user-containers/readme.md) that have an application that expects to use the same kind of TLS certificate and [per-Workflow token](../data-movement/copy-offload.md#per-workflow-token) that is configured for [Copy Offload](../data-movement/copy-offload.md). |
 
 #### Examples
 
-```
+```bash
 #DW jobdw type=xfs capacity=10GiB name=scratch
 ```
 
 This directive results in a 10GiB xfs file system created for each compute node in the job using the default storage profile.
 
-```
+```bash
 #DW jobdw type=lustre capacity=1TB name=dw-temp profile=high-metadata
 ```
 
 This directive results in a single 1TB Lustre file system being created that can be accessed from all the compute nodes in the job. It is using a storage profile that an admin created to give high Lustre metadata performance.
 
-```
+```bash
 #DW jobdw type=gfs2 capacity=50GB name=checkpoint requires=copy-offload
 ```
 
-This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running using the Copy Offload API.
+This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload API is expected to be used to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running.
 
 ### create_persistent
 
@@ -60,13 +61,13 @@ The `create_persistent` command results in a storage allocation on the Rabbit no
 
 #### Examples
 
-```
+```bash
 #DW create_persistent type=xfs capacity=100GiB name=scratch
 ```
 
 This directive results in a 100GiB xfs file system created for each compute node in the job using the default storage profile. Since xfs file systems are not network accessible, subsequent jobs that want to use the file system must have the same number of compute nodes, and be scheduled on compute nodes with access to the correct Rabbit nodes. This means the job with the `create_persistent` directive must schedule the desired number of compute nodes even if no application is run on the compute nodes as part of the job.
 
-```
+```bash
 #DW create_persistent type=lustre capacity=10TiB name=shared-data profile=read-only
 ```
 
@@ -82,7 +83,7 @@ The `destroy_persistent` command will delete persistent storage that was allocat
 
 #### Examples
 
-```
+```bash
 #DW destroy_persistent name=shared-data
 ```
 
@@ -97,15 +98,16 @@ Persistent Lustre file systems can be accessed from any compute nodes in the sys
 | Argument | Required | Value | Notes |
 |----------|----------|-------|-------|
 | `name` | Yes | Lowercase string including numbers and '-' | This is a name for the persistent storage that will be accessed |
-| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requires) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. |
+| `requires` | No | `copy-offload` | Use this option with [Copy Offload](../data-movement/copy-offload.md). This is for users who want to initiate data movement to or from the Rabbit storage from within their application. |
+| `requires` | No | `user-container-auth` | Use this option with [User Containers](../user-containers/readme.md) that have an application that expects to use the same kind of TLS certificate and [per-Workflow token](../data-movement/copy-offload.md#per-workflow-token) that is configured for [Copy Offload](../data-movement/copy-offload.md). |
 
 #### Examples
 
-```
+```bash
 #DW persistentdw name=shared-data requires=copy-offload
 ```
 
-This directive will cause the `shared-data` persistent storage allocation to be mounted onto the compute nodes for the job application to use. The copy-offload daemon will be started on the compute nodes so the application can request data movement during the application run.
+This directive causes the `shared-data` persistent storage allocation to be mounted onto the compute nodes for the job application to use. The copy-offload API is expected to be used by the application.
 
 ### copy_in/copy_out
 
@@ -120,14 +122,14 @@ The `copy_in` and `copy_out` directives are used to move data to and from the st
 
 #### Examples
 
-```
+```bash
 #DW jobdw type=xfs capacity=10GiB name=fast-storage
 #DW copy_in source=/lus/backup/johndoe/important_data destination=$DW_JOB_fast_storage/data
 ```
 
 This set of directives creates an xfs file system on the Rabbits for each compute node in the job, and then moves data from `/lus/backup/johndoe/important_data` to each of the xfs file systems. `/lus/backup` must be set up in the Rabbit software as a [Global Lustre](../global-lustre/readme.md) file system by an admin. The copy takes place before the application is launched on the compute nodes.
 
-```
+```bash
 #DW persistentdw name=shared-data1
 #DW persistentdw name=shared-data2
 
@@ -137,7 +139,7 @@ This set of directives creates an xfs file system on the Rabbits for each comput
 
 This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the `no-xattr` profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a deterministic order.
 
-```
+```bash
 #DW persistentdw name=shared-data
 #DW jobdw type=lustre capacity=1TiB name=fast-storage profile=high-metadata
 
@@ -164,7 +166,7 @@ The `container` directive is used to launch user containers on the Rabbit nodes.
 
 #### Examples
 
-```
+```bash
 #DW jobdw type=xfs capacity=10GiB name=fast-storage
 #DW container name=backup profile=automatic-backup DW_JOB_source=fast-storage DW_GLOBAL_destination=/lus/backup/johndoe
 ```
@@ -179,4 +181,12 @@ The WLM makes a set of environment variables available to the job application ru
 |----------------------|-------|-------|
 | `DW_JOB_[name]` | Mount path of a `jobdw` file system | `[name]` is from the `name` argument in the `jobdw` directive. Any `'-'` characters in the `name` will be converted to `'_'` in the environment variable. There will be one of these environment variables per `jobdw` directive in the job. |
 | `DW_PERSISTENT_[name]` | Mount path of a `persistentdw` file system | `[name]` is from the `name` argument in the `persistentdw` directive. Any `'-'` characters in the `name` will be converted to `'_'` in the environment variable. There will be one of these environment variables per `persistentdw` directive in the job. |
-| `NNF_CONTAINER_PORTS` | Comma separated list of ports | These ports are used together with the IP address of the local Rabbit to communicate with a user container specified by a `container` directive. More information can be found in the [User Containers](../user-containers/readme.md) guide.
+| `NNF_CONTAINER_PORTS` | Comma separated list of ports | These ports are used together with the IP address of the local Rabbit to communicate with a user container specified by a `container` directive. More information can be found in the [User Containers](../user-containers/readme.md) guide. |
+
+The following environment variables are available to the [Copy Offload](../data-movement/copy-offload.md) server. They are also made available to any [User Container](../user-containers/readme.md) by specifying `requires=user-container-auth` (described above) in a `jobdw` or `persistentdw` directive. See [Certificate and Per-Workflow Token Details](../data-movement/copy-offload.md#certificate-and-per-workflow-token-details) for information about how a user can incorporate them into their own client/server application.
+
+| Environment Variable | Value | Notes |
+|----------------------|-------|-------|
+| `TLS_CERT_PATH` | The pathname to the TLS certificate. | This is also found on each compute node, if the copy-offload [Administrative Configuration](../data-movement/copy-offload.md) has been completed, and is available for a user's own client/server communication between their compute application and the server in their user container. |
+| `TLS_KEY_PATH` | The pathname to the signing key for the TLS certificate. | |
+| `TOKEN_KEY_PATH` | The pathname to the signing key for the per-Workflow token. | The per-Workflow token itself is made available in an environment variable for the compute application. See [WLM and the per-Workflow token](../data-movement/copy-offload.md#wlm-and-the-per-workflow-token) for details. |

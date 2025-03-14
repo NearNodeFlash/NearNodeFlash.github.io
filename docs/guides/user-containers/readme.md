@@ -488,11 +488,11 @@ requested.
 
 This allows an application on the compute node to contact the user container running on its local
 NNF node via these port numbers. The compute node must have proper routing to the NNF Node and needs
-a generic way of contacting the NNF node. It is suggested than a DNS entry is provided via
+a generic way of contacting the NNF node. It is suggested that a hostname entry is provided via
 `/etc/hosts`, or similar.
 
 For cases where one port is requested, the following can be used to contact the user container
-running on the NNF node (assuming a DNS entry for `local-rabbit` is provided via `/etc/hosts`).
+running on the NNF node (assuming a hostname entry for `local-rabbit` is provided via `/etc/hosts`).
 
 ```console
 local-rabbit:$(NNF_CONTAINER_PORTS)
