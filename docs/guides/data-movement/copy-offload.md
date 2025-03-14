@@ -64,7 +64,7 @@ DW_WORKFLOW_TOKEN="$TOKEN"
 
 ## User Enablement of Copy Offload
 
-Users enable the copy-offload server by requesting it in their job script. The script must contain a `DW container` directive that specifies the desired copy-offload container profile. At least one of the `DW jobdw` or `DW persistentdw` directives in the job script must include the `requires=copy-offload` statement. See [User Interactions](../user-interactions/readme.md) for more details about these directives.
+Users enable the copy-offload server by requesting it in their job script. The script must contain a `#DW container` directive that specifies the desired copy-offload container profile. At least one of the `#DW jobdw` or `#DW persistentdw` directives in the job script must include the `requires=copy-offload` statement. See [User Interactions](../user-interactions/readme.md) for more details about these directives.
 
 The user's compute application must be linked with the `libcopyoffload` library. This library understands how to find and use the TLS certificate and the per-Workflow token required for communication with the copy-offload server for the user's job.
 
