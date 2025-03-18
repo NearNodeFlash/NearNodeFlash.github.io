@@ -23,7 +23,7 @@ cd nnf-dm
 tools/mk-usercontainer-secrets.sh
 ```
 
-That tool creates the signing key and the certificate and stores them in a Kubernetes secret named `nnf-dm-usercontainer-server-tls`. This first secret is mounted into the copy-offload server's pod when it is specified in a user's job script. The certificate is also stored alone in a Kubernetes secret named `nnf-dm-usercontainer-client-tls`. The content of this second secret can be retrieved by the administrator and copied to each compute node.
+That tool creates the signing key and the certificate and stores them in a Kubernetes secret named `nnf-dm-usercontainer-server-tls`. This first secret is mounted into the copy-offload server's pod when it is specified in a user's job script. The certificate is also stored by itself in a Kubernetes secret named `nnf-dm-usercontainer-client-tls`. The content of this second secret can be retrieved by the administrator and copied to each compute node.
 
 ```console
 CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls
@@ -32,10 +32,6 @@ kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM '.data."tls.crt"' | base
 
 > [!IMPORTANT]
 > Copy the certificate to `/etc/nnf-dm-usercontainer/cert.pem` on each compute node. It must be readable by all users' compute applications.
-
-### Rabbit hostname in /etc/hosts
-
-Each compute node must know the name of its matching rabbit node. This allows the `libcopyoffload` library, used in the user's compute application, to know which rabbit has the copy-offload server for that job. The library expects to use a generic name, `local-rabbit`, to contact that rabbit.
 
 ### WLM and the per-Workflow token
 
@@ -68,12 +64,20 @@ Users enable the copy-offload server by requesting it in their job script. The s
 
 The user's compute application must be linked with the `libcopyoffload` library. This library understands how to find and use the TLS certificate and the per-Workflow token required for communication with the copy-offload server for the user's job.
 
-The copy-offload server and its container profile are specified in the `container` directive. See [User Containers](../user-containers/readme.md) for details about container profiles. The following selects the default copy-offload container profile:
+The copy-offload container profile is specified in the `container` directive. See [User Containers](../user-containers/readme.md) for details about using container profiles. The following directives show that the job uses copy-offload and select the default copy-offload container profile:
 
 ```bash
 #DW jobdw name=my-job-name requires=copy-offload [...]
 #DW container name=copyoff-container profile=copy-offload-default [...]
 ```
+
+### Library libcopyoffload
+
+Where to get it.
+Linking with it.
+The API.
+The `/etc/local-rabbit.conf` file that has the name of the matching rabbit.
+The NNF_CONTAINER_LAUNCHER environment variable.
 
 ## Certificate and Per-Workflow Token Details
 
