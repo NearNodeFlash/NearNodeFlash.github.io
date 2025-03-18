@@ -14,7 +14,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.9">
     
     
       
@@ -22,7 +22,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.4af4bdda.min.css">
       
       
 
@@ -1054,15 +1054,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rabbit-hostname-in-etchosts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rabbit hostname in /etc/hosts
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#wlm-and-the-per-workflow-token" class="md-nav__link">
     <span class="md-ellipsis">
       WLM and the per-Workflow token
@@ -1082,6 +1073,21 @@
       User Enablement of Copy Offload
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="User Enablement of Copy Offload">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#library-libcopyoffload" class="md-nav__link">
+    <span class="md-ellipsis">
+      Library libcopyoffload
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1126,7 +1132,7 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">cd nnf-dm</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">tools/mk-usercontainer-secrets.sh</span>
 </code></pre></div>
-<p>That tool creates the signing key and the certificate and stores them in a Kubernetes secret named <code>nnf-dm-usercontainer-server-tls</code>. This first secret is mounted into the copy-offload server's pod when it is specified in a user's job script. The certificate is also stored alone in a Kubernetes secret named <code>nnf-dm-usercontainer-client-tls</code>. The content of this second secret can be retrieved by the administrator and copied to each compute node.</p>
+<p>That tool creates the signing key and the certificate and stores them in a Kubernetes secret named <code>nnf-dm-usercontainer-server-tls</code>. This first secret is mounted into the copy-offload server's pod when it is specified in a user's job script. The certificate is also stored by itself in a Kubernetes secret named <code>nnf-dm-usercontainer-client-tls</code>. The content of this second secret can be retrieved by the administrator and copied to each compute node.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM &#39;.data.&quot;tls.crt&quot;&#39; | base64 -d &gt; cert.pem</span>
 </code></pre></div>
@@ -1134,8 +1140,6 @@
 <p>[!IMPORTANT]
 Copy the certificate to <code>/etc/nnf-dm-usercontainer/cert.pem</code> on each compute node. It must be readable by all users' compute applications.</p>
 </blockquote>
-<h3 id="rabbit-hostname-in-etchosts">Rabbit hostname in /etc/hosts</h3>
-<p>Each compute node must know the name of its matching rabbit node. This allows the <code>libcopyoffload</code> library, used in the user's compute application, to know which rabbit has the copy-offload server for that job. The library expects to use a generic name, <code>local-rabbit</code>, to contact that rabbit.</p>
 <h3 id="wlm-and-the-per-workflow-token">WLM and the per-Workflow token</h3>
 <p>The WLM, such as Flux, must retrieve the per-Workflow token and make it available to the user's compute application as an environment variable named <code>DW_WORKFLOW_TOKEN</code>. The token is used by the <code>libcopyoffload</code> library to construct the "Bearer Token" for its requests to the copy-offload server. The token becomes invalid after the Workflow enters its teardown state.</p>
 <p>The Workflow contains a reference to the name of the Secret that holds the token. The following value returns the name and namespace of the secret:</p>
@@ -1154,10 +1158,16 @@ Per-Workflow tokens are not limited to the copy-offload API. Any user container 
 <h2 id="user-enablement-of-copy-offload">User Enablement of Copy Offload</h2>
 <p>Users enable the copy-offload server by requesting it in their job script. The script must contain a <code>#DW container</code> directive that specifies the desired copy-offload container profile. At least one of the <code>#DW jobdw</code> or <code>#DW persistentdw</code> directives in the job script must include the <code>requires=copy-offload</code> statement. See <a href="../../user-interactions/readme/">User Interactions</a> for more details about these directives.</p>
 <p>The user's compute application must be linked with the <code>libcopyoffload</code> library. This library understands how to find and use the TLS certificate and the per-Workflow token required for communication with the copy-offload server for the user's job.</p>
-<p>The copy-offload server and its container profile are specified in the <code>container</code> directive. See <a href="../../user-containers/readme/">User Containers</a> for details about container profiles. The following selects the default copy-offload container profile:</p>
+<p>The copy-offload container profile is specified in the <code>container</code> directive. See <a href="../../user-containers/readme/">User Containers</a> for details about using container profiles. The following directives show that the job uses copy-offload and select the default copy-offload container profile:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">#DW jobdw name=my-job-name requires=copy-offload [...]</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1">#DW container name=copyoff-container profile=copy-offload-default [...]</span>
 </code></pre></div>
+<h3 id="library-libcopyoffload">Library libcopyoffload</h3>
+<p>Where to get it.
+Linking with it.
+The API.
+The <code>/etc/local-rabbit.conf</code> file that has the name of the matching rabbit.
+The NNF_CONTAINER_LAUNCHER environment variable.</p>
 <h2 id="certificate-and-per-workflow-token-details">Certificate and Per-Workflow Token Details</h2>
 <p>The per-Workflow token and its signing key are created during the Workflow's <code>Setup</code> state, and they are destroyed when the Workflow enters <code>Teardown</code> state.</p>
 <p>The WLM places the per-Workflow token in an environment variable for the application on the compute node. The variable is named <code>DW_WORKFLOW_TOKEN</code>. The application on the compute node can find the TLS certificate in <code>/etc/nnf-dm-usercontainer/cert.pem</code>. The <code>libcopyoffload</code> library is able to use the per-Workflow token and the TLS certificate to communicate securely with the copy-offload server.</p>
