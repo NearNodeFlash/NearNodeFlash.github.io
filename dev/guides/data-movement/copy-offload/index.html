@@ -1128,9 +1128,8 @@
 <p>Tools are available in the <code>nnf-dm</code> repository to assist in creating this certificate and its signing key. Begin by confirming that the cluster's <code>SystemConfiguration</code> resource can be accessed using the <code>kubectl</code> command. This resource contains the information about all of the Rabbit nodes and is used when creating the SAN extension for the certificate:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get systemconfiguration</span>
 </code></pre></div>
-<p>From the <code>nnf-deploy</code> workarea, change into the <code>nnf-dm</code> directory and run <code>tools/mk-usercontainer-secrets.sh</code>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">cd nnf-dm</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">tools/mk-usercontainer-secrets.sh</span>
+<p>From the <code>nnf-deploy</code> workarea, run <code>tools/mk-usercontainer-secrets.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">tools/mk-usercontainer-secrets.sh</span>
 </code></pre></div>
 <p>That tool creates the signing key and the certificate and stores them in a Kubernetes secret named <code>nnf-dm-usercontainer-server-tls</code>. This first secret is mounted into the copy-offload server's pod when it is specified in a user's job script. The certificate is also stored by itself in a Kubernetes secret named <code>nnf-dm-usercontainer-client-tls</code>. The content of this second secret can be retrieved by the administrator and copied to each compute node.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls</span>
