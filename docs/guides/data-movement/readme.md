@@ -24,9 +24,9 @@ for understanding how to use profiles, set a default, etc.
 For an in-depth understanding of the capabilities offered by Data Movement profiles, we recommend
 referring to the following resources:
 
-- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha1/nnfdatamovementprofile_types.go#L27) for `NnfDataMovementProfile`
-- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
-- [Online Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
+- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha6/nnfdatamovementprofile_types.go#L27) for `NnfDataMovementProfile`
+- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha6_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
+- [Online Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
 
 ## Copy Offload API Daemon
 
