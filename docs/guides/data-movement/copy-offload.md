@@ -16,10 +16,9 @@ Tools are available in the `nnf-dm` repository to assist in creating this certif
 kubectl get systemconfiguration
 ```
 
-From the `nnf-deploy` workarea, change into the `nnf-dm` directory and run `tools/mk-usercontainer-secrets.sh`:
+From the `nnf-deploy` workarea, run `tools/mk-usercontainer-secrets.sh`:
 
 ```console
-cd nnf-dm
 tools/mk-usercontainer-secrets.sh
 ```
 
