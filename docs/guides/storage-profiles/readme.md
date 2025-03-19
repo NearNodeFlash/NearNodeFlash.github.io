@@ -288,21 +288,29 @@ In general, `scale` gives a simple way for users to get a filesystem that has pe
 
 ## Command Line Variables
 
-### pvcreate
+### global
+- `$JOBID` - expands to the Job ID from the Workflow
+- `$USERID` - expands to the User ID of the user who submitted the job
+- `$GROUPID` - expands to the Group ID of the user who submitted the job
+
+### LVM PV commands
 
 - `$DEVICE` - expands to the `/dev/<path>` value for one device that has been allocated
 
-### vgcreate
+### LVM VG commands
 
 - `$VG_NAME` - expands to a volume group name that is controlled by Rabbit software.
 - `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were iterated over for the pvcreate step.
+- `$DEVICE_NUM` - expands to the count of devices in `$DEVICE_LIST`
 
-### lvcreate
+### LVM LV Commands
 
 - `$VG_NAME` - see vgcreate above.
 - `$LV_NAME` - expands to a logical volume name that is controlled by Rabbit software.
 - `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for the volume group.
 - `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
+- `$PERCENT_VG` - expands to the size that each LV should be based on a percentage of the total VG size
+- `$LV_SIZE` - expands to the size of the LV in kB in the format expected by `lvcreate`
 
 ### XFS mkfs
 
@@ -326,9 +334,15 @@ In general, `scale` gives a simple way for users to get a filesystem that has pe
 
 - `$FS_NAME` - expands to the filesystem name that was passed to Rabbit software from the workflow's #DW line.
 - `$MGS_NID` - expands to the NID of the MGS. If the MGS was orchestrated by nnf-sos then an appropriate internal value will be used.
-- `$POOL_NAME` - see zpool create above.
-- `$VOL_NAME` - expands to the volume name that will be created. This value will be `<pool_name>/<dataset>`, and is controlled by Rabbit software.
+- `$ZVOL_NAME` - expands to the volume name that will be created. This value will be `<pool_name>/<dataset>`, and is controlled by Rabbit software.
 - `$INDEX` - expands to the index value of the target and is controlled by Rabbit software.
+- `$TARGET_NAME` - expands to the name of the lustre target of the form `[fsname]-[target-type][index]` (e.g., `mylus-OST0003`)
+- `$BACKFS` - expands to the type of file system backing the Lustre target
+
+### Mount/Unmount
+
+- `$DEVICE` - expands to the device path to mount
+- `$MOUNT_PATH` - expands to the path to mount on
 
 ### PostMount/PreUnmount and PostActivate/PreDeactivate
 
@@ -343,3 +357,10 @@ These variables are for lustre only and can be used to perform PostMount activit
 - `$NUM_MGTMDTS` - expands to the number of combined MGTMDTs for the lustre filesystem
 - `$NUM_OSTS` - expands to the number of OSTs for the lustre filesystem
 - `$NUM_NNFNODES` - expands to the number of NNF Nodes for the lustre filesystem
+
+### NnfSystemStorage specific
+
+- `$COMPUTE_HOSTNAME` - Expands to the hostname of the compute node that will use the allocation. This can be used to add a tag during the lvcreate
+```
+lvCreate --zero n --activate n --extents $PERCENT_VG --addtag $COMPUTE_HOSTNAME ...
+```
