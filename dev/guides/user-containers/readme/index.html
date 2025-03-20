@@ -698,6 +698,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rabbit-hostname-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rabbit Hostname Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#systemconfiguration-setup" class="md-nav__link">
     <span class="md-ellipsis">
       SystemConfiguration Setup
@@ -915,6 +924,15 @@
   <a href="#nnf_container_ports" class="md-nav__link">
     <span class="md-ellipsis">
       NNF_CONTAINER_PORTS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnf_container_launcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      NNF_CONTAINER_LAUNCHER
     </span>
   </a>
   
@@ -1529,6 +1547,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rabbit-hostname-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rabbit Hostname Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#systemconfiguration-setup" class="md-nav__link">
     <span class="md-ellipsis">
       SystemConfiguration Setup
@@ -1751,6 +1778,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#nnf_container_launcher" class="md-nav__link">
+    <span class="md-ellipsis">
+      NNF_CONTAINER_LAUNCHER
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1961,7 +1997,7 @@ that outlines the desired configuration for the pod.</p>
 <p>For MPI containers, <code>mpiSpec</code> is used. This custom resource, available through <code>MPIJobSpec</code> from
 <code>mpi-operator</code>, serves as a facilitator for executing MPI applications across worker containers.
 This resource can be likened to a wrapper around a <code>PodSpec</code>, but users need to define a <code>PodSpec</code>
-for both Launcher and Worker containers.</p>
+for both Launcher and Worker containers. For assistance in finding the rabbit that is running the Launcher, see <code>NNF_CONTAINER_LAUNCHER</code> below.</p>
 <p>See the <a href="https://github.com/kubeflow/mpi-operator/blob/v0.4.0/pkg/apis/kubeflow/v2beta1/types.go#L137"><code>MPIJobSpec</code>
 definition</a>
 for more details on what can be configured for an MPI application.</p>
@@ -1997,6 +2033,9 @@ workflow until it is released.</p>
 workflows will fail in the <code>Setup</code> state due to insufficient resources. See <a href="#systemconfiguration-setup">SystemConfiguration
 Setup</a>.</p>
 </div>
+<h3 id="rabbit-hostname-setup">Rabbit Hostname Setup</h3>
+<p>On each compute node there must be a file named <code>/etc/local-rabbit.conf</code> that contains the hostname of the compute's matching rabbit node. This will be used by compute node applications to communicate with the server in the user container. This is generally used for the non-MPI case.</p>
+<p>For the MPI case, see <code>NNF_CONTAINER_LAUNCHER</code> below.</p>
 <h3 id="systemconfiguration-setup">SystemConfiguration Setup</h3>
 <p>In order for container workflows to request ports from the <code>NnfPortManager</code>, the
 <code>SystemConfiguration</code> must be configured for a range of ports:</p>
@@ -2244,12 +2283,15 @@ allocated ports for the container. This is a comma separated list of ports if mu
 requested.</p>
 <p>This allows an application on the compute node to contact the user container running on its local
 NNF node via these port numbers. The compute node must have proper routing to the NNF Node and needs
-a generic way of contacting the NNF node. It is suggested than a DNS entry is provided via
-<code>/etc/hosts</code>, or similar.</p>
+a generic way of contacting the NNF node.</p>
 <p>For cases where one port is requested, the following can be used to contact the user container
-running on the NNF node (assuming a DNS entry for <code>local-rabbit</code> is provided via <code>/etc/hosts</code>).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">local-rabbit:$(NNF_CONTAINER_PORTS)</span>
+running on the NNF node, assuming a hostname entry for the local rabbit is provided via <code>/etc/local-rabbit.conf</code> as described above:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">RABBIT=$(cat /etc/local-rabbit.conf)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="gp">$</span>RABBIT:<span class="k">$(</span>NNF_CONTAINER_PORTS<span class="k">)</span>
 </code></pre></div>
+<h4 id="nnf_container_launcher"><code>NNF_CONTAINER_LAUNCHER</code></h4>
+<p>If the NNF Container Profile is using <code>mpiSpec</code>, then this environment variable provides the name of the rabbit that is running the MPI Launcher pod.</p>
+<p>This allows an application on the compute node to contact the user container running a server that may be in the MPI Launcher. The <a href="../../data-movement/copy-offload/">copy-offload server</a> is an example of such an MPI application.</p>
 <h3 id="creating-images">Creating Images</h3>
 <p>For details, refer to the <a href="https://github.com/NearNodeFlash/nnf-container-example#making-a-container-image">NNF Container Example
 Readme</a>. However,
