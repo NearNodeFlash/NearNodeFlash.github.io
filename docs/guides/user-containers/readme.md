@@ -52,9 +52,9 @@ The next few subsections provide an overview of the primary components comprisin
 aspects, they don't encompass every single detail. For an in-depth understanding of the capabilities
 offered by container profiles, we recommend referring to the following resources:
 
-- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha1/nnfcontainerprofile_types.go#L35) for `NnfContainerProfile`
-- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfcontainerprofile.yaml) for `NnfContainerProfile`
-- [Online Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfcontainerprofiles.yaml) for `NnfContainerProfile` (same as `kubectl get` above)
+- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha6/nnfcontainerprofile_types.go#L35) for `NnfContainerProfile`
+- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha6_nnfcontainerprofile.yaml) for `NnfContainerProfile`
+- [Online Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_nnfcontainerprofiles.yaml) for `NnfContainerProfile` (same as `kubectl get` above)
 
 #### Container Storages
 
@@ -609,7 +609,7 @@ The following profile shows the placement of the `readonly-red-rock-slushy` secr
 in the previous step, and points to the user's `dean/red-rock-slushy:v1.0` container.
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
+apiVersion: nnf.cray.hpe.com/v1alpha6
 kind: NnfContainerProfile
 metadata:
   name: red-rock-slushy
@@ -647,7 +647,7 @@ insert two `imagePullSecrets` lists into the `mpiSpec` of the NnfContainerProfil
 launcher and the MPI worker.
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
+apiVersion: nnf.cray.hpe.com/v1alpha6
 kind: NnfContainerProfile
 metadata:
   name: mpi-red-rock-slushy
