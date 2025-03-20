@@ -1573,7 +1573,7 @@
 <p>Once the job is running on compute nodes, the application can find access to Rabbit specific resources through a set of environment variables that provide mount and network access information.</p>
 <h2 id="commands">Commands</h2>
 <h3 id="jobdw">jobdw</h3>
-<p>The <code>jobdw</code> directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a <code>copy_out</code> directive will be lost. Multiple <code>jobdw</code> directives can be listed in the same job script.</p>
+<p>The <code>jobdw</code> directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a <code>copy_out</code> directive will be lost. Multiple <code>jobdw</code> directives can be listed in the same job script. </p>
 <h4 id="command-arguments">Command Arguments</h4>
 <table>
 <thead>
@@ -1613,26 +1613,20 @@
 <td><code>requires</code></td>
 <td>No</td>
 <td><code>copy-offload</code></td>
-<td>Use this option with <a href="../../data-movement/copy-offload/">Copy Offload</a>. This is for users who want to initiate data movement to or from the Rabbit storage from within their application.</td>
-</tr>
-<tr>
-<td><code>requires</code></td>
-<td>No</td>
-<td><code>user-container-auth</code></td>
-<td>Use this option with <a href="../../user-containers/readme/">User Containers</a> that have an application that expects to use the same kind of TLS certificate and <a href="../../data-movement/copy-offload/#per-workflow-token">per-Workflow token</a> that is configured for <a href="../../data-movement/copy-offload/">Copy Offload</a>.</td>
+<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the <a href="../../directive-breakdown/readme/#requires">Required Daemons</a> section of the <a href="../../directive-breakdown/readme/">Directive Breakdown</a> guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</td>
 </tr>
 </tbody>
 </table>
 <h4 id="examples">Examples</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">#DW jobdw type=xfs capacity=10GiB name=scratch</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>#DW jobdw type=xfs capacity=10GiB name=scratch
 </code></pre></div>
 <p>This directive results in a 10GiB xfs file system created for each compute node in the job using the default storage profile.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1">#DW jobdw type=lustre capacity=1TB name=dw-temp profile=high-metadata</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>#DW jobdw type=lustre capacity=1TB name=dw-temp profile=high-metadata
 </code></pre></div>
 <p>This directive results in a single 1TB Lustre file system being created that can be accessed from all the compute nodes in the job. It is using a storage profile that an admin created to give high Lustre metadata performance.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">#DW jobdw type=gfs2 capacity=50GB name=checkpoint requires=copy-offload</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>#DW jobdw type=gfs2 capacity=50GB name=checkpoint requires=copy-offload
 </code></pre></div>
-<p>This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload API is expected to be used to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running.</p>
+<p>This directive results in a 50GB GFS2 file system created for each compute node in the job using the default storage profile. The copy-offload daemon is started on the compute node to allow the application to request the Rabbit to move data from the GFS2 file system to another file system while the application is running using the Copy Offload API.</p>
 <h3 id="create_persistent">create_persistent</h3>
 <p>The <code>create_persistent</code> command results in a storage allocation on the Rabbit nodes that lasts beyond the lifetime of the job. This is useful for creating a file system that can share data between jobs. Only a single <code>create_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>destroy_persistent</code> directive. See <a href="./#persistentdw">persistentdw</a> to utilize the storage in a job.</p>
 <h4 id="command-arguments_1">Command Arguments</h4>
@@ -1673,10 +1667,10 @@
 </tbody>
 </table>
 <h4 id="examples_1">Examples</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1">#DW create_persistent type=xfs capacity=100GiB name=scratch</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>#DW create_persistent type=xfs capacity=100GiB name=scratch
 </code></pre></div>
 <p>This directive results in a 100GiB xfs file system created for each compute node in the job using the default storage profile. Since xfs file systems are not network accessible, subsequent jobs that want to use the file system must have the same number of compute nodes, and be scheduled on compute nodes with access to the correct Rabbit nodes. This means the job with the <code>create_persistent</code> directive must schedule the desired number of compute nodes even if no application is run on the compute nodes as part of the job.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">#DW create_persistent type=lustre capacity=10TiB name=shared-data profile=read-only</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>#DW create_persistent type=lustre capacity=10TiB name=shared-data profile=read-only
 </code></pre></div>
 <p>This directive results in a single 10TiB Lustre file system being created that can be accessed later by any compute nodes in the system. Multiple jobs can access a Rabbit Lustre file system at the same time. This job can be scheduled with a single compute node (or zero compute nodes if the WLM allows), without any limitations on compute node counts for subsequent jobs using the persistent Lustre file system.</p>
 <h3 id="destroy_persistent">destroy_persistent</h3>
@@ -1701,7 +1695,7 @@
 </tbody>
 </table>
 <h4 id="examples_2">Examples</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">#DW destroy_persistent name=shared-data</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>#DW destroy_persistent name=shared-data
 </code></pre></div>
 <p>This directive will delete the persistent storage allocation with the name <code>shared-data</code></p>
 <h3 id="persistentdw">persistentdw</h3>
@@ -1728,20 +1722,14 @@
 <td><code>requires</code></td>
 <td>No</td>
 <td><code>copy-offload</code></td>
-<td>Use this option with <a href="../../data-movement/copy-offload/">Copy Offload</a>. This is for users who want to initiate data movement to or from the Rabbit storage from within their application.</td>
-</tr>
-<tr>
-<td><code>requires</code></td>
-<td>No</td>
-<td><code>user-container-auth</code></td>
-<td>Use this option with <a href="../../user-containers/readme/">User Containers</a> that have an application that expects to use the same kind of TLS certificate and <a href="../../data-movement/copy-offload/#per-workflow-token">per-Workflow token</a> that is configured for <a href="../../data-movement/copy-offload/">Copy Offload</a>.</td>
+<td>Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the <a href="../../directive-breakdown/readme/#requires">Required Daemons</a> section of the <a href="../../directive-breakdown/readme/">Directive Breakdown</a> guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand.</td>
 </tr>
 </tbody>
 </table>
 <h4 id="examples_3">Examples</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">#DW persistentdw name=shared-data requires=copy-offload</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>#DW persistentdw name=shared-data requires=copy-offload
 </code></pre></div>
-<p>This directive causes the <code>shared-data</code> persistent storage allocation to be mounted onto the compute nodes for the job application to use. The copy-offload API is expected to be used by the application.</p>
+<p>This directive will cause the <code>shared-data</code> persistent storage allocation to be mounted onto the compute nodes for the job application to use. The copy-offload daemon will be started on the compute nodes so the application can request data movement during the application run.</p>
 <h3 id="copy_incopy_out">copy_in/copy_out</h3>
 <p>The <code>copy_in</code> and <code>copy_out</code> directives are used to move data to and from the storage allocations on Rabbit nodes. The <code>copy_in</code> directive requests that data be moved into the Rabbit file system before application launch, and the <code>copy_out</code> directive requests data to be moved off of the Rabbit file system after application exit. This is different from data-movement that is requested through the copy-offload API, which occurs during application runtime. Multiple <code>copy_in</code> and <code>copy_out</code> directives can be included in the same job script. More information about data movement can be found in the <a href="../../data-movement/readme/">Data Movement</a> documentation.</p>
 <h4 id="command-arguments_4">Command Arguments</h4>
@@ -1776,24 +1764,24 @@
 </tbody>
 </table>
 <h4 id="examples_4">Examples</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">#DW jobdw type=xfs capacity=10GiB name=fast-storage</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1">#DW copy_in source=/lus/backup/johndoe/important_data destination=$DW_JOB_fast_storage/data</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>#DW jobdw type=xfs capacity=10GiB name=fast-storage
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>#DW copy_in source=/lus/backup/johndoe/important_data destination=$DW_JOB_fast_storage/data
 </code></pre></div>
 <p>This set of directives creates an xfs file system on the Rabbits for each compute node in the job, and then moves data from <code>/lus/backup/johndoe/important_data</code> to each of the xfs file systems. <code>/lus/backup</code> must be set up in the Rabbit software as a <a href="../../global-lustre/readme/">Global Lustre</a> file system by an admin. The copy takes place before the application is launched on the compute nodes.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">#DW persistentdw name=shared-data1</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1">#DW persistentdw name=shared-data2</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#DW persistentdw name=shared-data1
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>#DW persistentdw name=shared-data2
 <a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1">#DW copy_out source=$DW_PERSISTENT_shared_data1/a destination=$DW_PERSISTENT_shared_data2/a profile=no-xattr</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1">#DW copy_out source=$DW_PERSISTENT_shared_data1/b destination=$DW_PERSISTENT_shared_data2/b profile=no-xattr</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>#DW copy_out source=$DW_PERSISTENT_shared_data1/a destination=$DW_PERSISTENT_shared_data2/a profile=no-xattr
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>#DW copy_out source=$DW_PERSISTENT_shared_data1/b destination=$DW_PERSISTENT_shared_data2/b profile=no-xattr
 </code></pre></div>
 <p>This set of directives copies two directories from one persistent storage allocation to another persistent storage allocation using the <code>no-xattr</code> profile to avoid copying xattrs. This data movement occurs after the job application exits on the compute nodes, and the two copies do not occur in a deterministic order.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">#DW persistentdw name=shared-data</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1">#DW jobdw type=lustre capacity=1TiB name=fast-storage profile=high-metadata</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>#DW persistentdw name=shared-data
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>#DW jobdw type=lustre capacity=1TiB name=fast-storage profile=high-metadata
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1">#DW copy_in source=/lus/shared/johndoe/shared-libraries destination=$DW_JOB_fast_storage/libraries</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1">#DW copy_in source=$DW_PERSISTENT_shared_data/ destination=$DW_JOB_fast_storage/data</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>#DW copy_in source=/lus/shared/johndoe/shared-libraries destination=$DW_JOB_fast_storage/libraries
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>#DW copy_in source=$DW_PERSISTENT_shared_data/ destination=$DW_JOB_fast_storage/data
 <a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="c1">#DW copy_out source=$DW_JOB_fast_storage/data destination=/lus/backup/johndoe/very_important_data profile=no-xattr</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>#DW copy_out source=$DW_JOB_fast_storage/data destination=/lus/backup/johndoe/very_important_data profile=no-xattr
 </code></pre></div>
 <p>This set of directives makes use of a persistent storage allocation and a job storage allocation. There are two <code>copy_in</code> directives, one that copies data from the global lustre file system to the job allocation, and another that copies data from the persistent allocation to the job allocation. These copies do not occur in a deterministic order. The <code>copy_out</code> directive occurs after the application has exited, and copies data from the Rabbit job storage to a global lustre file system.</p>
 <h3 id="container">container</h3>
@@ -1842,8 +1830,8 @@
 </tbody>
 </table>
 <h4 id="examples_5">Examples</h4>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">#DW jobdw type=xfs capacity=10GiB name=fast-storage</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1">#DW container name=backup profile=automatic-backup DW_JOB_source=fast-storage DW_GLOBAL_destination=/lus/backup/johndoe</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>#DW jobdw type=xfs capacity=10GiB name=fast-storage
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>#DW container name=backup profile=automatic-backup DW_JOB_source=fast-storage DW_GLOBAL_destination=/lus/backup/johndoe
 </code></pre></div>
 <p>These directives create an xfs Rabbit job allocation and specify a container that should run on the Rabbit nodes. The container profile specified two file systems that the container needs, <code>DW_JOB_source</code> and <code>DW_GLOBAL_destination</code>. <code>DW_JOB_source</code> requires a <code>jobdw</code> file system and <code>DW_GLOBAL_destination</code> requires a global Lustre file system. </p>
 <h2 id="environment-variables">Environment Variables</h2>
@@ -1871,33 +1859,6 @@
 <td><code>NNF_CONTAINER_PORTS</code></td>
 <td>Comma separated list of ports</td>
 <td>These ports are used together with the IP address of the local Rabbit to communicate with a user container specified by a <code>container</code> directive. More information can be found in the <a href="../../user-containers/readme/">User Containers</a> guide.</td>
-</tr>
-</tbody>
-</table>
-<p>The following environment variables are available to the <a href="../../data-movement/copy-offload/">Copy Offload</a> server. They are also made available to any <a href="../../user-containers/readme/">User Container</a> by specifying <code>requires=user-container-auth</code> (described above) in a <code>jobdw</code> or <code>persistentdw</code> directive. See <a href="../../data-movement/copy-offload/#certificate-and-per-workflow-token-details">Certificate and Per-Workflow Token Details</a> for information about how a user can incorporate them into their own client/server application.</p>
-<table>
-<thead>
-<tr>
-<th>Environment Variable</th>
-<th>Value</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>TLS_CERT_PATH</code></td>
-<td>The pathname to the TLS certificate.</td>
-<td>This is also found on each compute node, if the copy-offload <a href="../../data-movement/copy-offload/">Administrative Configuration</a> has been completed, and is available for a user's own client/server communication between their compute application and the server in their user container.</td>
-</tr>
-<tr>
-<td><code>TLS_KEY_PATH</code></td>
-<td>The pathname to the signing key for the TLS certificate.</td>
-<td></td>
-</tr>
-<tr>
-<td><code>TOKEN_KEY_PATH</code></td>
-<td>The pathname to the signing key for the per-Workflow token.</td>
-<td>The per-Workflow token itself is made available in an environment variable for the compute application. See <a href="../../data-movement/copy-offload/#wlm-and-the-per-workflow-token">WLM and the per-Workflow token</a> for details.</td>
 </tr>
 </tbody>
 </table>
