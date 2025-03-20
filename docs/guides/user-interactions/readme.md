@@ -24,7 +24,7 @@ The `jobdw` directive command tells the Rabbit software to create a file system 
 | `capacity` | Yes | Allocation size with units. `1TiB`, `100GB`, etc. | Capacity interpretation varies by storage type. For Lustre file systems, capacity is the aggregate OST capacity. For raw, xfs, and GFS2 storage, capacity is the capacity of the file system for a single compute node. Capacity suffixes are: `KB`, `KiB`, `MB`, `MiB`, `GB`, `GiB`, `TB`, `TiB` |
 | `name` | Yes | String including numbers and '-' | This is a name for the storage allocation that is unique within a job |
 | `profile` | No | Profile name | This specifies which profile to use when allocating storage. Profiles include `mkfs` and `mount` arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. More information about storage profiles can be found in the [Storage Profiles](../storage-profiles/readme.md) guide. |
-| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requireddaemons) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. | 
+| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requires) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. | 
 
 #### Examples
 
@@ -97,7 +97,7 @@ Persistent Lustre file systems can be accessed from any compute nodes in the sys
 | Argument | Required | Value | Notes |
 |----------|----------|-------|-------|
 | `name` | Yes | Lowercase string including numbers and '-' | This is a name for the persistent storage that will be accessed |
-| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requireddaemons) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. |
+| `requires` | No | `copy-offload` | Using this option results in the copy offload daemon running on the compute nodes. This is for users that want to initiate data movement to or from the Rabbit storage from within their application. See the [Required Daemons](../directive-breakdown/readme.md#requires) section of the [Directive Breakdown](../directive-breakdown/readme.md) guide for a description of how the user may request the daemon, in the case where the WLM will run it only on demand. |
 
 #### Examples
 
