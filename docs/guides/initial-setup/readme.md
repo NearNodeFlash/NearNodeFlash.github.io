@@ -16,7 +16,7 @@ Instructions for the initial setup of a Rabbit are included in this document.
 
     1. Disable UDEV for LVM
     2. Disable UDEV sync at the host operating system level
-    3. Disable UDEV sync using the `–noudevsync` command option for each LVM command
+    3. Disable UDEV sync using the `--noudevsync` command option for each LVM command
     4. Clear the UDEV cookie using the `dmsetup udevcomplete_all` command after the lvcreate/lvremove command.
 
     Taking these in reverse order, using option 4 allows UDEV settings within the host OS to remain unchanged from the default. One would need to start the `dmsetup` command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.
