@@ -30,7 +30,7 @@ index 3e4d29fb..2c65e3a0 100644
  }
  
  //+kubebuilder:object:root=true
- ```
+```
 
 (An aside: That `ResourceError` type used for this new field is inlined, bringing a field named `Error`, so that's what we'll see next in the conversion routines.)
 
