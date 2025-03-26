@@ -11,10 +11,6 @@
       
       
       
-        <link rel="prev" href="../../">
-      
-      
-        <link rel="next" href="../../compute-daemons/readme/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +18,7 @@
     
     
       
-        <title>Initial Setup - NNF</title>
+        <title>Copy-Offload - NNF</title>
       
     
     
@@ -64,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#initial-setup-instructions" class="md-skip">
+        <a href="#copy-offload" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Initial Setup
+              Copy-Offload
             
           </span>
         </div>
@@ -216,10 +212,8 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
+    <li class="md-tabs__item">
       <a href="../../" class="md-tabs__link">
         
   
@@ -336,25 +330,20 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           
@@ -371,13 +360,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             User Guides
@@ -388,31 +377,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Initial Setup
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -422,92 +390,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#lvm-configuration-on-rabbit" class="md-nav__link">
-    <span class="md-ellipsis">
-      LVM Configuration on Rabbit
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="LVM Configuration on Rabbit">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#zfs" class="md-nav__link">
-    <span class="md-ellipsis">
-      ZFS
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#kubernetes-initial-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Initial Setup
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Kubernetes Initial Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Labels
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-taints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Taints
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rabbit-system-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rabbit System Configuration
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -564,7 +446,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-movement/readme/" class="md-nav__link">
+      <a href="../readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -586,7 +468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../data-movement/copy-offload-api.html" class="md-nav__link">
+      <a href="../copy-offload-api.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1153,19 +1035,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#lvm-configuration-on-rabbit" class="md-nav__link">
+  <a href="#administrative-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      LVM Configuration on Rabbit
+      Administrative Configuration
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="LVM Configuration on Rabbit">
+    <nav class="md-nav" aria-label="Administrative Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#zfs" class="md-nav__link">
+  <a href="#tls-signing-key-and-certificate" class="md-nav__link">
     <span class="md-ellipsis">
-      ZFS
+      TLS signing key and certificate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wlm-and-the-per-workflow-token" class="md-nav__link">
+    <span class="md-ellipsis">
+      WLM and the per-Workflow token
     </span>
   </a>
   
@@ -1177,28 +1068,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#kubernetes-initial-setup" class="md-nav__link">
+  <a href="#user-enablement-of-copy-offload" class="md-nav__link">
     <span class="md-ellipsis">
-      Kubernetes Initial Setup
+      User Enablement of Copy Offload
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Kubernetes Initial Setup">
+    <nav class="md-nav" aria-label="User Enablement of Copy Offload">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubernetes-node-labels" class="md-nav__link">
+  <a href="#library-libcopyoffload" class="md-nav__link">
     <span class="md-ellipsis">
-      Kubernetes Node Labels
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-node-taints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes Node Taints
+      Library libcopyoffload
     </span>
   </a>
   
@@ -1210,9 +1092,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rabbit-system-configuration" class="md-nav__link">
+  <a href="#certificate-and-per-workflow-token-details" class="md-nav__link">
     <span class="md-ellipsis">
-      Rabbit System Configuration
+      Certificate and Per-Workflow Token Details
     </span>
   </a>
   
@@ -1237,155 +1119,87 @@
   
 
 
-<h1 id="initial-setup-instructions">Initial Setup Instructions</h1>
-<p>Instructions for the initial setup of a Rabbit are included in this document.</p>
-<h2 id="lvm-configuration-on-rabbit">LVM Configuration on Rabbit</h2>
-<details>
-<summary>LVM Details</summary>
-<p>Running LVM commands (<code>lvcreate</code>/<code>lvremove</code>) inside of a container is problematic. Rabbit Storage Orchestration code contained in the <code>nnf-node-manager</code> Kubernetes pod executes LVM commands from within the container. The problem is that the <code>lvcreate</code>/<code>lvremove</code> commands wait for a UDEV confirmation cookie that is set when UDEV rules run within the host OS. These cookies are not synchronized with the containers where the LVM commands execute.</p>
-<p>4 options to solve this problem are:</p>
-<ol>
-<li>Disable UDEV for LVM</li>
-<li>Disable UDEV sync at the host operating system level</li>
-<li>Disable UDEV sync using the <code>–noudevsync</code> command option for each LVM command</li>
-<li>Clear the UDEV cookie using the <code>dmsetup udevcomplete_all</code> command after the lvcreate/lvremove command.</li>
-</ol>
-<p>Taking these in reverse order, using option 4 allows UDEV settings within the host OS to remain unchanged from the default. One would need to start the <code>dmsetup</code> command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.</p>
-<p>Option 3 allows UDEV settings within the host OS to remain unchanged from the default, but the use of UDEV within production Rabbit systems is viewed as unnecessary. This is because the host OS is PXE-booted onto the node vs loaded from a device that is discovered by UDEV.</p>
-<p>Option 2 above is our preferred way to disable UDEV syncing if disabling UDEV for LVM is not desired.</p>
-<p>If UDEV sync is disabled as described in options 2 and 3, then LVM must also be run with the option to verify UDEV operations. This adds extra checks to verify that the UDEV devices appear as LVM expects. For some LV types (like RAID configurations), the UDEV device takes longer to appear in <code>/dev</code>. Without the UDEV confirmation cookie, LVM won't wait long enough to find the device unless the LVM UDEV checks are done.</p>
-<p>Option 1 above is the overall preferred method for managing LVM devices on Rabbit nodes. LVM will handle device files without input from UDEV.</p>
-</details>
-</details>
-<p>In order for LVM commands to run within the container environment on a Rabbit, one of the following changes is required to the <code>/etc/lvm/lvm.conf</code> file on Rabbit.</p>
-<p>Option 1 as described above:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/udev_rules = 1/udev_rules = 0/g&#39;</span><span class="w"> </span>/etc/lvm/lvm.conf
-</code></pre></div></p>
-<p>Option 2 as described above:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/udev_sync = 1/udev_sync = 0/g&#39;</span><span class="w"> </span>/etc/lvm/lvm.conf
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;s/verify_udev_operations = 0/verify_udev_operations = 1/g&#39;</span><span class="w"> </span>/etc/lvm/lvm.conf
-</code></pre></div></p>
-<h3 id="zfs">ZFS</h3>
-<p>ZFS kernel module must be enabled to run on boot. This can be done by creating a file, <code>zfs.conf</code>, containing the string "zfs" in your systems modules-load.d directory.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;zfs&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/etc/modules-load.d/zfs.conf
+<h1 id="copy-offload">Copy-Offload</h1>
+<p>The copy-offload API allows a user's compute application to specify <a href="../readme/">Data Movement</a> requests. The user's application utilizes the <code>libcopyoffload</code> library to establish a secure connection to the copy-offload server to initiate, list, query the status of, or cancel data movement requests. The copy-offload server accepts only those requests that present its Workflow's token.</p>
+<p>The copy-offload server is implemented as a special kind of <a href="../../user-containers/readme/">User Container</a>. Like all user containers, this is activated by a <code>DW container</code> directive in the user's job script and runs on the Rabbit nodes that are associated with the compute nodes in the user's job.</p>
+<h2 id="administrative-configuration">Administrative Configuration</h2>
+<h3 id="tls-signing-key-and-certificate">TLS signing key and certificate</h3>
+<p>A signing key and self-signed TLS certificate must be created and made available to the copy-offload server and the certificate must also be copied to each compute node. This certificate must have a SAN extension that describes all of the Rabbit nodes.</p>
+<p>Tools are available in the <code>nnf-dm</code> repository to assist in creating this certificate and its signing key. Begin by confirming that the cluster's <code>SystemConfiguration</code> resource can be accessed using the <code>kubectl</code> command. This resource contains the information about all of the Rabbit nodes and is used when creating the SAN extension for the certificate:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get systemconfiguration</span>
 </code></pre></div>
-<h2 id="kubernetes-initial-setup">Kubernetes Initial Setup</h2>
-<p>Installation of Kubernetes (k8s) nodes proceeds by installing k8s components onto the master node(s) of the cluster, then installing k8s components onto the worker nodes and joining those workers to the cluster. The k8s cluster setup for Rabbit requires 3 distinct k8s node types for operation:</p>
-<ul>
-<li>Master: 1 or more master nodes which serve as the Kubernetes API server and control access to the system. For HA, at least 3 nodes should be dedicated to this role.</li>
-<li>Worker: 1 or more worker nodes which run the system level controller manager (SLCM) and Data Workflow Services (DWS) pods. In production, at least 3 nodes should be dedicated to this role.</li>
-<li>Rabbit: 1 or more Rabbit nodes which run the node level controller manager (NLCM) code. The NLCM daemonset pods are exclusively scheduled on Rabbit nodes. All Rabbit nodes are joined to the cluster as k8s workers, and they are tainted to restrict the type of work that may be scheduled on them. The NLCM pod has a toleration that allows it to run on the tainted (i.e. Rabbit) nodes.</li>
-</ul>
-<h3 id="kubernetes-node-labels">Kubernetes Node Labels</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Node Type</th>
-<th style="text-align: left;">Node Label</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Generic Kubernetes Worker Node</td>
-<td style="text-align: left;">cray.nnf.manager=true</td>
-</tr>
-<tr>
-<td style="text-align: left;">Rabbit Node</td>
-<td style="text-align: left;">cray.nnf.node=true</td>
-</tr>
-</tbody>
-</table>
-<h3 id="kubernetes-node-taints">Kubernetes Node Taints</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Node Type</th>
-<th style="text-align: left;">Node Label</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Rabbit Node</td>
-<td style="text-align: left;">cray.nnf.node=true:NoSchedule</td>
-</tr>
-</tbody>
-</table>
-<p>See <a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">Taints and Tolerations</a>. The SystemConfiguration controller will handle node taints and labels for the rabbit nodes based on the contents of the SystemConfiguration resource described below.</p>
-<h2 id="rabbit-system-configuration">Rabbit System Configuration</h2>
-<p>The SystemConfiguration Custom Resource Definition (CRD) is a DWS resource that describes the hardware layout of the whole system. It is expected that an administrator creates a single SystemConfiguration resource when the system is being set up. There is no need to update the SystemConfiguration resource unless hardware is added to or removed from the system.</p>
-<details>
-<summary>System Configuration Details</summary>
-<p>Rabbit software looks for a SystemConfiguration named <code>default</code> in the <code>default</code> namespace. This resource contains a list of compute nodes and storage nodes, and it describes the mapping between them. There are two different consumers of the SystemConfiguration resource in the NNF software:</p>
-<p><code>NnfNodeReconciler</code> - The reconciler for the NnfNode resource running on the Rabbit nodes reads the SystemConfiguration resource. It uses the Storage to compute mapping information to fill in the HostName section of the NnfNode resource. This information is then used to populate the DWS Storage resource.</p>
-<p><code>NnfSystemConfigurationReconciler</code> - This reconciler runs in the <code>nnf-controller-manager</code>. It creates a Namespace for each compute node listed in the SystemConfiguration. These namespaces are used by the client mount code.</p>
-</details>
-</details>
-<p>Here is an example <code>SystemConfiguration</code>:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align: left;">Spec Section</th>
-<th>Notes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">computeNodes</td>
-<td>List of names of compute nodes in the system</td>
-</tr>
-<tr>
-<td style="text-align: left;">storageNodes</td>
-<td>List of Rabbits and the compute nodes attached</td>
-</tr>
-<tr>
-<td style="text-align: left;">storageNodes[].type</td>
-<td>Must be "Rabbit"</td>
-</tr>
-<tr>
-<td style="text-align: left;">storageNodes[].computeAccess</td>
-<td>List of {slot, compute name} elements that indicate physical slot index that the named compute node is attached to</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dataworkflowservices.github.io/v1alpha2</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SystemConfiguration</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">metadata</span><span class="p">:</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nt">spec</span><span class="p">:</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="nt">computeNodes</span><span class="p">:</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-01</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-02</span>
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-03</span>
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-04</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">  </span><span class="nt">ports</span><span class="p">:</span>
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5000-5999</span>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="nt">portsCooldownInSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="nt">storageNodes</span><span class="p">:</span>
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">computesAccess</span><span class="p">:</span>
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0</span>
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-01</span>
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-02</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-03</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbit-name-01</span>
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Rabbit</span>
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">computesAccess</span><span class="p">:</span>
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">index</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-04</span>
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rabbit-name-02</span>
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Rabbit</span>
+<p>From the <code>nnf-deploy</code> workarea, run <code>tools/mk-usercontainer-secrets.sh</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">tools/mk-usercontainer-secrets.sh</span>
 </code></pre></div>
+<p>That tool creates the signing key and the certificate and stores them in a Kubernetes secret named <code>nnf-dm-usercontainer-server-tls</code>. This first secret is mounted into the copy-offload server's pod when it is specified in a user's job script. The certificate is also stored by itself in a Kubernetes secret named <code>nnf-dm-usercontainer-client-tls</code>. The content of this second secret can be retrieved by the administrator and copied to each compute node.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM &#39;.data.&quot;tls.crt&quot;&#39; | base64 -d &gt; cert.pem</span>
+</code></pre></div>
+<blockquote>
+<p>[!IMPORTANT]
+Copy the certificate to <code>/etc/nnf-dm-usercontainer/cert.pem</code> on each compute node. It must be readable by all users' compute applications.</p>
+</blockquote>
+<h3 id="wlm-and-the-per-workflow-token">WLM and the per-Workflow token</h3>
+<p>The WLM, such as Flux, must retrieve the per-Workflow token and make it available to the user's compute application as an environment variable named <code>DW_WORKFLOW_TOKEN</code>. The token is used by the <code>libcopyoffload</code> library to construct the "Bearer Token" for its requests to the copy-offload server. The token becomes invalid after the Workflow enters its teardown state.</p>
+<p>The Workflow contains a reference to the name of the Secret that holds the token. The following value returns the name and namespace of the secret:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">kubectl get workflow $WORKFLOW_NAME -o json | jq -rM &#39;.status.workflowToken&#39;</span>
+</code></pre></div>
+<p>If information about the token's secret is returned, then read the token from the given secret:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">TOKEN=$(kubectl get secret -n $SECRET_NAMESPACE $SECRET_NAME -o json | jq -rM &#39;.data.token&#39; | base64 -d)</span>
+</code></pre></div>
+<p>Create the environment variable for the user's compute application:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">DW_WORKFLOW_TOKEN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TOKEN</span><span class="s2">&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>[!NOTE]
+Per-Workflow tokens are not limited to the copy-offload API. Any user container may request to be configured with the job's per-Workflow token and the TLS certificate. See <code>requires=user-container-auth</code> in <a href="../../user-containers/readme/">User Containers</a>. The WLM must always check for the existence of a token secret in the Workflow.</p>
+</blockquote>
+<h2 id="user-enablement-of-copy-offload">User Enablement of Copy Offload</h2>
+<p>Users enable the copy-offload server by requesting it in their job script. The script must contain a <code>#DW container</code> directive that specifies the desired copy-offload container profile. At least one of the <code>#DW jobdw</code> or <code>#DW persistentdw</code> directives in the job script must include the <code>requires=copy-offload</code> statement. See <a href="../../user-interactions/readme/">User Interactions</a> for more details about these directives.</p>
+<p>The user's compute application must be linked with the <code>libcopyoffload</code> library. This library understands how to find and use the TLS certificate and the per-Workflow token required for communication with the copy-offload server for the user's job.</p>
+<p>The copy-offload container profile is specified in the <code>container</code> directive. See <a href="../../user-containers/readme/">User Containers</a> for details about using container profiles. The following directives show that the job uses copy-offload and select the default copy-offload container profile:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">#DW jobdw name=my-job-name requires=copy-offload [...]</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1">#DW container name=copyoff-container profile=copy-offload-default [...]</span>
+</code></pre></div>
+<h3 id="library-libcopyoffload">Library libcopyoffload</h3>
+<p>Where to get it.
+Linking with it.
+The API.
+The <code>/etc/local-rabbit.conf</code> file that has the name of the matching rabbit.
+The NNF_CONTAINER_LAUNCHER environment variable.</p>
+<h2 id="certificate-and-per-workflow-token-details">Certificate and Per-Workflow Token Details</h2>
+<p>The per-Workflow token and its signing key are created during the Workflow's <code>Setup</code> state, and they are destroyed when the Workflow enters <code>Teardown</code> state.</p>
+<p>The WLM places the per-Workflow token in an environment variable for the application on the compute node. The variable is named <code>DW_WORKFLOW_TOKEN</code>. The application on the compute node can find the TLS certificate in <code>/etc/nnf-dm-usercontainer/cert.pem</code>. The <code>libcopyoffload</code> library is able to use the per-Workflow token and the TLS certificate to communicate securely with the copy-offload server.</p>
+<p>The TLS certficate, its signing key, and the token's signing key, are mounted into the copy-offload server's Pod when it is created during the Workflow's <code>PreRun</code> state. The Pod contains the following environment variables which can be used to access the certificate and the signing keys:</p>
+<table>
+<thead>
+<tr>
+<th>Environment Variable</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLS_CERT_PATH</td>
+<td>The pathname to the TLS certificate.</td>
+</tr>
+<tr>
+<td>TLS_KEY_PATH</td>
+<td>The pathname to the signing key for the TLS certificate.</td>
+</tr>
+<tr>
+<td>TOKEN_KEY_PATH</td>
+<td>The pathname to the signing key for the per-Workflow token.</td>
+</tr>
+</tbody>
+</table>
+<p>These pieces are not restricted to the copy-offload API. They can be used by any user container. See <code>requires=user-container-auth</code> in <a href="../../user-containers/readme/">User Containers</a>, and <a href="../../user-interactions/readme/#environment-variables">Environment Variables</a>, for details.</p>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -1410,44 +1224,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../../" class="md-footer__link md-footer__link--prev" aria-label="Previous: User Guides">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                User Guides
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../../compute-daemons/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: Compute Daemons">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Compute Daemons
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
