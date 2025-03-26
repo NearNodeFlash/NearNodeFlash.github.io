@@ -256,7 +256,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
+        <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-tabs__link">
           
   
   Repo Guides
@@ -781,27 +781,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pvcreate" class="md-nav__link">
+  <a href="#global" class="md-nav__link">
     <span class="md-ellipsis">
-      pvcreate
+      global
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#vgcreate" class="md-nav__link">
+  <a href="#lvm-pv-commands" class="md-nav__link">
     <span class="md-ellipsis">
-      vgcreate
+      LVM PV commands
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#lvcreate" class="md-nav__link">
+  <a href="#lvm-vg-commands" class="md-nav__link">
     <span class="md-ellipsis">
-      lvcreate
+      LVM VG commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-lv-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM LV Commands
     </span>
   </a>
   
@@ -844,6 +853,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mountunmount" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount/Unmount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#postmountpreunmount-and-postactivatepredeactivate" class="md-nav__link">
     <span class="md-ellipsis">
       PostMount/PreUnmount and PostActivate/PreDeactivate
@@ -864,6 +882,15 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnfsystemstorage-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      NnfSystemStorage specific
+    </span>
+  </a>
   
 </li>
         
@@ -1025,6 +1052,28 @@
   
   <span class="md-ellipsis">
     Debugging NVMe Namespaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
     
   </span>
   
@@ -1230,7 +1279,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
+      <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1489,27 +1538,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pvcreate" class="md-nav__link">
+  <a href="#global" class="md-nav__link">
     <span class="md-ellipsis">
-      pvcreate
+      global
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#vgcreate" class="md-nav__link">
+  <a href="#lvm-pv-commands" class="md-nav__link">
     <span class="md-ellipsis">
-      vgcreate
+      LVM PV commands
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#lvcreate" class="md-nav__link">
+  <a href="#lvm-vg-commands" class="md-nav__link">
     <span class="md-ellipsis">
-      lvcreate
+      LVM VG commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-lv-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM LV Commands
     </span>
   </a>
   
@@ -1552,6 +1610,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#mountunmount" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount/Unmount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#postmountpreunmount-and-postactivatepredeactivate" class="md-nav__link">
     <span class="md-ellipsis">
       PostMount/PreUnmount and PostActivate/PreDeactivate
@@ -1572,6 +1639,15 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnfsystemstorage-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      NnfSystemStorage specific
+    </span>
+  </a>
   
 </li>
         
@@ -1805,21 +1881,30 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <p>The <code>count</code> field may be useful when creating a persistent file system since the job with the <code>create_persistent</code> directive may only have a single compute node.</p>
 <p>In general, <code>scale</code> gives a simple way for users to get a filesystem that has performance consistent with their job size. <code>count</code> is useful for times when a user wants full control of the file system layout.</p>
 <h2 id="command-line-variables">Command Line Variables</h2>
-<h3 id="pvcreate">pvcreate</h3>
+<h3 id="global">global</h3>
+<ul>
+<li><code>$JOBID</code> - expands to the Job ID from the Workflow</li>
+<li><code>$USERID</code> - expands to the User ID of the user who submitted the job</li>
+<li><code>$GROUPID</code> - expands to the Group ID of the user who submitted the job</li>
+</ul>
+<h3 id="lvm-pv-commands">LVM PV commands</h3>
 <ul>
 <li><code>$DEVICE</code> - expands to the <code>/dev/&lt;path&gt;</code> value for one device that has been allocated</li>
 </ul>
-<h3 id="vgcreate">vgcreate</h3>
+<h3 id="lvm-vg-commands">LVM VG commands</h3>
 <ul>
 <li><code>$VG_NAME</code> - expands to a volume group name that is controlled by Rabbit software.</li>
 <li><code>$DEVICE_LIST</code> - expands to a list of space-separated <code>/dev/&lt;path&gt;</code> devices. This list will contain the devices that were iterated over for the pvcreate step.</li>
+<li><code>$DEVICE_NUM</code> - expands to the count of devices in <code>$DEVICE_LIST</code></li>
 </ul>
-<h3 id="lvcreate">lvcreate</h3>
+<h3 id="lvm-lv-commands">LVM LV Commands</h3>
 <ul>
 <li><code>$VG_NAME</code> - see vgcreate above.</li>
 <li><code>$LV_NAME</code> - expands to a logical volume name that is controlled by Rabbit software.</li>
 <li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for the volume group.</li>
 <li><code>$DEVICE1, $DEVICE2, ..., $DEVICEn</code> - each expands to one of the devices from the <code>$DEVICE_LIST</code> above.</li>
+<li><code>$PERCENT_VG</code> - expands to the size that each LV should be based on a percentage of the total VG size</li>
+<li><code>$LV_SIZE</code> - expands to the size of the LV in kB in the format expected by <code>lvcreate</code></li>
 </ul>
 <h3 id="xfs-mkfs">XFS mkfs</h3>
 <ul>
@@ -1843,9 +1928,15 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <ul>
 <li><code>$FS_NAME</code> - expands to the filesystem name that was passed to Rabbit software from the workflow's #DW line.</li>
 <li><code>$MGS_NID</code> - expands to the NID of the MGS. If the MGS was orchestrated by nnf-sos then an appropriate internal value will be used.</li>
-<li><code>$POOL_NAME</code> - see zpool create above.</li>
-<li><code>$VOL_NAME</code> - expands to the volume name that will be created. This value will be <code>&lt;pool_name&gt;/&lt;dataset&gt;</code>, and is controlled by Rabbit software.</li>
+<li><code>$ZVOL_NAME</code> - expands to the volume name that will be created. This value will be <code>&lt;pool_name&gt;/&lt;dataset&gt;</code>, and is controlled by Rabbit software.</li>
 <li><code>$INDEX</code> - expands to the index value of the target and is controlled by Rabbit software.</li>
+<li><code>$TARGET_NAME</code> - expands to the name of the lustre target of the form <code>[fsname]-[target-type][index]</code> (e.g., <code>mylus-OST0003</code>)</li>
+<li><code>$BACKFS</code> - expands to the type of file system backing the Lustre target</li>
+</ul>
+<h3 id="mountunmount">Mount/Unmount</h3>
+<ul>
+<li><code>$DEVICE</code> - expands to the device path to mount</li>
+<li><code>$MOUNT_PATH</code> - expands to the path to mount on</li>
 </ul>
 <h3 id="postmountpreunmount-and-postactivatepredeactivate">PostMount/PreUnmount and PostActivate/PreDeactivate</h3>
 <ul>
@@ -1859,6 +1950,12 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <li><code>$NUM_MGTMDTS</code> - expands to the number of combined MGTMDTs for the lustre filesystem</li>
 <li><code>$NUM_OSTS</code> - expands to the number of OSTs for the lustre filesystem</li>
 <li><code>$NUM_NNFNODES</code> - expands to the number of NNF Nodes for the lustre filesystem</li>
+</ul>
+<h3 id="nnfsystemstorage-specific">NnfSystemStorage specific</h3>
+<ul>
+<li><code>$COMPUTE_HOSTNAME</code> - Expands to the hostname of the compute node that will use the allocation. This can be used to add a tag during the lvcreate
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>lvCreate --zero n --activate n --extents $PERCENT_VG --addtag $COMPUTE_HOSTNAME ...
+</code></pre></div></li>
 </ul>
 
 

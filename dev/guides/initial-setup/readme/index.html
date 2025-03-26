@@ -256,7 +256,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
+        <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-tabs__link">
           
   
   Repo Guides
@@ -850,6 +850,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../directive-breakdown/readme/" class="md-nav__link">
         
   
@@ -1038,7 +1060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
+      <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1225,7 +1247,7 @@
 <ol>
 <li>Disable UDEV for LVM</li>
 <li>Disable UDEV sync at the host operating system level</li>
-<li>Disable UDEV sync using the <code>–-noudevsync</code> command option for each LVM command</li>
+<li>Disable UDEV sync using the <code>--noudevsync</code> command option for each LVM command</li>
 <li>Clear the UDEV cookie using the <code>dmsetup udevcomplete_all</code> command after the lvcreate/lvremove command.</li>
 </ol>
 <p>Taking these in reverse order, using option 4 allows UDEV settings within the host OS to remain unchanged from the default. One would need to start the <code>dmsetup</code> command on a separate thread because the LVM create/remove command waits for the UDEV cookie. This opens too many error paths, so it was rejected.</p>

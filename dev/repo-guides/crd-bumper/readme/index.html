@@ -11,7 +11,7 @@
       
       
       
-        <link rel="prev" href="../../release-nnf-sw/readme/">
+        <link rel="prev" href="../../release-nnf-sw/release-all/">
       
       
         <link rel="next" href="../editing-apis/">
@@ -256,7 +256,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../release-nnf-sw/readme/" class="md-tabs__link">
+        <a href="../../release-nnf-sw/release-all/" class="md-tabs__link">
           
   
   Repo Guides
@@ -738,6 +738,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../guides/node-management/worker-to-master/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../guides/directive-breakdown/readme/" class="md-nav__link">
         
   
@@ -931,7 +953,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../release-nnf-sw/readme/" class="md-nav__link">
+      <a href="../../release-nnf-sw/release-all/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1531,12 +1553,12 @@
 <p>For the easiest vendoring experience, the downstream repos should be up to date with this repo prior to creating the new API, and this new API should be vendored into the downstream repos before any further changes go into this repo or any of the downstream repos.</p>
 <h3 id="run-the-tool">Run the Tool</h3>
 <p>Clone a fresh copy of the repository that contains the CRDs and controllers, checking out to the default branch (master or main). The tool expects a repository that is compatible with kubebuilder and will use the <code>./PROJECT</code> file that is maintained by kubebuilder.</p>
-<p>The following example will create a new API version <code>v1beta2</code> for the lustre-fs-operator repository, where <code>v1beta1</code> is the existing hub and <code>v1alpha1</code> is the most recent existing spoke. It begins by creating a new branch off "master" named <code>api-v1beta2</code>, where it will do all of its work.</p>
+<p>The following example creates a new API version <code>v1beta2</code> for the lustre-fs-operator repository, where <code>v1beta1</code> is the existing hub and <code>v1alpha1</code> is the most recent existing spoke. It begins by creating a new branch off "master" named <code>api-v1beta2</code>, where it does all of its work.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new-ver v1beta2 all</span>
 </code></pre></div>
-<p>The repository with its new API will be found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
-<p>The new <code>api-v1beta2</code> branch will have a series of commits showing a progression of steps. Some of these commit messages will have an <strong>ACTION</strong> comment describing something that must be manually verified, and possibly adjusted, before the tests will succeed.</p>
+<p>The repository with its new API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
+<p>The new <code>api-v1beta2</code> branch has a series of commits showing a progression of steps. Some of these commit messages have an <strong>ACTION</strong> comment describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
 <h3 id="verification">Verification</h3>
 <p>After the entire progression of steps has completed, verify the results by running <code>make vet</code>, and paying attention to any of the <strong>ACTION</strong> comments described above. Once <code>make vet</code> is clean, move to the next debug step by running <code>make test</code>.</p>
 <p>Do not run <code>make vet</code> or <code>make test</code> before the entire progression of steps has completed. <strong>The individual commits do not build--the whole set of commits is required.</strong></p>
@@ -1549,23 +1571,23 @@
 </code></pre></div>
 <p>Do not attempt to run <code>make vet</code> or <code>make test</code> between steps. The individual commits do not build.</p>
 <h2 id="vendor-the-new-api">Vendor the New API</h2>
-<p>Vendor this new API into another repository using the <code>vendor-new-api</code> tool. This tool will update that repo to change its Go code references and its Kustomize config references to point at the new API.</p>
+<p>Vendor this new API into another repository using the <code>vendor-new-api</code> tool. This tool updates that repo to change its Go code references and its Kustomize config references to point at the new API.</p>
 <h3 id="executing-the-tool">Executing the Tool</h3>
-<p>The following example will vendor the new <code>v1beta2</code> API we created above for lustre-fs-operator into the nnf-sos repository. The current hub version for nnf-sos is <code>v1alpha3</code>, and is specified with the <code>--hub-ver</code> option. The module representing lustre-fs-operator is specified in the same form that it would appear in the <code>go.mod</code> file in nnf-sos. The <code>--version</code> option can be used to specify a version if necessary. It begins by creating a new branch in nnf-sos off "master" named <code>api-lustre-fs-operator-v1beta2</code>, where it will do all of its work.</p>
+<p>The following example vendors the new <code>v1beta2</code> API we created above for lustre-fs-operator into the nnf-sos repository. The current hub version for nnf-sos is <code>v1alpha3</code>, and is specified with the <code>--hub-ver</code> option. The module representing lustre-fs-operator is specified in the same form that it would appear in the <code>go.mod</code> file in nnf-sos. The <code>--version</code> option can be used to specify a version if necessary. It begins by creating a new branch in nnf-sos off "master" named <code>api-lustre-fs-operator-v1beta2</code>, where it does all of its work.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">DEST_REPO=git@github.com:NearNodeFlash/nnf-sos.git</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">vendor-new-api.py -r $DEST_REPO --hub-ver v1alpha3 --vendor-hub-ver v1beta2 --module github.com/NearNodeFlash/lustre-fs-operator --version master</span>
 </code></pre></div>
-<p>The repository with its new API will be found under a directory named <code>workingspace/nnf-sos</code>.</p>
-<p>The new <code>api-lustre-fs-operator-v1beta2</code> branch will have a commit containing the newly-vendored API and adjusted code. This commit message will have <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.</p>
+<p>The repository with its new API is found under a directory named <code>workingspace/nnf-sos</code>.</p>
+<p>The new <code>api-lustre-fs-operator-v1beta2</code> branch has a commit containing the newly-vendored API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
 <h2 id="removing-an-old-api-version">Removing an Old API Version</h2>
 <p>An old API version should first be shipped in a deprecated state. Use the <code>unserve</code> tool to mark that API version as no longer being served by the API server. After that has shipped, that version of the API can be removed in a later release.</p>
 <h3 id="unserve-the-api">Unserve the API</h3>
-<p>The following example will mark the old <code>v1alpha1</code> API in lustre-fs-operator as no longer being served. This will place a <code>+kubebuilder:unservedversion</code> in each CRD of that version, which <code>controller-gen</code> will translate into <code>served: false</code> for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named <code>api-v1alpha1-unserve</code>, where it will do all of its work.</p>
+<p>The following example marks the old <code>v1alpha1</code> API in lustre-fs-operator as no longer being served. This places a <code>+kubebuilder:unservedversion</code> in each CRD of that version, which <code>controller-gen</code> translates into <code>served: false</code> for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named <code>api-v1alpha1-unserve</code>, where it does all of its work.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">unserve.py -r $REPO --spoke-ver v1alpha1</span>
 </code></pre></div>
-<p>The repository with its adjusted API will be found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
-<p>The new <code>api-v1alpha1-unserve</code> branch will have a commit containing the adjusted API and adjusted code. This commit message will have <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests will succeed.</p>
+<p>The repository with its adjusted API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
+<p>The new <code>api-v1alpha1-unserve</code> branch has a commit containing the adjusted API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
 <h2 id="library-and-tool-support">Library and Tool Support</h2>
 <p>The library and tool support is taken from the <a href="https://github.com/kubernetes-sigs/cluster-api">Cluster API</a> project. See <a href="https://github.com/kubernetes-sigs/cluster-api/tree/release-1.6">release v1.6.6</a> for a version that contains multi-version support for CRDs where they have a hub with one spoke. (Note: In v1.7.0 they removed the old API--the old spoke--and their repo contains only one version, the hub.)</p>
 <p>In the "References" section you'll find a link to a video from the Cluster API team where they go through an example of changing an API and providing conversion routines and tests for the change.</p>
@@ -1573,7 +1595,7 @@
 <p>The libraries from the Cluster API project use an annotation on the spoke version of a resource to contain a serialized copy of the hub version of that resource. The libraries and tests use this to avoid data loss during <code>hub-&gt;spoke-&gt;hub</code> conversions.</p>
 <h2 id="writing-conversion-routines">Writing Conversion Routines</h2>
 <h3 id="conversion-library-lifecycle-in-spoke-apis">Conversion Library Lifecycle in Spoke APIs</h3>
-<p>After an API version has been bumped, the spoke API should be frozen. However, the spoke API conversion library in <code>api/&lt;spoke-ver&gt;/conversion.go</code> will continue to be updated, following the progression and development of the hub.</p>
+<p>After an API version has been bumped, the spoke API should be frozen. However, the spoke API conversion library in <code>api/&lt;spoke-ver&gt;/conversion.go</code> continues to be updated, following the progression and development of the hub.</p>
 <h3 id="conversion-must-not-fail">Conversion Must Not Fail</h3>
 <p>When writing conversion routines be aware that the conversion routine must not report a failure:</p>
 <p>"Failing conversion can disrupt read and write access to the custom resources, including the ability to update or delete the resources. Conversion failures should be avoided whenever possible, and should not be used to enforce validation constraints (use validation schemas or webhook admission instead)." Kubernetes "Versions in CustomResourceDefinitions" <a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/#response">Response</a>.</p>
@@ -1642,7 +1664,7 @@ These markers are used the same way <code>controller-gen</code> uses code marker
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../../release-nnf-sw/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Releasing NNF Software">
+          <a href="../../release-nnf-sw/release-all/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Releasing NNF Software">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
