@@ -1211,6 +1211,7 @@
 <p>Some helpful tips to make life easier while writing conversion routines.</p>
 <ul>
 <li>Do not delete fields. It's easier to write loss-less conversion routines if the field is renamed to something that indicates it's no longer used. This becomes more important in the spoke-hub-spoke scenario, because the hub will not have an annotation preserving the original spoke's values.</li>
+<li>The <code>+kubebuilder</code> validation directives in the CRD comments count as code. Adding, deleting, or modifying these directives will require that the API version be bumped.</li>
 </ul>
 <h2 id="example-1-add-a-field-to-a-resource">Example 1: Add a field to a resource</h2>
 <p>In the DWS repository, add a new field to the <code>Status</code> section of the <code>SystemConfiguration</code> <strong>hub</strong> resource. In this case, the hub version is <code>v1alpha2</code>.</p>
