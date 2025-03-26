@@ -254,7 +254,7 @@
     
     
       <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../release-nnf-sw/release-all/" class="md-tabs__link">
+        <a href="../../release-nnf-sw/readme/" class="md-tabs__link">
           
   
   Repo Guides
@@ -736,28 +736,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../guides/node-management/worker-to-master/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Switch a Node From Worker to Master
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../guides/directive-breakdown/readme/" class="md-nav__link">
         
   
@@ -951,7 +929,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../release-nnf-sw/release-all/" class="md-nav__link">
+      <a href="../../release-nnf-sw/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1215,30 +1193,30 @@
 <h2 id="example-1-add-a-field-to-a-resource">Example 1: Add a field to a resource</h2>
 <p>In the DWS repository, add a new field to the <code>Status</code> section of the <code>SystemConfiguration</code> <strong>hub</strong> resource. In this case, the hub version is <code>v1alpha2</code>.</p>
 <h3 id="step-1-add-a-new-resourceerror-field">Step 1: Add a new ResourceError field</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>diff<span class="w"> </span>--git<span class="w"> </span>a/api/v1alpha2/systemconfiguration_types.go<span class="w"> </span>b/api/v1alpha2/systemconfiguration_types.go
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>index<span class="w"> </span>3e4d29fb..2c65e3a0<span class="w"> </span><span class="m">100644</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>---<span class="w"> </span>a/api/v1alpha2/systemconfiguration_types.go
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>+++<span class="w"> </span>b/api/v1alpha2/systemconfiguration_types.go
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>@@<span class="w"> </span>-82,6<span class="w"> </span>+82,9<span class="w"> </span>@@<span class="w"> </span><span class="nb">type</span><span class="w"> </span>SystemConfigurationSpec<span class="w"> </span>struct<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w"> </span><span class="nb">type</span><span class="w"> </span>SystemConfigurationStatus<span class="w"> </span>struct<span class="w"> </span><span class="o">{</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span>//<span class="w"> </span>Ready<span class="w"> </span>indicates<span class="w"> </span>when<span class="w"> </span>the<span class="w"> </span>SystemConfiguration<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>reconciled
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span>Ready<span class="w"> </span>bool<span class="w"> </span><span class="sb">`</span>json:<span class="s2">&quot;ready&quot;</span><span class="sb">`</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>+
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>+<span class="w">       </span>//<span class="w"> </span>Error<span class="w"> </span>information
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>+<span class="w">       </span>ResourceError<span class="w"> </span><span class="sb">`</span>json:<span class="s2">&quot;,inline&quot;</span><span class="sb">`</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w"> </span><span class="o">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">diff</span><span class="w"> </span><span class="o">--</span><span class="nx">git</span><span class="w"> </span><span class="nx">a</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">v1alpha2</span><span class="o">/</span><span class="nx">systemconfiguration_types</span><span class="p">.</span><span class="k">go</span><span class="w"> </span><span class="nx">b</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">v1alpha2</span><span class="o">/</span><span class="nx">systemconfiguration_types</span><span class="p">.</span><span class="k">go</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nx">index</span><span class="w"> </span><span class="mf">3e4</span><span class="nx">d29fb</span><span class="p">.</span><span class="mf">.2</span><span class="nx">c65e3a0</span><span class="w"> </span><span class="mi">100644</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">---</span><span class="w"> </span><span class="nx">a</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">v1alpha2</span><span class="o">/</span><span class="nx">systemconfiguration_types</span><span class="p">.</span><span class="k">go</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">+++</span><span class="w"> </span><span class="nx">b</span><span class="o">/</span><span class="nx">api</span><span class="o">/</span><span class="nx">v1alpha2</span><span class="o">/</span><span class="nx">systemconfiguration_types</span><span class="p">.</span><span class="k">go</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="err">@@</span><span class="w"> </span><span class="o">-</span><span class="mi">82</span><span class="p">,</span><span class="mi">6</span><span class="w"> </span><span class="o">+</span><span class="mi">82</span><span class="p">,</span><span class="mi">9</span><span class="w"> </span><span class="err">@@</span><span class="w"> </span><span class="kd">type</span><span class="w"> </span><span class="nx">SystemConfigurationSpec</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w"> </span><span class="kd">type</span><span class="w"> </span><span class="nx">SystemConfigurationStatus</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="c1">// Ready indicates when the SystemConfiguration has been reconciled</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="nx">Ready</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="s">`json:&quot;ready&quot;`</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="o">+</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="o">+</span><span class="w">       </span><span class="c1">// Error information</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="o">+</span><span class="w">       </span><span class="nx">ResourceError</span><span class="w"> </span><span class="s">`json:&quot;,inline&quot;`</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w"> </span><span class="p">}</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w"> </span>//+kubebuilder:object:root<span class="o">=</span><span class="nb">true</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w"> </span><span class="sb">```</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w"> </span><span class="c1">//+kubebuilder:object:root=true</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w"> </span><span class="s">```</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="o">(</span>An<span class="w"> </span>aside:<span class="w"> </span>That<span class="w"> </span><span class="sb">`</span>ResourceError<span class="sb">`</span><span class="w"> </span><span class="nb">type</span><span class="w"> </span>used<span class="w"> </span><span class="k">for</span><span class="w"> </span>this<span class="w"> </span>new<span class="w"> </span>field<span class="w"> </span>is<span class="w"> </span>inlined,<span class="w"> </span>bringing<span class="w"> </span>a<span class="w"> </span>field<span class="w"> </span>named<span class="w"> </span><span class="sb">`</span>Error<span class="sb">`</span>,<span class="w"> </span>so<span class="w"> </span>that<span class="s1">&#39;s what we&#39;</span>ll<span class="w"> </span>see<span class="w"> </span>next<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>conversion<span class="w"> </span>routines.<span class="o">)</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="s">(An aside: That `</span><span class="nx">ResourceError</span><span class="s">` type used for this new field is inlined, bringing a field named `</span><span class="nx">Error</span><span class="s">`, so that&#39;s what we&#39;ll see next in the conversion routines.)</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="c1">### Step 2: Run the conversion code generator</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="s">### Step 2: Run the conversion code generator</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>Run<span class="w"> </span>the<span class="w"> </span>generator<span class="w"> </span>to<span class="w"> </span>update<span class="w"> </span>the<span class="w"> </span>generated<span class="w"> </span>conversion<span class="w"> </span>routines<span class="w"> </span><span class="k">for</span><span class="w"> </span>this<span class="w"> </span>type.
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="s">Run the generator to update the generated conversion routines for this type.</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="sb">```</span>console
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>make<span class="w"> </span>generate-go-conversions
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="s">```</span><span class="nx">console</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="nx">make</span><span class="w"> </span><span class="nx">generate</span><span class="o">-</span><span class="k">go</span><span class="o">-</span><span class="nx">conversions</span>
 </code></pre></div>
 <p>This will emit some scary-looking output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>/Users/droehrich/work/rabsw/dws-7.git/bin/conversion-gen<span class="w"> </span><span class="se">\</span>
@@ -1279,7 +1257,7 @@
 </code></pre></div>
 <p>The generator is forcing us to acknowledge that we have conversion covered for that new field. We have to manually replace that entrypoint to hook up the conversion again.</p>
 <h3 id="step-3-restore-the-generated-conversion-entrypoint">Step 3: Restore the generated conversion entrypoint</h3>
-<p>At the end of <code>api/v1alpha1/conversion.go</code> we will find other entrypoint routines like this one, for earlier changes to the <code>SystemConfiguration</code> type. Cut-n-paste that entrypoint routine from the diff above into an appropriate place near the end of <code>conversion.go</code>, adjusting it just enough so <code>make vet</code> succeeds.</p>
+<p>At the end of <code>api/v1alpha1/conversion.go</code> we will find other entrypoint routines like this one, for earlier changes to the <code>SystemConfiguration</code> type. Cut-n-paste that entrypoint routine from the diff above into an appropriate place near the end of <code>conversion.go</code>, adjusting it just enough so <code>make vet</code> will succeed.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">$ </span>git<span class="w"> </span>diff<span class="w"> </span>-U1<span class="w"> </span>api/v1alpha1/conversion.go
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">diff --git a/api/v1alpha1/conversion.go b/api/v1alpha1/conversion.go</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">index f409f9b2..e11a41eb 100644</span>
@@ -1293,7 +1271,7 @@
 <a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="go">+</span>
 <a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="go"> func Convert_v1alpha2_StorageSpec_To_v1alpha1_StorageSpec(in *dwsv1alpha2.StorageSpec, out *StorageSpec, s apiconversion.Scope) error {</span>
 </code></pre></div>
-<p>Confirm that it compiles:</p>
+<p>Confirm that it will compile:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">make vet</span>
 </code></pre></div>
 <h3 id="step-4-add-the-new-field-to-the-conversion-routine">Step 4: Add the new field to the conversion routine</h3>

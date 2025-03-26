@@ -256,7 +256,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-tabs__link">
+        <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-tabs__link">
           
   
   Repo Guides
@@ -698,15 +698,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rabbit-hostname-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rabbit Hostname Setup
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#systemconfiguration-setup" class="md-nav__link">
     <span class="md-ellipsis">
       SystemConfiguration Setup
@@ -924,15 +915,6 @@
   <a href="#nnf_container_ports" class="md-nav__link">
     <span class="md-ellipsis">
       NNF_CONTAINER_PORTS
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nnf_container_launcher" class="md-nav__link">
-    <span class="md-ellipsis">
-      NNF_CONTAINER_LAUNCHER
     </span>
   </a>
   
@@ -1183,28 +1165,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/worker-to-master/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Switch a Node From Worker to Master
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../directive-breakdown/readme/" class="md-nav__link">
         
   
@@ -1393,7 +1353,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-nav__link">
+      <a href="../../../repo-guides/release-nnf-sw/readme/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1543,15 +1503,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#rabbit-hostname-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Rabbit Hostname Setup
-    </span>
-  </a>
   
 </li>
         
@@ -1778,15 +1729,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#nnf_container_launcher" class="md-nav__link">
-    <span class="md-ellipsis">
-      NNF_CONTAINER_LAUNCHER
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1941,9 +1883,9 @@ from the <code>nnf-system</code> namespace . The examples may be found by listin
 aspects, they don't encompass every single detail. For an in-depth understanding of the capabilities
 offered by container profiles, we recommend referring to the following resources:</p>
 <ul>
-<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha6/nnfcontainerprofile_types.go#L35">Type definition</a> for <code>NnfContainerProfile</code></li>
-<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha6_nnfcontainerprofile.yaml">Sample</a> for <code>NnfContainerProfile</code></li>
-<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_nnfcontainerprofiles.yaml">Online Examples</a> for <code>NnfContainerProfile</code> (same as <code>kubectl get</code> above)</li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha1/nnfcontainerprofile_types.go#L35">Type definition</a> for <code>NnfContainerProfile</code></li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha1_nnfcontainerprofile.yaml">Sample</a> for <code>NnfContainerProfile</code></li>
+<li><a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfcontainerprofiles.yaml">Online Examples</a> for <code>NnfContainerProfile</code> (same as <code>kubectl get</code> above)</li>
 </ul>
 <h4 id="container-storages">Container Storages</h4>
 <p>The <code>Storages</code> defined in the profile allow NNF filesystems to be made available inside of the
@@ -1997,7 +1939,7 @@ that outlines the desired configuration for the pod.</p>
 <p>For MPI containers, <code>mpiSpec</code> is used. This custom resource, available through <code>MPIJobSpec</code> from
 <code>mpi-operator</code>, serves as a facilitator for executing MPI applications across worker containers.
 This resource can be likened to a wrapper around a <code>PodSpec</code>, but users need to define a <code>PodSpec</code>
-for both Launcher and Worker containers. For assistance in finding the rabbit that is running the Launcher, see <code>NNF_CONTAINER_LAUNCHER</code> below.</p>
+for both Launcher and Worker containers.</p>
 <p>See the <a href="https://github.com/kubeflow/mpi-operator/blob/v0.4.0/pkg/apis/kubeflow/v2beta1/types.go#L137"><code>MPIJobSpec</code>
 definition</a>
 for more details on what can be configured for an MPI application.</p>
@@ -2033,9 +1975,6 @@ workflow until it is released.</p>
 workflows will fail in the <code>Setup</code> state due to insufficient resources. See <a href="#systemconfiguration-setup">SystemConfiguration
 Setup</a>.</p>
 </div>
-<h3 id="rabbit-hostname-setup">Rabbit Hostname Setup</h3>
-<p>On each compute node there must be a file named <code>/etc/local-rabbit.conf</code> that contains the hostname of the compute's matching rabbit node. This will be used by compute node applications to communicate with the server in the user container. This is generally used for the non-MPI case.</p>
-<p>For the MPI case, see <code>NNF_CONTAINER_LAUNCHER</code> below.</p>
 <h3 id="systemconfiguration-setup">SystemConfiguration Setup</h3>
 <p>In order for container workflows to request ports from the <code>NnfPortManager</code>, the
 <code>SystemConfiguration</code> must be configured for a range of ports:</p>
@@ -2283,15 +2222,12 @@ allocated ports for the container. This is a comma separated list of ports if mu
 requested.</p>
 <p>This allows an application on the compute node to contact the user container running on its local
 NNF node via these port numbers. The compute node must have proper routing to the NNF Node and needs
-a generic way of contacting the NNF node.</p>
+a generic way of contacting the NNF node. It is suggested than a DNS entry is provided via
+<code>/etc/hosts</code>, or similar.</p>
 <p>For cases where one port is requested, the following can be used to contact the user container
-running on the NNF node, assuming a hostname entry for the local rabbit is provided via <code>/etc/local-rabbit.conf</code> as described above:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">RABBIT=$(cat /etc/local-rabbit.conf)</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="gp">$</span>RABBIT:<span class="k">$(</span>NNF_CONTAINER_PORTS<span class="k">)</span>
+running on the NNF node (assuming a DNS entry for <code>local-rabbit</code> is provided via <code>/etc/hosts</code>).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="go">local-rabbit:$(NNF_CONTAINER_PORTS)</span>
 </code></pre></div>
-<h4 id="nnf_container_launcher"><code>NNF_CONTAINER_LAUNCHER</code></h4>
-<p>If the NNF Container Profile is using <code>mpiSpec</code>, then this environment variable provides the name of the rabbit that is running the MPI Launcher pod.</p>
-<p>This allows an application on the compute node to contact the user container running a server that may be in the MPI Launcher. The <a href="../../data-movement/copy-offload/">copy-offload server</a> is an example of such an MPI application.</p>
 <h3 id="creating-images">Creating Images</h3>
 <p>For details, refer to the <a href="https://github.com/NearNodeFlash/nnf-container-example#making-a-container-image">NNF Container Example
 Readme</a>. However,
@@ -2363,7 +2299,7 @@ associated with that username . In this case, the secret will be named <code>rea
 created for this user's containerized application.</p>
 <p>The following profile shows the placement of the <code>readonly-red-rock-slushy</code> secret which was created
 in the previous step, and points to the user's <code>dean/red-rock-slushy:v1.0</code> container.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha6</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfContainerProfile</span>
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nt">metadata</span><span class="p">:</span>
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">red-rock-slushy</span>
@@ -2394,7 +2330,7 @@ directive.</p>
 private copy of <a href="https://github.com/NearNodeFlash/nnf-mfu">nnf-mfu</a>, then the administrator would
 insert two <code>imagePullSecrets</code> lists into the <code>mpiSpec</code> of the NnfContainerProfile for the MPI
 launcher and the MPI worker.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha6</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
 <a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfContainerProfile</span>
 <a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nt">metadata</span><span class="p">:</span>
 <a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mpi-red-rock-slushy</span>
