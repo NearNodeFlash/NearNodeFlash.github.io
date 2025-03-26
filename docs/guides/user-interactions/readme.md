@@ -175,13 +175,24 @@ These directives create an xfs Rabbit job allocation and specify a container tha
 
 ## Environment Variables
 
-The WLM makes a set of environment variables available to the job application running on the compute nodes that provide Rabbit specific information. These environment variables are used to find the mount location of Rabbit file systems and port numbers for user containers.
+The WLM makes a set of environment variables available to the job application running on the compute nodes. These environment variables are used to find the mount location of Rabbit file systems and port numbers for user containers, or to know other information about the Workflow.
 
 | Environment Variable | Value | Notes |
 |----------------------|-------|-------|
 | `DW_JOB_[name]` | Mount path of a `jobdw` file system | `[name]` is from the `name` argument in the `jobdw` directive. Any `'-'` characters in the `name` will be converted to `'_'` in the environment variable. There will be one of these environment variables per `jobdw` directive in the job. |
 | `DW_PERSISTENT_[name]` | Mount path of a `persistentdw` file system | `[name]` is from the `name` argument in the `persistentdw` directive. Any `'-'` characters in the `name` will be converted to `'_'` in the environment variable. There will be one of these environment variables per `persistentdw` directive in the job. |
 | `NNF_CONTAINER_PORTS` | Comma separated list of ports | These ports are used together with the IP address of the local Rabbit to communicate with a user container specified by a `container` directive. More information can be found in the [User Containers](../user-containers/readme.md) guide. |
+| `DW_WORKFLOW_NAME` | Name of the Workflow | |
+| `DW_WORKFLOW_NAMESPACE` | Namespace of the Workflow | |
+| `NNF_CONTAINER_LAUNCHER` | Name of the Rabbit that is running the MPI launcher container. | Present only when the container profile uses an MPI spec. |
+
+The following environment variables are available to any [User Container](../user-containers/readme.md), including special user containers like the [Copy Offload](../data-movement/copy-offload.md) user container.
+
+| Environment Variable | Value | Notes |
+|----------------------|-------|-------|
+| `DW_WORKFLOW_NAME` | Name of the Workflow. | |
+| `DW_WORKFLOW_NAMESPACE` | Namespace of the Workflow. | |
+| `NNF_NODE_NAME` | Name of the Rabbit that is running the container. | |
 
 The following environment variables are available to the [Copy Offload](../data-movement/copy-offload.md) server. They are also made available to any [User Container](../user-containers/readme.md) by specifying `requires=user-container-auth` (described above) in a `jobdw` or `persistentdw` directive. See [Certificate and Per-Workflow Token Details](../data-movement/copy-offload.md#certificate-and-per-workflow-token-details) for information about how a user can incorporate them into their own client/server application.
 
