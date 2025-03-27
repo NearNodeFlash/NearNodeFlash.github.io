@@ -168,7 +168,7 @@ workflow until it is released.
 
 ### Rabbit Hostname Setup
 
-On each compute node there must be a file named `/etc/local-rabbit.conf` that contains the hostname of the compute's matching rabbit node. This will be used by compute node applications to communicate with the server in the user container. This is generally used for the non-MPI case.
+On each compute node there must be a file named `/etc/local-rabbit.conf` that contains the hostname of the compute's matching rabbit node. Compute node applications use this to communicate with the server in the user container. This is generally used for the non-MPI case.
 
 For the MPI case, see `NNF_CONTAINER_LAUNCHER` below.
 
