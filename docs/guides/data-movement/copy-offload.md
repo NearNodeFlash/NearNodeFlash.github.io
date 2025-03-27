@@ -82,7 +82,7 @@ The copy-offload container profile is specified in the `container` directive. Se
 
 ### Use libcopyoffload
 
-The [`libcopyoffload` library](https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload) must be linked into the user's compute application.
+The [`libcopyoffload` library](https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload) must be linked into the user's compute application. See its header file and associated test tool for a description, and example usage, of the API.
 
 ## Certificate and Per-Workflow Token Details
 
