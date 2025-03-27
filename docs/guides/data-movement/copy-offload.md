@@ -32,7 +32,14 @@ kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM '.data."tls.crt"' | base
 > [!IMPORTANT]
 > Copy the certificate to `/etc/nnf-dm-usercontainer/cert.pem` on each compute node. It must be readable by all users' compute applications.
 
+### Library libcopyoffload
+
+The [`libcopyoffload` library](https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload) must be made available on the compute nodes and the developer environments for users to use with their applications.
+
 ### WLM and the per-Workflow token
+
+> [!NOTE]
+> The following must be handled by the WLM service. There is nothing here for the adminstrator to do.
 
 The WLM, such as Flux, must retrieve the per-Workflow token and make it available to the user's compute application as an environment variable named `DW_WORKFLOW_TOKEN`. The token is used by the `libcopyoffload` library to construct the "Bearer Token" for its requests to the copy-offload server. The token becomes invalid after the Workflow enters its teardown state.
 
@@ -70,13 +77,12 @@ The copy-offload container profile is specified in the `container` directive. Se
 #DW container name=copyoff-container profile=copy-offload-default [...]
 ```
 
-### Library libcopyoffload
+> [!NOTE]
+> See [User Containers](../user-containers/readme.md) for details about customizing the directives and the container profile for the storage resources created by the Workflow.
 
-Where to get it.
-Linking with it.
-The API.
-The `/etc/local-rabbit.conf` file that has the name of the matching rabbit.
-The NNF_CONTAINER_LAUNCHER environment variable.
+### Use libcopyoffload
+
+The [`libcopyoffload` library](https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload) must be linked into the user's compute application.
 
 ## Certificate and Per-Workflow Token Details
 

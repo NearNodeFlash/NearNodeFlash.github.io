@@ -171,7 +171,7 @@ The `container` directive is used to launch user containers on the Rabbit nodes.
 #DW container name=backup profile=automatic-backup DW_JOB_source=fast-storage DW_GLOBAL_destination=/lus/backup/johndoe
 ```
 
-These directives create an xfs Rabbit job allocation and specify a container that should run on the Rabbit nodes. The container profile specified two file systems that the container needs, `DW_JOB_source` and `DW_GLOBAL_destination`. `DW_JOB_source` requires a `jobdw` file system and `DW_GLOBAL_destination` requires a global Lustre file system. 
+These directives create an xfs Rabbit job allocation and specify a container that should run on the Rabbit nodes. The container profile specified two file systems that the container needs, `DW_JOB_source` and `DW_GLOBAL_destination`. `DW_JOB_source` requires a `jobdw` file system and `DW_GLOBAL_destination` requires a global Lustre file system.
 
 ## Environment Variables
 
@@ -184,7 +184,7 @@ The WLM makes a set of environment variables available to the job application ru
 | `NNF_CONTAINER_PORTS` | Comma separated list of ports | These ports are used together with the IP address of the local Rabbit to communicate with a user container specified by a `container` directive. More information can be found in the [User Containers](../user-containers/readme.md) guide. |
 | `DW_WORKFLOW_NAME` | Name of the Workflow | |
 | `DW_WORKFLOW_NAMESPACE` | Namespace of the Workflow | |
-| `NNF_CONTAINER_LAUNCHER` | Name of the Rabbit that is running the MPI launcher container. | Present only when the container profile uses an MPI spec. |
+| `NNF_CONTAINER_LAUNCHER` | Name of the Rabbit that is running the MPI launcher container. | Present only when the container profile uses an MPI spec. Otherwise the application should use the `/etc/local-rabbit.conf` file described in [Rabbit Hostname Setup](../user-containers/readme.md#rabbit-hostname-setup) |
 
 The following environment variables are available to any [User Container](../user-containers/readme.md), including special user containers like the [Copy Offload](../data-movement/copy-offload.md) user container.
 
