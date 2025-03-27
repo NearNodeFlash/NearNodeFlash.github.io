@@ -7,6 +7,7 @@ Tips, tutorials, examples, best practices.
 Some helpful tips to make life easier while writing conversion routines.
 
 * Do not delete fields. It's easier to write loss-less conversion routines if the field is renamed to something that indicates it's no longer used. This becomes more important in the spoke-hub-spoke scenario, because the hub will not have an annotation preserving the original spoke's values.
+* The `+kubebuilder` validation directives in the CRD comments count as code. Adding, deleting, or modifying these directives will require that the API version be bumped.
 
 ## Example 1: Add a field to a resource
 
@@ -29,7 +30,7 @@ index 3e4d29fb..2c65e3a0 100644
  }
  
  //+kubebuilder:object:root=true
- ```
+```
 
 (An aside: That `ResourceError` type used for this new field is inlined, bringing a field named `Error`, so that's what we'll see next in the conversion routines.)
 
