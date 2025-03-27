@@ -44,9 +44,7 @@ the compute node, which may not be supported by the destination file system (e.g
 
 Depending on the configuration of `dcp`, there may be an attempt to copy these xattrs. You may need
 to disable this by using `dcp --xattrs none` to avoid errors. For example, the `command` in the
-`NnfDataMovementProfile` or `dcpOptions` in the [DataMovementCreateRequest
-API](copy-offload-api.html#datamovement.DataMovementCreateRequest) could be used to set this
-option.
+`NnfDataMovementProfile` could be used to set this option.
 
 See the [`dcp` documentation](https://mpifileutils.readthedocs.io/en/latest/dcp.1.html) for more
 information.
