@@ -12,7 +12,7 @@ nav:
       - 'Compute Daemons': 'guides/compute-daemons/readme.md'
       - 'User Interactions': 'guides/user-interactions/readme.md'
       - 'Data Movement': 'guides/data-movement/readme.md'
-      - 'Copy Offload API': 'guides/data-movement/copy-offload-api.html'
+      - 'Copy Offload': 'guides/data-movement/copy-offload.md'
       - 'Firmware Upgrade': 'guides/firmware-upgrade/readme.md'
       - 'High Availability Cluster': 'guides/ha-cluster/readme.md'
       - 'RBAC for Users': 'guides/rbac-for-users/readme.md'

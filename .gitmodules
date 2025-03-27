@@ -1,3 +1,0 @@
-[submodule "external/nnf-dm"]
-	path = external/nnf-dm
-	url = git@github.com:NearNodeFlash/nnf-dm.git
