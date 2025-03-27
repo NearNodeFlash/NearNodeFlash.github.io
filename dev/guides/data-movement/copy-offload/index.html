@@ -1308,7 +1308,7 @@ Per-Workflow tokens are not limited to the copy-offload API. Any user container 
 See <a href="../../user-containers/readme/">User Containers</a> for details about customizing the directives and the container profile for the storage resources created by the Workflow.</p>
 </blockquote>
 <h3 id="use-libcopyoffload">Use libcopyoffload</h3>
-<p>The <a href="https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload"><code>libcopyoffload</code> library</a> must be linked into the user's compute application.</p>
+<p>The <a href="https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload"><code>libcopyoffload</code> library</a> must be linked into the user's compute application. See its header file and associated test tool for a description, and example usage, of the API.</p>
 <h2 id="certificate-and-per-workflow-token-details">Certificate and Per-Workflow Token Details</h2>
 <p>The per-Workflow token and its signing key are created during the Workflow's <code>Setup</code> state, and they are destroyed when the Workflow enters <code>Teardown</code> state.</p>
 <p>The WLM places the per-Workflow token in an environment variable for the application on the compute node. The variable is named <code>DW_WORKFLOW_TOKEN</code>. The application on the compute node can find the TLS certificate in <code>/etc/nnf-dm-usercontainer/cert.pem</code>. The <code>libcopyoffload</code> library is able to use the per-Workflow token and the TLS certificate to communicate securely with the copy-offload server.</p>
