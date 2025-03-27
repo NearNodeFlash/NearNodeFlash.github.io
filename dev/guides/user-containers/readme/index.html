@@ -2034,7 +2034,7 @@ workflows will fail in the <code>Setup</code> state due to insufficient resource
 Setup</a>.</p>
 </div>
 <h3 id="rabbit-hostname-setup">Rabbit Hostname Setup</h3>
-<p>On each compute node there must be a file named <code>/etc/local-rabbit.conf</code> that contains the hostname of the compute's matching rabbit node. This will be used by compute node applications to communicate with the server in the user container. This is generally used for the non-MPI case.</p>
+<p>On each compute node there must be a file named <code>/etc/local-rabbit.conf</code> that contains the hostname of the compute's matching rabbit node. Compute node applications use this to communicate with the server in the user container. This is generally used for the non-MPI case.</p>
 <p>For the MPI case, see <code>NNF_CONTAINER_LAUNCHER</code> below.</p>
 <h3 id="systemconfiguration-setup">SystemConfiguration Setup</h3>
 <p>In order for container workflows to request ports from the <code>NnfPortManager</code>, the
