@@ -10,13 +10,13 @@ The copy-offload server is implemented as a special kind of [User Container](../
 
 A signing key and self-signed TLS certificate must be created and made available to the copy-offload server and the certificate must also be copied to each compute node. This certificate must have a SAN extension that describes all of the Rabbit nodes.
 
-Tools are available in the `nnf-dm` repository to assist in creating this certificate and its signing key. Begin by confirming that the cluster's `SystemConfiguration` resource can be accessed using the `kubectl` command. This resource contains the information about all of the Rabbit nodes and is used when creating the SAN extension for the certificate:
+Tools are available to assist in creating this certificate and its signing key. Begin by confirming that the cluster's `SystemConfiguration` resource can be accessed using the `kubectl` command. This resource contains the information about all of the Rabbit nodes and is used when creating the SAN extension for the certificate:
 
 ```console
 kubectl get systemconfiguration
 ```
 
-From the `nnf-deploy` workarea, run `tools/mk-usercontainer-secrets.sh`:
+Run `tools/mk-usercontainer-secrets.sh` from either the `nnf-deploy` workarea or from a gitops repo derived from the [argocd boilerplate](https://github.com/NearNodeFlash/argocd-boilerplate).
 
 ```console
 tools/mk-usercontainer-secrets.sh
