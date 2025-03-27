@@ -1156,17 +1156,17 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="go">kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM &#39;.data.&quot;tls.crt&quot;&#39; | base64 -d &gt; cert.pem</span>
 </code></pre></div>
-<blockquote>
-<p>[!IMPORTANT]
-Copy the certificate to <code>/etc/nnf-dm-usercontainer/cert.pem</code> on each compute node. It must be readable by all users' compute applications.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Copy the certificate to <code>/etc/nnf-dm-usercontainer/cert.pem</code> on each compute node. It must be readable by all users' compute applications.</p>
+</div>
 <h3 id="library-libcopyoffload">Library libcopyoffload</h3>
 <p>The <a href="https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload"><code>libcopyoffload</code> library</a> must be made available on the compute nodes and the developer environments for users to use with their applications.</p>
 <h3 id="wlm-and-the-per-workflow-token">WLM and the per-Workflow token</h3>
-<blockquote>
-<p>[!NOTE]
-The following must be handled by the WLM service. There is nothing here for the adminstrator to do.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following must be handled by the WLM service. There is nothing here for the adminstrator to do.</p>
+</div>
 <p>The WLM, such as Flux, must retrieve the per-Workflow token and make it available to the user's compute application as an environment variable named <code>DW_WORKFLOW_TOKEN</code>. The token is used by the <code>libcopyoffload</code> library to construct the "Bearer Token" for its requests to the copy-offload server. The token becomes invalid after the Workflow enters its teardown state.</p>
 <p>The Workflow contains a reference to the name of the Secret that holds the token. The following value returns the name and namespace of the secret:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">kubectl get workflow $WORKFLOW_NAME -o json | jq -rM &#39;.status.workflowToken&#39;</span>
@@ -1177,10 +1177,10 @@ The following must be handled by the WLM service. There is nothing here for the 
 <p>Create the environment variable for the user's compute application:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nv">DW_WORKFLOW_TOKEN</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$TOKEN</span><span class="s2">&quot;</span>
 </code></pre></div>
-<blockquote>
-<p>[!NOTE]
-Per-Workflow tokens are not limited to the copy-offload API. Any user container may request to be configured with the job's per-Workflow token and the TLS certificate. See <code>requires=user-container-auth</code> in <a href="../../user-containers/readme/">User Containers</a>. The WLM must always check for the existence of a token secret in the Workflow.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Per-Workflow tokens are not limited to the copy-offload API. Any user container may request to be configured with the job's per-Workflow token and the TLS certificate. See <code>requires=user-container-auth</code> in <a href="../../user-containers/readme/">User Containers</a>. The WLM must always check for the existence of a token secret in the Workflow.</p>
+</div>
 <h2 id="user-enablement-of-copy-offload">User Enablement of Copy Offload</h2>
 <p>Users enable the copy-offload server by requesting it in their job script. The script must contain a <code>#DW container</code> directive that specifies the desired copy-offload container profile. At least one of the <code>#DW jobdw</code> or <code>#DW persistentdw</code> directives in the job script must include the <code>requires=copy-offload</code> statement. See <a href="../../user-interactions/readme/">User Interactions</a> for more details about these directives.</p>
 <p>The user's compute application must be linked with the <code>libcopyoffload</code> library. This library understands how to find and use the TLS certificate and the per-Workflow token required for communication with the copy-offload server for the user's job.</p>
@@ -1188,10 +1188,10 @@ Per-Workflow tokens are not limited to the copy-offload API. Any user container 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1">#DW jobdw name=my-job-name requires=copy-offload [...]</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1">#DW container name=copyoff-container profile=copy-offload-default [...]</span>
 </code></pre></div>
-<blockquote>
-<p>[!NOTE]
-See <a href="../../user-containers/readme/">User Containers</a> for details about customizing the directives and the container profile for the storage resources created by the Workflow.</p>
-</blockquote>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>See <a href="../../user-containers/readme/">User Containers</a> for details about customizing the directives and the container profile for the storage resources created by the Workflow.</p>
+</div>
 <h3 id="use-libcopyoffload">Use libcopyoffload</h3>
 <p>The <a href="https://github.com/NearNodeFlash/nnf-dm/tree/master/daemons/lib-copy-offload"><code>libcopyoffload</code> library</a> must be linked into the user's compute application. See its header file and associated test tool for a description, and example usage, of the API.</p>
 <h2 id="certificate-and-per-workflow-token-details">Certificate and Per-Workflow Token Details</h2>
