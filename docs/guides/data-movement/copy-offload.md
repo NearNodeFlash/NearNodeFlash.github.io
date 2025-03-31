@@ -29,8 +29,9 @@ CLIENT_TLS_SECRET=nnf-dm-usercontainer-client-tls
 kubectl get secrets $CLIENT_TLS_SECRET -o json | jq -rM '.data."tls.crt"' | base64 -d > cert.pem
 ```
 
-> [!IMPORTANT]
-> Copy the certificate to `/etc/nnf-dm-usercontainer/cert.pem` on each compute node. It must be readable by all users' compute applications.
+!!! info
+
+    Copy the certificate to `/etc/nnf-dm-usercontainer/cert.pem` on each compute node. It must be readable by all users' compute applications.
 
 ### Library libcopyoffload
 
@@ -38,8 +39,9 @@ The [`libcopyoffload` library](https://github.com/NearNodeFlash/nnf-dm/tree/mast
 
 ### WLM and the per-Workflow token
 
-> [!NOTE]
-> The following must be handled by the WLM service. There is nothing here for the adminstrator to do.
+!!! note
+
+    The following must be handled by the WLM service. There is nothing here for the adminstrator to do.
 
 The WLM, such as Flux, must retrieve the per-Workflow token and make it available to the user's compute application as an environment variable named `DW_WORKFLOW_TOKEN`. The token is used by the `libcopyoffload` library to construct the "Bearer Token" for its requests to the copy-offload server. The token becomes invalid after the Workflow enters its teardown state.
 
@@ -61,8 +63,9 @@ Create the environment variable for the user's compute application:
 DW_WORKFLOW_TOKEN="$TOKEN"
 ```
 
-> [!NOTE]
-> Per-Workflow tokens are not limited to the copy-offload API. Any user container may request to be configured with the job's per-Workflow token and the TLS certificate. See `requires=user-container-auth` in [User Containers](../user-containers/readme.md). The WLM must always check for the existence of a token secret in the Workflow.
+!!! note
+
+    Per-Workflow tokens are not limited to the copy-offload API. Any user container may request to be configured with the job's per-Workflow token and the TLS certificate. See `requires=user-container-auth` in [User Containers](../user-containers/readme.md). The WLM must always check for the existence of a token secret in the Workflow.
 
 ## User Enablement of Copy Offload
 
@@ -77,8 +80,9 @@ The copy-offload container profile is specified in the `container` directive. Se
 #DW container name=copyoff-container profile=copy-offload-default [...]
 ```
 
-> [!NOTE]
-> See [User Containers](../user-containers/readme.md) for details about customizing the directives and the container profile for the storage resources created by the Workflow.
+!!! info
+
+    See [User Containers](../user-containers/readme.md) for details about customizing the directives and the container profile for the storage resources created by the Workflow.
 
 ### Use libcopyoffload
 
