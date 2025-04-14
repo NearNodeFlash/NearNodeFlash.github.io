@@ -92,14 +92,14 @@ other components.
        ./release-all.sh -P create-pr -R <repo>
        ```
 
-    3. Merge PR for the pushed release branch:
+    4. Merge PR for the pushed release branch:
     **Note: Do NOT manually merge the PR, let `release-all.sh` merge it.**
 
        ```bash
        ./release-all.sh -P merge-pr -R <repo>
        ```
 
-    4. Tag the release:
+    5. Tag the release:
 
        ```bash
        ./release-all.sh -P tag-release -R <repo>

@@ -3,7 +3,7 @@ site_description: 'Near Node Flash'
 docs_dir: docs/
 repo_name: 'NearNodeFlash/NearNodeFlash.github.io'
 repo_url: https://github.com/NearNodeFlash/NearNodeFlash.github.io
-copyright: '&copy; Copyright 2023 Hewlett Packard Enterprise Development LP'
+copyright: '&copy; Copyright 2025 Hewlett Packard Enterprise Development LP'
 nav:
   - Home: index.md
   - 'User Guides':
@@ -31,6 +31,7 @@ nav:
       - 'Releasing NNF Software': 'repo-guides/release-nnf-sw/release-all.md'
       - 'CRD Version Bumper': 'repo-guides/crd-bumper/readme.md'
       - 'Editing APIs': 'repo-guides/crd-bumper/editing-apis.md'
+      - 'CRD Upgrade Helpers': `repo-guides/release-nnf-sw/crd-upgrade-helpers.md`
 theme:
   name: 'material'
   custom_dir: overrides

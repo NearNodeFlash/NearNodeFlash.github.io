@@ -3,6 +3,7 @@
 ## Management
 
 * [Releasing NNF Software](release-nnf-sw/release-all.md)
+* [CRD Upgrade Helpers](release-nnf-sw/crd-upgrade-helpers.md)
 
 ## Developer
 
