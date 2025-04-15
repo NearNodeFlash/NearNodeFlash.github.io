@@ -95,6 +95,21 @@ The repository with its adjusted API is found under a directory named `workingsp
 
 The new `api-v1alpha1-unserve` branch has a commit containing the adjusted API and adjusted code. This commit message has **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.
 
+### Revert an unserved API
+
+It's possible that after marking an API as unserved and doing a release, there will be a need to follow-up that release with a variation of it that does serve that API. And maybe the commit that did the "unserve" step is buried under other things and is not easily reverted. In that case, use the `re-serve.py` tool.
+
+In this example, release v0.1.19 of nnf-sos has API versions v1alpha2, v1alpha3, and v1alpha4. And it has v1alpha2 marked as unserved. The following creates a variation of v0.1.19 that serves v1alpha2:
+
+```console
+REPO=git@github.com:NearNodeFlash/nnf-sos.git
+re-serve.py --spoke-ver v1alpha2 --repo $REPO --start-branch v0.1.19
+```
+
+The repository with its adjusted API is found under a directory named `workingspace/nnf-sos`.
+
+The new `api-v1alpha3-re-serve` branch has a commit containing the adjusted API and adjusted code. This commit message has **ACTION** comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.
+
 ## Library and Tool Support
 
 The library and tool support is taken from the [Cluster API](https://github.com/kubernetes-sigs/cluster-api) project. See [release v1.6.6](https://github.com/kubernetes-sigs/cluster-api/tree/release-1.6) for a version that contains multi-version support for CRDs where they have a hub with one spoke. (Note: In v1.7.0 they removed the old API--the old spoke--and their repo contains only one version, the hub.)
