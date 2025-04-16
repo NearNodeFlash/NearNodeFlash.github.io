@@ -1045,15 +1045,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#revert-an-unserved-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      Revert an unserved API
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1199,29 +1190,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../release-nnf-sw/crd-upgrade-helpers/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    CRD Upgrade Helpers
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -1353,15 +1321,6 @@
   <a href="#unserve-the-api" class="md-nav__link">
     <span class="md-ellipsis">
       Unserve the API
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#revert-an-unserved-api" class="md-nav__link">
-    <span class="md-ellipsis">
-      Revert an unserved API
     </span>
   </a>
   
@@ -1550,14 +1509,6 @@
 </code></pre></div>
 <p>The repository with its adjusted API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
 <p>The new <code>api-v1alpha1-unserve</code> branch has a commit containing the adjusted API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
-<h3 id="revert-an-unserved-api">Revert an unserved API</h3>
-<p>It's possible that after marking an API as unserved and doing a release, there will be a need to follow-up that release with a variation of it that does serve that API. And maybe the commit that did the "unserve" step is buried under other things and is not easily reverted. In that case, use the <code>re-serve.py</code> tool.</p>
-<p>In this example, release v0.1.19 of nnf-sos has API versions v1alpha2, v1alpha3, and v1alpha4. And it has v1alpha2 marked as unserved. The following creates a variation of v0.1.19 that serves v1alpha2:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/nnf-sos.git</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">re-serve.py --spoke-ver v1alpha2 --repo $REPO --start-branch v0.1.19</span>
-</code></pre></div>
-<p>The repository with its adjusted API is found under a directory named <code>workingspace/nnf-sos</code>.</p>
-<p>The new <code>api-v1alpha3-re-serve</code> branch has a commit containing the adjusted API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
 <h2 id="library-and-tool-support">Library and Tool Support</h2>
 <p>The library and tool support is taken from the <a href="https://github.com/kubernetes-sigs/cluster-api">Cluster API</a> project. See <a href="https://github.com/kubernetes-sigs/cluster-api/tree/release-1.6">release v1.6.6</a> for a version that contains multi-version support for CRDs where they have a hub with one spoke. (Note: In v1.7.0 they removed the old API--the old spoke--and their repo contains only one version, the hub.)</p>
 <p>In the "References" section you'll find a link to a video from the Cluster API team where they go through an example of changing an API and providing conversion routines and tests for the change.</p>
@@ -1674,7 +1625,7 @@ These markers are used the same way <code>controller-gen</code> uses code marker
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      &copy; Copyright 2025 Hewlett Packard Enterprise Development LP
+      &copy; Copyright 2023 Hewlett Packard Enterprise Development LP
     </div>
   
   
