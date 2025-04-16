@@ -52,13 +52,12 @@ The next few subsections provide an overview of the primary components comprisin
 aspects, they don't encompass every single detail. For an in-depth understanding of the capabilities
 offered by container profiles, we recommend referring to the following resources:
 
-- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha6/nnfcontainerprofile_types.go#L35) for `NnfContainerProfile`
-- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha6_nnfcontainerprofile.yaml) for `NnfContainerProfile`
-- [Online Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_nnfcontainerprofiles.yaml) for `NnfContainerProfile` (same as `kubectl get` above)
+- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha7/nnfcontainerprofile_types.go#L36) for `NnfContainerProfile`
+- [Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_nnfcontainerprofiles.yaml) for `NnfContainerProfile` (same as `kubectl get` above)
 
 #### Container Storages
 
-The `Storages` defined in the profile allow NNF filesystems to be made available inside of the
+The `Storages` defined in the profile allow NNF filesystems to be made available inside the
 container. These storages need to be referenced in the container workflow unless they are marked as
 optional.
 
@@ -108,47 +107,38 @@ Example:
 
 #### Container Spec
 
-As mentioned earlier, container workflows can be categorized into two types: MPI and Non-MPI. It's
+As mentioned earlier, container workflows can be categorized into two types: MPI and Non-MPI. It is
 essential to choose and define only one of these types within the container profile. Regardless of
-the type chosen, the data structure that implements the specification is equipped with two
-"standard" resources that are distinct from NNF custom resources.
+the chosen type, the same data structure is used to implement the specification.
 
-For Non-MPI containers, the specification utilizes the `spec` resource. This is the standard
-Kubernetes
-[`PodSpec`](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-that outlines the desired configuration for the pod.
+An
+[`NnfPodSpec`](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha7/nnfcontainerprofile_types.go#L93)
+is used to define the specification for the pod and its containers. Inside the `NnfPodSpec` is an
+[`NnfContainer`](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha7/nnfcontainerprofile_types.go#L145).
 
-For MPI containers, `mpiSpec` is used. This custom resource, available through `MPIJobSpec` from
-`mpi-operator`, serves as a facilitator for executing MPI applications across worker containers.
-This resource can be likened to a wrapper around a `PodSpec`, but users need to define a `PodSpec`
-for both Launcher and Worker containers. For assistance in finding the rabbit that is running the Launcher, see `NNF_CONTAINER_LAUNCHER` below.
+Both `NnfPodSpec` and `NnfContainer` are simplified versions of Kubernetes
+[`PodSpec`](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec).
 
-See the [`MPIJobSpec`
-definition](https://github.com/kubeflow/mpi-operator/blob/v0.4.0/pkg/apis/kubeflow/v2beta1/types.go#L137)
+- **Non-MPI Containers**: The specification utilizes the `spec` resource.
+- **MPI Containers**: The `mpiSpec` resource is used. Unlike Non-MPI containers, `mpiSpec` includes
+two `NnfPodSpec` definitions: one for the MPI Launcher and another for the Workers. The MPI Launcher
+facilitates the execution of MPI applications across worker containers.
+
+For assistance in identifying the Rabbit node running the Launcher, refer to the
+`NNF_CONTAINER_LAUNCHER` environment variable below.
+
+See the [`mpiSpec`
+definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha7/nnfcontainerprofile_types.go#L119)
 for more details on what can be configured for an MPI application.
 
-It's important to bear in mind that the NNF Software is designed to override specific values within
-the `MPIJobSpec` for ensuring the desired behavior in line with NNF software requirements. To
-prevent complications, it's advisable not to delve too deeply into the specification. A few
-illustrative examples of fields that are overridden by the NNF Software include:
-
-- Replicas
-- RunPolicy.BackoffLimit
-- Worker/Launcher.RestartPolicy
-- SSHAuthMountPath
-
-By keeping these considerations in mind and refraining from extensive alterations to the
-specification, you can ensure a smoother integration with the NNF Software and mitigate any
-potential issues that may arise.
-
-Please see the Sample and Examples listed above for more detail on container Specs.
+Please refer to the examples listed above for more details on container specifications.
 
 #### Container Ports
 
 Container Profiles allow for ports to be reserved for a container workflow. `numPorts` can be used
 to specify the number of ports needed for a container workflow. The ports are opened on each
-targeted NNF node and are accessible outside of the cluster. Users must know how to contact the
-specific NNF node. It is recommend that DNS entries are made for this purpose.
+targeted NNF node and are accessible outside the cluster. Users must know how to contact the
+specific NNF node. It is recommended that DNS entries are made for this purpose.
 
 In the workflow, the allocated port numbers are made available via the
 [`NNF_CONTAINER_PORTS`](#nnf_container_ports) environment variable.
@@ -243,9 +233,8 @@ data:
   storages:
   - name: DW_JOB_local_storage
     optional: false
-  template:
-    mpiSpec:
-      ...
+  mpiSpec:
+    ...
 ```
 
 The resulting container directive looks like this:
@@ -504,6 +493,14 @@ RABBIT=$(cat /etc/local-rabbit.conf)
 $RABBIT:$(NNF_CONTAINER_PORTS)
 ```
 
+Additionally, environment variables are also provided for each container defined in the container
+profile. These variables include the name of the container.
+
+```console
+$NNF_CONTAINER_PORTS_my_container_name
+$NNF_CONTAINER_PORTS_my_other_container_name
+```
+
 #### `NNF_CONTAINER_LAUNCHER`
 
 If the NNF Container Profile is using `mpiSpec`, then this environment variable provides the name of the rabbit that is running the MPI Launcher pod.
@@ -609,7 +606,7 @@ The following profile shows the placement of the `readonly-red-rock-slushy` secr
 in the previous step, and points to the user's `dean/red-rock-slushy:v1.0` container.
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha6
+apiVersion: nnf.cray.hpe.com/v1alpha7
 kind: NnfContainerProfile
 metadata:
   name: red-rock-slushy
@@ -647,41 +644,31 @@ insert two `imagePullSecrets` lists into the `mpiSpec` of the NnfContainerProfil
 launcher and the MPI worker.
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha6
+apiVersion: nnf.cray.hpe.com/v1alpha7
 kind: NnfContainerProfile
 metadata:
   name: mpi-red-rock-slushy
   namespace: nnf-system
 data:
   mpiSpec:
-    mpiImplementation: OpenMPI
-    mpiReplicaSpecs:
-      Launcher:
-        template:
-          spec:
-            imagePullSecrets:
-            - name: readonly-red-rock-slushy
-            containers:
-            - command:
-              - mpirun
-              - dcmp
-              - $(DW_JOB_foo_local_storage)/0
-              - $(DW_JOB_foo_local_storage)/1
-              image: dean/red-rock-slushy:v2.0
-              name: red-rock-launcher
-      Worker:
-        template:
-          spec:
-            imagePullSecrets:
-            - name: readonly-red-rock-slushy
-            containers:
-            - image: dean/red-rock-slushy:v2.0
-              name: red-rock-worker
-    runPolicy:
-      cleanPodPolicy: Running
-      suspend: false
+    launcher:
+      imagePullSecrets:
+      - name: readonly-red-rock-slushy
+      containers:
+      - command:
+        - mpirun
+        - dcmp
+        - $(DW_JOB_foo_local_storage)/0
+        - $(DW_JOB_foo_local_storage)/1
+        image: dean/red-rock-slushy:v2.0
+        name: red-rock-launcher
+    worker:
+      imagePullSecrets:
+      - name: readonly-red-rock-slushy
+      containers:
+      - image: dean/red-rock-slushy:v2.0
+        name: red-rock-worker
     slotsPerWorker: 1
-    sshAuthMountPath: /root/.ssh
   pinned: false
   retryLimit: 6
   storages:
