@@ -1091,10 +1091,12 @@
 <h2 id="create-a-gitops-repository">Create a gitops repository</h2>
 <p>Use <code>upgrade-gitops-maker.sh</code> to create a gitops repository that is populated with the NNF releases. The <a href="https://github.com/NearNodeFlash/argocd-boilerplate">argocd-boilerplate</a> is used to create the gitops repo.</p>
 <p>This tool uses the <a href="https://cli.github.com">GitHub CLI tool</a>, and it must have a token with permission to create and write to the user's private repositories. It begins by creating the private repository on the user's GitHub account and then pushing to it as it builds up the releases.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">REPO_NAME=penguin</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">/path/to/upgrade-gitops-maker.sh -n $REPO_NAME</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">git clone git@github.com:NearNodeFlash/nnf-integration-test.git</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="go">cd nnf-integration-test/upgrade-tester</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="go">REPO_NAME=penguin</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="go">./upgrade-gitops-maker.sh -n $REPO_NAME</span>
 </code></pre></div>
-<p>The new repo is named <code>gitops-$REPO_NAME</code>.</p>
+<p>The new repo is named <code>gitops-$REPO_NAME</code>. The <code>upgrade-tester.sh</code> tool is in the <code>test-tools/</code> directory.</p>
 <p>When complete, each release is placed in its own branch. <em>Note: This is an <a href="https://developers.redhat.com/articles/2022/07/20/git-workflows-best-practices-gitops-deployments">anti-pattern for gitops repos</a>, but it works well for this tool's purposes.</em></p>
 <p>The <a href="../../release-nnf-sw/crd-upgrade-helpers/">CRD Upgrade Helpers</a> are added to some of the releases that did not originally have them, where their help has been necessary to allow upgrades to succeed. These branches have the <code>-svm</code> or <code>-nsvm</code> suffix.</p>
 <p>Release branches <code>rel-v0.1.13-svm</code> and <code>rel-v0.1.14-svm</code> include the <code>storage-version-migrator</code> CRD upgrade helper. Release <strong>v0.1.15</strong> shipped with <code>storage-version-migrator</code> by default, so release branch <code>rel-v0.1.15-nsvm</code> includes the <code>nnf-storedversions-maint</code> CRD upgrade helper. All releases after <strong>v0.1.15</strong> ship with both CRD upgrade helpers and do not require <code>-svm</code> or <code>-nsvm</code> branches.</p>
@@ -1128,7 +1130,7 @@
 <p>The <code>upgrade-tester.sh</code> tool deploys specific releases and waits for each one to succeed. The user must specify the releases to be tested, identifying them by branch name. The tool uses <code>git checkout</code> to select a release and <code>./tools/deploy-env.sh</code> to deploy the bootstraps for that release. ArgoCD is monitored to determine when each upgrade has completed.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">git clone &quot;$HTTPS_REPO_CLONE_URL&quot; &quot;$REPO_NAME&quot;</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">cd $REPO_NAME</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">/path/to/upgrade-tester.sh rel-v0.1.11 rel-v0.1.12 rel-v0.1.13-svm</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">./test-tools/upgrade-tester.sh rel-v0.1.11 rel-v0.1.12 rel-v0.1.13-svm</span>
 </code></pre></div>
 <h2 id="references">References</h2>
 <p><a href="https://github.com/NearNodeFlash/nnf-deploy/releases">NNF Releases</a></p>
