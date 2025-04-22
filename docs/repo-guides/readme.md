@@ -9,3 +9,7 @@
 
 * [CRD Version Bumper](crd-bumper/readme.md)
 * [Editing APIs](crd-bumper/editing-apis.md)
+
+## Testing
+
+* [Upgrade Tester](testing/upgrade-tester.md)
