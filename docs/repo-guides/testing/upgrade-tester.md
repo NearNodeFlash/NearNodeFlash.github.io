@@ -77,6 +77,41 @@ cd $REPO_NAME
 ./test-tools/upgrade-tester.sh rel-v0.1.11 rel-v0.1.12 rel-v0.1.13-svm
 ```
 
+## Adding NNF master
+
+The NNF master branch, whether from a local workarea that has local modifications or from a fresh clone with no changes, may also be used as a release for the `upgrade-tester.sh` tool.
+
+Go to a local workarea containing the `nnf-deploy` repository with its submodules updated and checked out. See [nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy). Then make a new manifest representing the contents of that workarea. The `make manifests` command creates a tarball named `manifests-kind.tar` in the root of that workarea.
+
+```console
+cd /path/to/nnf-deploy
+# The following assumes the submodules are already updated.
+make manifests
+```
+
+Change to the the workarea containing the gitops repo created earlier. Unpack the manifest from the nnf-deploy workarea onto the `main` branch.
+
+```console
+cd /path/to/gitops-$REPO_NAME
+git checkout main
+```
+
+Unpack the manifest, address any issues, and commit and push the branch.
+
+```console
+./tools/unpack-manifest.py -e kind -m /path/to/nnf-deploy/manifests-kind.tar
+# Address any NOTE issues.
+./tools/verify-deployment.sh -e kind
+# Address any additional issues.
+git add environments
+git commit -m 'nnf master'
+git push
+```
+
+This `nnf-master` branch can be updated repeatedly with additional builds of the NNF master manifest.
+
+The `main` branch may now be listed as one of the releases for the `upgrade-tester.sh` tool to use.
+
 ## References
 
 [NNF Releases](https://github.com/NearNodeFlash/nnf-deploy/releases)
