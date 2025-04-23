@@ -1052,6 +1052,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#adding-nnf-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding NNF master
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       References
@@ -1132,6 +1141,28 @@
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">cd $REPO_NAME</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">./test-tools/upgrade-tester.sh rel-v0.1.11 rel-v0.1.12 rel-v0.1.13-svm</span>
 </code></pre></div>
+<h2 id="adding-nnf-master">Adding NNF master</h2>
+<p>The NNF master branch, whether from a local workarea that has local modifications or from a fresh clone with no changes, may also be used as a release for the <code>upgrade-tester.sh</code> tool.</p>
+<p>Go to a local workarea containing the <code>nnf-deploy</code> repository with its submodules updated and checked out. See <a href="https://github.com/NearNodeFlash/nnf-deploy">nnf-deploy</a>. Then make a new manifest representing the contents of that workarea. The <code>make manifests</code> command creates a tarball named <code>manifests-kind.tar</code> in the root of that workarea.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">cd /path/to/nnf-deploy</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="gp"># </span>The<span class="w"> </span>following<span class="w"> </span>assumes<span class="w"> </span>the<span class="w"> </span>submodules<span class="w"> </span>are<span class="w"> </span>already<span class="w"> </span>updated.
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="go">make manifests</span>
+</code></pre></div>
+<p>Change to the the workarea containing the gitops repo created earlier. Unpack the manifest from the nnf-deploy workarea onto the <code>main</code> branch.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">cd /path/to/gitops-$REPO_NAME</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">git checkout main</span>
+</code></pre></div>
+<p>Unpack the manifest, address any issues, and commit and push the branch.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">./tools/unpack-manifest.py -e kind -m /path/to/nnf-deploy/manifests-kind.tar</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="gp"># </span>Address<span class="w"> </span>any<span class="w"> </span>NOTE<span class="w"> </span>issues.
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">./tools/verify-deployment.sh -e kind</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gp"># </span>Address<span class="w"> </span>any<span class="w"> </span>additional<span class="w"> </span>issues.
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="go">git add environments</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="go">git commit -m &#39;nnf master&#39;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="go">git push</span>
+</code></pre></div>
+<p>This <code>nnf-master</code> branch can be updated repeatedly with additional builds of the NNF master manifest.</p>
+<p>The <code>main</code> branch may now be listed as one of the releases for the <code>upgrade-tester.sh</code> tool to use.</p>
 <h2 id="references">References</h2>
 <p><a href="https://github.com/NearNodeFlash/nnf-deploy/releases">NNF Releases</a></p>
 <p><a href="https://github.com/NearNodeFlash/argocd-boilerplate">argocd-boilerplate</a></p>
