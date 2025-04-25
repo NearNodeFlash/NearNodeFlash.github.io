@@ -14,14 +14,14 @@ other components.
 
 - [NearNodeFlash/nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy)
 
-  - [DataWorkflowServices/dws](https://github.com/DataWorkflowServices/dws)
-  - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
-  - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
-  - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
-  - [NearNodeFlash/nnf-ec](https://github.com/NearNodeFlash/nnf-ec)
-  - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
-  - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
-  - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
+    - [DataWorkflowServices/dws](https://github.com/DataWorkflowServices/dws)
+    - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
+    - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
+    - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
+    - [NearNodeFlash/nnf-ec](https://github.com/NearNodeFlash/nnf-ec)
+    - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
+    - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
+    - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
 
 - [NearNodeFlash/NearNodeFlash.github.io](https://github.com/NearNodeFlash/NearNodeFlash.github.io)
 
@@ -33,7 +33,7 @@ other components.
 
 - `master` or `main` branch for each repository contains **tested** software and documentation ready to be released.
 - You've installed the GitHub CLI tool, `gh`.
-  - This tool requires a GH_TOKEN environment variable containing a `repo` scope classic token.
+    - This tool requires a GH_TOKEN environment variable containing a `repo` scope classic token.
 
 ## Steps
 
@@ -88,22 +88,22 @@ other components.
 
     3. Create PR for the pushed release branch:
 
-       ```bash
-       ./release-all.sh -P create-pr -R <repo>
-       ```
+        ```bash
+        ./release-all.sh -P create-pr -R <repo>
+        ```
 
     4. Merge PR for the pushed release branch:
     **Note: Do NOT manually merge the PR, let `release-all.sh` merge it.**
 
-       ```bash
-       ./release-all.sh -P merge-pr -R <repo>
-       ```
+        ```bash
+        ./release-all.sh -P merge-pr -R <repo>
+        ```
 
     5. Tag the release:
 
-       ```bash
-       ./release-all.sh -P tag-release -R <repo>
-       ```
+        ```bash
+        ./release-all.sh -P tag-release -R <repo>
+        ```
 
 ## Finalize the release notes
 
