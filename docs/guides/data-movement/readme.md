@@ -8,10 +8,10 @@ categories: provisioning
 Data Movement can be configured in multiple ways:
 
 1. Server side (`NnfDataMovementProfile`)
-2. Per Copy Offload API Request arguments
+2. Copy offload API server
 
 The first method is a "global" configuration - it affects all data movement operations that use a
-particular `NnfDataMovementProfile` (or the default). The second is done per the Copy Offload API,
+particular `NnfDataMovementProfile` (or the default). The second is done per the `copy offload` API,
 which allows for some configuration on a per-case basis, but is limited in scope. Both methods are
 meant to work in tandem.
 
@@ -24,26 +24,17 @@ for understanding how to use profiles, set a default, etc.
 For an in-depth understanding of the capabilities offered by Data Movement profiles, we recommend
 referring to the following resources:
 
-- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha6/nnfdatamovementprofile_types.go#L27) for `NnfDataMovementProfile`
-- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha6_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
+- [Type definition](https://github.com/NearNodeFlash/nnf-sos/blob/master/api/v1alpha7/nnfdatamovementprofile_types.go#L27) for `NnfDataMovementProfile`
+- [Sample](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/samples/nnf_v1alpha7_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
 - [Online Examples](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_nnfdatamovementprofile.yaml) for `NnfDataMovementProfile`
 
-## Copy Offload API Daemon
+## Copy Offload API Server
 
-The `CreateRequest` API call that is used to create Data Movement with the Copy Offload API has some
-options to allow a user to specify some options for that particular Data Movement operation. These
-settings are on a per-request basis. These supplement the configuration in the
-`NnfDataMovementProfile`.
+The `copy offload` API allows the user's compute application to specify options for particular Data Movement operations. These settings are on a per-request basis and supplement the configuration in the `NnfDataMovementProfile`.
 
-The Copy Offload API requires the `nnf-dm` daemon to be running on the compute node. This daemon may
-be configured to run full-time, or it may be left in a disabled state if the WLM is expected to run
-it only when a user requests it. See [Compute Daemons](../compute-daemons/readme.md) for the systemd
-service configuration of the daemon. See `Requires` in [Directive
-Breakdown](../directive-breakdown/readme.md) for a description of how the user may request the
-daemon in the case where the WLM will run it only on demand.
+The copy offload API requires the `copy-offload` server to be running on the Rabbit node. This server is implemented as a [User Container](../user-containers/readme.md) and is activated by the user's job script. The user's compute application must be linked with the `libcopyoffload` library.
 
-See the [DataMovementCreateRequest API](copy-offload-api.html#datamovement.DataMovementCreateRequest)
-definition for what can be configured.
+See [Copy Offload](../data-movement/copy-offload.md) for details about the usage and lifecycle of the copy offload API server.
 
 ## SELinux and Data Movement
 
@@ -53,9 +44,7 @@ the compute node, which may not be supported by the destination file system (e.g
 
 Depending on the configuration of `dcp`, there may be an attempt to copy these xattrs. You may need
 to disable this by using `dcp --xattrs none` to avoid errors. For example, the `command` in the
-`NnfDataMovementProfile` or `dcpOptions` in the [DataMovementCreateRequest
-API](copy-offload-api.html#datamovement.DataMovementCreateRequest) could be used to set this
-option.
+`NnfDataMovementProfile` could be used to set this option.
 
 See the [`dcp` documentation](https://mpifileutils.readthedocs.io/en/latest/dcp.1.html) for more
 information.

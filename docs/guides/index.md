@@ -12,7 +12,7 @@
 
 * [Storage Profiles](storage-profiles/readme.md)
 * [Data Movement Configuration](data-movement/readme.md)
-* [Copy Offload API](data-movement/copy-offload-api.html)
+* [Copy Offload](data-movement/copy-offload.md)
 * [Lustre External MGT](external-mgs/readme.md)
 * [Global Lustre](global-lustre/readme.md)
 * [Directive Breakdown](directive-breakdown/readme.md)
