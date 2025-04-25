@@ -34,7 +34,7 @@ INFO     -  [10:59:28] Serving on http://127.0.0.1:8000/
 Or run `mike serve`.
 
 ```bash
-(venv) $ venv/bin/mike serve  
+(venv) $ venv/bin/mike serve
 Starting server at http://localhost:8000/
 Press Ctrl+C to quit.
 CStopping server...
