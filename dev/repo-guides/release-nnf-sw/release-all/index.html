@@ -1222,18 +1222,16 @@ other components.</p>
 <ul>
 <li>
 <p><a href="https://github.com/NearNodeFlash/nnf-deploy">NearNodeFlash/nnf-deploy</a></p>
-</li>
-<li>
-<p><a href="https://github.com/DataWorkflowServices/dws">DataWorkflowServices/dws</a></p>
-</li>
+<ul>
+<li><a href="https://github.com/DataWorkflowServices/dws">DataWorkflowServices/dws</a></li>
 <li><a href="https://github.com/HewlettPackard/lustre-csi-driver">HewlettPackard/lustre-csi-driver</a></li>
 <li><a href="https://github.com/NearNodeFlash/lustre-fs-operator">NearNodeFlash/lustre-fs-operator</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-mfu">NearNodeFlash/nnf-mfu</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-ec">NearNodeFlash/nnf-ec</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos">NearNodeFlash/nnf-sos</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-dm">NearNodeFlash/nnf-dm</a></li>
-<li>
-<p><a href="https://github.com/NearNodeFlash/nnf-integration-test">NearNodeFlash/nnf-integration-test</a></p>
+<li><a href="https://github.com/NearNodeFlash/nnf-integration-test">NearNodeFlash/nnf-integration-test</a></li>
+</ul>
 </li>
 <li>
 <p><a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io">NearNodeFlash/NearNodeFlash.github.io</a></p>
@@ -1244,8 +1242,10 @@ other components.</p>
 <h2 id="assumptions">Assumptions</h2>
 <ul>
 <li><code>master</code> or <code>main</code> branch for each repository contains <strong>tested</strong> software and documentation ready to be released.</li>
-<li>You've installed the GitHub CLI tool, <code>gh</code>.</li>
+<li>You've installed the GitHub CLI tool, <code>gh</code>.<ul>
 <li>This tool requires a GH_TOKEN environment variable containing a <code>repo</code> scope classic token.</li>
+</ul>
+</li>
 </ul>
 <h2 id="steps">Steps</h2>
 <h3 id="run-the-steps-in-this-order">Run the steps in this order</h3>
@@ -1296,21 +1296,21 @@ other components.</p>
 </li>
 <li>
 <p>Create PR for the pushed release branch:</p>
-</li>
-</ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>create-pr<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
-<ol>
-<li>Merge PR for the pushed release branch:
-<strong>Note: Do NOT manually merge the PR, let <code>release-all.sh</code> merge it.</strong></li>
-</ol>
+</li>
+<li>
+<p>Merge PR for the pushed release branch:
+<strong>Note: Do NOT manually merge the PR, let <code>release-all.sh</code> merge it.</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>merge-pr<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
-<ol>
-<li>Tag the release:</li>
-</ol>
+</li>
+<li>
+<p>Tag the release:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>tag-release<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
+</li>
+</ol>
 </li>
 </ol>
 <h2 id="finalize-the-release-notes">Finalize the release notes</h2>
