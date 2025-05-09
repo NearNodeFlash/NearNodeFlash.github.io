@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../auditing/">
+        <link rel="prev" href="../../system-storage/readme/">
       
       
-        <link rel="next" href="../../node-management/nvme-namespaces/">
+        <link rel="next" href="../../../repo-guides/release-nnf-sw/release-all/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>API Priority and Fairness - NNF</title>
+        <title>Rebuild - NNF</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kubernetes-api-priority-and-fairness" class="md-skip">
+        <a href="#nvme-disk-replacement-process" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              API Priority and Fairness
+              Rebuild
             
           </span>
         </div>
@@ -661,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/drain/" class="md-nav__link">
+      <a href="../drain/" class="md-nav__link">
         
   
   
@@ -684,7 +684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auditing/" class="md-nav__link">
+      <a href="../../monitoring-cluster/auditing/" class="md-nav__link">
         
   
   
@@ -704,32 +704,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    API Priority and Fairness
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
         
   
   
@@ -740,86 +718,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Concepts
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metric-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      Metric types
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resources">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other sources
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -832,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
+      <a href="../nvme-namespaces/" class="md-nav__link">
         
   
   
@@ -855,7 +753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+      <a href="../worker-to-master/" class="md-nav__link">
         
   
   
@@ -921,10 +819,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../node-management/rebuild/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Rebuild
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -935,6 +855,119 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware Process
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Initialization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rebuild-testing-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rebuild Testing Notes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rebuild Testing Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tmux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tmux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rebuild-test-setup-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rebuild test setup overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-session-setups" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH session setups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Components
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1137,55 +1170,65 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
+  <a href="#hardware-process" class="md-nav__link">
     <span class="md-ellipsis">
-      Concepts
+      Hardware Process
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#metric-types" class="md-nav__link">
+  <a href="#software-initialization" class="md-nav__link">
     <span class="md-ellipsis">
-      Metric types
+      Software Initialization
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#rebuild-testing-notes" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples
+      Rebuild Testing Notes
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resources">
+    <nav class="md-nav" aria-label="Rebuild Testing Notes">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
+  <a href="#setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Kubernetes
+      Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tmux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tmux
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#other-sources" class="md-nav__link">
+  <a href="#rebuild-test-setup-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Other sources
+      Rebuild test setup overview
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh-session-setups" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSH session setups
     </span>
   </a>
   
@@ -1193,6 +1236,29 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Components
+    </span>
+  </a>
   
 </li>
       
@@ -1215,70 +1281,110 @@
   
 
 
-<h1 id="kubernetes-api-priority-and-fairness">Kubernetes API Priority And Fairness</h1>
-<p>Kubernetes <a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/">API Priority and Fairness</a> (APF) allows requests to the Kubernetes API server to be classified, isolated, and queued in a fine-grained way.</p>
-<p>The APF metrics can be monitored to determine how well the API servers are handling the workload. The metrics are intended to be interpreted by tools like <a href="https://prometheus.io/">Prometheus</a> or <a href="https://victoriametrics.com/">VictoriaMetrics</a>. This document will use them in their raw form.</p>
-<p>The metrics covered by this document are <strong>counter</strong> type. Counters are incremented, never decremented. While sampling counters in raw form, they will appear to bounce but on an idle system a given counter should make its current high value known after it appears in 3-5 samples.</p>
-<h2 id="concepts">Concepts</h2>
-<p>Requests coming into the API server are classified by <code>FlowSchemas</code> and assigned to priority levels. The FlowSchema assigns the request to a <strong>flow</strong> and gives it a <strong>flow distinguisher</strong>. The flow distinguisher indicates the origin of the request--a user, service account, controller, namespace, or nothing. A priority level may take requests from multiple flows. The priority level attempts to give equal response time to each flow.</p>
-<p>To view FlowSchemas and their assigned priority levels:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get flowschemas</span>
+<h1 id="nvme-disk-replacement-process">NVMe Disk Replacement Process</h1>
+<h2 id="hardware-process">Hardware Process</h2>
+<p>The Rabbit system does not support hot-swapping NVMe drives, meaning drives cannot be removed or replaced without first powering down the system. In the event of an NVMe drive failure, the Rabbit system must be powered down to replace the faulty drives.</p>
+<p>After replacing the NVMe disks and powering the system back on:</p>
+<ul>
+<li>Any NVMe-hosted filesystems without redundancy will be lost.</li>
+<li>Filesystems with redundancy may be recoverable, provided the level of redundancy exceeds the number of NVMe devices replaced.</li>
+</ul>
+<h2 id="software-initialization">Software Initialization</h2>
+<p>Rabbit-p system initialization launches the Kubernetes PODS. As part of the <code>nnf-node-manager</code> POD startup, the <code>nnf-ec</code> component initializes and retrieves the list of Storage Pools and Storage Groups previously created. A Storage Pool is a collection of NVMe namespaces, one per NVMe device, created as a set to be combined into either a Volume Group (VG) or zpool. A Storage Group is a mapping of a Storage Pool to a PCI endpoint to which the NVMe namespaces in the Storage Pool are attached.</p>
+<!-- add more details about the Storage Pool and Storage Group creation process here -->
+
+<h2 id="rebuild-testing-notes">Rebuild Testing Notes</h2>
+<p>In order to test actions of Rabbit software components and prototype rebuild actions, there are tools configured on the texas:x9000c1j7b0n0 Rabbit-p that aid in testing.</p>
+<p><code>x9000c1j7b0n0:/mnt/per-host-cfg</code> is an NFS mount that hosted on <code>texas:/per-host-cfg</code>.</p>
+<ul>
+<li><code>/per-host-cfg/tools</code> includes the tools from <a href="https://github.com/NearNodeFlash/nnf-ec/tree/master/tools">https://github.com/NearNodeFlash/nnf-ec/tree/master/tools</a></li>
+<li><code>/per-host-cfg/scripts</code> includes the python scripts from <a href="https://github.com/NearNodeFlash/nnf-ec/tree/master/tools">https://github.com/NearNodeFlash/nnf-ec/tree/master/tools</a></li>
+<li><code>/per-host-cfg/nnf-ec</code> includes the standalong <code>nnf-ec</code> linux binary along with the <code>nnf.db</code> directory which contains the <code>nnf-ec</code> badger database where the Storage Pools and Storage Groups that have been configured are stored.</li>
+</ul>
+<h3 id="setup">Setup</h3>
+<h4 id="tmux">Tmux</h4>
+<p>You will thank yourself if you take the time to setup and use a <code>tmux</code> session. There is a tmux session running on <code>htx-lustre</code>.</p>
+<ul>
+<li>
+<p>Create tmux session in conjunction with iTerm2</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="o">[</span>root@htx-lustre<span class="w"> </span>~<span class="o">]</span><span class="c1"># tmux -CC new -s ajf</span>
 </code></pre></div>
-<p>Flowschema sample output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NAME<span class="w">                           </span>PRIORITYLEVEL<span class="w">     </span>MATCHINGPRECEDENCE<span class="w">   </span>DISTINGUISHERMETHOD<span class="w">   </span>AGE<span class="w">    </span>MISSINGPL
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">[</span>...<span class="o">]</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>system-leader-election<span class="w">         </span>leader-election<span class="w">   </span><span class="m">100</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>endpoint-controller<span class="w">            </span>workload-high<span class="w">     </span><span class="m">150</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>workload-leader-election<span class="w">       </span>leader-election<span class="w">   </span><span class="m">200</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>system-node-high<span class="w">               </span>node-high<span class="w">         </span><span class="m">400</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>system-nodes<span class="w">                   </span>system<span class="w">            </span><span class="m">500</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="o">[</span>...<span class="o">]</span>
+</li>
+<li>
+<p>Reattach to that session later</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">[</span>root@htx-lustre<span class="w"> </span>~<span class="o">]</span><span class="c1"># tmux -CC attach -t ajf</span>
 </code></pre></div>
-<p>To view priority levels:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">kubectl get prioritylevelconfiguration</span>
+</li>
+</ul>
+<h4 id="rebuild-test-setup-overview">Rebuild test setup overview</h4>
+<p>In order to simulate a drive replacement, the test setup below creates a set of storage pools and storage groups that expose NVMe devices to Rabbit-p. Those NVMe devices are incorporated into either a VG or zpool.</p>
+<ol>
+<li>Delete one or more NVMe namespaces. This effectively is like removing the drive.</li>
+<li>Restart <code>nnf-ec</code>. This effectively simulates a power cycle of the system.</li>
+<li><code>nnf-ec</code> recreates the missing namespaces setting up the condition of a Rabbit-p restart with a new drive. You may then test the incorporation of those namespaces into either the VG or the zpool.</li>
+</ol>
+<h4 id="ssh-session-setups">SSH session setups</h4>
+<ul>
+<li>
+<p><strong>nnf-ec</strong> - This session is where you run <code>nnf-ec</code>. The <code>-replaceMissingVolumes</code> parameter tells <code>nnf-ec</code> to look for namespaces that were part of a storage pool but are no longer there. If it detects this case, it attempts to find a new NVMe drive where a namespace can be create to replace the missing namespace. If found, <code>nnf-ec</code> creates a new namespace and replaces the missing namespace in the storage pool with the new namespace. <code>nnf-ec</code> iterates through all missing namespaces in a storage pool in like manner before iterating through the remaining storage pools. Once all namespaces have been replaced, the storage groups associated with modified storage pools are restored which causes new namespaces to be attached to the endpoint specified in the storage group.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./nnf-ec<span class="w"> </span>-http<span class="w"> </span>-deleteUnknownVolumes<span class="w"> </span>-replaceMissingVolumes
 </code></pre></div>
-<p>Priority level sample output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>NAME<span class="w">              </span>TYPE<span class="w">      </span>NOMINALCONCURRENCYSHARES<span class="w">   </span>QUEUES<span class="w">   </span>HANDSIZE<span class="w">   </span>QUEUELENGTHLIMIT<span class="w">   </span>AGE
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">[</span>...<span class="o">]</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>global-default<span class="w">    </span>Limited<span class="w">   </span><span class="m">20</span><span class="w">                         </span><span class="m">128</span><span class="w">      </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>leader-election<span class="w">   </span>Limited<span class="w">   </span><span class="m">10</span><span class="w">                         </span><span class="m">16</span><span class="w">       </span><span class="m">4</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>node-high<span class="w">         </span>Limited<span class="w">   </span><span class="m">40</span><span class="w">                         </span><span class="m">64</span><span class="w">       </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>system<span class="w">            </span>Limited<span class="w">   </span><span class="m">30</span><span class="w">                         </span><span class="m">64</span><span class="w">       </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>workload-high<span class="w">     </span>Limited<span class="w">   </span><span class="m">40</span><span class="w">                         </span><span class="m">128</span><span class="w">      </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>workload-low<span class="w">      </span>Limited<span class="w">   </span><span class="m">100</span><span class="w">                        </span><span class="m">128</span><span class="w">      </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="o">[</span>...<span class="o">]</span>
+</li>
+<li>
+<p><strong>interactive.py</strong> - This session is where you create your storage pools and storage groups</p>
+</li>
+<li>
+<p><strong>namespace deleter</strong> - This session is where you run the command to delete namespaces out from underneath nnf-ec to simulate a drive loss. The following command deletes 10 namespaces from each of 2 drives.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">[</span>root@x9000c1j7b0n0<span class="w"> </span>tools<span class="o">]</span><span class="c1"># for ((i=1; i&lt;=10; i++)); do switchtec-nvme delete-ns 0x4100@/dev/switchtec1 --namespace-id=&quot;$i&quot;; switchtec-nvme delete-ns 0x4200@/dev/switchtec1 --namespace-id=&quot;$i&quot;; done</span>
 </code></pre></div>
-<h2 id="metric-types">Metric types</h2>
-<p>As noted earlier, the metrics will be viewed in their raw form and they are all of <strong>counter</strong> type. An individual counter must be sampled multiple times before its current high value can be clearly identified.</p>
-<p>To view a counter's type:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">kubectl get --raw /metrics | grep flowcontrol_rejected | grep &#39;^#&#39;</span>
+</li>
+<li>
+<p><strong>zpools creator</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Loop through 1..10 and a..j together</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..10<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nv">letter</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;\\x</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;%x&#39;</span><span class="w"> </span><span class="k">$((</span><span class="m">96</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">i</span><span class="k">)))</span><span class="s2">&quot;</span><span class="k">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>./zpool.sh<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$letter</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">done</span>
 </code></pre></div>
-<p>The output will describe the counter and its type:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># HELP apiserver_flowcontrol_rejected_requests_total [BETA] Number of requests rejected by API Priority and Fairness subsystem</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># TYPE apiserver_flowcontrol_rejected_requests_total counter</span>
+</li>
+<li>
+<p><strong>vgs creator</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Loop through namespaces 1 to 10</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..10<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1"># Generate pool names a to j</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nv">vg_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="nv">$i</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{printf(&quot;%c&quot;, 96 + $1)}&#39;</span><span class="k">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span>./lvm.sh<span class="w"> </span>create<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$vg_name</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span>raid6
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="k">done</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">1</span>..10<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="nv">vg_name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$i</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{printf(&quot;%c&quot;, 96 + $1)}&#39;</span><span class="k">)</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="k">done</span>
 </code></pre></div>
-<h2 id="examples">Examples</h2>
-<p>A quick way to get a summary of requests by priority level:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels</span>
+</li>
+<li>
+<p><strong>find-replacement-nvme-and-update-[vgs|zpools].sh</strong>
+These shell scripts look for <code>vgs|zpools</code> that are missing elements, then they attempt to assign NVMe namespaces to those <code>vgs|zpools</code>. This scripts search for replacement namespaces by size, thus <em>they are not suitable for production!!</em>. For production, we must assign a replacement namespace from the same storage pool in nnf-ec. For that, there were be changes to NNF controllers to incorporate.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="o">[</span>root@x9000c1j7b0n0<span class="w"> </span>tools<span class="o">]</span><span class="c1"># ll find-replacement-nvme-and-update-*</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">30021</span><span class="w"> </span>May<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">15</span>:09<span class="w"> </span>find-replacement-nvme-and-update-vgs.sh
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>-rwxr-xr-x<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">46527</span><span class="w"> </span>May<span class="w">  </span><span class="m">2</span><span class="w"> </span><span class="m">15</span>:09<span class="w"> </span>find-replacement-nvme-and-update-zpools.sh
 </code></pre></div>
-<p>From here one can drill down into the <code>Flowschemas</code> that feed a given priority level to see which one is generating the traffic.</p>
-<p>View activity that uses the <strong>nnf-clientmount</strong> credentials:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">kubectl get --raw /metrics | grep &#39;flow_schema=\&quot;nnf-clientmount\&quot;&#39; | head -6</span>
-</code></pre></div>
-<p>View activity that uses the <strong>viewer</strong> user credential:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="go">kubectl get --raw /metrics | grep &#39;flow_schema=\&quot;nodediag-kubectls\&quot;&#39; | head -6</span>
-</code></pre></div>
-<h2 id="resources">Resources</h2>
-<h3 id="kubernetes">Kubernetes</h3>
-<p>A description of APF:
-<a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/">API Priority and Fairness</a></p>
-<p>Debugging guide:
-<a href="https://kubernetes.io/docs/reference/debug-cluster/flow-control/">Flow Control</a></p>
-<h3 id="other-sources">Other sources</h3>
-<p>An excellent, though dated, description of tunables:
-<a href="https://blog.palark.com/kubernetes-api-flow-control-management/">Kubernetes API and flow control: Managing request quantity and queuing procedure</a></p>
-<p>Slide deck that gets into the algorithms:
-<a href="https://speakerdeck.com/ladicle/kubernetes-api-priority-and-fairness">Kubernetes API Priority and Fairness</a></p>
+</li>
+</ul>
+<p>The primary utility these scripts is to look at how to replace a missing namespace.</p>
+<!--- Stuff below here is relevant to the actual rebuild production implementation and needs work -->
+
+<h2 id="background">Background</h2>
+<p>Rabbit storage is managed through the interaction of several components within the NNF software stack. All storage-related information is communicated to the NNF software via the <code>Workflow</code> resource. This resource includes a <code>Servers</code> resource, which is updated to specify the Rabbit systems where storage is required for a given workflow. Once updated, the lower layers of the NNF software stack handle the necessary storage operations.</p>
+<h2 id="key-components">Key Components</h2>
+<p>The following components play a critical role in Rabbit storage management:</p>
+<ul>
+<li><strong>NnfStorage</strong>: Acts as the central control point for allocating and deallocating storage.</li>
+<li><strong>nnf-ec</strong>: Manages NVMe namespaces that provide storage for filesystems.</li>
+<li><strong>NnfNodeBlockStorage</strong>: Reflects information from <code>nnf-ec</code>, exposing OS-level device names associated with storage pool namespaces for filesystem creation, mounting, and unmounting.</li>
+<li><strong>NnfNodeStorage</strong>: Provides a higher-level abstraction of the storage information.</li>
+</ul>
+<p>These components work together to ensure efficient and reliable storage management within the Rabbit system.</p>
 
 
 
@@ -1314,7 +1420,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../auditing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Auditing">
+          <a href="../../system-storage/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: System Storage">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1324,20 +1430,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Auditing
+                System Storage
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../node-management/nvme-namespaces/" class="md-footer__link md-footer__link--next" aria-label="Next: Debugging NVMe Namespaces">
+          <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-footer__link md-footer__link--next" aria-label="Next: Releasing NNF Software">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Debugging NVMe Namespaces
+                Releasing NNF Software
               </div>
             </div>
             <div class="md-footer__button md-icon">
