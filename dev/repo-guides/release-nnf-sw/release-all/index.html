@@ -1317,14 +1317,13 @@ other components.</p>
 <p>Finalize the release by updating the <code>nnf-deploy</code> release notes to include the release notes from all submodules that were modified by this release. This also updates the release notes for any submodule that has CRDs, to include information about each version of the CRD offered by that submodule. Do this after the release steps have been completed for all repositories, including the NearNodeFlash.github.io repository.</p>
 <ol>
 <li>
-<p>Generate complete release notes for the specified <code>nnf-deploy</code> release for review:
-<strong>Note: If this release does not include a new release of the NearNodeFlash.github.io docs, then specify <code>-D</code> to skip the docs.</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span><span class="w"> </span><span class="o">[</span>-D<span class="o">]</span>
+<p>Generate complete release notes for the specified <code>nnf-deploy</code> release for review:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span>
 </code></pre></div>
 </li>
 <li>
 <p>Generate and commit the release notes to the specified <code>nnf-deploy</code> release:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span><span class="w"> </span>-C<span class="w"> </span><span class="o">[</span>-D<span class="o">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span><span class="w"> </span>-C
 </code></pre></div>
 </li>
 </ol>
