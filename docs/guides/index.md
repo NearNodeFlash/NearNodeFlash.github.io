@@ -28,6 +28,7 @@
 * [Disable or Drain a Node](node-management/drain.md)
 * [Debugging NVMe Namespaces](node-management/nvme-namespaces.md)
 * [Switch a Node From Worker to Master](node-management/worker-to-master.md)
+* [Rebuild after disk replacement](node-management/rebuild.md)
 
 ## Monitoring the Cluster
 
