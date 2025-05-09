@@ -11,10 +11,10 @@
       
       
       
-        <link rel="prev" href="../auditing/">
+        <link rel="prev" href="../../system-storage/readme/">
       
       
-        <link rel="next" href="../../node-management/nvme-namespaces/">
+        <link rel="next" href="../../../repo-guides/release-nnf-sw/release-all/">
       
       
       <link rel="icon" href="../../../img/logo.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>API Priority and Fairness - NNF</title>
+        <title>Rebuild - NNF</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#kubernetes-api-priority-and-fairness" class="md-skip">
+        <a href="#nvme-disk-replacement-process" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              API Priority and Fairness
+              Rebuild
             
           </span>
         </div>
@@ -661,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/drain/" class="md-nav__link">
+      <a href="../drain/" class="md-nav__link">
         
   
   
@@ -684,7 +684,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auditing/" class="md-nav__link">
+      <a href="../../monitoring-cluster/auditing/" class="md-nav__link">
         
   
   
@@ -704,32 +704,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    API Priority and Fairness
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
         
   
   
@@ -740,86 +718,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      Concepts
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metric-types" class="md-nav__link">
-    <span class="md-ellipsis">
-      Metric types
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resources">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other sources
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -832,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
+      <a href="../nvme-namespaces/" class="md-nav__link">
         
   
   
@@ -855,7 +753,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+      <a href="../worker-to-master/" class="md-nav__link">
         
   
   
@@ -921,10 +819,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../node-management/rebuild/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Rebuild
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -935,6 +855,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hardware process
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Background
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nnfstorage-nnfnodestorage-nnfnodeblockstorage-and-nnf-ec" class="md-nav__link">
+    <span class="md-ellipsis">
+      NnfStorage, NnfNodeStorage, NnfNodeBlockStorage, and nnf-ec
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1137,62 +1104,29 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#concepts" class="md-nav__link">
+  <a href="#hardware-process" class="md-nav__link">
     <span class="md-ellipsis">
-      Concepts
+      Hardware process
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#metric-types" class="md-nav__link">
+  <a href="#background" class="md-nav__link">
     <span class="md-ellipsis">
-      Metric types
+      Background
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
+  <a href="#nnfstorage-nnfnodestorage-nnfnodeblockstorage-and-nnf-ec" class="md-nav__link">
     <span class="md-ellipsis">
-      Examples
+      NnfStorage, NnfNodeStorage, NnfNodeBlockStorage, and nnf-ec
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Resources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resources">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Kubernetes
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#other-sources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Other sources
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1215,70 +1149,25 @@
   
 
 
-<h1 id="kubernetes-api-priority-and-fairness">Kubernetes API Priority And Fairness</h1>
-<p>Kubernetes <a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/">API Priority and Fairness</a> (APF) allows requests to the Kubernetes API server to be classified, isolated, and queued in a fine-grained way.</p>
-<p>The APF metrics can be monitored to determine how well the API servers are handling the workload. The metrics are intended to be interpreted by tools like <a href="https://prometheus.io/">Prometheus</a> or <a href="https://victoriametrics.com/">VictoriaMetrics</a>. This document will use them in their raw form.</p>
-<p>The metrics covered by this document are <strong>counter</strong> type. Counters are incremented, never decremented. While sampling counters in raw form, they will appear to bounce but on an idle system a given counter should make its current high value known after it appears in 3-5 samples.</p>
-<h2 id="concepts">Concepts</h2>
-<p>Requests coming into the API server are classified by <code>FlowSchemas</code> and assigned to priority levels. The FlowSchema assigns the request to a <strong>flow</strong> and gives it a <strong>flow distinguisher</strong>. The flow distinguisher indicates the origin of the request--a user, service account, controller, namespace, or nothing. A priority level may take requests from multiple flows. The priority level attempts to give equal response time to each flow.</p>
-<p>To view FlowSchemas and their assigned priority levels:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="go">kubectl get flowschemas</span>
-</code></pre></div>
-<p>Flowschema sample output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NAME<span class="w">                           </span>PRIORITYLEVEL<span class="w">     </span>MATCHINGPRECEDENCE<span class="w">   </span>DISTINGUISHERMETHOD<span class="w">   </span>AGE<span class="w">    </span>MISSINGPL
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">[</span>...<span class="o">]</span>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>system-leader-election<span class="w">         </span>leader-election<span class="w">   </span><span class="m">100</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>endpoint-controller<span class="w">            </span>workload-high<span class="w">     </span><span class="m">150</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>workload-leader-election<span class="w">       </span>leader-election<span class="w">   </span><span class="m">200</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>system-node-high<span class="w">               </span>node-high<span class="w">         </span><span class="m">400</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>system-nodes<span class="w">                   </span>system<span class="w">            </span><span class="m">500</span><span class="w">                  </span>ByUser<span class="w">                </span>112d<span class="w">   </span>False
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="o">[</span>...<span class="o">]</span>
-</code></pre></div>
-<p>To view priority levels:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">kubectl get prioritylevelconfiguration</span>
-</code></pre></div>
-<p>Priority level sample output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>NAME<span class="w">              </span>TYPE<span class="w">      </span>NOMINALCONCURRENCYSHARES<span class="w">   </span>QUEUES<span class="w">   </span>HANDSIZE<span class="w">   </span>QUEUELENGTHLIMIT<span class="w">   </span>AGE
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">[</span>...<span class="o">]</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>global-default<span class="w">    </span>Limited<span class="w">   </span><span class="m">20</span><span class="w">                         </span><span class="m">128</span><span class="w">      </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>leader-election<span class="w">   </span>Limited<span class="w">   </span><span class="m">10</span><span class="w">                         </span><span class="m">16</span><span class="w">       </span><span class="m">4</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>node-high<span class="w">         </span>Limited<span class="w">   </span><span class="m">40</span><span class="w">                         </span><span class="m">64</span><span class="w">       </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>system<span class="w">            </span>Limited<span class="w">   </span><span class="m">30</span><span class="w">                         </span><span class="m">64</span><span class="w">       </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>workload-high<span class="w">     </span>Limited<span class="w">   </span><span class="m">40</span><span class="w">                         </span><span class="m">128</span><span class="w">      </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>workload-low<span class="w">      </span>Limited<span class="w">   </span><span class="m">100</span><span class="w">                        </span><span class="m">128</span><span class="w">      </span><span class="m">6</span><span class="w">          </span><span class="m">50</span><span class="w">                 </span>112d
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="o">[</span>...<span class="o">]</span>
-</code></pre></div>
-<h2 id="metric-types">Metric types</h2>
-<p>As noted earlier, the metrics will be viewed in their raw form and they are all of <strong>counter</strong> type. An individual counter must be sampled multiple times before its current high value can be clearly identified.</p>
-<p>To view a counter's type:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">kubectl get --raw /metrics | grep flowcontrol_rejected | grep &#39;^#&#39;</span>
-</code></pre></div>
-<p>The output will describe the counter and its type:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># HELP apiserver_flowcontrol_rejected_requests_total [BETA] Number of requests rejected by API Priority and Fairness subsystem</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># TYPE apiserver_flowcontrol_rejected_requests_total counter</span>
-</code></pre></div>
-<h2 id="examples">Examples</h2>
-<p>A quick way to get a summary of requests by priority level:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">kubectl get --raw /debug/api_priority_and_fairness/dump_priority_levels</span>
-</code></pre></div>
-<p>From here one can drill down into the <code>Flowschemas</code> that feed a given priority level to see which one is generating the traffic.</p>
-<p>View activity that uses the <strong>nnf-clientmount</strong> credentials:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="go">kubectl get --raw /metrics | grep &#39;flow_schema=\&quot;nnf-clientmount\&quot;&#39; | head -6</span>
-</code></pre></div>
-<p>View activity that uses the <strong>viewer</strong> user credential:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="go">kubectl get --raw /metrics | grep &#39;flow_schema=\&quot;nodediag-kubectls\&quot;&#39; | head -6</span>
-</code></pre></div>
-<h2 id="resources">Resources</h2>
-<h3 id="kubernetes">Kubernetes</h3>
-<p>A description of APF:
-<a href="https://kubernetes.io/docs/concepts/cluster-administration/flow-control/">API Priority and Fairness</a></p>
-<p>Debugging guide:
-<a href="https://kubernetes.io/docs/reference/debug-cluster/flow-control/">Flow Control</a></p>
-<h3 id="other-sources">Other sources</h3>
-<p>An excellent, though dated, description of tunables:
-<a href="https://blog.palark.com/kubernetes-api-flow-control-management/">Kubernetes API and flow control: Managing request quantity and queuing procedure</a></p>
-<p>Slide deck that gets into the algorithms:
-<a href="https://speakerdeck.com/ladicle/kubernetes-api-priority-and-fairness">Kubernetes API Priority and Fairness</a></p>
+<h1 id="nvme-disk-replacement-process">NVMe Disk replacement process</h1>
+<h2 id="hardware-process">Hardware process</h2>
+<p>Since Rabbit does not support hot-swap of NVMe drives, in the wake of an NVMe drive failure
+the Rabbit-s must be powered down for failing drives to be replaced. After NVMe disks are
+replaced and Rabbit is powered up, any NVMe-hosted filesystems without redundant data will be lost.
+Filesystems created with redundant information, may be recoverable as long as the redundancy is
+greater than the number of NVMe devices replaced.</p>
+<h2 id="background">Background</h2>
+<p>Rabbit storage is created through the interaction of a number of components within the NNF software stack.
+All information is communicated to the NNF software via the <code>Workflow</code> resource. This resource in turn provides
+a <code>Servers</code> resource which is modified to specify the Rabbits on which storage is required for the workflow.
+Once the <code>Servers</code> resource has been modified to specify the Rabbits on which storage is required, the
+lower layers of NNF Software engage.</p>
+<h2 id="nnfstorage-nnfnodestorage-nnfnodeblockstorage-and-nnf-ec">NnfStorage, NnfNodeStorage, NnfNodeBlockStorage, and nnf-ec</h2>
+<p><code>NnfStorage</code> resource serves as the collection point for control of the storage allocation and deallocation. </p>
+<p>The <code>nnf-ec</code> component of NNF is responsible for managing NVMe namespaces that provide storage for
+filesystems. The <code>NnfNodeBlockStorage</code> resource reflects the information provided by <code>nnf-ec</code> such
+that OS-level device names associated with a storage pool's namespaces is available for filesystem
+create/mount/unmount operations. The <code>NnfNodeStorage</code> resource reflects the</p>
 
 
 
@@ -1314,7 +1203,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../auditing/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Auditing">
+          <a href="../../system-storage/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: System Storage">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1324,20 +1213,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Auditing
+                System Storage
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../node-management/nvme-namespaces/" class="md-footer__link md-footer__link--next" aria-label="Next: Debugging NVMe Namespaces">
+          <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-footer__link md-footer__link--next" aria-label="Next: Releasing NNF Software">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Debugging NVMe Namespaces
+                Releasing NNF Software
               </div>
             </div>
             <div class="md-footer__button md-icon">
