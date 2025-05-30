@@ -2204,7 +2204,7 @@ execute before the workflow enters an <code>Error</code> status.</p>
 <h4 id="long-running-processes">Long-Running Processes</h4>
 <p>Some containers may run applications that are intended to run indefinitely (for example, an HTTP
 server listening for requests). The copy-offload user container is one such example. These
-long-running containers need a mechanism to be stopped; otherwise, the <code>postRunTimeoutSeconds</code>
+long-running containers need a mechanism for a caller to stop them; otherwise, the <code>postRunTimeoutSeconds</code>
 timeout will be reached, resulting in a workflow error.</p>
 <p>During the PostRun phase, if containers are still running, the NNF software will attempt to send an
 HTTPS POST request to the <code>/shutdown</code> endpoint on each user container. This process will continue
