@@ -345,7 +345,7 @@ execute before the workflow enters an `Error` status.
 
 Some containers may run applications that are intended to run indefinitely (for example, an HTTP
 server listening for requests). The copy-offload user container is one such example. These
-long-running containers need a mechanism to be stopped; otherwise, the `postRunTimeoutSeconds`
+long-running containers need a mechanism for a caller to stop them; otherwise, the `postRunTimeoutSeconds`
 timeout will be reached, resulting in a workflow error.
 
 During the PostRun phase, if containers are still running, the NNF software will attempt to send an
