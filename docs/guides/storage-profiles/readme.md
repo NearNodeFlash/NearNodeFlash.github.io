@@ -302,12 +302,17 @@ In general, `scale` gives a simple way for users to get a filesystem that has pe
 - `$VG_NAME` - expands to a volume group name that is controlled by Rabbit software.
 - `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were iterated over for the pvcreate step.
 - `$DEVICE_NUM` - expands to the count of devices in `$DEVICE_LIST`
+- `$DEVICE_NUM-1` - expands to the count of devices in `$DEVICE_LIST` minus 1
+- `$DEVICE_NUM-2` - expands to the count of devices in `$DEVICE_LIST` minus 2
+- `$DEVICE` - expands to the name of a new device. This is used by `vgextend` when repairing a RAID device
 
 ### LVM LV Commands
 
 - `$VG_NAME` - see vgcreate above.
 - `$LV_NAME` - expands to a logical volume name that is controlled by Rabbit software.
 - `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for the volume group.
+- `$DEVICE_NUM-1` - expands to a number indicating the number of devices allocated for the volume group minus 1.
+- `$DEVICE_NUM-2` - expands to a number indicating the number of devices allocated for the volume group minus 2.
 - `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
 - `$PERCENT_VG` - expands to the size that each LV should be based on a percentage of the total VG size
 - `$LV_SIZE` - expands to the size of the LV in kB in the format expected by `lvcreate`
@@ -329,6 +334,16 @@ In general, `scale` gives a simple way for users to get a filesystem that has pe
 - `$POOL_NAME` - expands to a pool name that is controlled by Rabbit software.
 - `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for this storage request.
 - `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
+
+### zpool replace
+
+- `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for this storage request.
+- `$DEVICE_NUM-1` - expands to a number indicating the number of devices allocated for this storage request minus 1.
+- `$DEVICE_NUM-2` - expands to a number indicating the number of devices allocated for this storage request minus 2.
+- `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were allocated for this storage request.
+- `$POOL_NAME` - expands to a pool name that is controlled by Rabbit software.
+- `$OLD_DEVICE` - expands to the name of a device that is degraded
+- `$NEW_DEVICE` - expands to the name of a new device that can replace the degraded device
 
 ### lustre mkfs
 
