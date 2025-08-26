@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.17">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
     
     
       
@@ -848,6 +848,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#zpool-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      zpool replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lustre-mkfs" class="md-nav__link">
     <span class="md-ellipsis">
       lustre mkfs
@@ -1568,6 +1577,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#zpool-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      zpool replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lustre-mkfs" class="md-nav__link">
     <span class="md-ellipsis">
       lustre mkfs
@@ -1863,12 +1881,17 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <li><code>$VG_NAME</code> - expands to a volume group name that is controlled by Rabbit software.</li>
 <li><code>$DEVICE_LIST</code> - expands to a list of space-separated <code>/dev/&lt;path&gt;</code> devices. This list will contain the devices that were iterated over for the pvcreate step.</li>
 <li><code>$DEVICE_NUM</code> - expands to the count of devices in <code>$DEVICE_LIST</code></li>
+<li><code>$DEVICE_NUM-1</code> - expands to the count of devices in <code>$DEVICE_LIST</code> minus 1</li>
+<li><code>$DEVICE_NUM-2</code> - expands to the count of devices in <code>$DEVICE_LIST</code> minus 2</li>
+<li><code>$DEVICE</code> - expands to the name of a new device. This is used by <code>vgextend</code> when repairing a RAID device</li>
 </ul>
 <h3 id="lvm-lv-commands">LVM LV Commands</h3>
 <ul>
 <li><code>$VG_NAME</code> - see vgcreate above.</li>
 <li><code>$LV_NAME</code> - expands to a logical volume name that is controlled by Rabbit software.</li>
 <li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for the volume group.</li>
+<li><code>$DEVICE_NUM-1</code> - expands to a number indicating the number of devices allocated for the volume group minus 1.</li>
+<li><code>$DEVICE_NUM-2</code> - expands to a number indicating the number of devices allocated for the volume group minus 2.</li>
 <li><code>$DEVICE1, $DEVICE2, ..., $DEVICEn</code> - each expands to one of the devices from the <code>$DEVICE_LIST</code> above.</li>
 <li><code>$PERCENT_VG</code> - expands to the size that each LV should be based on a percentage of the total VG size</li>
 <li><code>$LV_SIZE</code> - expands to the size of the LV in kB in the format expected by <code>lvcreate</code></li>
@@ -1890,6 +1913,16 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <li><code>$POOL_NAME</code> - expands to a pool name that is controlled by Rabbit software.</li>
 <li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for this storage request.</li>
 <li><code>$DEVICE1, $DEVICE2, ..., $DEVICEn</code> - each expands to one of the devices from the <code>$DEVICE_LIST</code> above.</li>
+</ul>
+<h3 id="zpool-replace">zpool replace</h3>
+<ul>
+<li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for this storage request.</li>
+<li><code>$DEVICE_NUM-1</code> - expands to a number indicating the number of devices allocated for this storage request minus 1.</li>
+<li><code>$DEVICE_NUM-2</code> - expands to a number indicating the number of devices allocated for this storage request minus 2.</li>
+<li><code>$DEVICE_LIST</code> - expands to a list of space-separated <code>/dev/&lt;path&gt;</code> devices. This list will contain the devices that were allocated for this storage request.</li>
+<li><code>$POOL_NAME</code> - expands to a pool name that is controlled by Rabbit software.</li>
+<li><code>$OLD_DEVICE</code> - expands to the name of a device that is degraded</li>
+<li><code>$NEW_DEVICE</code> - expands to the name of a new device that can replace the degraded device</li>
 </ul>
 <h3 id="lustre-mkfs">lustre mkfs</h3>
 <ul>
