@@ -68,6 +68,7 @@ The kubeconfig file should be placed in a location where HPE employees have read
 The next step is to create ClusterRole and ClusterRoleBinding resources. The ClusterRole provided allows viewing all cluster and namespace scoped resources, but disallows creating, deleting, or modifying any resources.
 
 ClusterRole
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -80,6 +81,7 @@ rules:
 ```
 
 ClusterRoleBinding
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -138,6 +140,7 @@ If the "flux" user requires only the normal WLM permissions, then create and app
 The `dws-workload-manager role is defined in [workload_manager_role.yaml](https://github.com/DataWorkflowServices/dws/blob/master/config/rbac/workload_manager_role.yaml).
 
 ClusterRoleBinding for WLM permissions only:
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -158,6 +161,7 @@ If the "flux" user requires the normal WLM permissions as well as some of the NN
 The `nnf-workload-manager` role is defined in [workload_manager_nnf_role.yaml](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/rbac/workload_manager_nnf_role.yaml).
 
 ClusterRoleBinding for WLM and NNF permissions:
+
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -171,6 +175,32 @@ roleRef:
   kind: ClusterRole
   name: nnf-workload-manager
   apiGroup: rbac.authorization.k8s.io
+```
+
+If the "flux" user also requires "get" access to pods and their logs in the "default" namespace, then there is also a namespaced Role resource to provide that access. Create a RoleBinding to associate the "flux" user with the "nnf-workload-manager-coregrp" Role. The "flux" user will be bound to access the NNF resources, across all namespaces, via the ClusterRoleBinding above and it will be bound to access the pod resources, in only the "default" namespace, via this RoleBinding.
+
+```console
+kubectl get role -n default nnf-workload-manager-coregrp
+```
+
+The `nnf-workload-manager-coregrp` role is defined in [workload_manager_nnf_role_ns.yaml](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/rbac-ns/workload_manager_nnf_role_ns.yaml).
+
+RoleBinding for pod permissions:
+
+```yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: flux
+  namespace: default
+subjects:
+- kind: User
+  name: flux
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: nnf-workload-manager-coregrp
+  apiGroup: ""
 ```
 
 The WLM should then use the kubeconfig file associated with this "flux" user to access the DataWorkflowServices API and the Rabbit system.
