@@ -1,0 +1,1463 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Near Node Flash">
+      
+      
+      
+      
+        <link rel="prev" href="../../data-movement/copy-offload/">
+      
+      
+        <link rel="next" href="../../ha-cluster/readme/">
+      
+      
+      <link rel="icon" href="../../../img/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Firmware Upgrade - NNF</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#nvme-drive-firmware" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NNF
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Firmware Upgrade
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User Guides
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-tabs__link">
+          
+  
+  
+  Repo Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    NNF
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guides
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Initial Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compute-daemons/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compute Daemons
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interactions/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Interactions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Movement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/copy-offload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Copy Offload
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Tools
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#querying-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Querying Firmware
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firmware-upgrade-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firmware Upgrade Procedure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcie-switch-firmware-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCIe Switch Firmware Upgrade
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ha-cluster/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    High Availability Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rbac-for-users/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RBAC for Users
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storage-profiles/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-containers/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-mgs/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lustre External MGT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../global-lustre/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Global Lustre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/drain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Disable or Drain a Node
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/auditing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auditing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Priority and Fairness
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging NVMe Namespaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../directive-breakdown/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Directive Breakdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-storage/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Repo Guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Repo Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releasing NNF Software
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/crd-bumper/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRD Version Bumper
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/crd-bumper/editing-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing APIs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/crd-upgrade-helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRD Upgrade Helpers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/upgrade-tester.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upgrade Tester
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#required-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Required Tools
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#querying-firmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Querying Firmware
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#firmware-upgrade-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Firmware Upgrade Procedure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrade Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcie-switch-firmware-upgrade" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCIe Switch Firmware Upgrade
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="nvme-drive-firmware">NVMe Drive Firmware</h1>
+<table>
+<thead>
+<tr>
+<th>Documentation Section</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Required Tools</td>
+<td><a href="#required-tools">Required Tools</a></td>
+</tr>
+<tr>
+<td>Installed Firmware</td>
+<td><a href="#querying-firmware">Querying Firmware</a></td>
+</tr>
+<tr>
+<td>Upgrade Procedure</td>
+<td><a href="#firmware-upgrade-procedure">Firmware Upgrade Procedure</a></td>
+</tr>
+<tr>
+<td>Notes</td>
+<td><a href="#upgrade-notes">Upgrade Notes</a></td>
+</tr>
+<tr>
+<td>PAX Firmware</td>
+<td><a href="#pcie-switch-firmware-upgrade">PCIe Switch Firmware Upgrade</a></td>
+</tr>
+</tbody>
+</table>
+<p>This guide presents the firmware upgrade procedures for NVMe drives attached to the Rabbit using tools present in the operating system.</p>
+<h2 id="required-tools">Required Tools</h2>
+<p>In order to upgrade the firmware on NVMe drives attached to Rabbit, the <code>switchtec</code> and <code>switchtec-nvme</code> executables must be installed. All firmware downloads to drives are sent to the physical function of the drive (the main interface of the NVMe device, as opposed to any virtual or secondary functions). The physical function is the primary PCIe endpoint that manages the device and is required for firmware operations. Access to the physical function is possible only using the <code>switchtec-nvme</code> executable. The helper script: <a href="https://github.com/NearNodeFlash/nnf-ec/blob/master/tools/nnf-nvme.sh">nnf-nvme.sh</a> provides the mechanism to update drive firmware and query existing versions. <a href="https://github.com/NearNodeFlash/nnf-ec/blob/master/tools/nnf-switch.sh">nnf-switch.sh</a> provides additional information about the PAX switch's view of the drive firmware configuration.</p>
+<h2 id="querying-firmware">Querying Firmware</h2>
+<p>Running the <code>nnf-switch.sh slot-info</code> command is the simplest method to see the active firmware for each drive.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./nnf-switch.sh<span class="w"> </span>slot-info
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>DEVICE:<span class="w"> </span>/dev/switchtec0<span class="w"> </span>PAX_ID:<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>PDFID:<span class="w"> </span>0x1900<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">04</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A03H03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme9<span class="w">  </span><span class="m">0000</span>:83:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>PDFID:<span class="w"> </span>0x1500<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">05</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A05Z03A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme10<span class="w">  </span><span class="m">0000</span>:84:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>PDFID:<span class="w"> </span>0x1800<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">06</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A02V03A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme11<span class="w">  </span><span class="m">0000</span>:85:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>PDFID:<span class="w"> </span>0x1400<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">02</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A04303A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme12<span class="w">  </span><span class="m">0000</span>:86:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>PDFID:<span class="w"> </span>0x1600<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">09</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A03B03A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme13<span class="w">  </span><span class="m">0000</span>:88:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>PDFID:<span class="w"> </span>0x1700<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">10</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A06103A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme14<span class="w">  </span><span class="m">0000</span>:89:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>PDFID:<span class="w"> </span>0x1300<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">11</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A00V03A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme15<span class="w">  </span><span class="m">0000</span>:8a:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">22</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>PDFID:<span class="w"> </span>0x1a00<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">03</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCT0A06P03A1<span class="w"> </span>1TCRS104<span class="w">     </span>/dev/nvme16<span class="w">  </span><span class="m">0000</span>:8b:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">48</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>DEVICE:<span class="w"> </span>/dev/switchtec1<span class="w"> </span>PAX_ID:<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>PDFID:<span class="w"> </span>0x4200<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">08</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCT0A00H03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme1<span class="w">  </span><span class="m">0000</span>:05:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>PDFID:<span class="w"> </span>0x3d00<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">07</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCT0A06W03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme2<span class="w">  </span><span class="m">0000</span>:06:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>PDFID:<span class="w"> </span>0x3b00<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">15</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A00F03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme3<span class="w">  </span><span class="m">0000</span>:07:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>PDFID:<span class="w"> </span>0x3e00<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">16</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A05D03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme4<span class="w">  </span><span class="m">0000</span>:08:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">14</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>PDFID:<span class="w"> </span>0x4000<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">17</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCT0A00X03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme5<span class="w">  </span><span class="m">0000</span>:09:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>PDFID:<span class="w"> </span>0x3f00<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">18</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A05E03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme6<span class="w">  </span><span class="m">0000</span>:0a:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>PDFID:<span class="w"> </span>0x3c00<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">14</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCT0A07A03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme7<span class="w">  </span><span class="m">0000</span>:0b:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>PDFID:<span class="w"> </span>0x4100<span class="w"> </span>SLOT:<span class="w"> </span><span class="m">12</span><span class="w">           </span>KIOXIA<span class="w"> </span>YCU0A00Z03A1<span class="w"> </span>1TCRS104<span class="w">      </span>/dev/nvme8<span class="w">  </span><span class="m">0000</span>:0d:00.0<span class="w">     </span>Physical<span class="w"> </span>Port<span class="w"> </span>ID<span class="w"> </span><span class="m">48</span><span class="w"> </span><span class="o">(</span>EP<span class="w"> </span>attached<span class="o">)</span>:
+</code></pre></div>
+<p>Each NVMe drive supports three firmware slots, allowing up to three different firmware versions to be installed at once. To check the installed firmware versions on Rabbit drives, use the <code>nnf-nvme.sh cmd fw-log</code> command. The example below shows a factory configuration with <code>1TCRS104</code> firmware in all three slots; the <code>afi</code> value ("Active Firmware Image") indicates which slot is currently active (e.g., <code>afi : 0x1</code> means slot 1 is active, <code>afi : 0x2</code> means slot 2 is active, etc.).</p>
+<p><strong>Note:</strong> In this document, a "slot" refers to a firmware storage location on the NVMe drive. Each drive can hold up to three firmware images, one per slot.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./nnf-nvme.sh<span class="w"> </span>cmd<span class="w"> </span>fw-log
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Executing<span class="w"> </span>fw-log<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>drive<span class="w"> </span>on<span class="w"> </span>/dev/switchtec0
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Executing<span class="w"> </span>fw-log<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>drive<span class="w"> </span>on<span class="w"> </span>/dev/switchtec1
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Execute<span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0<span class="w"> </span>fw-log
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Firmware<span class="w"> </span>Log<span class="w"> </span><span class="k">for</span><span class="w"> </span>device:switchtec0
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>afi<span class="w">  </span>:<span class="w"> </span>0x1
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>frs1<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>frs2<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>frs3<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>...<span class="w"> </span><span class="c1"># The other 7 drives attached to /dev/switchtec0...</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>Execute<span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1<span class="w"> </span>fw-log
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>Firmware<span class="w"> </span>Log<span class="w"> </span><span class="k">for</span><span class="w"> </span>device:switchtec1
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>afi<span class="w">  </span>:<span class="w"> </span>0x1
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>frs1<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>frs2<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>frs3<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>...<span class="w"> </span><span class="c1"># The other 7 drives attached to /dev/switchtec1</span>
+</code></pre></div>
+<h2 id="firmware-upgrade-procedure">Firmware Upgrade Procedure</h2>
+<p>This section documents the drive firmware update procedure.
+NOTE: The PAX switch allows a single drive firmware download at a time, but since there are 2 PAX switches in the Rabbit, <code>nnf-nvme.sh</code> downloads drive firmware to 2 drives concurrently. The output for the <code>update-firmware</code> operation thus waits until all operations complete.</p>
+<ol>
+<li>
+<p><strong>Initiate Firmware Update</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">time</span><span class="w"> </span>./nnf-nvme.sh<span class="w"> </span>update-firmware<span class="w"> </span>./1TCRS105.std<span class="w"> </span>--verbose
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>KIOXIA<span class="w"> </span>NVMe<span class="w"> </span>Drive<span class="w"> </span>Firmware<span class="w"> </span><span class="nv">Update</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">=================================</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>Firmware<span class="w"> </span>file:<span class="w"> </span>./1TCRS105.std
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>New<span class="w"> </span>version:<span class="w"> </span><span class="m">105</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>Dry<span class="w"> </span>run:<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>Verbose:<span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>Force<span class="w"> </span>update:<span class="w"> </span><span class="nb">false</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>Starting<span class="w"> </span>firmware<span class="w"> </span>update<span class="w"> </span><span class="k">for</span><span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Processing<span class="w"> </span>device:<span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>Found<span class="w"> </span><span class="m">3</span><span class="w"> </span>firmware<span class="w"> </span>slots<span class="w"> </span><span class="k">for</span><span class="w"> </span>0x1900@/dev/switchtec0:
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">  </span>Slot<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">  </span>Slot<span class="w"> </span><span class="m">2</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">  </span>Slot<span class="w"> </span><span class="m">3</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>Oldest<span class="w"> </span>firmware<span class="w"> </span>found<span class="w"> </span><span class="k">in</span><span class="w"> </span>slot<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>New<span class="w"> </span>firmware<span class="w"> </span>version:<span class="w"> </span><span class="m">105</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>Updating<span class="w"> </span>firmware<span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0<span class="w"> </span><span class="o">(</span>slot<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>from<span class="w"> </span>1TCRS104<span class="w"> </span>to<span class="w"> </span><span class="m">105</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>Downloading<span class="w"> </span>firmware<span class="w"> </span>to<span class="w"> </span>0x1900@/dev/switchtec0...
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>Firmware<span class="w"> </span>download<span class="w"> </span>success
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>Firmware<span class="w"> </span>downloaded<span class="w"> </span>successfully<span class="w"> </span>to<span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>Committing<span class="w"> </span>firmware<span class="w"> </span>to<span class="w"> </span>slot<span class="w"> </span><span class="m">1</span><span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0...
+<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>Success<span class="w"> </span>committing<span class="w"> </span>firmware<span class="w"> </span>action:0<span class="w"> </span>slot:1
+<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>Firmware<span class="w"> </span>committed<span class="w"> </span>successfully<span class="w"> </span>to<span class="w"> </span>slot<span class="w"> </span><span class="m">1</span><span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>Activating<span class="w"> </span>firmware<span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0...
+<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>Success<span class="w"> </span>committing<span class="w"> </span>firmware<span class="w"> </span>action:3<span class="w"> </span>slot:0
+<a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>Firmware<span class="w"> </span>activated<span class="w"> </span>successfully<span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>Successfully<span class="w"> </span>updated<span class="w"> </span>firmware<span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>SUCCESS:<span class="w"> </span>Firmware<span class="w"> </span>update<span class="w"> </span>completed<span class="w"> </span><span class="k">for</span><span class="w"> </span>0x1900@/dev/switchtec0
+<a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>
+<a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>...<span class="w"> </span><span class="c1"># The other 7 drives attached to /dev/switchtec0...</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>
+<a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>Starting<span class="w"> </span>firmware<span class="w"> </span>update<span class="w"> </span><span class="k">for</span><span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>Processing<span class="w"> </span>device:<span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>Found<span class="w"> </span><span class="m">3</span><span class="w"> </span>firmware<span class="w"> </span>slots<span class="w"> </span><span class="k">for</span><span class="w"> </span>0x4200@/dev/switchtec1:
+<a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a><span class="w">  </span>Slot<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a><span class="w">  </span>Slot<span class="w"> </span><span class="m">2</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a><span class="w">  </span>Slot<span class="w"> </span><span class="m">3</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>Oldest<span class="w"> </span>firmware<span class="w"> </span>found<span class="w"> </span><span class="k">in</span><span class="w"> </span>slot<span class="w"> </span><span class="m">1</span>:<span class="w"> </span>1TCRS104
+<a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>New<span class="w"> </span>firmware<span class="w"> </span>version:<span class="w"> </span><span class="m">105</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>Updating<span class="w"> </span>firmware<span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1<span class="w"> </span><span class="o">(</span>slot<span class="w"> </span><span class="m">1</span><span class="o">)</span><span class="w"> </span>from<span class="w"> </span>1TCRS104<span class="w"> </span>to<span class="w"> </span><span class="m">105</span>
+<a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>Downloading<span class="w"> </span>firmware<span class="w"> </span>to<span class="w"> </span>0x4200@/dev/switchtec1...
+<a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>Firmware<span class="w"> </span>download<span class="w"> </span>success
+<a id="__codelineno-2-46" name="__codelineno-2-46" href="#__codelineno-2-46"></a>Firmware<span class="w"> </span>downloaded<span class="w"> </span>successfully<span class="w"> </span>to<span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-47" name="__codelineno-2-47" href="#__codelineno-2-47"></a>Committing<span class="w"> </span>firmware<span class="w"> </span>to<span class="w"> </span>slot<span class="w"> </span><span class="m">1</span><span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1...
+<a id="__codelineno-2-48" name="__codelineno-2-48" href="#__codelineno-2-48"></a>Success<span class="w"> </span>committing<span class="w"> </span>firmware<span class="w"> </span>action:0<span class="w"> </span>slot:1
+<a id="__codelineno-2-49" name="__codelineno-2-49" href="#__codelineno-2-49"></a>Firmware<span class="w"> </span>committed<span class="w"> </span>successfully<span class="w"> </span>to<span class="w"> </span>slot<span class="w"> </span><span class="m">1</span><span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-50" name="__codelineno-2-50" href="#__codelineno-2-50"></a>Activating<span class="w"> </span>firmware<span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1...
+<a id="__codelineno-2-51" name="__codelineno-2-51" href="#__codelineno-2-51"></a>Success<span class="w"> </span>committing<span class="w"> </span>firmware<span class="w"> </span>action:3<span class="w"> </span>slot:0
+<a id="__codelineno-2-52" name="__codelineno-2-52" href="#__codelineno-2-52"></a>Firmware<span class="w"> </span>activated<span class="w"> </span>successfully<span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-53" name="__codelineno-2-53" href="#__codelineno-2-53"></a>Successfully<span class="w"> </span>updated<span class="w"> </span>firmware<span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-54" name="__codelineno-2-54" href="#__codelineno-2-54"></a>SUCCESS:<span class="w"> </span>Firmware<span class="w"> </span>update<span class="w"> </span>completed<span class="w"> </span><span class="k">for</span><span class="w"> </span>0x4200@/dev/switchtec1
+<a id="__codelineno-2-55" name="__codelineno-2-55" href="#__codelineno-2-55"></a>
+<a id="__codelineno-2-56" name="__codelineno-2-56" href="#__codelineno-2-56"></a>...<span class="w"> </span><span class="c1"># The other 7 drives attached to /dev/switchtec1...</span>
+<a id="__codelineno-2-57" name="__codelineno-2-57" href="#__codelineno-2-57"></a>
+<a id="__codelineno-2-58" name="__codelineno-2-58" href="#__codelineno-2-58"></a>real<span class="w"> </span>4m24.395s
+<a id="__codelineno-2-59" name="__codelineno-2-59" href="#__codelineno-2-59"></a>user<span class="w"> </span>0m0.161s
+<a id="__codelineno-2-60" name="__codelineno-2-60" href="#__codelineno-2-60"></a>sys<span class="w"> </span>3m12.450s
+</code></pre></div>
+<ul>
+<li>This command runs the <code>update-firmware</code> function of <code>nnf-nvme.sh</code> targeting all drives and using the specified firmware file (<code>1TCRS105.std</code>).</li>
+<li>The <code>--verbose</code> flag provides detailed output for each drive.</li>
+<li>The duration for this operation was <code>4m 25s</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Verify Firmware Activation</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./nnf-nvme.sh<span class="w"> </span>cmd<span class="w"> </span>fw-log
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Executing<span class="w"> </span>fw-log<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>drive<span class="w"> </span>on<span class="w"> </span>/dev/switchtec0
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Executing<span class="w"> </span>fw-log<span class="w"> </span><span class="k">for</span><span class="w"> </span>each<span class="w"> </span>drive<span class="w"> </span>on<span class="w"> </span>/dev/switchtec1
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Execute<span class="w"> </span>on<span class="w"> </span>0x1900@/dev/switchtec0<span class="w"> </span>fw-log
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Firmware<span class="w"> </span>Log<span class="w"> </span><span class="k">for</span><span class="w"> </span>device:switchtec0
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>afi<span class="w">  </span>:<span class="w"> </span>0x1
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>frs1<span class="w"> </span>:<span class="w"> </span>0x3530315352435431<span class="w"> </span><span class="o">(</span>1TCRS105<span class="o">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>frs2<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>frs3<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>...<span class="w"> </span><span class="c1"># The other 7 drives attached to /dev/switchtec0...</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Execute<span class="w"> </span>on<span class="w"> </span>0x4200@/dev/switchtec1<span class="w"> </span>fw-log
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>Firmware<span class="w"> </span>Log<span class="w"> </span><span class="k">for</span><span class="w"> </span>device:switchtec1
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>afi<span class="w">  </span>:<span class="w"> </span>0x1
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>frs1<span class="w"> </span>:<span class="w"> </span>0x3530315352435431<span class="w"> </span><span class="o">(</span>1TCRS105<span class="o">)</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>frs2<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>frs3<span class="w"> </span>:<span class="w"> </span>0x3430315352435431<span class="w"> </span><span class="o">(</span>1TCRS104<span class="o">)</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>...<span class="w"> </span><span class="c1"># The other 7 drives attached to /dev/switchtec1</span>
+</code></pre></div>
+<ul>
+<li>The firmware upgrade installed <code>1TCRS105</code> into slot 1.</li>
+</ul>
+</li>
+<li>
+<p><strong>Power Cycle Rabbit System</strong></p>
+</li>
+<li>
+<p>Power cycle the Rabbit system, including all drives and PAX switches, to ensure reliable initialization.</p>
+</li>
+</ol>
+<h2 id="upgrade-notes">Upgrade Notes</h2>
+<p><code>nnf-nvme.sh update-firmware</code> selects the slot containing the oldest firmware and installs the new drive firmware into that slot. If you run <code>nnf-nvme.sh update-firmware</code> 3 times, you would end up overwriting all 3 slots with the newer firmware. This is not recommended, but possible.</p>
+<h2 id="pcie-switch-firmware-upgrade">PCIe Switch Firmware Upgrade</h2>
+<p>The supported approach to upgrade PCIe switch (PAX) firmware is via the redfish endpoint.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../data-movement/copy-offload/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Copy Offload">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Copy Offload
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../ha-cluster/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: High Availability Cluster">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                High Availability Cluster
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; Copyright 2025 Hewlett Packard Enterprise Development LP
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2068 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Near Node Flash">
+      
+      
+      
+      
+        <link rel="prev" href="../../rbac-for-users/readme/">
+      
+      
+        <link rel="next" href="../../user-containers/readme/">
+      
+      
+      <link rel="icon" href="../../../img/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+    
+    
+      
+        <title>Storage Profiles - NNF</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#storage-profile-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NNF
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Storage Profiles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="../../" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User Guides
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-tabs__link">
+          
+  
+  
+  Repo Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    NNF
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guides
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../initial-setup/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Initial Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compute-daemons/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compute Daemons
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-interactions/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Interactions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Movement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-movement/copy-offload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Copy Offload
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../firmware-upgrade/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ha-cluster/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    High Availability Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rbac-for-users/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RBAC for Users
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#specifying-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specifying a Profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-a-default-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting A Default Profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-initial-default-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating The Initial Default Profile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating The Initial Default Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keeping-the-default-profile-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keeping The Default Profile Updated
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profile-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profile Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profile Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      XFS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gfs2" class="md-nav__link">
+    <span class="md-ellipsis">
+      GFS2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-zfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre / ZFS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lustre / ZFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zfs-dataset-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZFS dataset properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mount-options-for-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount Options for Targets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mount Options for Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistent-mount-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persistent Mount Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-persistent-mount-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Persistent Mount Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Target Layout
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Target Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Layouts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Line Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global" class="md-nav__link">
+    <span class="md-ellipsis">
+      global
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-pv-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM PV commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-vg-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM VG commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-lv-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM LV Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfs-mkfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      XFS mkfs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gfs2-mkfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GFS2 mkfs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zpool-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      zpool create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zpool-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      zpool replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-mkfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      lustre mkfs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mountunmount" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount/Unmount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postmountpreunmount-and-postactivatepredeactivate" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostMount/PreUnmount and PostActivate/PreDeactivate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PostMount/PreUnmount and PostActivate/PreDeactivate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lustre-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre Specific
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnfsystemstorage-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      NnfSystemStorage specific
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-containers/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-mgs/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lustre External MGT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../global-lustre/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Global Lustre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/drain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Disable or Drain a Node
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/auditing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auditing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Priority and Fairness
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/nvme-namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging NVMe Namespaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../node-management/worker-to-master/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../directive-breakdown/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Directive Breakdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../system-storage/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Repo Guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Repo Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/release-all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releasing NNF Software
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/crd-bumper/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRD Version Bumper
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/crd-bumper/editing-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing APIs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/crd-upgrade-helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRD Upgrade Helpers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../repo-guides/release-nnf-sw/upgrade-tester.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upgrade Tester
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#specifying-a-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Specifying a Profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-a-default-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting A Default Profile
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-the-initial-default-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating The Initial Default Profile
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating The Initial Default Profile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keeping-the-default-profile-updated" class="md-nav__link">
+    <span class="md-ellipsis">
+      Keeping The Default Profile Updated
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profile-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profile Parameters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profile Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#xfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      XFS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gfs2" class="md-nav__link">
+    <span class="md-ellipsis">
+      GFS2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-zfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre / ZFS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Lustre / ZFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zfs-dataset-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      ZFS dataset properties
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mount-options-for-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount Options for Targets
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mount Options for Targets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persistent-mount-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persistent Mount Options
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-persistent-mount-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-Persistent Mount Options
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#target-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      Target Layout
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Target Layout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Layouts
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Command Line Variables
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Command Line Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global" class="md-nav__link">
+    <span class="md-ellipsis">
+      global
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-pv-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM PV commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-vg-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM VG commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lvm-lv-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      LVM LV Commands
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xfs-mkfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      XFS mkfs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gfs2-mkfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      GFS2 mkfs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zpool-create" class="md-nav__link">
+    <span class="md-ellipsis">
+      zpool create
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zpool-replace" class="md-nav__link">
+    <span class="md-ellipsis">
+      zpool replace
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-mkfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      lustre mkfs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mountunmount" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mount/Unmount
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#postmountpreunmount-and-postactivatepredeactivate" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostMount/PreUnmount and PostActivate/PreDeactivate
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="PostMount/PreUnmount and PostActivate/PreDeactivate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lustre-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lustre Specific
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nnfsystemstorage-specific" class="md-nav__link">
+    <span class="md-ellipsis">
+      NnfSystemStorage specific
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="storage-profile-overview">Storage Profile Overview</h1>
+<p>Storage Profiles allow for customization of the Rabbit storage provisioning process. Examples of content that can be customized via storage profiles is</p>
+<ol>
+<li>The RAID type used for storage</li>
+<li>Any mkfs or LVM args used</li>
+<li>An external MGS NID for Lustre</li>
+<li>A boolean value indicating the Lustre MGT and MDT should be combined on the same target device </li>
+</ol>
+<p>DW directives that allocate storage on Rabbit nodes allow a <code>profile</code> parameter to be specified to control how the storage is configured. NNF software provides a set of canned profiles to choose from, and the administrator may create more profiles.</p>
+<p>The administrator shall choose one profile to be the default profile that is used when a profile parameter is not specified.</p>
+<h2 id="specifying-a-profile">Specifying a Profile</h2>
+<p>To specify a profile name on a #DW directive, use the <code>profile</code> option</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">#DW jobdw type=lustre profile=durable capacity=5GB name=example</span>
+</code></pre></div>
+<h2 id="setting-a-default-profile">Setting A Default Profile</h2>
+<p>A default profile must be defined at all times. Any #DW line that does not specify a profile will use the default profile. If a default profile is not defined, then any new workflows will be rejected. If more than one profile is marked as default then any new workflows will be rejected.</p>
+<p>To query existing profiles</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>kubectl<span class="w"> </span>get<span class="w"> </span>nnfstorageprofiles<span class="w"> </span>-A
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>NAMESPACE<span class="w">    </span>NAME<span class="w">          </span>DEFAULT<span class="w">   </span>AGE
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>nnf-system<span class="w">   </span>durable<span class="w">       </span><span class="nb">true</span><span class="w">      </span>14s
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>nnf-system<span class="w">   </span>performance<span class="w">   </span><span class="nb">false</span><span class="w">     </span>6s
+</code></pre></div>
+<p>To set the default flag on a profile</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>kubectl<span class="w"> </span>patch<span class="w"> </span>nnfstorageprofile<span class="w"> </span>performance<span class="w"> </span>-n<span class="w"> </span>nnf-system<span class="w"> </span>--type<span class="w"> </span>merge<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;data&quot;:{&quot;default&quot;:true}}&#39;</span>
+</code></pre></div>
+<p>To clear the default flag on a profile</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>kubectl<span class="w"> </span>patch<span class="w"> </span>nnfstorageprofile<span class="w"> </span>durable<span class="w"> </span>-n<span class="w"> </span>nnf-system<span class="w"> </span>--type<span class="w"> </span>merge<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;data&quot;:{&quot;default&quot;:false}}&#39;</span>
+</code></pre></div>
+<h2 id="creating-the-initial-default-profile">Creating The Initial Default Profile</h2>
+<p>Create the initial default profile from scratch or by using the <a href="https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfstorageprofile.yaml">NnfStorageProfile/template</a> resource as a template. If <code>nnf-deploy</code> was used to install nnf-sos then the default profile described below will have been created automatically.</p>
+<p>To use the <code>template</code> resource begin by obtaining a copy of it either from the nnf-sos repo or from a live system. To get it from a live system use the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>nnfstorageprofile<span class="w"> </span>-n<span class="w"> </span>nnf-system<span class="w"> </span>template<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span>&gt;<span class="w"> </span>profile.yaml
+</code></pre></div>
+<p>Edit the <code>profile.yaml</code> file to trim the metadata section to contain only a name and namespace. The namespace must be left as nnf-system, but the name should be set to signify that this is the new default profile. In this example we will name it <code>default</code>.  The metadata section will look like the following, and will contain no other fields:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+</code></pre></div>
+<p>Mark this new profile as the default profile by setting <code>default: true</code> in the data section of the resource:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Apply this resource to the system and verify that it is the only one marked as the default resource:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>kubectl<span class="w"> </span>get<span class="w"> </span>nnfstorageprofile<span class="w"> </span>-A
+</code></pre></div>
+<p>The output will appear similar to the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>NAMESPACE<span class="w">    </span>NAME<span class="w">       </span>DEFAULT<span class="w">   </span>AGE
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>nnf-system<span class="w">   </span>default<span class="w">    </span><span class="nb">true</span><span class="w">      </span>9s
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>nnf-system<span class="w">   </span>template<span class="w">   </span><span class="nb">false</span><span class="w">     </span>11s
+</code></pre></div>
+<p>The administrator should edit the <code>default</code> profile to record any cluster-specific settings.
+Maintain a copy of this resource YAML in a safe place so it isn't lost across upgrades.</p>
+<h3 id="keeping-the-default-profile-updated">Keeping The Default Profile Updated</h3>
+<p>An upgrade of nnf-sos may include updates to the <code>template</code> profile. It may be necessary to manually copy these updates into the <code>default</code> profile.</p>
+<h2 id="profile-parameters">Profile Parameters</h2>
+<h3 id="xfs">XFS</h3>
+<p>The following shows how to specify command line options for pvcreate, vgcreate, lvcreate, and mkfs for XFS storage. Optional mount options are specified one per line</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xfs-stripe-example</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="nt">xfsStorage</span><span class="p">:</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span><span class="nt">commandlines</span><span class="p">:</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">      </span><span class="nt">pvCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$DEVICE</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">      </span><span class="nt">vgCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$VG_NAME $DEVICE_LIST</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">      </span><span class="nt">lvCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-l 100%VG --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$DEVICE</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">    </span><span class="nt">options</span><span class="p">:</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">      </span><span class="nt">mountRabbit</span><span class="p">:</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">noatime</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodiratime</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="gfs2">GFS2</h3>
+<p>The following shows how to specify command line options for pvcreate, lvcreate, and mkfs for GFS2.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gfs2-stripe-example</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">  </span><span class="nt">gfs2Storage</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span><span class="nt">commandlines</span><span class="p">:</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">      </span><span class="nt">pvCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$DEVICE</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">      </span><span class="nt">vgCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$VG_NAME $DEVICE_LIST</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">      </span><span class="nt">lvCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-l 100%VG --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-j2 -p $PROTOCOL -t $CLUSTER_NAME:$LOCK_SPACE $DEVICE</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="lustre-zfs">Lustre / ZFS</h3>
+<p>The following shows how to specify a zpool virtual device (vdev). In this case the default vdev is a stripe. See <a href="https://openzfs.github.io/openzfs-docs/man/7/zpoolconcepts.7.html">zpoolconcepts(7)</a> for virtual device descriptions.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zpool-stripe-example</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nt">lustreStorage</span><span class="p">:</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="nt">mgtCommandlines</span><span class="p">:</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--mgs $VOL_NAME</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="nt">mdtCommandlines</span><span class="p">:</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--mdt --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="nt">mgtMdtCommandlines</span><span class="p">:</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--mgs --mdt --fsname=$FS_NAME --index=$INDEX $VOL_NAME</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span><span class="nt">ostCommandlines</span><span class="p">:</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--ost --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="zfs-dataset-properties">ZFS dataset properties</h4>
+<p>The following shows how to specify ZFS dataset properties in the <code>--mkfsoptions</code> arg for mkfs.lustre. See <a href="https://openzfs.github.io/openzfs-docs/man/7/zfsprops.7.html">zfsprops(7)</a>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zpool-stripe-example</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">  </span><span class="nt">lustreStorage</span><span class="p">:</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="w">    </span><span class="nt">ostCommandlines</span><span class="p">:</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--ost --mkfsoptions=&quot;recordsize=1024K -o compression=lz4&quot; --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="mount-options-for-targets">Mount Options for Targets</h4>
+<h5 id="persistent-mount-options">Persistent Mount Options</h5>
+<p>Use the mkfs.lustre <code>--mountfsoptions</code> parameter to set persistent mount options for Lustre targets.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target-mount-option-example</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">  </span><span class="nt">lustreStorage</span><span class="p">:</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">    </span><span class="nt">ostCommandlines</span><span class="p">:</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--ost --mountfsoptions=&quot;errors=remount-ro,mballoc&quot; --mkfsoptions=&quot;recordsize=1024K -o compression=lz4&quot; --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h5 id="non-persistent-mount-options">Non-Persistent Mount Options</h5>
+<p>Non-persistent mount options can be specified with the ostOptions.mountTarget parameter to the NnfStorageProfile:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">target-mount-option-example</span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf-system</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">  </span><span class="nt">lustreStorage</span><span class="p">:</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">    </span><span class="nt">ostCommandlines</span><span class="p">:</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">      </span><span class="nt">zpoolCreate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">-O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">      </span><span class="nt">mkfs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">--ost --mountfsoptions=&quot;errors=remount-ro&quot; --mkfsoptions=&quot;recordsize=1024K -o compression=lz4&quot; --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="w">    </span><span class="nt">ostOptions</span><span class="p">:</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="w">      </span><span class="nt">mountTarget</span><span class="p">:</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mballoc</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h4 id="target-layout">Target Layout</h4>
+<p>Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. An FPP workload might want as many OSSs as posible to avoid contention.</p>
+<p>The <code>NnfStorageProfile</code> allows admins to specify where and how many Lustre targets are allocated by the WLM. During the proposal phase of the workflow, the NNF software uses the information in the <code>NnfStorageProfile</code> to add extra constraints in the <code>DirectiveBreakdown</code>. The WLM uses these constraints when picking storage.</p>
+<p>The <code>NnfStorageProfile</code> has three fields in the <code>mgtOptions</code>, <code>mdtOptions</code>, and <code>ostOptions</code> to specify target layout. The fields are:</p>
+<ul>
+<li><code>count</code> - A static value for how many Lustre targets to create.</li>
+<li><code>scale</code> - A value from 1-10 that the WLM can use to determine how many Lustre targets to allocate. This is up to the WLM and the admins to agree on how to interpret this field. A value of 1 might indicate the minimum number of NNF nodes needed to reach the minimum capacity, while 10 might result in a Lustre target on every Rabbit attached to the computes in the job. Scale takes into account allocation size, compute node count, and Rabbit count.</li>
+<li><code>colocateComputes</code> - true/false value. When "true", this adds a location constraint in the <code>DirectiveBreakdown</code> that limits the WLM to picking storage with a physical connection to the compute resources. In practice this means that Rabbit storage is restricted to the chassis used by the job. This can be set individually for each of the Lustre target types. When this is "false", any Rabbit storage can be picked, even if the Rabbit doesn't share a chassis with any of the compute nodes in the job.</li>
+</ul>
+<p>Only one of <code>scale</code> and <code>count</code> can be set for a particular target type.</p>
+<p>The <code>DirectiveBreakdown</code> for <code>create_persistent</code> #DWs won't include the constraint from <code>colocateCompute=true</code> since there may not be any compute nodes associated with the job.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha1</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nt">metadata</span><span class="p">:</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">high-metadata</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">  </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nn">...</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">  </span><span class="nt">lustreStorage</span><span class="p">:</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="nt">combinedMgtMdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">    </span><span class="nt">capacityMdt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500GiB</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">    </span><span class="nt">capacityMgt</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1GiB</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="p p-Indicator">[</span><span class="nv">...</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">    </span><span class="nt">ostOptions</span><span class="p">:</span>
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">      </span><span class="nt">scale</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">      </span><span class="nt">colocateComputes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">    </span><span class="nt">mdtOptions</span><span class="p">:</span>
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">      </span><span class="nt">count</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+</code></pre></div>
+<h5 id="example-layouts">Example Layouts</h5>
+<p><code>scale</code> with <code>colocateComputes=true</code> will likely be the most common layout type to use for <code>jobdw</code> directives. This will result in a Lustre file system whose performance scales with the number of compute nodes in the job.</p>
+<p><code>count</code> may be used when a specific performance characteristic is desired such as a single shared file workload that has low metadata requirements and only needs a single MDT. It may also be useful when a consistently performing file system is required across different jobs.</p>
+<p><code>colocatedComputes=false</code> may be useful for placing MDTs on NNF nodes without an OST (within the same file system).</p>
+<p>The <code>count</code> field may be useful when creating a persistent file system since the job with the <code>create_persistent</code> directive may only have a single compute node.</p>
+<p>In general, <code>scale</code> gives a simple way for users to get a filesystem that has performance consistent with their job size. <code>count</code> is useful for times when a user wants full control of the file system layout.</p>
+<h2 id="command-line-variables">Command Line Variables</h2>
+<h3 id="global">global</h3>
+<ul>
+<li><code>$JOBID</code> - expands to the Job ID from the Workflow</li>
+<li><code>$USERID</code> - expands to the User ID of the user who submitted the job</li>
+<li><code>$GROUPID</code> - expands to the Group ID of the user who submitted the job</li>
+</ul>
+<h3 id="lvm-pv-commands">LVM PV commands</h3>
+<ul>
+<li><code>$DEVICE</code> - expands to the <code>/dev/&lt;path&gt;</code> value for one device that has been allocated</li>
+</ul>
+<h3 id="lvm-vg-commands">LVM VG commands</h3>
+<ul>
+<li><code>$VG_NAME</code> - expands to a volume group name that is controlled by Rabbit software.</li>
+<li><code>$DEVICE_LIST</code> - expands to a list of space-separated <code>/dev/&lt;path&gt;</code> devices. This list will contain the devices that were iterated over for the pvcreate step.</li>
+<li><code>$DEVICE_NUM</code> - expands to the count of devices in <code>$DEVICE_LIST</code></li>
+<li><code>$DEVICE_NUM-1</code> - expands to the count of devices in <code>$DEVICE_LIST</code> minus 1</li>
+<li><code>$DEVICE_NUM-2</code> - expands to the count of devices in <code>$DEVICE_LIST</code> minus 2</li>
+<li><code>$DEVICE</code> - expands to the name of a new device. This is used by <code>vgextend</code> when repairing a RAID device</li>
+</ul>
+<h3 id="lvm-lv-commands">LVM LV Commands</h3>
+<ul>
+<li><code>$VG_NAME</code> - see vgcreate above.</li>
+<li><code>$LV_NAME</code> - expands to a logical volume name that is controlled by Rabbit software.</li>
+<li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for the volume group.</li>
+<li><code>$DEVICE_NUM-1</code> - expands to a number indicating the number of devices allocated for the volume group minus 1.</li>
+<li><code>$DEVICE_NUM-2</code> - expands to a number indicating the number of devices allocated for the volume group minus 2.</li>
+<li><code>$DEVICE1, $DEVICE2, ..., $DEVICEn</code> - each expands to one of the devices from the <code>$DEVICE_LIST</code> above.</li>
+<li><code>$PERCENT_VG</code> - expands to the size that each LV should be based on a percentage of the total VG size</li>
+<li><code>$LV_SIZE</code> - expands to the size of the LV in kB in the format expected by <code>lvcreate</code></li>
+</ul>
+<h3 id="xfs-mkfs">XFS mkfs</h3>
+<ul>
+<li><code>$DEVICE</code> - expands to the <code>/dev/&lt;path&gt;</code> value for the logical volume that was created by the lvcreate step above.</li>
+</ul>
+<h3 id="gfs2-mkfs">GFS2 mkfs</h3>
+<ul>
+<li><code>$DEVICE</code> - expands to the <code>/dev/&lt;path&gt;</code> value for the logical volume that was created by the lvcreate step above.</li>
+<li><code>$CLUSTER_NAME</code> - expands to a cluster name that is controlled by Rabbit Software</li>
+<li><code>$LOCK_SPACE</code> - expands to a lock space key that is controlled by Rabbit Software.</li>
+<li><code>$PROTOCOL</code> - expands to a locking protocol that is controlled by Rabbit Software.</li>
+</ul>
+<h3 id="zpool-create">zpool create</h3>
+<ul>
+<li><code>$DEVICE_LIST</code> - expands to a list of space-separated <code>/dev/&lt;path&gt;</code> devices. This list will contain the devices that were allocated for this storage request.</li>
+<li><code>$POOL_NAME</code> - expands to a pool name that is controlled by Rabbit software.</li>
+<li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for this storage request.</li>
+<li><code>$DEVICE1, $DEVICE2, ..., $DEVICEn</code> - each expands to one of the devices from the <code>$DEVICE_LIST</code> above.</li>
+</ul>
+<h3 id="zpool-replace">zpool replace</h3>
+<ul>
+<li><code>$DEVICE_NUM</code> - expands to a number indicating the number of devices allocated for this storage request.</li>
+<li><code>$DEVICE_NUM-1</code> - expands to a number indicating the number of devices allocated for this storage request minus 1.</li>
+<li><code>$DEVICE_NUM-2</code> - expands to a number indicating the number of devices allocated for this storage request minus 2.</li>
+<li><code>$DEVICE_LIST</code> - expands to a list of space-separated <code>/dev/&lt;path&gt;</code> devices. This list will contain the devices that were allocated for this storage request.</li>
+<li><code>$POOL_NAME</code> - expands to a pool name that is controlled by Rabbit software.</li>
+<li><code>$OLD_DEVICE</code> - expands to the name of a device that is degraded</li>
+<li><code>$NEW_DEVICE</code> - expands to the name of a new device that can replace the degraded device</li>
+</ul>
+<h3 id="lustre-mkfs">lustre mkfs</h3>
+<ul>
+<li><code>$FS_NAME</code> - expands to the filesystem name that was passed to Rabbit software from the workflow's #DW line.</li>
+<li><code>$MGS_NID</code> - expands to the NID of the MGS. If the MGS was orchestrated by nnf-sos then an appropriate internal value will be used.</li>
+<li><code>$ZVOL_NAME</code> - expands to the volume name that will be created. This value will be <code>&lt;pool_name&gt;/&lt;dataset&gt;</code>, and is controlled by Rabbit software.</li>
+<li><code>$INDEX</code> - expands to the index value of the target and is controlled by Rabbit software.</li>
+<li><code>$TARGET_NAME</code> - expands to the name of the lustre target of the form <code>[fsname]-[target-type][index]</code> (e.g., <code>mylus-OST0003</code>)</li>
+<li><code>$BACKFS</code> - expands to the type of file system backing the Lustre target</li>
+</ul>
+<h3 id="mountunmount">Mount/Unmount</h3>
+<ul>
+<li><code>$DEVICE</code> - expands to the device path to mount</li>
+<li><code>$MOUNT_PATH</code> - expands to the path to mount on</li>
+</ul>
+<h3 id="postmountpreunmount-and-postactivatepredeactivate">PostMount/PreUnmount and PostActivate/PreDeactivate</h3>
+<ul>
+<li><code>$MOUNT_PATH</code> - expands to the mount path of the fileystem to perform certain actions on the mounted filesystem</li>
+</ul>
+<h4 id="lustre-specific">Lustre Specific</h4>
+<p>These variables are for lustre only and can be used to perform PostMount activities such are setting lustre striping.</p>
+<ul>
+<li><code>$NUM_MDTS</code> - expands to the number of MDTs for the lustre filesystem</li>
+<li><code>$NUM_MGTS</code> - expands to the number of MGTs for the lustre filesystem</li>
+<li><code>$NUM_MGTMDTS</code> - expands to the number of combined MGTMDTs for the lustre filesystem</li>
+<li><code>$NUM_OSTS</code> - expands to the number of OSTs for the lustre filesystem</li>
+<li><code>$NUM_NNFNODES</code> - expands to the number of NNF Nodes for the lustre filesystem</li>
+</ul>
+<h3 id="nnfsystemstorage-specific">NnfSystemStorage specific</h3>
+<ul>
+<li><code>$COMPUTE_HOSTNAME</code> - Expands to the hostname of the compute node that will use the allocation. This can be used to add a tag during the lvcreate
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>lvCreate --zero n --activate n --extents $PERCENT_VG --addtag $COMPUTE_HOSTNAME ...
+</code></pre></div></li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../rbac-for-users/readme/" class="md-footer__link md-footer__link--prev" aria-label="Previous: RBAC for Users">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                RBAC for Users
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../user-containers/readme/" class="md-footer__link md-footer__link--next" aria-label="Next: User Containers">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                User Containers
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; Copyright 2025 Hewlett Packard Enterprise Development LP
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
