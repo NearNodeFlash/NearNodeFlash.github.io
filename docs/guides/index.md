@@ -18,6 +18,7 @@
 * [Directive Breakdown](directive-breakdown/readme.md)
 * [User Interactions](user-interactions/readme.md)
 * [System Storage](system-storage/readme.md)
+* [Redundant Allocations](redundant-allocations/readme.md)
 
 ## NNF User Containers
 
