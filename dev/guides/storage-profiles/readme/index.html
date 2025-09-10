@@ -1679,9 +1679,9 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <p>The <code>count</code> field may be useful when creating a persistent file system since the job with the <code>create_persistent</code> directive may only have a single compute node.</p>
 <p>In general, <code>scale</code> gives a simple way for users to get a filesystem that has performance consistent with their job size. <code>count</code> is useful for times when a user wants full control of the file system layout.</p>
 <h3 id="raid-configurations">RAID Configurations</h3>
-<p>Allocations can be set up to use a RAID device to provide redundancy in the event of a drive failure. Optionally, commands can be specified to rebuild the RAID device after a replacement drive has been added. The storage profile parameters differ depending on whether the allocation is using LVM or zpool.</p>
+<p>Allocations can be set up to use a RAID device to provide continued access in the event of a drive failure. Optionally, commands can be specified to rebuild the RAID device after a replacement drive has been added. The storage profile parameters differ depending on whether the allocation is using LVM or zpool.</p>
 <h4 id="zpool">Zpool</h4>
-<p>To create a Lustre confiuration with a redundant zpool, the <code>raidz</code> option should be added to the <code>zpoolCreate</code> command. To allow the zpool to be rebuilt with a new drive, the <code>zpoolReplace</code> command should be included.</p>
+<p>To create a Lustre confiuration with a redundant zpool, the <code>raidz</code> option is required in <code>zpoolCreate</code> command. To allow the zpool to be rebuilt with a new drive, the <code>zpoolReplace</code> command is required.</p>
 <p>The example below shows a RAID configuration for the OST, however, the same options can be specified for any of the Lustre targets.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha8</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
@@ -1702,9 +1702,10 @@ Maintain a copy of this resource YAML in a safe place so it isn't lost across up
 <a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="w">      </span><span class="nt">zpoolReplace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$POOL_NAME $OLD_DEVICE $NEW_DEVICE</span>
 </code></pre></div>
 <h4 id="lvm">LVM</h4>
-<p>A RAID logical volume can be used with XFS and Raw allocations. gfs2 allocations can not use RAID logical volumes because the LV is shared.</p>
+<p>A RAID logical volume can be used with XFS and Raw allocations. 
+NOTE: gfs2 allocations cannot use RAID logical volumes because the LV is shared.</p>
 <p>To create a redundant LV, <code>--type raid[x]</code> and <code>--nosync</code> should be specified in the <code>lvcreate</code> command. Also, the <code>--stripes</code> parameter should be adjusted accordingly to specify the number of data stripes. For <code>raid5</code>, <code>$DEVICE_NUM-1</code> is used.</p>
-<p>To allow the LV to be rebuilt after a replacement drive is added, <code>vgExtend</code>, <code>lvRepair</code>, and <code>vgReduce</code> should be specified in the <code>lvmRebuild</code> section.</p>
+<p>To allow the LV to rebuild after a drive is replaced, <code>vgExtend</code>, <code>lvRepair</code>, and <code>vgReduce</code> should be specified in the <code>lvmRebuild</code> section.</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nnf.cray.hpe.com/v1alpha8</span>
 <a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NnfStorageProfile</span>
 <a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nt">metadata</span><span class="p">:</span>
