@@ -288,11 +288,11 @@ In general, `scale` gives a simple way for users to get a filesystem that has pe
 
 ### RAID Configurations
 
-Allocations can be set up to use a RAID device to provide redundancy in the event of a drive failure. Optionally, commands can be specified to rebuild the RAID device after a replacement drive has been added. The storage profile parameters differ depending on whether the allocation is using LVM or zpool.
+Allocations can be set up to use a RAID device to provide continued access in the event of a drive failure. Optionally, commands can be specified to rebuild the RAID device after a replacement drive has been added. The storage profile parameters differ depending on whether the allocation is using LVM or zpool.
 
 #### Zpool
 
-To create a Lustre confiuration with a redundant zpool, the `raidz` option should be added to the `zpoolCreate` command. To allow the zpool to be rebuilt with a new drive, the `zpoolReplace` command should be included.
+To create a Lustre confiuration with a redundant zpool, the `raidz` option is required in `zpoolCreate` command. To allow the zpool to be rebuilt with a new drive, the `zpoolReplace` command is required.
 
 The example below shows a RAID configuration for the OST, however, the same options can be specified for any of the Lustre targets.
 
@@ -318,11 +318,12 @@ data:
 
 #### LVM
 
-A RAID logical volume can be used with XFS and Raw allocations. gfs2 allocations can not use RAID logical volumes because the LV is shared.
+A RAID logical volume can be used with XFS and Raw allocations. 
+NOTE: gfs2 allocations cannot use RAID logical volumes because the LV is shared.
 
 To create a redundant LV, `--type raid[x]` and `--nosync` should be specified in the `lvcreate` command. Also, the `--stripes` parameter should be adjusted accordingly to specify the number of data stripes. For `raid5`, `$DEVICE_NUM-1` is used.
 
-To allow the LV to be rebuilt after a replacement drive is added, `vgExtend`, `lvRepair`, and `vgReduce` should be specified in the `lvmRebuild` section.
+To allow the LV to rebuild after a drive is replaced, `vgExtend`, `lvRepair`, and `vgReduce` should be specified in the `lvmRebuild` section.
 
 ```yaml
 apiVersion: nnf.cray.hpe.com/v1alpha8

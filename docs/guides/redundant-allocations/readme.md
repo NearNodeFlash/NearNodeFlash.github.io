@@ -27,11 +27,11 @@ If an XFS or Raw allocation is made with `create_persistent`, then the rebuild c
 
 ### Zpool
 
-For Lustre allocations using zpool, there are no restrictions on when rebuild commands can be used. The RAID can be rebuilt for job and persistent instances regardless of whether the compute nodes have the file system mounted.
+For Lustre allocations using zpool, there are no restrictions on when rebuild commands can be used. The RAID can be rebuilt for job and persistent instances regardless of whether the compute nodes have the file system mounted. This is possible because the Lustre targets are only mounted on the Rabbits.
 
 ### Replacing a Drive
 
-If a drive has failed and needs to be replaced, the Rabbit-p and Rabbit-s should be powered off to replace the drive. After powering the Rabbit back on, the `nnf-node-manager` pod will restart on the Rabbit. On initialization, Rabbit software will find the new drive and add an NVMe namespace for each allocation. If the rebuild commands have been specified, the Rabbit software will run them to add the new NVMe namespace into the RAID device.
+If a drive fails and must be replaced, the Rabbit-p and Rabbit-s should be powered off to replace the drive. After replacing the drive and powering the Rabbit back on, the `nnf-node-manager` pod restarts on the Rabbit. On initialization, Rabbit software locates the new drive and adds an NVMe namespace for each allocation. If rebuild commands have been specified, the Rabbit software will run them to add the new NVMe namespace into the RAID device and restore the correct data.
 
 ## Allocation Status
 
