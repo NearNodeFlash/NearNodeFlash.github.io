@@ -1,4 +1,4 @@
-# Release: 0.1.22
+# Release: 0.1.23
 site_name: NNF
 site_description: 'Near Node Flash'
 docs_dir: docs/
@@ -28,6 +28,7 @@ nav:
       - 'Switch a Node From Worker to Master': 'guides/node-management/worker-to-master.md'
       - 'Directive Breakdown': 'guides/directive-breakdown/readme.md'
       - 'System Storage': 'guides/system-storage/readme.md'
+      - 'Redundant Allocations': 'guides/redundant-allocations/readme.md'
   - 'Repo Guides':
       - 'Releasing NNF Software': 'repo-guides/release-nnf-sw/release-all.md'
       - 'CRD Version Bumper': 'repo-guides/crd-bumper/readme.md'

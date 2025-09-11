@@ -286,6 +286,79 @@ The `count` field may be useful when creating a persistent file system since the
 
 In general, `scale` gives a simple way for users to get a filesystem that has performance consistent with their job size. `count` is useful for times when a user wants full control of the file system layout.
 
+### RAID Configurations
+
+Allocations can be set up to use a RAID device to provide continued access in the event of a drive failure. Optionally, commands can be specified to rebuild the RAID device after a replacement drive has been added. The storage profile parameters differ depending on whether the allocation is using LVM or zpool.
+
+#### Zpool
+
+To create a Lustre confiuration with a redundant zpool, the `raidz` option is required in `zpoolCreate` command. To allow the zpool to be rebuilt with a new drive, the `zpoolReplace` command is required.
+
+The example below shows a RAID configuration for the OST, however, the same options can be specified for any of the Lustre targets.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha8
+kind: NnfStorageProfile
+metadata:
+  name: lustre-raid-example
+  namespace: nnf-system
+data:
+[...]
+  lustreStorage:
+[...]
+    ostCommandlines:
+      mkfs: --ost --backfstype=$BACKFS --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX
+        --mkfsoptions="nnf:jobid=$JOBID" $ZVOL_NAME
+      mountTarget: $ZVOL_NAME $MOUNT_PATH
+      postActivate:
+      - mountpoint $MOUNT_PATH
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME raidz $DEVICE_LIST
+      zpoolReplace: $POOL_NAME $OLD_DEVICE $NEW_DEVICE
+```
+
+#### LVM
+
+A RAID logical volume can be used with XFS and Raw allocations. 
+NOTE: gfs2 allocations cannot use RAID logical volumes because the LV is shared.
+
+To create a redundant LV, `--type raid[x]` and `--nosync` should be specified in the `lvcreate` command. Also, the `--stripes` parameter should be adjusted accordingly to specify the number of data stripes. For `raid5`, `$DEVICE_NUM-1` is used.
+
+To allow the LV to rebuild after a drive is replaced, `vgExtend`, `lvRepair`, and `vgReduce` should be specified in the `lvmRebuild` section.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha8
+kind: NnfStorageProfile
+metadata:
+  name: xfs-raid-example
+  namespace: nnf-system
+data:
+[...]
+  xfsStorage:
+    commandlines:
+      lvChange:
+        activate: --activate y $VG_NAME/$LV_NAME
+        deactivate: --activate n $VG_NAME/$LV_NAME
+      lvmRebuild:
+        vgExtend: $VG_NAME $DEVICE
+        vgReduce: --removemissing $VG_NAME
+        lvRepair: $VG_NAME/$LV_NAME
+      lvCreate: --activate n --zero n --nosync --type raid5 --extents $PERCENT_VG --stripes $DEVICE_NUM-1
+        --stripesize=32KiB --name $LV_NAME $VG_NAME
+      lvRemove: $VG_NAME/$LV_NAME
+      mkfs: $DEVICE
+      mountCompute: $DEVICE $MOUNT_PATH
+      mountRabbit: $DEVICE $MOUNT_PATH
+      postMount:
+      - chown $USERID:$GROUPID $MOUNT_PATH
+      pvCreate: $DEVICE
+      pvRemove: $DEVICE
+      sharedVg: true
+      vgChange:
+        lockStart: --lock-start $VG_NAME
+        lockStop: --lock-stop $VG_NAME
+      vgCreate: --shared --addtag $JOBID $VG_NAME $DEVICE_LIST
+      vgRemove: $VG_NAME
+
 ## Command Line Variables
 
 ### global
