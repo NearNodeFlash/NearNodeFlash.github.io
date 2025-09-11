@@ -1,0 +1,1753 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Near Node Flash">
+      
+      
+      
+      
+        <link rel="prev" href="../../release-nnf-sw/release-all/">
+      
+      
+        <link rel="next" href="../editing-apis/">
+      
+      
+      <link rel="icon" href="../../../img/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.19">
+    
+    
+      
+        <title>CRD Version Bumper - NNF</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#crd-version-bumper" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../../../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),base=new URL("../../.."),outdated=__md_get("__outdated",sessionStorage,base);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="NNF" class="md-header__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NNF
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CRD Version Bumper
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../guides/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  User Guides
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../release-nnf-sw/release-all/" class="md-tabs__link">
+          
+  
+  
+  Repo Guides
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="NNF" class="md-nav__button md-logo" aria-label="NNF" data-md-component="logo">
+      
+  <img src="../../../img/logo.png" alt="logo">
+
+    </a>
+    NNF
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    NearNodeFlash/NearNodeFlash.github.io
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../guides/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    User Guides
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            User Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/initial-setup/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Initial Setup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/compute-daemons/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Compute Daemons
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/user-interactions/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Interactions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/data-movement/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Movement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/data-movement/copy-offload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Copy Offload
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/firmware-upgrade/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Firmware Upgrade
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/ha-cluster/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    High Availability Cluster
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/rbac-for-users/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    RBAC for Users
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/storage-profiles/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Profiles
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/user-containers/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Containers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/external-mgs/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Lustre External MGT
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/global-lustre/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Global Lustre
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/node-management/drain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Disable or Drain a Node
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/monitoring-cluster/auditing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Auditing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/monitoring-cluster/api-priority-and-fairness/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Priority and Fairness
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/node-management/nvme-namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Debugging NVMe Namespaces
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/node-management/worker-to-master/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Switch a Node From Worker to Master
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/directive-breakdown/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Directive Breakdown
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/system-storage/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/redundant-allocations/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Redundant Allocations
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    Repo Guides
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Repo Guides
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-nnf-sw/release-all/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Releasing NNF Software
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    CRD Version Bumper
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRD Version Bumper
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hub-and-spokes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hub and Spokes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-crd-bumper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using CRD Bumper
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using CRD Bumper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prior-to-creating-the-new-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior to Creating the new API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stepping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stepping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-the-new-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor the New API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vendor the New API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executing-the-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executing the Tool
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-an-old-api-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing an Old API Version
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Removing an Old API Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unserve-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unserve the API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revert-an-unserved-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Revert an unserved API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#library-and-tool-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Library and Tool Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Library and Tool Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lossless-conversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lossless Conversions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-conversion-routines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Conversion Routines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Conversion Routines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conversion-library-lifecycle-in-spoke-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversion Library Lifecycle in Spoke APIs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversion-must-not-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversion Must Not Fail
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Markers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubebuilder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../editing-apis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editing APIs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-nnf-sw/crd-upgrade-helpers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRD Upgrade Helpers
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-nnf-sw/upgrade-tester.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Upgrade Tester
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hub-and-spokes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hub and Spokes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-crd-bumper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using CRD Bumper
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using CRD Bumper">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prior-to-creating-the-new-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prior to Creating the new API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-the-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the Tool
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stepping" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stepping
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vendor-the-new-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Vendor the New API
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vendor the New API">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#executing-the-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executing the Tool
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-an-old-api-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing an Old API Version
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Removing an Old API Version">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unserve-the-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unserve the API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#revert-an-unserved-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Revert an unserved API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#library-and-tool-support" class="md-nav__link">
+    <span class="md-ellipsis">
+      Library and Tool Support
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Library and Tool Support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lossless-conversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lossless Conversions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-conversion-routines" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Conversion Routines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Conversion Routines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conversion-library-lifecycle-in-spoke-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversion Library Lifecycle in Spoke APIs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conversion-must-not-fail" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conversion Must Not Fail
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-markers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Markers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="References">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubernetes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubebuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kubebuilder
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="crd-version-bumper">CRD Version Bumper</h1>
+<p>Bump the CRD version, adding conversion webhooks and tests.</p>
+<p>See Kubebuilder's <a href="https://book.kubebuilder.io/multiversion-tutorial/tutorial">Tutorial: Multi-Version API</a> for a description of the mechanism. For more detail read the Kubernetes document <a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/">Versions in CustomResourceDefinitions</a>.</p>
+<h2 id="hub-and-spokes">Hub and Spokes</h2>
+<p>This tool implements the hub-and-spoke model of CRD versioning. See Kubebuilder's <a href="https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts">Hubs, spokes, and other wheel metaphors</a> for a description of the model.</p>
+<p>The new CRD version will be the new hub, and the previous hub will become a new spoke. (Note: in the Kubebuilder book example, the old version is the hub and never changes, and all new versions are spokes.)</p>
+<h2 id="using-crd-bumper">Using CRD Bumper</h2>
+<p>Create the environment prior to running the tool:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="gp">$ </span>.<span class="w"> </span>venv/bin/activate
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gp gp-VirtualEnv">(venv)</span> <span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</code></pre></div>
+<h3 id="prior-to-creating-the-new-api">Prior to Creating the new API</h3>
+<p>For the easiest vendoring experience, the downstream repos should be up to date with this repo prior to creating the new API, and this new API should be vendored into the downstream repos before any further changes go into this repo or any of the downstream repos.</p>
+<h3 id="run-the-tool">Run the Tool</h3>
+<p>Clone a fresh copy of the repository that contains the CRDs and controllers, checking out to the default branch (master or main). The tool expects a repository that is compatible with kubebuilder and will use the <code>./PROJECT</code> file that is maintained by kubebuilder.</p>
+<p>The following example creates a new API version <code>v1beta2</code> for the lustre-fs-operator repository, where <code>v1beta1</code> is the existing hub and <code>v1alpha1</code> is the most recent existing spoke. It begins by creating a new branch off "master" named <code>api-v1beta2</code>, where it does all of its work.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="go">crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new-ver v1beta2 all</span>
+</code></pre></div>
+<p>The repository with its new API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
+<p>The new <code>api-v1beta2</code> branch has a series of commits showing a progression of steps. Some of these commit messages have an <strong>ACTION</strong> comment describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
+<h3 id="verification">Verification</h3>
+<p>After the entire progression of steps has completed, verify the results by running <code>make vet</code>, and paying attention to any of the <strong>ACTION</strong> comments described above. Once <code>make vet</code> is clean, move to the next debug step by running <code>make test</code>.</p>
+<p>Do not run <code>make vet</code> or <code>make test</code> before the entire progression of steps has completed. <strong>The individual commits do not build--the whole set of commits is required.</strong></p>
+<h3 id="stepping">Stepping</h3>
+<p>Sometimes it can be helpful to do the steps one at a time. If the first step has not yet been done, then begin by using the <code>step</code> command in place of the <code>all</code> command. It begins, as with the <code>all</code> command, by creating a new branch off <code>master</code> named <code>api-v1beta2</code>, where it will do all of its work.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="go">crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new-ver v1beta2 step</span>
+</code></pre></div>
+<p>Follow that with more steps, telling the tool to continue in the current branch that was created during the first step by adding <code>--this-branch</code>. The other args <strong>must</strong> remain the same as they were on the first command. The tool knows when there are no more steps to be done.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">crd-bumper.py --repo $REPO --most-recent-spoke v1alpha1 --prev-ver v1beta1 --new-ver v1beta2 --this-branch step</span>
+</code></pre></div>
+<p>Do not attempt to run <code>make vet</code> or <code>make test</code> between steps. The individual commits do not build.</p>
+<h2 id="vendor-the-new-api">Vendor the New API</h2>
+<p>Vendor this new API into another repository using the <code>vendor-new-api</code> tool. This tool updates that repo to change its Go code references and its Kustomize config references to point at the new API.</p>
+<h3 id="executing-the-tool">Executing the Tool</h3>
+<p>The following example vendors the new <code>v1beta2</code> API we created above for lustre-fs-operator into the nnf-sos repository. The current hub version for nnf-sos is <code>v1alpha3</code>, and is specified with the <code>--hub-ver</code> option. The module representing lustre-fs-operator is specified in the same form that it would appear in the <code>go.mod</code> file in nnf-sos. The <code>--version</code> option can be used to specify a version if necessary. It begins by creating a new branch in nnf-sos off "master" named <code>api-lustre-fs-operator-v1beta2</code>, where it does all of its work.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">DEST_REPO=git@github.com:NearNodeFlash/nnf-sos.git</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">vendor-new-api.py -r $DEST_REPO --hub-ver v1alpha3 --vendor-hub-ver v1beta2 --module github.com/NearNodeFlash/lustre-fs-operator --version master</span>
+</code></pre></div>
+<p>The repository with its new API is found under a directory named <code>workingspace/nnf-sos</code>.</p>
+<p>The new <code>api-lustre-fs-operator-v1beta2</code> branch has a commit containing the newly-vendored API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
+<h2 id="removing-an-old-api-version">Removing an Old API Version</h2>
+<p>An old API version should first be shipped in a deprecated state. Use the <code>unserve</code> tool to mark that API version as no longer being served by the API server. After that has shipped, that version of the API can be removed in a later release.</p>
+<h3 id="unserve-the-api">Unserve the API</h3>
+<p>The following example marks the old <code>v1alpha1</code> API in lustre-fs-operator as no longer being served. This places a <code>+kubebuilder:unservedversion</code> in each CRD of that version, which <code>controller-gen</code> translates into <code>served: false</code> for that version when it regenerates the CRD manifest. It begins by creating a new branch in lustre-fs-operator off "master" named <code>api-v1alpha1-unserve</code>, where it does all of its work.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/lustre-fs-operator.git</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">unserve.py -r $REPO --spoke-ver v1alpha1</span>
+</code></pre></div>
+<p>The repository with its adjusted API is found under a directory named <code>workingspace/lustre-fs-operator</code>.</p>
+<p>The new <code>api-v1alpha1-unserve</code> branch has a commit containing the adjusted API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
+<h3 id="revert-an-unserved-api">Revert an unserved API</h3>
+<p>It's possible that after marking an API as unserved and doing a release, there will be a need to follow-up that release with a variation of it that does serve that API. And maybe the commit that did the "unserve" step is buried under other things and is not easily reverted. In that case, use the <code>re-serve.py</code> tool.</p>
+<p>In this example, release v0.1.19 of nnf-sos has API versions v1alpha2, v1alpha3, and v1alpha4. And it has v1alpha2 marked as unserved. The following creates a variation of v0.1.19 that serves v1alpha2:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="go">REPO=git@github.com:NearNodeFlash/nnf-sos.git</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="go">re-serve.py --spoke-ver v1alpha2 --repo $REPO --start-branch v0.1.19</span>
+</code></pre></div>
+<p>The repository with its adjusted API is found under a directory named <code>workingspace/nnf-sos</code>.</p>
+<p>The new <code>api-v1alpha3-re-serve</code> branch has a commit containing the adjusted API and adjusted code. This commit message has <strong>ACTION</strong> comments describing something that must be manually verified, and possibly adjusted, before the tests succeed.</p>
+<h2 id="library-and-tool-support">Library and Tool Support</h2>
+<p>The library and tool support is taken from the <a href="https://github.com/kubernetes-sigs/cluster-api">Cluster API</a> project. See <a href="https://github.com/kubernetes-sigs/cluster-api/tree/release-1.6">release v1.6.6</a> for a version that contains multi-version support for CRDs where they have a hub with one spoke. (Note: In v1.7.0 they removed the old API--the old spoke--and their repo contains only one version, the hub.)</p>
+<p>In the "References" section you'll find a link to a video from the Cluster API team where they go through an example of changing an API and providing conversion routines and tests for the change.</p>
+<h3 id="lossless-conversions">Lossless Conversions</h3>
+<p>The libraries from the Cluster API project use an annotation on the spoke version of a resource to contain a serialized copy of the hub version of that resource. The libraries and tests use this to avoid data loss during <code>hub-&gt;spoke-&gt;hub</code> conversions.</p>
+<h2 id="writing-conversion-routines">Writing Conversion Routines</h2>
+<h3 id="conversion-library-lifecycle-in-spoke-apis">Conversion Library Lifecycle in Spoke APIs</h3>
+<p>After an API version has been bumped, the spoke API should be frozen. However, the spoke API conversion library in <code>api/&lt;spoke-ver&gt;/conversion.go</code> continues to be updated, following the progression and development of the hub.</p>
+<h3 id="conversion-must-not-fail">Conversion Must Not Fail</h3>
+<p>When writing conversion routines be aware that the conversion routine must not report a failure:</p>
+<p>"Failing conversion can disrupt read and write access to the custom resources, including the ability to update or delete the resources. Conversion failures should be avoided whenever possible, and should not be used to enforce validation constraints (use validation schemas or webhook admission instead)." Kubernetes "Versions in CustomResourceDefinitions" <a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/#response">Response</a>.</p>
+<h2 id="code-markers">Code Markers</h2>
+<p>This tool uses "marker comments" in the Go code to indicate where generated code should be placed.
+These markers are used the same way <code>controller-gen</code> uses code markers, as documented in Kubebuilder's <a href="https://book.kubebuilder.io/reference/markers">Markers for Config/Code Generation</a>.</p>
+<p>The following markers must be present in the code prior to using this tool:</p>
+<p><strong>+crdbumper:scaffold:builder</strong></p>
+<p>Used in <code>internal/controller/suite_test.go</code> to indicate where additional calls to <code>SetupWebhookWithManager</code> should be placed. This should be in the <code>BeforeSuite()</code> function before the first reconciler is set up.</p>
+<p><strong>+crdbumper:scaffold:gvk</strong></p>
+<p>Used in <code>github/cluster-api/util/conversion/conversion_test.go</code> to indicate where additional <code>schema.GroupVersionKind{}</code> types should be placed.</p>
+<p><strong>+crdbumper:scaffold:marshaldata</strong></p>
+<p>Used in <code>github/cluster-api/util/conversion/conversion_test.go</code> to indicate where additional marshalling tests should be placed. This should be the last statement in the <code>TestMarshalData()</code> function.</p>
+<p><strong>+crdbumper:scaffold:unmarshaldata</strong></p>
+<p>Used in <code>github/cluster-api/util/conversion/conversion_test.go</code> to indicate where additional unmarshalling tests should be placed. This should be the last statement in the <code>TestUnmarshalData()</code> function.</p>
+<p><strong>+crdbumper:scaffold:webhooksuitetest</strong></p>
+<p>Used in <code>internal/controller/conversion_test.go</code> to indicate where additional tests for a new Kind may be placed. This should be the last statement within the main <code>Describe()</code> block.</p>
+<p><strong>+crdbumper:scaffold:spoketest="GROUP.KIND"</strong></p>
+<p>Used in <code>internal/controller/conversion_test.go</code> to indicate where additional spoke conversion tests should be placed. Each kind will have its own <code>Context()</code> block within the main <code>Describe()</code>, and this should be the last statement within each of those Context blocks. Replace "GROUP.KIND" with the API's group and kind, using the same spelling and use of lower/upper case letters as found in the <code>./PROJECT</code> file.</p>
+<p><strong>+crdbumper:carryforward:begin="KIND.DIRECTION"</strong></p>
+<p><strong>+crdbumper:carryforward:begin="Epilog"</strong></p>
+<p>Used in <code>api/$SPOKE/conversion.go</code> to indicate that a segment of code should be carried forward as new spokes are created or as old spokes are removed. Use of this marker should be uncommon; it's almost always wrong to carry-forward code to a new spoke. Replace "KIND" with the API's kind, using the same spelling and use of lower/upper case letters as found in the <code>./PROJECT</code> file. Replace "DIRECTION" with "ConvertFrom" or "ConvertTo" to mark the section of code as being in a <code>ConvertFrom()</code> or <code>ConvertTo()</code> function. If the "Epilog" variation is used then this marks one or more <code>Convert_$API1_$KIND_To_$API2_$KIND()</code> conversion functions, or similar chunks of code, that are typically collected at the end of <code>conversion.go</code>.</p>
+<p><strong>+crdbumper:carryforward:end</strong></p>
+<p>This is used in <code>api/$SPOKE/conversion.go</code> to close the segment of code that was marked with <code>+crdbumper:carryforward:begin</code>.</p>
+<h2 id="references">References</h2>
+<h3 id="kubernetes">Kubernetes</h3>
+<p><a href="https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/">Versions in CustomResourceDefinitions</a></p>
+<h3 id="kubebuilder">Kubebuilder</h3>
+<p><a href="https://book.kubebuilder.io/multiversion-tutorial/tutorial">Tutorial: Multi-Version API</a></p>
+<p><a href="https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts">Hubs, spokes, and other wheel metaphors</a></p>
+<h3 id="cluster-api">Cluster API</h3>
+<p><a href="https://github.com/kubernetes-sigs/cluster-api/tree/release-1.6">Cluster API release 1.6 branch</a></p>
+<p>Video: <a href="https://www.youtube.com/watch?v=Mk14N4SelNk">SIG Cluster Lifecycle - ClusterAPI - API conversion code walkthrough</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../release-nnf-sw/release-all/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Releasing NNF Software">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Releasing NNF Software
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../editing-apis/" class="md-footer__link md-footer__link--next" aria-label="Next: Editing APIs">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Editing APIs
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      &copy; Copyright 2025 Hewlett Packard Enterprise Development LP
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      
+    
+  </body>
+</html>
