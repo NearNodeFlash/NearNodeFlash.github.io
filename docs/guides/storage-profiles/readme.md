@@ -10,7 +10,7 @@ Storage Profiles allow for customization of the Rabbit storage provisioning proc
 1. The RAID type used for storage
 2. Any mkfs or LVM args used
 3. An external MGS NID for Lustre
-4. A boolean value indicating the Lustre MGT and MDT should be combined on the same target device 
+4. A boolean value indicating the Lustre MGT and MDT should be combined on the same target device
 
 DW directives that allocate storage on Rabbit nodes allow a `profile` parameter to be specified to control how the storage is configured. NNF software provides a set of canned profiles to choose from, and the administrator may create more profiles.
 
@@ -318,10 +318,20 @@ data:
 
 #### LVM
 
-A RAID logical volume can be used with XFS and Raw allocations. 
-NOTE: gfs2 allocations cannot use RAID logical volumes because the LV is shared.
+A RAID logical volume can be used with XFS and Raw allocations.
 
-To create a redundant LV, `--type raid[x]` and `--nosync` should be specified in the `lvcreate` command. Also, the `--stripes` parameter should be adjusted accordingly to specify the number of data stripes. For `raid5`, `$DEVICE_NUM-1` is used.
+> **Note:** GFS2 allocations cannot use RAID logical volumes because the LV is shared between multiple nodes.
+
+To create a redundant LV, specify `--type raid[x]`, `--activate y`, and `--nosync` in the `lvcreate` command. The `--nosync` option allows the RAID volume to be used immediately without waiting for initial synchronization.
+
+> **Note:** In the `raid5` case when **both** `--activate y` and `--nosync` are specified, the initial sync operation is skipped which reduces the time to ready significantly.
+
+The `--stripes` parameter should be adjusted according to the RAID type:
+
+- **RAID0**: `--stripes $DEVICE_NUM` (all devices are data stripes)
+- **RAID1**: `--stripes 1` (mirrored, only one data stripe)  
+- **RAID5**: `--stripes $DEVICE_NUM-1` (one device for parity)
+- **RAID6**: `--stripes $DEVICE_NUM-2` (two devices for parity)
 
 To allow the LV to rebuild after a drive is replaced, `vgExtend`, `lvRepair`, and `vgReduce` should be specified in the `lvmRebuild` section.
 
@@ -342,8 +352,9 @@ data:
         vgExtend: $VG_NAME $DEVICE
         vgReduce: --removemissing $VG_NAME
         lvRepair: $VG_NAME/$LV_NAME
-      lvCreate: --activate n --zero n --nosync --type raid5 --extents $PERCENT_VG --stripes $DEVICE_NUM-1
-        --stripesize=32KiB --name $LV_NAME $VG_NAME
+      lvCreate: |
+        --activate y --zero n --nosync --type raid5 --extents $PERCENT_VG 
+        --stripes $DEVICE_NUM-1 --stripesize=32KiB --name $LV_NAME $VG_NAME
       lvRemove: $VG_NAME/$LV_NAME
       mkfs: $DEVICE
       mountCompute: $DEVICE $MOUNT_PATH
@@ -358,10 +369,12 @@ data:
         lockStop: --lock-stop $VG_NAME
       vgCreate: --shared --addtag $JOBID $VG_NAME $DEVICE_LIST
       vgRemove: $VG_NAME
+```
 
 ## Command Line Variables
 
-### global
+### Global
+
 - `$JOBID` - expands to the Job ID from the Workflow
 - `$USERID` - expands to the User ID of the user who submitted the job
 - `$GROUPID` - expands to the Group ID of the user who submitted the job
@@ -449,6 +462,7 @@ These variables are for lustre only and can be used to perform PostMount activit
 ### NnfSystemStorage specific
 
 - `$COMPUTE_HOSTNAME` - Expands to the hostname of the compute node that will use the allocation. This can be used to add a tag during the lvcreate
-```
+
+```sh
 lvCreate --zero n --activate n --extents $PERCENT_VG --addtag $COMPUTE_HOSTNAME ...
 ```
