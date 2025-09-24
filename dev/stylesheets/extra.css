@@ -1,12 +1,3 @@
-/* Reduce padding for all table cells - force override */
-.md-typeset table th,
-.md-typeset table td {
-    padding-left: 0.4rem !important;
-    padding-right: 0.4rem !important;
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
-}
-
 /* Prevent word wrapping only in the first column (Argument) */
 .md-typeset table th:first-child,
 .md-typeset table td:first-child {
