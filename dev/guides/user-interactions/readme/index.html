@@ -45,6 +45,8 @@
       
     
     
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
     <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -1258,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../repo-guides/release-nnf-sw/upgrade-tester.md" class="md-nav__link">
+      <a href="../../../repo-guides/testing/upgrade-tester/" class="md-nav__link">
         
   
   
@@ -1563,7 +1565,7 @@
 <p>Once the job is running on compute nodes, the application can find access to Rabbit specific resources through a set of environment variables that provide mount and network access information.</p>
 <h2 id="commands">Commands</h2>
 <h3 id="jobdw">jobdw</h3>
-<p>The <code>jobdw</code> directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a <code>copy_out</code> directive will be lost. Multiple <code>jobdw</code> directives can be listed in the same job script.</p>
+<p>The <code>jobdw</code> directive command tells the Rabbit software to create a file system on the Rabbit hardware for the lifetime of the user's job. At the end of the job, any data that is not moved off of the file system either by the application or through a <code>copy_out</code> directive is lost. Multiple <code>jobdw</code> directives can be listed in the same job script.</p>
 <h4 id="command-arguments">Command Arguments</h4>
 <table>
 <thead>
@@ -1597,7 +1599,7 @@
 <td><code>profile</code></td>
 <td>No</td>
 <td>Profile name</td>
-<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide.</td>
+<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. When no profile is specified, the default profile is used. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide. <strong>Note:</strong> Admins are responsible for profiles.</td>
 </tr>
 <tr>
 <td><code>requires</code></td>
@@ -1609,7 +1611,7 @@
 <td><code>requires</code></td>
 <td>No</td>
 <td><code>user-container-auth</code></td>
-<td>Use this option with <a href="../../user-containers/readme/">User Containers</a> that have an application that expects to use the same kind of TLS certificate and <a href="../../data-movement/copy-offload/#per-workflow-token">per-Workflow token</a> that is configured for <a href="../../data-movement/copy-offload/">Copy Offload</a>.</td>
+<td>Use this option with <a href="../../user-containers/readme/">User Containers</a> that have an application that expects to use the same kind of TLS certificate and <a href="../../data-movement/copy-offload/#wlm-and-the-per-workflow-token">per-Workflow token</a> that is configured for <a href="../../data-movement/copy-offload/">Copy Offload</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -1658,7 +1660,7 @@
 <td><code>profile</code></td>
 <td>No</td>
 <td>Profile name</td>
-<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. Profiles are created by admins. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide.</td>
+<td>This specifies which profile to use when allocating storage. Profiles include <code>mkfs</code> and <code>mount</code> arguments, file system layout, and many other options. When no profile is specified, the default profile is used. The profile used when creating the persistent storage allocation is the same profile used by jobs that use the persistent storage. More information about storage profiles can be found in the <a href="../../storage-profiles/readme/">Storage Profiles</a> guide. <strong>Note:</strong> Admins are responsible for profiles.</td>
 </tr>
 </tbody>
 </table>
@@ -1670,7 +1672,7 @@
 </code></pre></div>
 <p>This directive results in a single 10TiB Lustre file system being created that can be accessed later by any compute nodes in the system. Multiple jobs can access a Rabbit Lustre file system at the same time. This job can be scheduled with a single compute node (or zero compute nodes if the WLM allows), without any limitations on compute node counts for subsequent jobs using the persistent Lustre file system.</p>
 <h3 id="destroy_persistent">destroy_persistent</h3>
-<p>The <code>destroy_persistent</code> command will delete persistent storage that was allocated by a corresponding <code>create_persistent</code>. If the persistent storage is currently in use by a job, then the job containing the <code>destroy_persistent</code> command will fail. Only a single <code>destroy_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>create_persistent</code> directive.</p>
+<p>The <code>destroy_persistent</code> command deletes persistent storage that was allocated by a corresponding <code>create_persistent</code>. If the persistent storage is currently in use by a job, then the job containing the <code>destroy_persistent</code> command fails. Only a single <code>destroy_persistent</code> directive is allowed in a job, and it cannot be in the same job as a <code>create_persistent</code> directive.</p>
 <h4 id="command-arguments_2">Command Arguments</h4>
 <table>
 <thead>
@@ -1686,14 +1688,14 @@
 <td><code>name</code></td>
 <td>Yes</td>
 <td>Lowercase string including numbers and '-'</td>
-<td>This is a name for the persistent storage allocation that will be destroyed</td>
+<td>This is a name for the persistent storage allocation that is destroyed</td>
 </tr>
 </tbody>
 </table>
 <h4 id="examples_2">Examples</h4>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">#DW destroy_persistent name=shared-data</span>
 </code></pre></div>
-<p>This directive will delete the persistent storage allocation with the name <code>shared-data</code></p>
+<p>This directive deletes the persistent storage allocation with the name <code>shared-data</code></p>
 <h3 id="persistentdw">persistentdw</h3>
 <p>The <code>persistentdw</code> command makes an existing persistent storage allocation available to a job. The persistent storage must already be created from a <code>create_persistent</code> command in a different job script. Multiple <code>persistentdw</code> commands can be used in the same job script to request access to multiple persistent allocations.</p>
 <p>Persistent Lustre file systems can be accessed from any compute nodes in the system, and the compute node count for the job can vary as needed. Multiple jobs can access a persistent Lustre file system concurrently if desired. Raw, xfs, and GFS2 file systems can only be accessed by compute nodes that have a physical connection to the Rabbits hosting the storage, and jobs accessing these storage types must have the same compute node count as the job that made the persistent storage.</p>
@@ -1712,7 +1714,7 @@
 <td><code>name</code></td>
 <td>Yes</td>
 <td>Lowercase string including numbers and '-'</td>
-<td>This is a name for the persistent storage that will be accessed</td>
+<td>This is a name for the persistent storage that is accessed</td>
 </tr>
 <tr>
 <td><code>requires</code></td>
@@ -1724,7 +1726,7 @@
 <td><code>requires</code></td>
 <td>No</td>
 <td><code>user-container-auth</code></td>
-<td>Use this option with <a href="../../user-containers/readme/">User Containers</a> that have an application that expects to use the same kind of TLS certificate and <a href="../../data-movement/copy-offload/#per-workflow-token">per-Workflow token</a> that is configured for <a href="../../data-movement/copy-offload/">Copy Offload</a>.</td>
+<td>Use this option with <a href="../../user-containers/readme/">User Containers</a> that have an application that expects to use the same kind of TLS certificate and <a href="../../data-movement/copy-offload/#wlm-and-the-per-workflow-token">per-Workflow token</a> that is configured for <a href="../../data-movement/copy-offload/">Copy Offload</a>.</td>
 </tr>
 </tbody>
 </table>
@@ -1761,7 +1763,7 @@
 <td><code>profile</code></td>
 <td>No</td>
 <td>Profile name</td>
-<td>This specifies which profile to use when copying data. Profiles specify the copy command to use, MPI arguments, and how output gets logged. If no profile is specified then the default profile is used. Profiles are created by an admin.</td>
+<td>This specifies the profile to use when copying data. Profiles specify the copy command to use, MPI arguments, and how output is logged. If no profile is specified then the default profile is used. More information about datamovement profiles can be found in the <a href="../../data-movement/readme/#data-movement-profiles">DataMovement Profiles</a> guide. <strong>Note:</strong> Admins are responsible for profiles.</td>
 </tr>
 </tbody>
 </table>
@@ -1809,25 +1811,25 @@
 <td><code>profile</code></td>
 <td>Yes</td>
 <td>Profile name</td>
-<td>This specifies which container profile to use. The container profile contains information about which container to run, which file system types to expect, which network ports are needed, and many other options. An admin is responsible for creating the container profiles.</td>
+<td>This specifies which container profile to use. The container profile contains information about which container to run, which file system types to expect, which network ports are needed, and many other options.  <strong>Note:</strong> Admins are responsible for profiles.</td>
 </tr>
 <tr>
 <td><code>DW_JOB_[expected]</code></td>
 <td>No</td>
 <td><code>jobdw</code> storage allocation <code>name</code></td>
-<td>The container profile will list <code>jobdw</code> file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
+<td>The container profile lists <code>jobdw</code> file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
 </tr>
 <tr>
 <td><code>DW_PERSISTENT_[expected]</code></td>
 <td>No</td>
 <td><code>persistentdw</code> storage allocation <code>name</code></td>
-<td>The container profile will list <code>persistentdw</code> file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
+<td>The container profile lists <code>persistentdw</code> file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
 </tr>
 <tr>
 <td><code>DW_GLOBAL_[expected]</code></td>
 <td>No</td>
 <td>Global lustre path</td>
-<td>The container profile will list global Lustre file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
+<td>The container profile lists global Lustre file systems that the container requires. <code>[expected]</code> is the name as specified in the container profile</td>
 </tr>
 </tbody>
 </table>
@@ -1850,12 +1852,12 @@
 <tr>
 <td><code>DW_JOB_[name]</code></td>
 <td>Mount path of a <code>jobdw</code> file system</td>
-<td><code>[name]</code> is from the <code>name</code> argument in the <code>jobdw</code> directive. Any <code>'-'</code> characters in the <code>name</code> will be converted to <code>'_'</code> in the environment variable. There will be one of these environment variables per <code>jobdw</code> directive in the job.</td>
+<td><code>[name]</code> is from the <code>name</code> argument in the <code>jobdw</code> directive. Any <code>'-'</code> characters in the <code>name</code> are converted to <code>'_'</code> in the environment variable. There is one of these environment variables per <code>jobdw</code> directive in the job.</td>
 </tr>
 <tr>
 <td><code>DW_PERSISTENT_[name]</code></td>
 <td>Mount path of a <code>persistentdw</code> file system</td>
-<td><code>[name]</code> is from the <code>name</code> argument in the <code>persistentdw</code> directive. Any <code>'-'</code> characters in the <code>name</code> will be converted to <code>'_'</code> in the environment variable. There will be one of these environment variables per <code>persistentdw</code> directive in the job.</td>
+<td><code>[name]</code> is from the <code>name</code> argument in the <code>persistentdw</code> directive. Any <code>'-'</code> characters in the <code>name</code> are converted to <code>'_'</code> in the environment variable. There is one of these environment variables per <code>persistentdw</code> directive in the job.</td>
 </tr>
 <tr>
 <td><code>NNF_CONTAINER_PORTS</code></td>
