@@ -18,6 +18,9 @@
     "code_block_line_length": 500  // some example console output is wide
   },
 
+  // MD024/no-duplicate-heading - No duplicate headings
+  "MD024": false,
+
   // MD046/code-block-style - Code block style
   // Disable consistency checks between fenced/indented code blocks.
   // Standard code blocks should use fences, while mkdocs admonitions require
