@@ -31,6 +31,7 @@ NNF software supports provisioning of Red Hat GFS2 (Global File System 2) storag
   - [Common Issues](#common-issues)
   - [Testing Fence Operations](#testing-fence-operations)
 - [GFS2 File System Configuration](#gfs2-file-system-configuration)
+- [Dynamic Cluster Lifecycle](#dynamic-cluster-lifecycle)
 - [References](#references)
 
 ## Background: Pacemaker and Corosync
@@ -402,6 +403,42 @@ fence_recorder --action monitor -n rabbit-compute-1 \
 After the cluster is configured with fencing, you can configure GFS2 file systems. See Red Hat documentation:
 
 - [Configuring a GFS2 File System in a Cluster](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-gfs2-in-a-cluster-configuring-and-managing-high-availability-clusters)
+
+## Dynamic Cluster Lifecycle
+
+Unlike traditional HA clusters that run continuously on all nodes, NNF manages Pacemaker cluster services dynamically on compute nodes based on workflow requirements. Cluster services run **continuously on the Rabbit** but are **started and stopped dynamically on compute nodes**.
+
+### When Cluster Services Start on Compute Nodes
+
+NNF software starts Pacemaker/Corosync cluster services on compute nodes when:
+
+1. A workflow requests GFS2 storage
+2. The NNF software provisions the GFS2 file system
+3. Compute nodes need to mount the shared storage
+
+At this point, cluster services are started on participating compute nodes, they join the Rabbit's cluster, fencing is enabled, and the GFS2 file system is mounted.
+
+> See [Storage Profiles](https://nearnodeflash.github.io/latest/guides/storage-profiles/readme/) for more information about how to start cluster services using the `PreActivate` command.
+
+### When Cluster Services Stop on Compute Nodes
+
+When the GFS2 workflow completes:
+
+1. The GFS2 file system is unmounted from all compute nodes
+2. Storage resources are cleaned up
+3. Pacemaker/Corosync cluster services are stopped on compute nodes
+4. The Rabbit continues running cluster services
+
+> See [Storage Profiles](https://nearnodeflash.github.io/latest/guides/storage-profiles/readme/) for more information about how to stop cluster services using the `PostDeactivate` command.
+
+This dynamic lifecycle means:
+
+- **Rabbit runs cluster services continuously**: Always ready to accept compute nodes
+- **Compute node services are transient**: They run only for the duration of GFS2 workflows
+- **Resource efficiency**: Cluster overhead on compute nodes is incurred only when needed
+- **Reduced complexity**: No long-running cluster services to maintain on compute nodes between jobs
+
+> **Note:** The cluster configuration (node membership, quorum votes, STONITH resources) is set up during system provisioning and persists on all nodes. Only the cluster *services* on compute nodes are started and stopped dynamically.
 
 ## References
 
