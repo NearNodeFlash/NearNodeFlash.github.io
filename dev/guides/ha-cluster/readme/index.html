@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#high-availability-cluster-setup-for-rabbit-nodes" class="md-skip">
+        <a href="#high-availability-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -631,39 +631,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Table of Contents
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background-pacemaker-and-corosync" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Background: Pacemaker and Corosync
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cluster-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cluster Architecture
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#cluster-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -675,22 +642,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quorum-configuration" class="md-nav__link">
+  <a href="#fencing-agents" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quorum Configuration
+        Fencing Agents
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quorum Configuration">
+    <nav class="md-nav" aria-label="Fencing Agents">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-the-rabbit-needs-17-votes" class="md-nav__link">
+  <a href="#nnf-fencing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why the Rabbit Needs 17 Votes
+        NNF Fencing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NNF Fencing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source
       
     </span>
   </a>
@@ -698,10 +677,59 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuring-quorum-votes" class="md-nav__link">
+  <a href="#build" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring Quorum Votes
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-fencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compute Fencing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dummy-fencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dummy Fencing
       
     </span>
   </a>
@@ -714,243 +742,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fencing-with-fence_recorder" class="md-nav__link">
+  <a href="#configuring-a-gfs2-file-system-in-a-cluster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fencing with fence_recorder
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fencing with fence_recorder">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stonith-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        STONITH Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verifying-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verifying Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#requestresponse-protocol" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request/Response Protocol
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Request/Response Protocol">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#request-file-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request File Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#response-file-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response File Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#atomic-file-writing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Atomic File Writing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Log Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check-stonith-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check STONITH Status
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing-fence-operations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testing Fence Operations
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gfs2-file-system-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GFS2 File System Configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamic-cluster-lifecycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dynamic Cluster Lifecycle
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Dynamic Cluster Lifecycle">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-cluster-services-start-on-compute-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When Cluster Services Start on Compute Nodes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-cluster-services-stop-on-compute-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When Cluster Services Stop on Compute Nodes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
+        Configuring a GFS2 file system in a cluster
       
     </span>
   </a>
@@ -1561,39 +1356,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#table-of-contents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Table of Contents
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#background-pacemaker-and-corosync" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Background: Pacemaker and Corosync
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#cluster-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cluster Architecture
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#cluster-setup" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1605,22 +1367,34 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#quorum-configuration" class="md-nav__link">
+  <a href="#fencing-agents" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quorum Configuration
+        Fencing Agents
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Quorum Configuration">
+    <nav class="md-nav" aria-label="Fencing Agents">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#why-the-rabbit-needs-17-votes" class="md-nav__link">
+  <a href="#nnf-fencing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why the Rabbit Needs 17 Votes
+        NNF Fencing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NNF Fencing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source
       
     </span>
   </a>
@@ -1628,10 +1402,59 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#configuring-quorum-votes" class="md-nav__link">
+  <a href="#build" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring Quorum Votes
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compute-fencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compute Fencing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dummy-fencing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dummy Fencing
       
     </span>
   </a>
@@ -1644,243 +1467,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fencing-with-fence_recorder" class="md-nav__link">
+  <a href="#configuring-a-gfs2-file-system-in-a-cluster" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fencing with fence_recorder
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Fencing with fence_recorder">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#stonith-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        STONITH Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuration-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#verifying-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verifying Configuration
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#requestresponse-protocol" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request/Response Protocol
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Request/Response Protocol">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#request-file-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request File Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#response-file-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response File Format
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#atomic-file-writing" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Atomic File Writing
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#log-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Log Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Troubleshooting
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#check-stonith-status" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Check STONITH Status
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#common-issues" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Common Issues
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#testing-fence-operations" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Testing Fence Operations
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#gfs2-file-system-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GFS2 File System Configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#dynamic-cluster-lifecycle" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dynamic Cluster Lifecycle
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Dynamic Cluster Lifecycle">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#when-cluster-services-start-on-compute-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When Cluster Services Start on Compute Nodes
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#when-cluster-services-stop-on-compute-nodes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        When Cluster Services Stop on Compute Nodes
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        References
+        Configuring a GFS2 file system in a cluster
       
     </span>
   </a>
@@ -1907,450 +1497,118 @@
   
 
 
-<h1 id="high-availability-cluster-setup-for-rabbit-nodes">High Availability Cluster Setup for Rabbit Nodes</h1>
-<p>NNF software supports provisioning of Red Hat GFS2 (Global File System 2) storage. GFS2 allows multiple nodes to share storage at a block level as if the storage were connected locally to each cluster node. To use GFS2, each Rabbit node and its associated compute nodes must form a high-availability cluster using Pacemaker and Corosync.</p>
-<h2 id="table-of-contents">Table of Contents</h2>
-<ul>
-<li><a href="#background-pacemaker-and-corosync">Background: Pacemaker and Corosync</a></li>
-<li><a href="#cluster-architecture">Cluster Architecture</a></li>
-<li><a href="#cluster-setup">Cluster Setup</a></li>
-<li><a href="#quorum-configuration">Quorum Configuration</a></li>
-<li><a href="#why-the-rabbit-needs-17-votes">Why the Rabbit Needs 17 Votes</a></li>
-<li><a href="#configuring-quorum-votes">Configuring Quorum Votes</a></li>
-<li><a href="#fencing-with-fence_recorder">Fencing with fence_recorder</a></li>
-<li><a href="#how-it-works">How It Works</a></li>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#stonith-configuration">STONITH Configuration</a></li>
-<li><a href="#configuration-options">Configuration Options</a></li>
-<li><a href="#verifying-configuration">Verifying Configuration</a></li>
-<li><a href="#requestresponse-protocol">Request/Response Protocol</a></li>
-<li><a href="#request-file-format">Request File Format</a></li>
-<li><a href="#response-file-format">Response File Format</a></li>
-<li><a href="#atomic-file-writing">Atomic File Writing</a></li>
-<li><a href="#log-files">Log Files</a></li>
-<li><a href="#troubleshooting">Troubleshooting</a></li>
-<li><a href="#check-stonith-status">Check STONITH Status</a></li>
-<li><a href="#common-issues">Common Issues</a></li>
-<li><a href="#testing-fence-operations">Testing Fence Operations</a></li>
-<li><a href="#gfs2-file-system-configuration">GFS2 File System Configuration</a></li>
-<li><a href="#dynamic-cluster-lifecycle">Dynamic Cluster Lifecycle</a></li>
-<li><a href="#references">References</a></li>
-</ul>
-<h2 id="background-pacemaker-and-corosync">Background: Pacemaker and Corosync</h2>
-<p><strong>Corosync</strong> provides the cluster communication layer—it handles node membership, messaging between nodes, and quorum decisions. When a node becomes unresponsive, Corosync detects this and informs Pacemaker.</p>
-<p><strong>Pacemaker</strong> is the cluster resource manager. It decides where resources run, handles failover when nodes fail, and coordinates fencing (STONITH) to protect shared storage from corruption.</p>
-<p><strong>Fencing (STONITH)</strong> ensures that when a node fails, it is forcibly removed from the cluster before other nodes access its shared resources. Without fencing, a failed node could corrupt shared storage if it continues writing after the cluster assumes it's dead.</p>
-<p>For comprehensive documentation, see:</p>
-<ul>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_overview-of-high-availability-configuring-and-managing-high-availability-clusters">Red Hat: Overview of High Availability</a></li>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters">Red Hat: Fencing in a Red Hat High Availability Cluster</a></li>
-</ul>
-<h2 id="cluster-architecture">Cluster Architecture</h2>
-<p>Each Rabbit node forms a separate HA cluster with its 16 compute nodes:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────────────────────────────────────┐
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│                        Rabbit Cluster (17 nodes)                        │
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│                                                                         │
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│                         ┌──────────────┐                                │
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│                         │ rabbit-node-1│                                │
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│                         │   (Rabbit)   │                                │
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│                         └──────────────┘                                │
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│                                │                                        │
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│        ┌───────────┬───────────┼───────────┬────────────┐               │
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│        │           │           │           │            │               │
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│        ▼           ▼           ▼           ▼            ▼               │
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│   ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌──────────┐ ┌──────────┐         │
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│   │compute-1│ │compute-2│ │  · · ·  │ │compute-15│ │compute-16│         │
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│   └─────────┘ └─────────┘ └─────────┘ └──────────┘ └──────────┘         │
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│                                                                         │
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│                All 17 nodes communicate via Corosync                    │
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>└─────────────────────────────────────────────────────────────────────────┘
-</code></pre></div>
+<h1 id="high-availability-cluster">High Availability Cluster</h1>
+<p>NNF software supports provisioning of Red Hat GFS2 (Global File System 2) storage. Per RedHat:</p>
+<blockquote>
+<p>GFS2 allows multiple nodes to share storage at a block level as if the storage were connected locally to each cluster node. GFS2 cluster file system requires a cluster infrastructure.</p>
+</blockquote>
+<p>Therefore, in order to use GFS2, the NNF node and its associated compute nodes must form a high availability cluster.</p>
 <h2 id="cluster-setup">Cluster Setup</h2>
-<p>Red Hat provides comprehensive instructions for cluster setup:</p>
-<ul>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters#proc_installing-cluster-software-creating-high-availability-cluster">Installing Cluster Software</a></li>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters">Creating a High Availability Cluster</a></li>
-</ul>
-<p>Each cluster should be named after the Rabbit node hostname. The following examples use <code>rabbit-node-1</code> with compute nodes numbered 1-16:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># On each node, install cluster packages</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>dnf<span class="w"> </span>install<span class="w"> </span>pcs<span class="w"> </span>pacemaker<span class="w"> </span>fence-agents-all
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Enable and start pcsd</span>
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>pcsd
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="c1"># Set hacluster password (same on all nodes)</span>
-<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>passwd<span class="w"> </span>--stdin<span class="w"> </span>hacluster
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
-<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># From the Rabbit node, authenticate all 17 nodes</span>
-<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>pcs<span class="w"> </span>host<span class="w"> </span>auth<span class="w"> </span>rabbit-node-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span>rabbit-compute-1<span class="w"> </span>rabbit-compute-2<span class="w"> </span>rabbit-compute-3<span class="w"> </span>rabbit-compute-4<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span>rabbit-compute-5<span class="w"> </span>rabbit-compute-6<span class="w"> </span>rabbit-compute-7<span class="w"> </span>rabbit-compute-8<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">    </span>rabbit-compute-9<span class="w"> </span>rabbit-compute-10<span class="w"> </span>rabbit-compute-11<span class="w"> </span>rabbit-compute-12<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">    </span>rabbit-compute-13<span class="w"> </span>rabbit-compute-14<span class="w"> </span>rabbit-compute-15<span class="w"> </span>rabbit-compute-16<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">    </span>-u<span class="w"> </span>hacluster<span class="w"> </span>-p<span class="w"> </span>password
-<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
-<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="c1"># Create the cluster with all nodes</span>
-<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>pcs<span class="w"> </span>cluster<span class="w"> </span>setup<span class="w"> </span>rabbit-node-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">    </span>rabbit-node-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">    </span>rabbit-compute-1<span class="w"> </span>rabbit-compute-2<span class="w"> </span>rabbit-compute-3<span class="w"> </span>rabbit-compute-4<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">    </span>rabbit-compute-5<span class="w"> </span>rabbit-compute-6<span class="w"> </span>rabbit-compute-7<span class="w"> </span>rabbit-compute-8<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span>rabbit-compute-9<span class="w"> </span>rabbit-compute-10<span class="w"> </span>rabbit-compute-11<span class="w"> </span>rabbit-compute-12<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">    </span>rabbit-compute-13<span class="w"> </span>rabbit-compute-14<span class="w"> </span>rabbit-compute-15<span class="w"> </span>rabbit-compute-16
-<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>
-<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>pcs<span class="w"> </span>cluster<span class="w"> </span>start<span class="w"> </span>--all
-<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>pcs<span class="w"> </span>cluster<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--all
+<p>Red Hat provides instructions for <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters#doc-wrapper">creating a high availability cluster with Pacemaker</a>, including instructions for <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters#proc_installing-cluster-software-creating-high-availability-cluster">installing cluster software</a> and
+<a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_creating-high-availability-cluster-configuring-and-managing-high-availability-clusters">creating a high availability cluster</a>. When following these instructions, each of the high availability clusters that are created should be named after the hostname of the NNF node. In the Red Hat examples the cluster name is <code>my_cluster</code>.</p>
+<h2 id="fencing-agents">Fencing Agents</h2>
+<p>Fencing is the process of restricting and releasing access to resources that a failed cluster node may have access to. Since a failed node may be unresponsive, an external device must exist that can restrict access to shared resources of that node, or to issue a hard reboot of the node. More information can be found form Red Hat: <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_overview-of-high-availability-configuring-and-managing-high-availability-clusters#fencing">1.2.1 Fencing</a>.</p>
+<p>HPE hardware implements software known as the Hardware System Supervisor (HSS), which itself conforms to the SNIA Redfish/Swordfish standard. This provides the means to manage hardware outside the host OS.</p>
+<h3 id="nnf-fencing">NNF Fencing</h3>
+<h4 id="source">Source</h4>
+<p>The NNF Fencing agent is available at https://github.com/NearNodeFlash/fence-agents under the <code>nnf</code> branch.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/NearNodeFlash/fence-agents<span class="w"> </span>--branch<span class="w"> </span>nnf
 </code></pre></div>
-<h2 id="quorum-configuration">Quorum Configuration</h2>
-<p>Quorum determines how many nodes must agree before the cluster can take action. By default, each node gets one vote and quorum requires a majority. However, in the Rabbit cluster architecture, the Rabbit node owns all NVMe storage—compute nodes only access storage through the Rabbit. This creates an asymmetric relationship that requires special quorum configuration.</p>
-<h3 id="why-the-rabbit-needs-17-votes">Why the Rabbit Needs 17 Votes</h3>
-<p>The Rabbit node must <strong>always</strong> have quorum because:</p>
-<ol>
-<li>
-<p><strong>Storage ownership</strong>: The Rabbit owns all NVMe namespaces. If compute nodes could fence the Rabbit, they would lose access to all storage anyway.</p>
-</li>
-<li>
-<p><strong>Preventing split-brain</strong>: If the Rabbit becomes isolated from compute nodes (network partition), compute nodes should not be able to form their own quorum and attempt to fence the Rabbit.</p>
-</li>
-<li>
-<p><strong>Fencing authority</strong>: Only the Rabbit (via NNF software) can properly detach storage from failed compute nodes. Compute nodes cannot fence each other directly.</p>
-</li>
-</ol>
-<p>With 17 votes for the Rabbit and 1 vote per compute node:</p>
+<h4 id="build">Build</h4>
+<p>Refer to the <code>NNF.md file</code> at the root directory of the fence-agents repository. The fencing agents must be installed on every node in the cluster.</p>
+<h4 id="setup">Setup</h4>
+<p>Configure the NNF agent with the following parameters:</p>
 <table>
 <thead>
 <tr>
-<th>Scenario</th>
-<th>Votes</th>
-<th>Quorum (17 required)</th>
-<th>Result</th>
+<th>Argument</th>
+<th>Definition</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Rabbit alone</td>
-<td>17</td>
-<td>✓ Yes</td>
-<td>Rabbit can fence any compute node</td>
+<td><code>kubernetes-service-host=[ADDRESS]</code></td>
+<td>The IP address of the kubeapi server</td>
 </tr>
 <tr>
-<td>All 16 computes, no Rabbit</td>
-<td>16</td>
-<td>✗ No</td>
-<td>Computes cannot take action</td>
+<td><code>kubernetes-service-port=[PORT]</code></td>
+<td>The listening port of the kubeapi server</td>
 </tr>
 <tr>
-<td>Rabbit + any computes</td>
-<td>17+</td>
-<td>✓ Yes</td>
-<td>Normal operation</td>
+<td><code>service-token-file=[PATH]</code></td>
+<td>The location of the service token file. The file must be present on all nodes within the cluster</td>
+</tr>
+<tr>
+<td><code>service-cert-file=[PATH]</code></td>
+<td>The location of the service certificate file. The file must be present on all nodes within the cluster</td>
+</tr>
+<tr>
+<td><code>nnf-node-name=[NNF-NODE-NAME]</code></td>
+<td>Name of the NNF node as it is appears in the System Configuration</td>
+</tr>
+<tr>
+<td><code>api-version=[VERSION]</code></td>
+<td>The API Version of the NNF Node resource. Defaults to "v1alpha1"</td>
 </tr>
 </tbody>
 </table>
-<h3 id="configuring-quorum-votes">Configuring Quorum Votes</h3>
-<p>After cluster setup, configure voting weights:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Stop the cluster to modify corosync.conf</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>pcs<span class="w"> </span>cluster<span class="w"> </span>stop<span class="w"> </span>--all
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Edit corosync.conf on the Rabbit node to set votes</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># The nodelist section should look like:</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1">#</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="c1"># nodelist {</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1">#     node {</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1">#         ring0_addr: rabbit-node-1</span>
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="c1">#         nodeid: 1</span>
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1">#         quorum_votes: 17</span>
-<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="c1">#     }</span>
-<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1">#     node {</span>
-<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1">#         ring0_addr: rabbit-compute-1</span>
-<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="c1">#         nodeid: 2</span>
-<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1">#         quorum_votes: 1</span>
-<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="c1">#     }</span>
-<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="c1">#     ... (repeat for all compute nodes)</span>
-<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="c1"># }</span>
-<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>
-<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="c1"># After editing, sync the configuration to all nodes</span>
-<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>pcs<span class="w"> </span>cluster<span class="w"> </span>sync
-<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
-<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="c1"># Start the cluster</span>
-<a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>pcs<span class="w"> </span>cluster<span class="w"> </span>start<span class="w"> </span>--all
-<a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
-<a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a><span class="c1"># Verify quorum configuration</span>
-<a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>corosync-quorumtool
+<p>The token and certificate can be found in the Kubernetes Secrets resource for the nnf-system/nnf-fencing-agent ServiceAccount. This provides RBAC rules to limit the fencing agent to only the Kubernetes resources it needs access to.</p>
+<p>For example, setting up the NNF fencing agent on <code>rabbit-node-1</code> with a kubernetes service API running at <code>192.168.0.1:6443</code> and the service token and certificate copied to <code>/etc/nnf/fence/</code>. This needs to be run on one node in the cluster.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pcs stonith create rabbit-node-1 fence_nnf pcmk_host_list=rabbit-node-1 kubernetes-service-host=192.168.0.1 kubernetes-service-port=6443 service-token-file=/etc/nnf/fence/service.token service-cert-file=/etc/nnf/fence/service.cert nnf-node-name=rabbit-node-1
 </code></pre></div>
-<p>The output should show the Rabbit with 17 votes and each compute with 1 vote, for a total of 33 votes and quorum at 17.</p>
-<h2 id="fencing-with-fence_recorder">Fencing with fence_recorder</h2>
-<p>The <code>fence_recorder</code> agent coordinates fencing with external NNF software using a request/response file pattern. When Pacemaker decides to fence a compute node, <code>fence_recorder</code>:</p>
+<h4 id="recovery">Recovery</h4>
+<p>Since the NNF node is connected to 16 compute blades, careful coordination around fencing of a NNF node is required to minimize the impact of the outage. When a Rabbit node is fenced, the corresponding DWS Storage resource (<code>storages.dws.cray.hpe.com</code>) status changes. The workload manager must observe this change and follow the procedure below to recover from the fencing status.</p>
 <ol>
-<li>Writes a fence request file</li>
-<li>Waits for the NNF software to process the request and write a response</li>
-<li>Returns success or failure to Pacemaker</li>
+<li>Observed the <code>storage.Status</code> changed and that <code>storage.Status.RequiresReboot == True</code></li>
+<li>Set the <code>storage.Spec.State := Disabled</code></li>
+<li>Wait for a change to the Storage status <code>storage.Status.State == Disabled</code></li>
+<li>Reboot the NNF node</li>
+<li>Set the <code>storage.Spec.State := Enabled</code></li>
+<li>Wait for <code>storage.Status.State == Enabled</code></li>
 </ol>
-<p>This allows the NNF software to perform storage cleanup (detaching NVMe namespaces) before the fence operation completes.</p>
-<blockquote>
-<p><strong>Note:</strong> Although the fence action is named "reboot", the NNF software does <strong>not</strong> actually reboot the compute node. Instead, the Rabbit's NNF software detaches all NVMe namespaces from the target compute node, preventing it from accessing any shared storage. This is sufficient for GFS2's requirements—the failed node can no longer corrupt shared data, regardless of whether it is still running.</p>
-</blockquote>
-<h3 id="how-it-works">How It Works</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>┌──────────────────────┐
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│  Pacemaker/Corosync  │
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│  (Cluster Manager)   │
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>└──────────┬───────────┘
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>           │ Calls fence_recorder
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>           ▼
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>┌──────────────────────┐       ┌───────────────────────────────┐
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   fence_recorder     │──────▶│   Request File                │
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   (Fence Agent)      │       │   requests/&lt;node&gt;-&lt;uuid&gt;.json │
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>└──────────────────────┘       └───────────────────────────────┘
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>           │                                  │
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>           │ Waits for response               │ NNF software reads request
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>           │                                  ▼
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>           │                   ┌───────────────────────────────┐
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>           │                   │   NNF Software                │
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>           │                   │   - Detaches storage          │
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>           │                   │   - Updates node status       │
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>           │                   └───────────────────────────────┘
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>           │                                  │
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>           ▼                                  │ Writes response
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>┌───────────────────────────────┐             │
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>│   Response File               │◀────────────┘
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>│   responses/&lt;node&gt;-&lt;uuid&gt;.json│
-<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>└───────────────────────────────┘
-<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>           │
-<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>           │ Exit 0 (success) or 1 (failure)
-<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>           ▼
-<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>┌──────────────────────┐
-<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>│      Pacemaker       │
-<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>└──────────────────────┘
-</code></pre></div>
-<h3 id="installation">Installation</h3>
-<p>Install <code>fence_recorder</code> on all nodes in the cluster:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Copy the agent to each node</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>cp<span class="w"> </span>fence_recorder<span class="w"> </span>/usr/sbin/fence_recorder
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/usr/sbin/fence_recorder
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Create the request/response directories on each rabbit node</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/localdisk/fence-recorder/<span class="o">{</span>requests,responses<span class="o">}</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/localdisk/fence-recorder/<span class="o">{</span>requests,responses<span class="o">}</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
-<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="c1"># Create log directory</span>
-<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/var/log/cluster
-<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/var/log/cluster
-</code></pre></div>
-<h3 id="stonith-configuration">STONITH Configuration</h3>
-<p>Create a STONITH resource for each compute node. Run these commands from any node in the cluster:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Create STONITH resources for all 16 compute nodes (1-16)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">16</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span>-fence-recorder<span class="w"> </span>fence_recorder<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="nv">port</span><span class="o">=</span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="nv">pcmk_host_list</span><span class="o">=</span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="nv">request_dir</span><span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="nv">response_dir</span><span class="o">=</span>/localdisk/fence-recorder/responses<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="nv">log_dir</span><span class="o">=</span>/var/log/cluster<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span>op<span class="w"> </span>monitor<span class="w"> </span><span class="nv">interval</span><span class="o">=</span>120s<span class="w"> </span><span class="nv">timeout</span><span class="o">=</span>10s
-<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">done</span>
-<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
-<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># Enable fencing</span>
-<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>pcs<span class="w"> </span>property<span class="w"> </span><span class="nb">set</span><span class="w"> </span>stonith-enabled<span class="o">=</span><span class="nb">true</span>
-</code></pre></div>
-<p>Alternatively, create resources individually:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Example: Create STONITH for rabbit-compute-1</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>compute-1-fence-recorder<span class="w"> </span>fence_recorder<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nv">port</span><span class="o">=</span>rabbit-compute-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nv">pcmk_host_list</span><span class="o">=</span>compute-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nv">request_dir</span><span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="nv">response_dir</span><span class="o">=</span>/localdisk/fence-recorder/responses<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nv">log_dir</span><span class="o">=</span>/var/log/cluster<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span>op<span class="w"> </span>monitor<span class="w"> </span><span class="nv">interval</span><span class="o">=</span>120s<span class="w"> </span><span class="nv">timeout</span><span class="o">=</span>10s
-</code></pre></div>
-<h3 id="configuration-options">Configuration Options</h3>
+<h3 id="compute-fencing">Compute Fencing</h3>
+<p>The <a href="https://github.com/ClusterLabs/fence-agents/tree/main/agents/redfish">Redfish fencing agent</a> from <a href="https://github.com/ClusterLabs/fence-agents">ClusterLabs</a> should be used for Compute nodes in the cluster. It is also included at https://github.com/NearNodeFlash/fence-agents, and can be built at the same time as the NNF fencing agent. Configure the agent with the following parameters:</p>
 <table>
 <thead>
 <tr>
-<th>Option</th>
-<th>Default</th>
-<th>Description</th>
+<th>Argument</th>
+<th>Definition</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>port</code></td>
-<td>(required)</td>
-<td>Target node name to fence</td>
+<td><code>ip=[ADDRESS]</code></td>
+<td>The IP address or hostname of the HSS controller</td>
 </tr>
 <tr>
-<td><code>pcmk_host_list</code></td>
-<td>(required)</td>
-<td>Node this STONITH resource can fence</td>
+<td><code>port=80</code></td>
+<td>The Port of the HSS controller. Must be <code>80</code></td>
 </tr>
 <tr>
-<td><code>request_dir</code></td>
-<td><code>/var/run/fence_recorder/requests</code></td>
-<td>Directory for fence request files</td>
+<td><code>systems-uri=/redfish/v1/Systems/1</code></td>
+<td>The URI of the Systems object. Must be <code>/redfish/v1/Systems/1</code></td>
 </tr>
 <tr>
-<td><code>response_dir</code></td>
-<td><code>/var/run/fence_recorder/responses</code></td>
-<td>Directory for fence response files</td>
+<td><code>ssl-insecure=true</code></td>
+<td>Instructs the use of an insecure SSL exchange. Must be <code>true</code></td>
 </tr>
 <tr>
-<td><code>log_dir</code></td>
-<td><code>/var/log/cluster</code></td>
-<td>Directory for log files</td>
+<td><code>username=[USER]</code></td>
+<td>The user name for connecting to the HSS controller</td>
+</tr>
+<tr>
+<td><code>password=[PASSWORD]</code></td>
+<td>the password for connecting to the HSS controller</td>
 </tr>
 </tbody>
 </table>
-<h3 id="verifying-configuration">Verifying Configuration</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Check STONITH status</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>status
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># View STONITH configuration</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>config
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
-<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Test that fence_recorder can generate metadata</span>
-<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>fence_recorder<span class="w"> </span>--action<span class="w"> </span>metadata
+<p>For example, setting up the Redfish fencing agent on <code>rabbit-compute-2</code> with the redfish service at <code>192.168.0.1</code>. This needs to be run on one node in the cluster.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>rabbit-compute-2<span class="w"> </span>fence_redfish<span class="w"> </span><span class="nv">pcmk_host_list</span><span class="o">=</span>rabbit-compute-2<span class="w"> </span><span class="nv">ip</span><span class="o">=</span><span class="m">192</span>.168.0.1<span class="w"> </span>systems-uri<span class="o">=</span>/redfish/v1/Systems/1<span class="w"> </span><span class="nv">username</span><span class="o">=</span>root<span class="w"> </span><span class="nv">password</span><span class="o">=</span>password<span class="w"> </span><span class="nv">ssl_insecure</span><span class="o">=</span><span class="nb">true</span>
 </code></pre></div>
-<h2 id="requestresponse-protocol">Request/Response Protocol</h2>
-<h3 id="request-file-format">Request File Format</h3>
-<p>When a fence operation is triggered, <code>fence_recorder</code> writes a JSON request file:</p>
-<p><strong>Location</strong>: <code>&lt;request_dir&gt;/&lt;node&gt;-&lt;uuid&gt;.json</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-10T14:30:00-06:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">&quot;target_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-compute-1&quot;</span><span class="p">,</span>
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">&quot;recorder_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-node-1&quot;</span>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">}</span>
-</code></pre></div>
-<h3 id="response-file-format">Response File Format</h3>
-<p>The NNF software writes a response file after processing:</p>
-<p><strong>Location</strong>: <code>&lt;response_dir&gt;/&lt;node&gt;-&lt;uuid&gt;.json</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;action_performed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">&quot;target_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-compute-1&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Successfully fenced node&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-10T14:30:15-06:00&quot;</span>
-<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">}</span>
-</code></pre></div>
-<h3 id="atomic-file-writing">Atomic File Writing</h3>
-<p>Both request and response files use atomic rename to ensure consumers only see complete files:</p>
-<ol>
-<li>Write to temporary file: <code>.&lt;filename&gt;.tmp</code></li>
-<li>Close the file</li>
-<li>Rename to final name: <code>&lt;filename&gt;</code></li>
-</ol>
-<p>File watchers should ignore files starting with <code>.</code> (hidden/temporary files).</p>
-<h2 id="log-files">Log Files</h2>
-<p>Log files are written to the configured log directory:</p>
-<table>
-<thead>
-<tr>
-<th>File</th>
-<th>Format</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>fence-events.log</code></td>
-<td>Timestamped text</td>
-<td>Main operational log</td>
-</tr>
-<tr>
-<td><code>fence-events-readable.log</code></td>
-<td>Key=value</td>
-<td>Grep-friendly format</td>
-</tr>
-<tr>
-<td><code>fence-events-detailed.jsonl</code></td>
-<td>JSON Lines</td>
-<td>Machine-parseable format</td>
-</tr>
-</tbody>
-</table>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="check-stonith-status">Check STONITH Status</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># View current status</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>status
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Check for failed resources</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>pcs<span class="w"> </span>status
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># View detailed configuration</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>config<span class="w"> </span>&lt;resource-name&gt;
-</code></pre></div>
-<h3 id="common-issues">Common Issues</h3>
-<p><strong>STONITH resource stopped or failed:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Clean up failed resource state</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>pcs<span class="w"> </span>resource<span class="w"> </span>cleanup<span class="w"> </span>&lt;resource-name&gt;
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Check logs for errors</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>pacemaker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>stonith
-</code></pre></div>
-<p><strong>Timeout waiting for response:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Check if NNF software is processing requests</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/localdisk/fence-recorder/requests/
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ls<span class="w"> </span>-la<span class="w"> </span>/localdisk/fence-recorder/responses/
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Check fence_recorder logs</span>
-<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/cluster/fence-events.log
-</code></pre></div>
-<p><strong>Module not found error:</strong>
-Ensure the fencing library path is correct in <code>/usr/sbin/fence_recorder</code>. The <code>sys.path.append</code> line should point to <code>/usr/share/fence</code>.</p>
-<h3 id="testing-fence-operations">Testing Fence Operations</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Test metadata generation</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>fence_recorder<span class="w"> </span>--action<span class="w"> </span>metadata
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Test monitor action (non-destructive)</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>fence_recorder<span class="w"> </span>--action<span class="w"> </span>monitor<span class="w"> </span>-n<span class="w"> </span>rabbit-compute-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>--request-dir<span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span>--response-dir<span class="o">=</span>/localdisk/fence-recorder/responses
-</code></pre></div>
-<h2 id="gfs2-file-system-configuration">GFS2 File System Configuration</h2>
-<p>After the cluster is configured with fencing, you can configure GFS2 file systems. See Red Hat documentation:</p>
-<ul>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-gfs2-in-a-cluster-configuring-and-managing-high-availability-clusters">Configuring a GFS2 File System in a Cluster</a></li>
-</ul>
-<h2 id="dynamic-cluster-lifecycle">Dynamic Cluster Lifecycle</h2>
-<p>Unlike traditional HA clusters that run continuously on all nodes, NNF manages Pacemaker cluster services dynamically on compute nodes based on workflow requirements. Cluster services run <strong>continuously on the Rabbit</strong> but are <strong>started and stopped dynamically on compute nodes</strong>.</p>
-<h3 id="when-cluster-services-start-on-compute-nodes">When Cluster Services Start on Compute Nodes</h3>
-<p>NNF software starts Pacemaker/Corosync cluster services on compute nodes when:</p>
-<ol>
-<li>A workflow requests GFS2 storage</li>
-<li>The NNF software provisions the GFS2 file system</li>
-<li>Compute nodes need to mount the shared storage</li>
-</ol>
-<p>At this point, cluster services are started on participating compute nodes, they join the Rabbit's cluster, fencing is enabled, and the GFS2 file system is mounted.</p>
-<blockquote>
-<p>See <a href="https://nearnodeflash.github.io/latest/guides/storage-profiles/readme/">Storage Profiles</a> for more information about how to start cluster services using the <code>PreActivate</code> command.</p>
-</blockquote>
-<h3 id="when-cluster-services-stop-on-compute-nodes">When Cluster Services Stop on Compute Nodes</h3>
-<p>When the GFS2 workflow completes:</p>
-<ol>
-<li>The GFS2 file system is unmounted from all compute nodes</li>
-<li>Storage resources are cleaned up</li>
-<li>Pacemaker/Corosync cluster services are stopped on compute nodes</li>
-<li>The Rabbit continues running cluster services</li>
-</ol>
-<blockquote>
-<p>See <a href="https://nearnodeflash.github.io/latest/guides/storage-profiles/readme/">Storage Profiles</a> for more information about how to stop cluster services using the <code>PostDeactivate</code> command.</p>
-</blockquote>
-<p>This dynamic lifecycle means:</p>
-<ul>
-<li><strong>Rabbit runs cluster services continuously</strong>: Always ready to accept compute nodes</li>
-<li><strong>Compute node services are transient</strong>: They run only for the duration of GFS2 workflows</li>
-<li><strong>Resource efficiency</strong>: Cluster overhead on compute nodes is incurred only when needed</li>
-<li><strong>Reduced complexity</strong>: No long-running cluster services to maintain on compute nodes between jobs</li>
-</ul>
-<blockquote>
-<p><strong>Note:</strong> The cluster configuration (node membership, quorum votes, STONITH resources) is set up during system provisioning and persists on all nodes. Only the cluster <em>services</em> on compute nodes are started and stopped dynamically.</p>
-</blockquote>
-<h2 id="references">References</h2>
-<ul>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/">Red Hat: Configuring and Managing High Availability Clusters</a></li>
-<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_configuring-fencing-configuring-and-managing-high-availability-clusters">Red Hat: Fencing in a Cluster</a></li>
-<li><a href="https://github.com/ClusterLabs/fence-agents">ClusterLabs fence-agents</a></li>
-</ul>
+<h3 id="dummy-fencing">Dummy Fencing</h3>
+<p>The <a href="https://github.com/ClusterLabs/fence-agents/tree/main/agents/dummy">dummy fencing agent</a> from ClusterLabs can be used for nodes in the cluster for an early access development system.</p>
+<h2 id="configuring-a-gfs2-file-system-in-a-cluster">Configuring a GFS2 file system in a cluster</h2>
+<p>Follow steps 1-8 of the procedure from Red Hat: <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/configuring_and_managing_high_availability_clusters/assembly_configuring-gfs2-in-a-cluster-configuring-and-managing-high-availability-clusters#doc-wrapper">Configuring a GFS2 file system in a cluster</a>.</p>
 
 
 
