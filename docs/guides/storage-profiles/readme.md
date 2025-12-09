@@ -744,6 +744,96 @@ For system storage allocations:
 |----------|-------------|
 | `$COMPUTE_HOSTNAME` | Hostname of the compute node using the allocation |
 
+### User Command Variables
+
+Different variables are available depending on which user command hook is being executed.
+
+#### Block Device User Commands
+
+The following variables are available to `blockDeviceCommands.rabbitCommands.userCommands` and `blockDeviceCommands.computeCommands.userCommands` (preActivate, postActivate, preDeactivate, postDeactivate):
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$VG_NAME` | Volume group name |
+| `$LV_NAME` | Logical volume name |
+
+#### File System User Commands
+
+The following variables are available to `fileSystemCommands.rabbitCommands.userCommands` and `fileSystemCommands.computeCommands.userCommands` (preMount, postMount, preUnmount, postUnmount):
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$DEVICE` | Device path being mounted |
+| `$MOUNT_PATH` | Path where the file system is mounted |
+
+#### Storage-Level User Commands
+
+The following variables are available to `userCommands` at the storage level (postSetup, preTeardown, postActivate, preDeactivate):
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$MOUNT_PATH` | Path where the file system is mounted |
+
+#### Lustre Target User Commands
+
+The following variables are available to Lustre target commands (mgtCommandlines, mdtCommandlines, mgtMdtCommandlines, ostCommandlines) for postActivate and preDeactivate:
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$MOUNT_PATH` | Path where the target is mounted |
+| `$FS_NAME` | Lustre file system name |
+| `$TARGET_NAME` | Target name (e.g., `mylus-OST0003`) |
+
+#### Lustre Client User Commands
+
+The following variables are available to `clientCommandLines` user commands:
+
+**For rabbitPreMount, rabbitPostMount, rabbitPreUnmount, rabbitPostUnmount, computePreMount, computePostMount, computePreUnmount, computePostUnmount:**
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$MGS_NID` | NID of the MGS |
+| `$FS_NAME` | Lustre file system name |
+| `$MOUNT_PATH` | Path where the client is mounted |
+
+**For rabbitPostSetup and rabbitPreTeardown:**
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$MGS_NID` | NID of the MGS |
+| `$FS_NAME` | Lustre file system name |
+| `$MOUNT_PATH` | Path where the client is mounted |
+| `$NUM_MDTS` | Number of MDTs |
+| `$NUM_MGTS` | Number of MGTs |
+| `$NUM_MGTMDTS` | Number of combined MGT/MDTs |
+| `$NUM_OSTS` | Number of OSTs |
+| `$NUM_NNFNODES` | Number of NNF nodes |
+
+#### Lustre preMountMGTCommands
+
+The following variables are available to `preMountMGTCommands`:
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$FS_NAME` | Lustre file system name |
+
 ## Advanced Configuration
 
 ### External MGS
