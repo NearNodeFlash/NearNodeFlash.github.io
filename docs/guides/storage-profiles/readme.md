@@ -449,6 +449,8 @@ lustreStorage:
 
 Storage profiles support custom commands that run at various points during the storage lifecycle. These allow administrators to customize behavior beyond the standard provisioning steps.
 
+On the Rabbit nodes, all user command output is logged to the nnf-node-manager log. On the compute nodes, all user command output is logged to the system log. If a user command returns a non-zero return code, the stderr output is also logged, and the workflow will enter a `TransientCondition` state.
+
 There are two categories of user commands with different execution contexts:
 
 1. **Block Device and File System Commands** - For compute nodes, these run during the PreRun and PostRun phases. For Rabbit nodes, these Run during PreRun, PostRun, DataIn, and DataOut phases depending on which other DW directives are specified (data movement and user containers).
@@ -900,4 +902,4 @@ When a workflow references a storage profile, the NNF software creates a "pinned
 - The exact configuration is preserved for the workflow's lifetime
 - Profiles marked as `pinned: true` cannot also be `default: true`
 
-Do not manually set `pinned: true` on profiles you create.
+**Note:** Do not manually set `pinned: true` on profiles you create.
