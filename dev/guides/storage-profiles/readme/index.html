@@ -1192,6 +1192,89 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#user-command-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Command Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Command Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-device-user-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block Device User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-system-user-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File System User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-level-user-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage-Level User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-target-user-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lustre Target User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-client-user-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lustre Client User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-premountmgtcommands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lustre preMountMGTCommands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2333,6 +2416,89 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#user-command-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Command Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="User Command Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#block-device-user-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Block Device User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-system-user-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File System User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-level-user-commands_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage-Level User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-target-user-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lustre Target User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-client-user-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lustre Client User Commands
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lustre-premountmgtcommands" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lustre preMountMGTCommands
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3374,6 +3540,240 @@
 <tr>
 <td><code>$COMPUTE_HOSTNAME</code></td>
 <td>Hostname of the compute node using the allocation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="user-command-variables">User Command Variables</h3>
+<p>Different variables are available depending on which user command hook is being executed.</p>
+<h4 id="block-device-user-commands_1">Block Device User Commands</h4>
+<p>The following variables are available to <code>blockDeviceCommands.rabbitCommands.userCommands</code> and <code>blockDeviceCommands.computeCommands.userCommands</code> (preActivate, postActivate, preDeactivate, postDeactivate):</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$USERID</code></td>
+<td>User ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$GROUPID</code></td>
+<td>Group ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$VG_NAME</code></td>
+<td>Volume group name</td>
+</tr>
+<tr>
+<td><code>$LV_NAME</code></td>
+<td>Logical volume name</td>
+</tr>
+</tbody>
+</table>
+<h4 id="file-system-user-commands_1">File System User Commands</h4>
+<p>The following variables are available to <code>fileSystemCommands.rabbitCommands.userCommands</code> and <code>fileSystemCommands.computeCommands.userCommands</code> (preMount, postMount, preUnmount, postUnmount):</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$USERID</code></td>
+<td>User ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$GROUPID</code></td>
+<td>Group ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$DEVICE</code></td>
+<td>Device path being mounted</td>
+</tr>
+<tr>
+<td><code>$MOUNT_PATH</code></td>
+<td>Path where the file system is mounted</td>
+</tr>
+</tbody>
+</table>
+<h4 id="storage-level-user-commands_1">Storage-Level User Commands</h4>
+<p>The following variables are available to <code>userCommands</code> at the storage level (postSetup, preTeardown, postActivate, preDeactivate):</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$USERID</code></td>
+<td>User ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$GROUPID</code></td>
+<td>Group ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$MOUNT_PATH</code></td>
+<td>Path where the file system is mounted</td>
+</tr>
+</tbody>
+</table>
+<h4 id="lustre-target-user-commands">Lustre Target User Commands</h4>
+<p>The following variables are available to Lustre target commands (mgtCommandlines, mdtCommandlines, mgtMdtCommandlines, ostCommandlines) for postActivate and preDeactivate:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$MOUNT_PATH</code></td>
+<td>Path where the target is mounted</td>
+</tr>
+<tr>
+<td><code>$FS_NAME</code></td>
+<td>Lustre file system name</td>
+</tr>
+<tr>
+<td><code>$TARGET_NAME</code></td>
+<td>Target name (e.g., <code>mylus-OST0003</code>)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="lustre-client-user-commands">Lustre Client User Commands</h4>
+<p>The following variables are available to <code>clientCommandLines</code> user commands:</p>
+<p><strong>For rabbitPreMount, rabbitPostMount, rabbitPreUnmount, rabbitPostUnmount, computePreMount, computePostMount, computePreUnmount, computePostUnmount:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$USERID</code></td>
+<td>User ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$GROUPID</code></td>
+<td>Group ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$MGS_NID</code></td>
+<td>NID of the MGS</td>
+</tr>
+<tr>
+<td><code>$FS_NAME</code></td>
+<td>Lustre file system name</td>
+</tr>
+<tr>
+<td><code>$MOUNT_PATH</code></td>
+<td>Path where the client is mounted</td>
+</tr>
+</tbody>
+</table>
+<p><strong>For rabbitPostSetup and rabbitPreTeardown:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$USERID</code></td>
+<td>User ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$GROUPID</code></td>
+<td>Group ID of the job submitter</td>
+</tr>
+<tr>
+<td><code>$MGS_NID</code></td>
+<td>NID of the MGS</td>
+</tr>
+<tr>
+<td><code>$FS_NAME</code></td>
+<td>Lustre file system name</td>
+</tr>
+<tr>
+<td><code>$MOUNT_PATH</code></td>
+<td>Path where the client is mounted</td>
+</tr>
+<tr>
+<td><code>$NUM_MDTS</code></td>
+<td>Number of MDTs</td>
+</tr>
+<tr>
+<td><code>$NUM_MGTS</code></td>
+<td>Number of MGTs</td>
+</tr>
+<tr>
+<td><code>$NUM_MGTMDTS</code></td>
+<td>Number of combined MGT/MDTs</td>
+</tr>
+<tr>
+<td><code>$NUM_OSTS</code></td>
+<td>Number of OSTs</td>
+</tr>
+<tr>
+<td><code>$NUM_NNFNODES</code></td>
+<td>Number of NNF nodes</td>
+</tr>
+</tbody>
+</table>
+<h4 id="lustre-premountmgtcommands">Lustre preMountMGTCommands</h4>
+<p>The following variables are available to <code>preMountMGTCommands</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$JOBID</code></td>
+<td>Job ID from the Workflow</td>
+</tr>
+<tr>
+<td><code>$FS_NAME</code></td>
+<td>Lustre file system name</td>
 </tr>
 </tbody>
 </table>
