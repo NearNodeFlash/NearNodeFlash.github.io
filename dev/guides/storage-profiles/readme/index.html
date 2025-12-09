@@ -2998,6 +2998,7 @@
 </code></pre></div>
 <h2 id="user-commands">User Commands</h2>
 <p>Storage profiles support custom commands that run at various points during the storage lifecycle. These allow administrators to customize behavior beyond the standard provisioning steps.</p>
+<p>On the Rabbit nodes, all user command output is logged to the nnf-node-manager log. On the compute nodes, all user command output is logged to the system log. If a user command returns a non-zero return code, the stderr output is also logged, and the workflow will enter a <code>TransientCondition</code> state.</p>
 <p>There are two categories of user commands with different execution contexts:</p>
 <ol>
 <li><strong>Block Device and File System Commands</strong> - For compute nodes, these run during the PreRun and PostRun phases. For Rabbit nodes, these Run during PreRun, PostRun, DataIn, and DataOut phases depending on which other DW directives are specified (data movement and user containers).</li>
@@ -3822,7 +3823,7 @@
 <li>The exact configuration is preserved for the workflow's lifetime</li>
 <li>Profiles marked as <code>pinned: true</code> cannot also be <code>default: true</code></li>
 </ul>
-<p>Do not manually set <code>pinned: true</code> on profiles you create.</p>
+<p><strong>Note:</strong> Do not manually set <code>pinned: true</code> on profiles you create.</p>
 
 
 
