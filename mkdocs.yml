@@ -1,4 +1,4 @@
-# Release: 0.1.23
+# Release: 0.1.24
 site_name: NNF
 site_description: 'Near Node Flash'
 docs_dir: docs/
@@ -34,7 +34,7 @@ nav:
       - 'CRD Version Bumper': 'repo-guides/crd-bumper/readme.md'
       - 'Editing APIs': 'repo-guides/crd-bumper/editing-apis.md'
       - 'CRD Upgrade Helpers': 'repo-guides/release-nnf-sw/crd-upgrade-helpers.md'
-      - 'Upgrade Tester': 'repo-guides/release-nnf-sw/upgrade-tester.md'
+      - 'Upgrade Tester': 'repo-guides/testing/upgrade-tester.md'
 theme:
   name: 'material'
   custom_dir: overrides
@@ -51,6 +51,8 @@ theme:
     - search.share
   logo: img/logo.png
   favicon: img/logo.png
+extra_css:
+  - stylesheets/extra.css
 plugins:
   - search:
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
