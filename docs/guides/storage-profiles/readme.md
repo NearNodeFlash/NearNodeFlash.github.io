@@ -1,454 +1,905 @@
 ---
-authors: Nate Thornton <nate.thornton@hpe.com>, Dean Roehrich <dean.roehrich@hpe.com>
+authors: Nate Thornton <nate.thornton@hpe.com>, Dean Roehrich <dean.roehrich@hpe.com>, Matt Richerson <matthew.richerson@hpe.com>
 categories: provisioning
 ---
 
-# Storage Profile Overview
+# Storage Profiles
 
-Storage Profiles allow for customization of the Rabbit storage provisioning process. Examples of content that can be customized via storage profiles is
+Storage Profiles provide a way to customize how storage is provisioned and configured on Rabbit nodes. They allow administrators to define specific configurations for different file system types, RAID configurations, and storage layouts that users can select when submitting jobs.
 
-1. The RAID type used for storage
-2. Any mkfs or LVM args used
-3. An external MGS NID for Lustre
-4. A boolean value indicating the Lustre MGT and MDT should be combined on the same target device 
+## What Are Storage Profiles?
 
-DW directives that allocate storage on Rabbit nodes allow a `profile` parameter to be specified to control how the storage is configured. NNF software provides a set of canned profiles to choose from, and the administrator may create more profiles.
+An `NnfStorageProfile` is a Kubernetes Custom Resource that defines how storage should be configured on Rabbit nodes. Storage profiles control:
 
-The administrator shall choose one profile to be the default profile that is used when a profile parameter is not specified.
+- **File system type configuration** - Commands and options for XFS, GFS2, Raw, and Lustre file systems
+- **Block device configuration** - LVM commands for creating physical volumes, volume groups, and logical volumes
+- **RAID configurations** - Settings for redundant storage using LVM RAID or ZFS RAID
+- **Target layouts** - How Lustre targets (MGT, MDT, OST) are distributed across Rabbit nodes
+- **User commands** - Custom commands that run at various points in the storage lifecycle
 
-## Specifying a Profile
+Storage profiles are stored in the `nnf-system` namespace and are referenced by name in `#DW` directives.
 
-To specify a profile name on a #DW directive, use the `profile` option
+## Default vs. Non-Default Profiles
 
-```shell
-#DW jobdw type=lustre profile=durable capacity=5GB name=example
-```
+### Default Profile
 
-## Setting A Default Profile
+Every NNF system must have exactly one storage profile marked as the default. The default profile is used when a `#DW` directive does not specify a profile. If zero or more than one profile is marked as default, new workflows will be rejected.
 
-A default profile must be defined at all times. Any #DW line that does not specify a profile will use the default profile. If a default profile is not defined, then any new workflows will be rejected. If more than one profile is marked as default then any new workflows will be rejected.
-
-To query existing profiles
-
-```shell
-$ kubectl get nnfstorageprofiles -A
-NAMESPACE    NAME          DEFAULT   AGE
-nnf-system   durable       true      14s
-nnf-system   performance   false     6s
-```
-
-To set the default flag on a profile
-
-```shell
-kubectl patch nnfstorageprofile performance -n nnf-system --type merge -p '{"data":{"default":true}}'
-```
-
-To clear the default flag on a profile
-
-```shell
-kubectl patch nnfstorageprofile durable -n nnf-system --type merge -p '{"data":{"default":false}}'
-```
-
-## Creating The Initial Default Profile
-
-Create the initial default profile from scratch or by using the [NnfStorageProfile/template](https://github.com/NearNodeFlash/nnf-sos/blob/master/config/examples/nnf_v1alpha1_nnfstorageprofile.yaml) resource as a template. If `nnf-deploy` was used to install nnf-sos then the default profile described below will have been created automatically.
-
-To use the `template` resource begin by obtaining a copy of it either from the nnf-sos repo or from a live system. To get it from a live system use the following command:
-
-```shell
-kubectl get nnfstorageprofile -n nnf-system template -o yaml > profile.yaml
-```
-
-Edit the `profile.yaml` file to trim the metadata section to contain only a name and namespace. The namespace must be left as nnf-system, but the name should be set to signify that this is the new default profile. In this example we will name it `default`.  The metadata section will look like the following, and will contain no other fields:
+A profile is marked as default by setting `data.default: true`:
 
 ```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha9
+kind: NnfStorageProfile
 metadata:
   name: default
   namespace: nnf-system
-```
-
-Mark this new profile as the default profile by setting `default: true` in the data section of the resource:
-
-```yaml
 data:
   default: true
+  # ... rest of profile configuration
 ```
 
-Apply this resource to the system and verify that it is the only one marked as the default resource:
+### Querying Profiles
+
+To list all storage profiles and see which is the default:
 
 ```shell
-kubectl get nnfstorageprofile -A
+kubectl get nnfstorageprofiles -n nnf-system
 ```
 
-The output will appear similar to the following:
+Example output:
+
+```
+NAME        DEFAULT   AGE
+default     true      14d
+high-perf   false     7d
+durable     false     7d
+template    false     14d
+```
+
+### Setting the Default Profile
+
+To set a profile as the default:
 
 ```shell
-NAMESPACE    NAME       DEFAULT   AGE
-nnf-system   default    true      9s
-nnf-system   template   false     11s
+kubectl patch nnfstorageprofile high-perf -n nnf-system --type merge -p '{"data":{"default":true}}'
 ```
 
-The administrator should edit the `default` profile to record any cluster-specific settings.
-Maintain a copy of this resource YAML in a safe place so it isn't lost across upgrades.
+To clear the default flag from a profile:
 
-### Keeping The Default Profile Updated
+```shell
+kubectl patch nnfstorageprofile default -n nnf-system --type merge -p '{"data":{"default":false}}'
+```
 
-An upgrade of nnf-sos may include updates to the `template` profile. It may be necessary to manually copy these updates into the `default` profile.
+> **Note:** Ensure exactly one profile is marked as default at all times.
 
-## Profile Parameters
+## Specifying a Profile in #DW Directives
 
-### XFS
+To use a non-default storage profile, add the `profile` parameter to your `#DW` directive:
 
-The following shows how to specify command line options for pvcreate, vgcreate, lvcreate, and mkfs for XFS storage. Optional mount options are specified one per line
+```shell
+#DW jobdw type=xfs profile=high-perf capacity=100GB name=my-storage
+```
+
+```shell
+#DW jobdw type=lustre profile=durable capacity=1TB name=my-lustre
+```
+
+```shell
+#DW create_persistent type=lustre profile=persistent-lustre capacity=10TB name=shared-fs
+```
+
+If no `profile` parameter is specified, the default profile is used.
+
+## File System Configuration
+
+Storage profiles contain configuration sections for each supported file system type:
+
+- `xfsStorage` - XFS file system configuration
+- `gfs2Storage` - GFS2 file system configuration  
+- `rawStorage` - Raw block device configuration
+- `lustreStorage` - Lustre file system configuration
+
+### XFS Storage
+
+XFS is a high-performance journaling file system suitable for single-node or exclusive access workloads.
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
+apiVersion: nnf.cray.hpe.com/v1alpha9
 kind: NnfStorageProfile
 metadata:
-  name: xfs-stripe-example
+  name: xfs-example
   namespace: nnf-system
-data:
-[...]
-  xfsStorage:
-    commandlines:
-      pvCreate: $DEVICE
-      vgCreate: $VG_NAME $DEVICE_LIST
-      lvCreate: -l 100%VG --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME
-      mkfs: $DEVICE
-    options:
-      mountRabbit:
-      - noatime
-      - nodiratime
-[...]
-```
-
-### GFS2
-
-The following shows how to specify command line options for pvcreate, lvcreate, and mkfs for GFS2.
-
-```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
-kind: NnfStorageProfile
-metadata:
-  name: gfs2-stripe-example
-  namespace: nnf-system
-data:
-[...]
-  gfs2Storage:
-    commandlines:
-      pvCreate: $DEVICE
-      vgCreate: $VG_NAME $DEVICE_LIST
-      lvCreate: -l 100%VG --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME
-      mkfs: -j2 -p $PROTOCOL -t $CLUSTER_NAME:$LOCK_SPACE $DEVICE
-[...]
-```
-
-### Lustre / ZFS
-
-The following shows how to specify a zpool virtual device (vdev). In this case the default vdev is a stripe. See [zpoolconcepts(7)](https://openzfs.github.io/openzfs-docs/man/7/zpoolconcepts.7.html) for virtual device descriptions.
-
-```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
-kind: NnfStorageProfile
-metadata:
-  name: zpool-stripe-example
-  namespace: nnf-system
-data:
-[...]
-  lustreStorage:
-    mgtCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --mgs $VOL_NAME
-    mdtCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --mdt --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
-    mgtMdtCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --mgs --mdt --fsname=$FS_NAME --index=$INDEX $VOL_NAME
-    ostCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --ost --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
-[...]
-```
-
-#### ZFS dataset properties
-
-The following shows how to specify ZFS dataset properties in the `--mkfsoptions` arg for mkfs.lustre. See [zfsprops(7)](https://openzfs.github.io/openzfs-docs/man/7/zfsprops.7.html).
-
-```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
-kind: NnfStorageProfile
-metadata:
-  name: zpool-stripe-example
-  namespace: nnf-system
-data:
-[...]
-  lustreStorage:
-[...]
-    ostCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --ost --mkfsoptions="recordsize=1024K -o compression=lz4" --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
-[...]
-```
-
-#### Mount Options for Targets
-
-##### Persistent Mount Options
-
-Use the mkfs.lustre `--mountfsoptions` parameter to set persistent mount options for Lustre targets.
-
-```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
-kind: NnfStorageProfile
-metadata:
-  name: target-mount-option-example
-  namespace: nnf-system
-data:
-[...]
-  lustreStorage:
-[...]
-    ostCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --ost --mountfsoptions="errors=remount-ro,mballoc" --mkfsoptions="recordsize=1024K -o compression=lz4" --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
-[...]
-```
-
-##### Non-Persistent Mount Options
-
-Non-persistent mount options can be specified with the ostOptions.mountTarget parameter to the NnfStorageProfile:
-
-```yaml
-
-apiVersion: nnf.cray.hpe.com/v1alpha1
-kind: NnfStorageProfile
-metadata:
-  name: target-mount-option-example
-  namespace: nnf-system
-data:
-[...]
-  lustreStorage:
-[...]
-    ostCommandlines:
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
-      mkfs: --ost --mountfsoptions="errors=remount-ro" --mkfsoptions="recordsize=1024K -o compression=lz4" --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
-    ostOptions:
-      mountTarget:
-      - mballoc
-[...]
-```
-
-#### Target Layout
-
-Users may want Lustre file systems with different performance characteristics. For example, a user job with a single compute node accessing the Lustre file system would see acceptable performance from a single OSS. An FPP workload might want as many OSSs as posible to avoid contention.
-
-The `NnfStorageProfile` allows admins to specify where and how many Lustre targets are allocated by the WLM. During the proposal phase of the workflow, the NNF software uses the information in the `NnfStorageProfile` to add extra constraints in the `DirectiveBreakdown`. The WLM uses these constraints when picking storage.
-
-The `NnfStorageProfile` has three fields in the `mgtOptions`, `mdtOptions`, and `ostOptions` to specify target layout. The fields are:
-
-- `count` - A static value for how many Lustre targets to create.
-- `scale` - A value from 1-10 that the WLM can use to determine how many Lustre targets to allocate. This is up to the WLM and the admins to agree on how to interpret this field. A value of 1 might indicate the minimum number of NNF nodes needed to reach the minimum capacity, while 10 might result in a Lustre target on every Rabbit attached to the computes in the job. Scale takes into account allocation size, compute node count, and Rabbit count.
-- `colocateComputes` - true/false value. When "true", this adds a location constraint in the `DirectiveBreakdown` that limits the WLM to picking storage with a physical connection to the compute resources. In practice this means that Rabbit storage is restricted to the chassis used by the job. This can be set individually for each of the Lustre target types. When this is "false", any Rabbit storage can be picked, even if the Rabbit doesn't share a chassis with any of the compute nodes in the job.
-
-Only one of `scale` and `count` can be set for a particular target type.
-
-The `DirectiveBreakdown` for `create_persistent` #DWs won't include the constraint from `colocateCompute=true` since there may not be any compute nodes associated with the job.
-
-```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha1
-kind: NnfStorageProfile
-metadata:
-  name: high-metadata
-  namespace: default
 data:
   default: false
-...
-  lustreStorage:
-    combinedMgtMdt: false
-    capacityMdt: 500GiB
-    capacityMgt: 1GiB
-[...]
-    ostOptions:
-      scale: 5
-      colocateComputes: true
-    mdtOptions:
-      count: 10
+  xfsStorage:
+    # Block device configuration (LVM)
+    blockDeviceCommands:
+      sharedVg: true
+      rabbitCommands:
+        pvCreate: $DEVICE
+        pvRemove: $DEVICE
+        vgCreate: --addtag $JOBID $VG_NAME $DEVICE_LIST
+        vgRemove: $VG_NAME
+        lvCreate: --zero n --activate n --size $LV_SIZE --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME
+        lvRemove: $VG_NAME/$LV_NAME
+        lvChange:
+          activate: --activate y $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+      computeCommands:
+        lvChange:
+          activate: --activate y $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+
+    # File system commands
+    fileSystemCommands:
+      rabbitCommands:
+        mkfs: $DEVICE
+        mount: $DEVICE $MOUNT_PATH
+      computeCommands:
+        mount: $DEVICE $MOUNT_PATH
+
+    # User commands run during setup/teardown
+    userCommands:
+      postSetup:
+      - chown $USERID:$GROUPID $MOUNT_PATH
+
+    # Capacity scaling factor (1.0 = request exactly what user specified)
+    capacityScalingFactor: "1.0"
+    
+    # Extra allocation padding for block device overhead
+    allocationPadding: 300MiB
 ```
 
-##### Example Layouts
+### GFS2 Storage
 
-`scale` with `colocateComputes=true` will likely be the most common layout type to use for `jobdw` directives. This will result in a Lustre file system whose performance scales with the number of compute nodes in the job.
-
-`count` may be used when a specific performance characteristic is desired such as a single shared file workload that has low metadata requirements and only needs a single MDT. It may also be useful when a consistently performing file system is required across different jobs.
-
-`colocatedComputes=false` may be useful for placing MDTs on NNF nodes without an OST (within the same file system).
-
-The `count` field may be useful when creating a persistent file system since the job with the `create_persistent` directive may only have a single compute node.
-
-In general, `scale` gives a simple way for users to get a filesystem that has performance consistent with their job size. `count` is useful for times when a user wants full control of the file system layout.
-
-### RAID Configurations
-
-Allocations can be set up to use a RAID device to provide continued access in the event of a drive failure. Optionally, commands can be specified to rebuild the RAID device after a replacement drive has been added. The storage profile parameters differ depending on whether the allocation is using LVM or zpool.
-
-#### Zpool
-
-To create a Lustre confiuration with a redundant zpool, the `raidz` option is required in `zpoolCreate` command. To allow the zpool to be rebuilt with a new drive, the `zpoolReplace` command is required.
-
-The example below shows a RAID configuration for the OST, however, the same options can be specified for any of the Lustre targets.
+GFS2 is a shared-disk cluster file system that allows multiple nodes to access the same file system simultaneously.
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha8
+apiVersion: nnf.cray.hpe.com/v1alpha9
 kind: NnfStorageProfile
 metadata:
-  name: lustre-raid-example
+  name: gfs2-example
   namespace: nnf-system
 data:
-[...]
+  default: false
+  gfs2Storage:
+    blockDeviceCommands:
+      sharedVg: true
+      rabbitCommands:
+        pvCreate: $DEVICE
+        pvRemove: $DEVICE
+        # GFS2 requires shared VG with --shared flag
+        vgCreate: --shared --addtag $JOBID $VG_NAME $DEVICE_LIST
+        vgRemove: $VG_NAME
+        lvCreate: --zero n --activate n --size $LV_SIZE --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME
+        lvRemove: $VG_NAME/$LV_NAME
+        lvChange:
+          # GFS2 uses shared activation (ys)
+          activate: --activate ys $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+        vgChange:
+          lockStart: --lock-start $VG_NAME
+          lockStop: --lock-stop $VG_NAME
+      computeCommands:
+        lvChange:
+          activate: --activate ys $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+        vgChange:
+          lockStart: --lock-start $VG_NAME
+          lockStop: --lock-stop $VG_NAME
+
+    fileSystemCommands:
+      rabbitCommands:
+        # GFS2 mkfs requires journal count, protocol, cluster name, and lock space
+        mkfs: -j2 -p $PROTOCOL -t $CLUSTER_NAME:$LOCK_SPACE $DEVICE
+        mount: $DEVICE $MOUNT_PATH
+      computeCommands:
+        mount: $DEVICE $MOUNT_PATH
+
+    userCommands:
+      postSetup:
+      - chown $USERID:$GROUPID $MOUNT_PATH
+
+    capacityScalingFactor: "1.0"
+    allocationPadding: 300MiB
+```
+
+### Raw Storage
+
+Raw storage provides direct block device access without a file system layer.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha9
+kind: NnfStorageProfile
+metadata:
+  name: raw-example
+  namespace: nnf-system
+data:
+  default: false
+  rawStorage:
+    blockDeviceCommands:
+      sharedVg: true
+      rabbitCommands:
+        pvCreate: $DEVICE
+        pvRemove: $DEVICE
+        vgCreate: --addtag $JOBID $VG_NAME $DEVICE_LIST
+        vgRemove: $VG_NAME
+        lvCreate: --zero n --activate n --size $LV_SIZE --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME
+        lvRemove: $VG_NAME/$LV_NAME
+        lvChange:
+          activate: --activate y $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+      computeCommands:
+        lvChange:
+          activate: --activate y $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+
+    fileSystemCommands:
+      rabbitCommands:
+        # Raw uses bind mount to expose the block device
+        mount: -o bind $DEVICE $MOUNT_PATH
+      computeCommands:
+        mount: -o bind $DEVICE $MOUNT_PATH
+
+    capacityScalingFactor: "1.0"
+    allocationPadding: 300MiB
+```
+
+### Lustre Storage
+
+Lustre is a high-performance parallel distributed file system designed for large-scale cluster computing.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha9
+kind: NnfStorageProfile
+metadata:
+  name: lustre-example
+  namespace: nnf-system
+data:
+  default: false
   lustreStorage:
-[...]
-    ostCommandlines:
-      mkfs: --ost --backfstype=$BACKFS --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX
-        --mkfsoptions="nnf:jobid=$JOBID" $ZVOL_NAME
+    # Whether to combine MGT and MDT on the same target
+    combinedMgtMdt: true
+    
+    # Capacity for MGT device
+    capacityMgt: 5GiB
+    
+    # Capacity for MDT device (also used for combined MGT+MDT)
+    capacityMdt: 5GiB
+    
+    # MDT should not share a Rabbit with other targets
+    exclusiveMdt: false
+    
+    # Scaling factor for OST capacity
+    capacityScalingFactor: "1.0"
+
+    # MGT target commands
+    mgtCommandlines:
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+      mkfs: --mgs --backfstype=$BACKFS --mkfsoptions="nnf:jobid=$JOBID" $ZVOL_NAME
+      mountTarget: $ZVOL_NAME $MOUNT_PATH
+
+    # MDT target commands  
+    mdtCommandlines:
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+      mkfs: --mdt --backfstype=$BACKFS --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX --mkfsoptions="nnf:jobid=$JOBID" $ZVOL_NAME
       mountTarget: $ZVOL_NAME $MOUNT_PATH
       postActivate:
       - mountpoint $MOUNT_PATH
-      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME raidz $DEVICE_LIST
-      zpoolReplace: $POOL_NAME $OLD_DEVICE $NEW_DEVICE
+
+    # Combined MGT+MDT target commands
+    mgtMdtCommandlines:
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+      mkfs: --mgs --mdt --backfstype=$BACKFS --fsname=$FS_NAME --index=$INDEX --mkfsoptions="nnf:jobid=$JOBID" $ZVOL_NAME
+      mountTarget: $ZVOL_NAME $MOUNT_PATH
+      postActivate:
+      - mountpoint $MOUNT_PATH
+
+    # OST target commands
+    ostCommandlines:
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+      mkfs: --ost --backfstype=$BACKFS --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX --mkfsoptions="nnf:jobid=$JOBID" $ZVOL_NAME
+      mountTarget: $ZVOL_NAME $MOUNT_PATH
+      postActivate:
+      - mountpoint $MOUNT_PATH
+
+    # Client mount commands
+    clientCommandLines:
+      mountRabbit: $MGS_NID:/$FS_NAME $MOUNT_PATH
+      mountCompute: $MGS_NID:/$FS_NAME $MOUNT_PATH
+      rabbitPostSetup:
+      - lfs setstripe -E 64K -L mdt -E -1 -c -1 $MOUNT_PATH
+
+    # Target placement options (see Target Layouts section)
+    mgtOptions:
+      colocateComputes: false
+      count: 1
+    mdtOptions:
+      colocateComputes: false
+      count: 1
+    mgtMdtOptions:
+      colocateComputes: false
+      count: 1
+    ostOptions:
+      colocateComputes: true
+      scale: 5
+
+    # Commands to run on MGT after all targets are activated
+    preMountMGTCommands:
+    - lctl set_param -P osc.$FS_NAME-*.max_rpcs_in_flight=64
 ```
 
-#### LVM
+## Target Layouts
 
-A RAID logical volume can be used with XFS and Raw allocations. 
-NOTE: gfs2 allocations cannot use RAID logical volumes because the LV is shared.
+Target layout options control how Lustre targets (MGT, MDT, OST) are distributed across Rabbit nodes. These settings help optimize performance based on workload characteristics.
 
-To create a redundant LV, `--type raid[x]` and `--nosync` should be specified in the `lvcreate` command. Also, the `--stripes` parameter should be adjusted accordingly to specify the number of data stripes. For `raid5`, `$DEVICE_NUM-1` is used.
+### Layout Options
 
-To allow the LV to rebuild after a drive is replaced, `vgExtend`, `lvRepair`, and `vgReduce` should be specified in the `lvmRebuild` section.
+Each target type (mgtOptions, mdtOptions, mgtMdtOptions, ostOptions) supports:
+
+| Option | Description |
+|--------|-------------|
+| `count` | Static number of targets to create |
+| `scale` | Dynamic value (1-10) that the WLM uses to determine target count |
+| `colocateComputes` | If true, targets are placed on Rabbits connected to job's compute nodes |
+| `storageLabels` | List of labels to restrict which Storage resources can be used |
+
+> **Note:** Only one of `count` or `scale` can be set for each target type.
+
+### Understanding colocateComputes
+
+When `colocateComputes: true`:
+- Storage is restricted to Rabbit nodes with physical connections to the job's compute nodes
+- This typically means Rabbits in the same chassis as the compute nodes
+- Best for minimizing network hops and maximizing bandwidth
+
+When `colocateComputes: false`:
+- Storage can be placed on any available Rabbit node
+- Useful for separating metadata targets from data targets
+- Required for `create_persistent` directives since they may not have compute nodes
+
+### Scale vs Count
+
+**Scale** is useful when you want storage to automatically adjust based on job size:
+- Value of 1: Minimum targets needed to satisfy capacity
+- Value of 10: Maximum targets, potentially one per Rabbit connected to the job
+- The WLM interprets scale values based on allocation size, compute count, and Rabbit count
+
+**Count** is useful when you need precise control:
+- Specific number of targets regardless of job size
+- Consistent performance characteristics across different jobs
+- Useful for single-shared-file workloads with low metadata requirements
+
+### Example Layouts
+
+**High-performance scaled to job size:**
+```yaml
+ostOptions:
+  scale: 10
+  colocateComputes: true
+mdtOptions:
+  count: 2
+  colocateComputes: true
+```
+
+**Static Configuration:**
+```yaml
+ostOptions:
+  count: 4
+  colocateComputes: true
+mdtOptions:
+  count: 1
+  colocateComputes: true
+```
+
+## RAID Configurations
+
+Storage profiles support RAID configurations for both LVM-based file systems (XFS, Raw) and ZFS-based Lustre targets.
+
+### LVM RAID (XFS and Raw)
+
+LVM RAID logical volumes provide redundancy for XFS and Raw allocations.
+
+> **Note:** GFS2 cannot use RAID logical volumes because the LV is shared between multiple nodes.
+
+To create a RAID logical volume, specify `--type raid[x]`, `--activate y`, and `--nosync` in the `lvCreate` command:
 
 ```yaml
-apiVersion: nnf.cray.hpe.com/v1alpha8
-kind: NnfStorageProfile
-metadata:
-  name: xfs-raid-example
-  namespace: nnf-system
-data:
-[...]
-  xfsStorage:
-    commandlines:
+xfsStorage:
+  blockDeviceCommands:
+    rabbitCommands:
+      pvCreate: $DEVICE
+      pvRemove: $DEVICE
+      vgCreate: --addtag $JOBID $VG_NAME $DEVICE_LIST
+      vgRemove: $VG_NAME
+      # RAID5 example: one parity device, remaining are data stripes
+      lvCreate: |
+        --activate y --zero n --nosync --type raid5 
+        --size $LV_SIZE --stripes $DEVICE_NUM-1 
+        --stripesize=32KiB --name $LV_NAME $VG_NAME
+      lvRemove: $VG_NAME/$LV_NAME
       lvChange:
         activate: --activate y $VG_NAME/$LV_NAME
         deactivate: --activate n $VG_NAME/$LV_NAME
+      # Commands for rebuilding after drive replacement
       lvmRebuild:
         vgExtend: $VG_NAME $DEVICE
         vgReduce: --removemissing $VG_NAME
         lvRepair: $VG_NAME/$LV_NAME
-      lvCreate: --activate n --zero n --nosync --type raid5 --extents $PERCENT_VG --stripes $DEVICE_NUM-1
-        --stripesize=32KiB --name $LV_NAME $VG_NAME
-      lvRemove: $VG_NAME/$LV_NAME
-      mkfs: $DEVICE
-      mountCompute: $DEVICE $MOUNT_PATH
-      mountRabbit: $DEVICE $MOUNT_PATH
-      postMount:
-      - chown $USERID:$GROUPID $MOUNT_PATH
-      pvCreate: $DEVICE
-      pvRemove: $DEVICE
-      sharedVg: true
-      vgChange:
-        lockStart: --lock-start $VG_NAME
-        lockStop: --lock-stop $VG_NAME
-      vgCreate: --shared --addtag $JOBID $VG_NAME $DEVICE_LIST
-      vgRemove: $VG_NAME
+```
+
+> **Note:** The `--nosync` option allows the RAID volume to be used immediately without waiting for initial synchronization.
+
+### ZFS RAID (Lustre)
+
+ZFS RAID provides redundancy for Lustre targets using zpool virtual devices.
+
+```yaml
+lustreStorage:
+  ostCommandlines:
+    # RAIDZ example (single parity, similar to RAID5)
+    zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME raidz $DEVICE_LIST
+    mkfs: --ost --backfstype=$BACKFS --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $ZVOL_NAME
+    mountTarget: $ZVOL_NAME $MOUNT_PATH
+    # Command for replacing a failed device
+    zpoolReplace: $POOL_NAME $OLD_DEVICE $NEW_DEVICE
+```
+
+## User Commands
+
+Storage profiles support custom commands that run at various points during the storage lifecycle. These allow administrators to customize behavior beyond the standard provisioning steps.
+
+On the Rabbit nodes, all user command output is logged to the nnf-node-manager log. On the compute nodes, all user command output is logged to the system log. If a user command returns a non-zero return code, the stderr output is also logged, and the workflow will enter a `TransientCondition` state.
+
+There are two categories of user commands with different execution contexts:
+
+1. **Block Device and File System Commands** - For compute nodes, these run during the PreRun and PostRun phases. For Rabbit nodes, these Run during PreRun, PostRun, DataIn, and DataOut phases depending on which other DW directives are specified (data movement and user containers).
+2. **Storage-Level Commands** - Run during storage setup and teardown phases
+
+### Block Device and File System User Commands
+
+The user commands in `blockDeviceCommands` and `fileSystemCommands` are run when storage is being activated/deactivated and mounted/unmounted for use:
+
+| Location | Workflow Phase | Description |
+|----------|----------------|-------------|
+| Rabbit | DataIn | Storage is activated and mounted for data staging into the allocation |
+| Rabbit | DataOut | Storage is activated and mounted for data staging out of the allocation |
+| Rabbit | PreRun | Storage is activated and mounted for access in a user container |
+| Rabbit | PostRun | Storage is unmounted and deactivated after the user container exits |
+| Compute | PreRun | Storage is activated and mounted before the user's application runs |
+| Compute | PostRun | Storage is unmounted and deactivated after the user's application completes |
+
+These commands are useful for operations that need to happen each time storage is accessed, such as:
+- Setting up environment-specific configurations
+- Running health checks before/after use
+- Synchronizing data or caches
+
+#### Block Device User Commands
+
+```yaml
+xfsStorage:
+  blockDeviceCommands:
+    # Commands run on Rabbit during PreRun/PostRun/DataIn/DataOut phases
+    rabbitCommands:
+      userCommands:
+        preActivate:
+        - echo "Rabbit: About to activate block device"
+        postActivate:
+        - echo "Rabbit: Block device activated"
+        preDeactivate:
+        - echo "Rabbit: About to deactivate block device"
+        postDeactivate:
+        - echo "Rabbit: Block device deactivated"
+    # Commands run on Compute during PreRun/PostRun phases
+    computeCommands:
+      userCommands:
+        preActivate:
+        - echo "Compute: About to activate block device"
+        postActivate:
+        - echo "Compute: Block device activated"
+        preDeactivate:
+        - echo "Compute: About to deactivate block device"
+        postDeactivate:
+        - echo "Compute: Block device deactivated"
+```
+
+#### File System User Commands
+
+```yaml
+xfsStorage:
+  fileSystemCommands:
+    # Commands run on Rabbit during DataIn/DataOut phases
+    rabbitCommands:
+      userCommands:
+        preMount:
+        - echo "Rabbit: About to mount file system"
+        postMount:
+        - echo "Rabbit: File system mounted"
+        preUnmount:
+        - echo "Rabbit: About to unmount file system"
+        postUnmount:
+        - echo "Rabbit: File system unmounted"
+    # Commands run on Compute during PreRun/PostRun phases
+    computeCommands:
+      userCommands:
+        preMount:
+        - echo "Compute: About to mount file system"
+        postMount:
+        - echo "Compute: File system mounted"
+        preUnmount:
+        - echo "Compute: About to unmount file system"
+        postUnmount:
+        - echo "Compute: File system unmounted"
+```
+
+### Storage-Level User Commands
+
+The `userCommands` section at the storage level (e.g., `xfsStorage.userCommands`) contains commands that run during the **setup and teardown phases** of the workflow. These run on the Rabbit nodes when storage is first provisioned and when it is finally destroyed.
+
+| Command | Phase | Description |
+|---------|-------|-------------|
+| `postSetup` | Setup | Runs after storage is fully provisioned and the file system is mounted on the Rabbit |
+| `preTeardown` | Teardown | Runs before storage is destroyed, while the file system is still mounted |
+| `postActivate` | Setup | Runs after the file system is activated during initial setup |
+| `preDeactivate` | Teardown | Runs before the file system is deactivated during final teardown |
+
+These commands are useful for one-time operations such as:
+- Setting ownership and permissions on newly created storage
+- Initializing directory structures
+- Cleaning up or archiving data before destruction
+
+```yaml
+xfsStorage:
+  userCommands:
+    # Run once after storage is fully set up (file system mounted on Rabbit)
+    postSetup:
+    - chown $USERID:$GROUPID $MOUNT_PATH
+    - chmod 750 $MOUNT_PATH
+    - mkdir -p $MOUNT_PATH/input $MOUNT_PATH/output
+    
+    # Run once before storage is torn down (file system still mounted)
+    preTeardown:
+    - echo "Final cleanup of $MOUNT_PATH"
+    
+    # Run once after file system is activated during setup
+    postActivate:
+    - echo "File system activated for first time"
+    
+    # Run once before file system is deactivated during teardown
+    preDeactivate:
+    - echo "About to deactivate file system for last time"
+```
+
+### Lustre-Specific User Commands
+
+User commands can also be specified for Lustre file systems, however there are no block device activate/deactivate hooks.
+
+```yaml
+lustreStorage:
+  # Commands for each target type
+  mgtCommandlines:
+    postActivate:
+    - mountpoint $MOUNT_PATH
+    preDeactivate:
+    - echo "Deactivating MGT"
+  
+  mdtCommandlines:
+    postActivate:
+    - mountpoint $MOUNT_PATH
+  
+  ostCommandlines:
+    postActivate:
+    - mountpoint $MOUNT_PATH
+
+  # Client-side commands
+  clientCommandLines:
+    rabbitPreMount:
+    - echo "About to mount Lustre client on Rabbit"
+    rabbitPostMount:
+    - lfs setstripe -c -1 $MOUNT_PATH
+    rabbitPreUnmount:
+    - sync
+    rabbitPostUnmount:
+    - echo "Lustre client unmounted"
+    
+    computePreMount:
+    - echo "About to mount Lustre client on Compute"
+    computePostMount:
+    - echo "Lustre client mounted"
+    computePreUnmount:
+    - sync
+    computePostUnmount:
+    - echo "Lustre client unmounted"
+
+    # Setup/teardown with Lustre client mounted on Rabbit
+    rabbitPostSetup:
+    - lfs setstripe -E 64K -L mdt -E -1 -c -1 $MOUNT_PATH
+    rabbitPreTeardown:
+    - lfs getstripe $MOUNT_PATH
+
+  # Commands run on MGT after all targets are up
+  preMountMGTCommands:
+  - lctl set_param -P osc.$FS_NAME-*.max_rpcs_in_flight=64
+  - lctl set_param -P osc.$FS_NAME-*.max_dirty_mb=2000
+```
 
 ## Command Line Variables
 
-### global
-- `$JOBID` - expands to the Job ID from the Workflow
-- `$USERID` - expands to the User ID of the user who submitted the job
-- `$GROUPID` - expands to the Group ID of the user who submitted the job
+Storage profile commands can use variables that are expanded at runtime. Variables use the `$VARIABLE_NAME` syntax.
 
-### LVM PV commands
+### Global Variables
 
-- `$DEVICE` - expands to the `/dev/<path>` value for one device that has been allocated
+Available in all commands:
 
-### LVM VG commands
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
 
-- `$VG_NAME` - expands to a volume group name that is controlled by Rabbit software.
-- `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were iterated over for the pvcreate step.
-- `$DEVICE_NUM` - expands to the count of devices in `$DEVICE_LIST`
-- `$DEVICE_NUM-1` - expands to the count of devices in `$DEVICE_LIST` minus 1
-- `$DEVICE_NUM-2` - expands to the count of devices in `$DEVICE_LIST` minus 2
-- `$DEVICE` - expands to the name of a new device. This is used by `vgextend` when repairing a RAID device
+### LVM Variables
 
-### LVM LV Commands
+#### Physical Volume Commands
 
-- `$VG_NAME` - see vgcreate above.
-- `$LV_NAME` - expands to a logical volume name that is controlled by Rabbit software.
-- `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for the volume group.
-- `$DEVICE_NUM-1` - expands to a number indicating the number of devices allocated for the volume group minus 1.
-- `$DEVICE_NUM-2` - expands to a number indicating the number of devices allocated for the volume group minus 2.
-- `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
-- `$PERCENT_VG` - expands to the size that each LV should be based on a percentage of the total VG size
-- `$LV_SIZE` - expands to the size of the LV in kB in the format expected by `lvcreate`
+| Variable | Description |
+|----------|-------------|
+| `$DEVICE` | Path to allocated device (e.g., `/dev/nvme0n1`) |
 
-### XFS mkfs
+#### Volume Group Commands
 
-- `$DEVICE` - expands to the `/dev/<path>` value for the logical volume that was created by the lvcreate step above.
+| Variable | Description |
+|----------|-------------|
+| `$VG_NAME` | Volume group name (controlled by Rabbit software) |
+| `$DEVICE_LIST` | Space-separated list of devices |
+| `$DEVICE_NUM` | Count of devices |
+| `$DEVICE_NUM-1` | Device count minus 1 (for RAID5) |
+| `$DEVICE_NUM-2` | Device count minus 2 (for RAID6) |
+| `$DEVICE` | New device path (used in vgExtend for RAID rebuild) |
 
-### GFS2 mkfs
+#### Logical Volume Commands
 
-- `$DEVICE` - expands to the `/dev/<path>` value for the logical volume that was created by the lvcreate step above.
-- `$CLUSTER_NAME` - expands to a cluster name that is controlled by Rabbit Software
-- `$LOCK_SPACE` - expands to a lock space key that is controlled by Rabbit Software.
-- `$PROTOCOL` - expands to a locking protocol that is controlled by Rabbit Software.
+| Variable | Description |
+|----------|-------------|
+| `$VG_NAME` | Volume group name |
+| `$LV_NAME` | Logical volume name |
+| `$DEVICE_NUM` | Count of devices |
+| `$DEVICE_NUM-1` | Device count minus 1 |
+| `$DEVICE_NUM-2` | Device count minus 2 |
+| `$DEVICE1`, `$DEVICE2`, ..., `$DEVICEn` | Individual devices from `$DEVICE_LIST` |
+| `$PERCENT_VG` | Size as percentage of VG |
+| `$LV_SIZE` | Size in kB format for lvcreate |
 
-### zpool create
+### File System Variables
 
-- `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were allocated for this storage request.
-- `$POOL_NAME` - expands to a pool name that is controlled by Rabbit software.
-- `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for this storage request.
-- `$DEVICE1, $DEVICE2, ..., $DEVICEn` - each expands to one of the devices from the `$DEVICE_LIST` above.
+#### XFS/Raw mkfs
 
-### zpool replace
+| Variable | Description |
+|----------|-------------|
+| `$DEVICE` | Path to the logical volume device |
 
-- `$DEVICE_NUM` - expands to a number indicating the number of devices allocated for this storage request.
-- `$DEVICE_NUM-1` - expands to a number indicating the number of devices allocated for this storage request minus 1.
-- `$DEVICE_NUM-2` - expands to a number indicating the number of devices allocated for this storage request minus 2.
-- `$DEVICE_LIST` - expands to a list of space-separated `/dev/<path>` devices. This list will contain the devices that were allocated for this storage request.
-- `$POOL_NAME` - expands to a pool name that is controlled by Rabbit software.
-- `$OLD_DEVICE` - expands to the name of a device that is degraded
-- `$NEW_DEVICE` - expands to the name of a new device that can replace the degraded device
+#### GFS2 mkfs
 
-### lustre mkfs
+| Variable | Description |
+|----------|-------------|
+| `$DEVICE` | Path to the logical volume device |
+| `$CLUSTER_NAME` | Cluster name (controlled by Rabbit software) |
+| `$LOCK_SPACE` | Lock space key (controlled by Rabbit software) |
+| `$PROTOCOL` | Locking protocol (controlled by Rabbit software) |
 
-- `$FS_NAME` - expands to the filesystem name that was passed to Rabbit software from the workflow's #DW line.
-- `$MGS_NID` - expands to the NID of the MGS. If the MGS was orchestrated by nnf-sos then an appropriate internal value will be used.
-- `$ZVOL_NAME` - expands to the volume name that will be created. This value will be `<pool_name>/<dataset>`, and is controlled by Rabbit software.
-- `$INDEX` - expands to the index value of the target and is controlled by Rabbit software.
-- `$TARGET_NAME` - expands to the name of the lustre target of the form `[fsname]-[target-type][index]` (e.g., `mylus-OST0003`)
-- `$BACKFS` - expands to the type of file system backing the Lustre target
+#### Mount/Unmount
 
-### Mount/Unmount
+| Variable | Description |
+|----------|-------------|
+| `$DEVICE` | Device path to mount |
+| `$MOUNT_PATH` | Path to mount on |
 
-- `$DEVICE` - expands to the device path to mount
-- `$MOUNT_PATH` - expands to the path to mount on
+### ZFS/Lustre Variables
 
-### PostMount/PreUnmount and PostActivate/PreDeactivate
+#### zpool create
 
-- `$MOUNT_PATH` - expands to the mount path of the fileystem to perform certain actions on the mounted filesystem
+| Variable | Description |
+|----------|-------------|
+| `$POOL_NAME` | Pool name (controlled by Rabbit software) |
+| `$DEVICE_LIST` | Space-separated list of devices |
+| `$DEVICE_NUM` | Count of devices |
+| `$DEVICE1`, `$DEVICE2`, ..., `$DEVICEn` | Individual devices |
 
-#### Lustre Specific
+#### zpool replace
 
-These variables are for lustre only and can be used to perform PostMount activities such are setting lustre striping.
+| Variable | Description |
+|----------|-------------|
+| `$POOL_NAME` | Pool name |
+| `$DEVICE_LIST` | List of devices |
+| `$DEVICE_NUM`, `$DEVICE_NUM-1`, `$DEVICE_NUM-2` | Device counts |
+| `$OLD_DEVICE` | Degraded device to replace |
+| `$NEW_DEVICE` | Replacement device |
 
-- `$NUM_MDTS` - expands to the number of MDTs for the lustre filesystem
-- `$NUM_MGTS` - expands to the number of MGTs for the lustre filesystem
-- `$NUM_MGTMDTS` - expands to the number of combined MGTMDTs for the lustre filesystem
-- `$NUM_OSTS` - expands to the number of OSTs for the lustre filesystem
-- `$NUM_NNFNODES` - expands to the number of NNF Nodes for the lustre filesystem
+#### Lustre mkfs
 
-### NnfSystemStorage specific
+| Variable | Description |
+|----------|-------------|
+| `$FS_NAME` | Lustre fsname picked by NNF software |
+| `$MGS_NID` | NID of the MGS |
+| `$ZVOL_NAME` | ZFS volume name (`pool/dataset`) |
+| `$INDEX` | Target index number |
+| `$TARGET_NAME` | Target name (e.g., `mylus-OST0003`) |
+| `$BACKFS` | Backing file system type |
 
-- `$COMPUTE_HOSTNAME` - Expands to the hostname of the compute node that will use the allocation. This can be used to add a tag during the lvcreate
+#### Lustre Client
+
+| Variable | Description |
+|----------|-------------|
+| `$MGS_NID` | NID of the MGS |
+| `$FS_NAME` | File system name |
+| `$MOUNT_PATH` | Client mount path |
+| `$NUM_MDTS` | Number of MDTs |
+| `$NUM_MGTS` | Number of MGTs |
+| `$NUM_MGTMDTS` | Number of combined MGT/MDTs |
+| `$NUM_OSTS` | Number of OSTs |
+| `$NUM_NNFNODES` | Number of NNF nodes |
+
+### NnfSystemStorage Variables
+
+For system storage allocations:
+
+| Variable | Description |
+|----------|-------------|
+| `$COMPUTE_HOSTNAME` | Hostname of the compute node using the allocation |
+
+### User Command Variables
+
+Different variables are available depending on which user command hook is being executed.
+
+#### Block Device User Commands
+
+The following variables are available to `blockDeviceCommands.rabbitCommands.userCommands` and `blockDeviceCommands.computeCommands.userCommands` (preActivate, postActivate, preDeactivate, postDeactivate):
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$VG_NAME` | Volume group name |
+| `$LV_NAME` | Logical volume name |
+
+#### File System User Commands
+
+The following variables are available to `fileSystemCommands.rabbitCommands.userCommands` and `fileSystemCommands.computeCommands.userCommands` (preMount, postMount, preUnmount, postUnmount):
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$DEVICE` | Device path being mounted |
+| `$MOUNT_PATH` | Path where the file system is mounted |
+
+#### Storage-Level User Commands
+
+The following variables are available to `userCommands` at the storage level (postSetup, preTeardown, postActivate, preDeactivate):
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$MOUNT_PATH` | Path where the file system is mounted |
+
+#### Lustre Target User Commands
+
+The following variables are available to Lustre target commands (mgtCommandlines, mdtCommandlines, mgtMdtCommandlines, ostCommandlines) for postActivate and preDeactivate:
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$MOUNT_PATH` | Path where the target is mounted |
+| `$FS_NAME` | Lustre file system name |
+| `$TARGET_NAME` | Target name (e.g., `mylus-OST0003`) |
+
+#### Lustre Client User Commands
+
+The following variables are available to `clientCommandLines` user commands:
+
+**For rabbitPreMount, rabbitPostMount, rabbitPreUnmount, rabbitPostUnmount, computePreMount, computePostMount, computePreUnmount, computePostUnmount:**
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$MGS_NID` | NID of the MGS |
+| `$FS_NAME` | Lustre file system name |
+| `$MOUNT_PATH` | Path where the client is mounted |
+
+**For rabbitPostSetup and rabbitPreTeardown:**
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$MGS_NID` | NID of the MGS |
+| `$FS_NAME` | Lustre file system name |
+| `$MOUNT_PATH` | Path where the client is mounted |
+| `$NUM_MDTS` | Number of MDTs |
+| `$NUM_MGTS` | Number of MGTs |
+| `$NUM_MGTMDTS` | Number of combined MGT/MDTs |
+| `$NUM_OSTS` | Number of OSTs |
+| `$NUM_NNFNODES` | Number of NNF nodes |
+
+#### Lustre preMountMGTCommands
+
+The following variables are available to `preMountMGTCommands`:
+
+| Variable | Description |
+|----------|-------------|
+| `$JOBID` | Job ID from the Workflow |
+| `$FS_NAME` | Lustre file system name |
+
+## Advanced Configuration
+
+### External MGS
+
+To use an existing external MGS instead of creating one:
+
+```yaml
+lustreStorage:
+  # Use existing MGS by NID
+  externalMgs: "10.0.0.1@tcp"
+  
+  # Or reference an MGS pool created with standaloneMgtPoolName
+  externalMgs: "pool:my-mgs-pool"
 ```
-lvCreate --zero n --activate n --extents $PERCENT_VG --addtag $COMPUTE_HOSTNAME ...
+
+### ZFS Dataset Properties
+
+Set ZFS properties via `--mkfsoptions`:
+
+```yaml
+lustreStorage:
+  ostCommandlines:
+    mkfs: --ost --mkfsoptions="recordsize=1024K -o compression=lz4" --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $ZVOL_NAME
 ```
+
+### Persistent Lustre Mount Options
+
+Use `--mountfsoptions` in mkfs for persistent mount options:
+
+```yaml
+lustreStorage:
+  ostCommandlines:
+    mkfs: --ost --mountfsoptions="errors=remount-ro,mballoc" --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $ZVOL_NAME
+```
+
+### Capacity Scaling and Padding
+
+```yaml
+xfsStorage:
+  # Request 10% more capacity than specified by user
+  capacityScalingFactor: "1.1"
+  
+  # Add fixed padding for LVM/filesystem overhead
+  allocationPadding: 500MiB
+```
+
+### Storage Labels
+
+Restrict allocations to specific storage resources:
+
+```yaml
+lustreStorage:
+  ostOptions:
+    storageLabels:
+    - high-performance
+    - nvme-only
+```
+
+## Pinned Profiles
+
+When a workflow references a storage profile, the NNF software creates a "pinned" copy of the profile. This ensures that:
+
+- Profile changes don't affect running workflows
+- The exact configuration is preserved for the workflow's lifetime
+- Profiles marked as `pinned: true` cannot also be `default: true`
+
+**Note:** Do not manually set `pinned: true` on profiles you create.
