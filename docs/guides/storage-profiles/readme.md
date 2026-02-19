@@ -636,6 +636,8 @@ Available in all commands:
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
+| `$ALLOCATION_COUNT` | Number of allocations on this Rabbit for this directive |
+| `$HOST_COUNT` | Total host count: compute nodes assigned to a Rabbit plus the Rabbit itself |
 
 ### LVM Variables
 
