@@ -636,6 +636,8 @@ Available in all commands:
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
+| `$ALLOCATION_COUNT` | Number of allocations on this Rabbit for this directive |
+| `$HOST_COUNT` | Total host count: compute nodes assigned to a Rabbit plus the Rabbit itself |
 
 ### LVM Variables
 
@@ -835,6 +837,161 @@ The following variables are available to `preMountMGTCommands`:
 |----------|-------------|
 | `$JOBID` | Job ID from the Workflow |
 | `$FS_NAME` | Lustre file system name |
+
+### Variable Override
+
+The `variableOverride` fields in a storage profile allow overriding the default values of environment variables used in command lines and internally by the NNF software. This is an advanced feature that provides fine-grained control over storage configuration.
+
+When a variable is overridden, the NNF software uses the new value internally when manipulating block devices and file systems; not just for expanding `$VARIABLE` references in command lines. For example, overriding `$LV_NAME` changes the actual logical volume name that the NNF software uses to perform checks and run internal commands.
+
+Variables are expanded recursively so that variable values can reference other variables. This allows building values based on job, workflow, and directive identifiers in a similar way to what the NNF software does internally. 
+
+
+#### Overridable Variables by File System Type
+
+##### XFS, GFS2, and Raw Allocations
+
+For XFS, GFS2, and Raw file systems, add `variableOverride` at the storage type level:
+
+```yaml
+xfsStorage:
+  variableOverride:
+    "$VG_NAME": "custom-vg"
+    "$LV_NAME": "custom-lv"
+```
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `$JOBID` | From workflow | Job ID from the workflow |
+| `$USERID` | From workflow | User ID of the job submitter |
+| `$GROUPID` | From workflow | Group ID of the job submitter |
+| `$WORKFLOW_UID` | From workflow | Kubernetes UID of the workflow resource |
+| `$DIRECTIVE_INDEX` | From workflow | Index of the directive within the workflow |
+| `$VG_NAME` | Auto-generated from workflow UID | Volume group name used by LVM |
+| `$LV_NAME` | Auto-generated | Logical volume name used by LVM |
+| `$PERCENT_VG` | Calculated based on allocation | Size as percentage of volume group |
+| `$FSTYPE` | `xfs`, `gfs2`, or `none` | File system type passed to mkfs |
+| `$MOUNT_TARGET` | `directory` or `file` | Whether mount target is a file or directory |
+| `$TEMP_DIR` | Auto-generated | Temporary directory for operations |
+| `$MOUNT_PATH` | `/mnt/nnf/<workflow-uid>-<index>` | Path where file system is mounted (affects DW_JOB_* variables) |
+
+##### Lustre Allocations
+
+For Lustre file systems, `variableOverride` can be specified at the target level (mgtOptions, mdtOptions, mgtMdtOptions, ostOptions) or for client operations (clientOptions):
+
+```yaml
+lustreStorage:
+  ostOptions:
+    variableOverride:
+      "$ZPOOL_NAME": "custom-pool"
+  clientOptions:
+    variableOverride:
+      "$MOUNT_PATH": "/lustre/scratch"
+```
+
+**Target-level variables (mgtOptions, mdtOptions, mgtMdtOptions, ostOptions):**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `$JOBID` | From workflow | Job ID from the workflow |
+| `$USERID` | From workflow | User ID of the job submitter |
+| `$GROUPID` | From workflow | Group ID of the job submitter |
+| `$WORKFLOW_UID` | From workflow | Kubernetes UID of the workflow resource |
+| `$DIRECTIVE_INDEX` | From workflow | Index of the directive within the workflow |
+| `$ZPOOL_NAME` | Auto-generated from workflow UID | ZFS pool name |
+| `$ZPOOL_DATA_SET` | Target type (mgt, mdt, ost) | ZFS dataset name within pool |
+| `$FSNAME` | Auto-generated | Lustre file system name |
+| `$TARGET_TYPE` | mgt, mdt, mgtmdt, or ost | Type of Lustre target |
+| `$TARGET_PATH` | Auto-generated | Mount path for the target |
+| `$MGS_NID` | Auto-discovered | NID of the MGS |
+| `$BACKFS` | zfs | Backing file system type |
+
+**Client-level variables (clientOptions):**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `$JOBID` | From workflow | Job ID from the workflow |
+| `$USERID` | From workflow | User ID of the job submitter |
+| `$GROUPID` | From workflow | Group ID of the job submitter |
+| `$WORKFLOW_UID` | From workflow | Kubernetes UID of the workflow resource |
+| `$DIRECTIVE_INDEX` | From workflow | Index of the directive within the workflow |
+| `$MOUNT_PATH` | `/mnt/nnf/<workflow-uid>-<index>` | Path where Lustre client is mounted (affects DW_JOB_* variables) |
+
+#### Example: Custom Logical Volume Name for XFS
+
+This example shows how to override the logical volume name for an XFS file system. The `$LV_NAME` variable is used both in command lines and internally by the NNF software when creating the LVM logical volume.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha10
+kind: NnfStorageProfile
+metadata:
+  name: custom-lv-name
+  namespace: nnf-system
+data:
+  default: false
+  xfsStorage:
+    variableOverride:
+      "$LV_NAME": "shared-lv"
+    blockDeviceCommands:
+      rabbitCommands:
+        pvCreate: $DEVICE
+        pvRemove: $DEVICE
+        vgCreate: --addtag $JOBID $VG_NAME $DEVICE_LIST
+        vgRemove: $VG_NAME
+        lvCreate: --zero n --activate n --size $LV_SIZE --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME $VG_NAME
+        lvRemove: $VG_NAME/$LV_NAME
+        lvChange:
+          activate: --activate y $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+      computeCommands:
+        lvChange:
+          activate: --activate y $VG_NAME/$LV_NAME
+          deactivate: --activate n $VG_NAME/$LV_NAME
+    fileSystemCommands:
+      rabbitCommands:
+        mkfs: $DEVICE
+        mount: $DEVICE $MOUNT_PATH
+        unmount: $MOUNT_PATH
+      computeCommands:
+        mount: $DEVICE $MOUNT_PATH
+        unmount: $MOUNT_PATH
+```
+
+#### Example: Custom Mount Path with DW_JOB_* Integration
+
+The `$MOUNT_PATH` variable is special because it affects the path that gets reported to the workload manager in the `DW_JOB_*` environment variables. This example shows a custom mount path that will be visible to user jobs.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha10
+kind: NnfStorageProfile
+metadata:
+  name: custom-mount-path
+  namespace: nnf-system
+data:
+  default: false
+  xfsStorage:
+    variableOverride:
+      "$MOUNT_PATH": "/scratch/$JOBID"
+    # ... rest of configuration
+```
+
+#### Example: Recursive Variable Expansion
+
+Variables can reference other variables, which are expanded recursively. This is useful for building paths that include system-provided values:
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha10
+kind: NnfStorageProfile
+metadata:
+  name: recursive-vars
+  namespace: nnf-system
+data:
+  default: false
+  xfsStorage:
+    variableOverride:
+      "$MOUNT_PATH": "/scratch/$WORKFLOW_UID/$DIRECTIVE_INDEX"
+    # ... rest of configuration
+```
 
 ## Advanced Configuration
 
