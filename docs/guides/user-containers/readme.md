@@ -205,6 +205,83 @@ New NnfContainerProfile resources may be restricted to a specific user ID or gro
 matching user ID or group ID will be allowed to use that profile . If the profile specifies both of
 these IDs, then the Workflow resource must match both of them.
 
+#### External Container Creation
+
+By default a container profile creates Kubernetes `Job` or `MPIJob` resources to run user containers
+on the Rabbit nodes. Setting `createContainer: false` in the profile disables this behaviour, allowing
+an external orchestrator to manage the container lifecycle. All the normal PreRun storage setup still
+takes place — `NnfAccess` resources are created, NNF filesystems are mounted on the Rabbit nodes —
+but **no pods are launched by NNF**. Instead, the NNF software creates an `NnfContainerData` resource
+that records the mount-path information for each storage volume.
+
+This is useful when an external orchestrator is responsible for driving the actual container lifecycle,
+but still relies on NNF to provision and mount the storage.
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha7
+kind: NnfContainerProfile
+metadata:
+  name: example-profile
+  namespace: nnf-system
+data:
+  createContainer: false   # do not launch pods; create NnfContainerData instead
+  storages:
+  - name: DW_JOB_local_storage
+    optional: false
+  spec:
+    containers:
+    - name: placeholder   # spec is still required for validation
+      image: "none"
+```
+
+The workflow advances through PreRun, PostRun, and Teardown without blocking on pod lifecycle events.
+The resulting `NnfContainerData` resource is deleted during Teardown alongside any other container
+resources.
+
+##### NnfContainerData
+
+The `NnfContainerData` resource is created in the workflow's namespace during PreRun. It describes
+each NNF storage volume that has been mounted on the Rabbit node, giving the external orchestrator
+the information it needs to attach its own containers to the prepared mounts.
+
+Given a workflow with the following directives:
+
+```bash
+#DW jobdw name=my-gfs2 type=gfs2 capacity=100GB
+#DW persistentdw name=my-persistent
+#DW container name=my-container profile=red-rock-slushy-data-only DW_JOB_local_storage=my-gfs2 DW_PERSISTENT_shared_storage=my-persistent
+```
+
+The `NnfContainerData` resource created during PreRun would look like this:
+
+```yaml
+apiVersion: nnf.cray.hpe.com/v1alpha11
+kind: NnfContainerData
+metadata:
+  name: my-workflow-2
+  namespace: default
+data:
+  volumes:
+  - name: local_storage
+    command: jobdw
+    directiveIndex: 0
+    mountPath: /mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-0
+  - name: shared_storage
+    command: persistentdw
+    directiveIndex: 1
+    mountPath: /mnt/nnf/3e92c060-ca0e-4ddb-905b-3d24137cbff4-1
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `data.volumes[].name` | string | Storage name as defined in the `NnfContainerProfile` (e.g. `local_storage`) |
+| `data.volumes[].command` | string | Directive command that created the storage: `jobdw` or `persistentdw` |
+| `data.volumes[].directiveIndex` | int | Zero-based index of the `#DW` directive in the workflow that created this storage |
+| `data.volumes[].mountPath` | string | Absolute path on the Rabbit node where the storage is mounted |
+
+The external orchestrator can query the resource by workflow name and namespace to discover where
+each storage volume is mounted:
+
 ## Creating a Container Workflow
 
 The user's workflow will specify the name of the `NnfContainerProfile` in a DW directive. If the
@@ -215,8 +292,7 @@ with the `profile` parameter.
 #DW container profile=red-rock-slushy  [...]
 ```
 
-Furthermore, to set the container storages for the workflow, storage parameters must also be
-supplied in the workflow. This is done using the `<storage_name>` (see [Container
+Furthermore, to set the container storages for the workflow, storage parameters must also be supplied in the workflow. This is done using the `<storage_name>` (see [Container
 Storages](#container-storages)) and setting it to the name of a storage directive that defines an
 NNF filesystem. That storage directive must already exist as part of another workflow (e.g.
 persistent storage) or it can be supplied in the same workflow as the container. For global lustre,
@@ -275,13 +351,16 @@ overview of the container-related behavior that occurs:
 - Proposal: Verify [storages](#container-storages) are provided according to the container profile.
 - Setup: If applicable, [request ports](#container-ports) from NnfPortManager.
 - DataIn: No container related activity.
-- PreRun: Appropriate `MPIJob` or `Job(s)` are created for the workflow. In turn, user containers
-are created and launched by Kubernetes. Containers are expected to start in this state.
-- PostRun: Once in PostRun, user containers are expected to complete (non-zero exit)
-successfully.
+- PreRun: If `createContainer: true` (default), appropriate `MPIJob` or `Job(s)` are created for
+  the workflow. In turn, user containers are created and launched by Kubernetes. Containers are
+  expected to start in this state. If `createContainer: false`, no pods are launched; instead an
+  [`NnfContainerData`](#nnfcontainerdata) resource is created that records the storage mount paths.
+- PostRun: If `createContainer: true`, user containers are expected to complete (non-zero exit)
+  successfully. If `createContainer: false`, the NNF code does not coordinate with the external
+  container launcher.
 - DataOut: No container related activity.
 - Teardown: Ports are released; `MPIJob` or `Job(s)` are deleted, which in turn deletes the user
-containers.
+  containers. Any `NnfContainerData` resource is also deleted.
 
 The two main states of a container workflow (i.e. PreRun, PostRun) are discussed further in the
 following sections.
