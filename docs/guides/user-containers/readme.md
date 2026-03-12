@@ -280,7 +280,7 @@ data:
 | `data.volumes[].mountPath` | string | Absolute path on the Rabbit node where the storage is mounted |
 
 The external orchestrator can query the resource by workflow name and namespace to discover where
-each storage volume is mounted:
+each storage volume is mounted.
 
 ## Creating a Container Workflow
 
@@ -355,7 +355,7 @@ overview of the container-related behavior that occurs:
   the workflow. In turn, user containers are created and launched by Kubernetes. Containers are
   expected to start in this state. If `createContainer: false`, no pods are launched; instead an
   [`NnfContainerData`](#nnfcontainerdata) resource is created that records the storage mount paths.
-- PostRun: If `createContainer: true`, user containers are expected to complete (non-zero exit)
+- PostRun: If `createContainer: true`, user containers are expected to complete (zero exit)
   successfully. If `createContainer: false`, the NNF code does not coordinate with the external
   container launcher.
 - DataOut: No container related activity.
