@@ -714,15 +714,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fencing-with-fence_dummy" class="md-nav__link">
+  <a href="#fencing-with-fence_recorder" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fencing with fence_dummy
+        Fencing with fence_recorder
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Fencing with fence_dummy">
+    <nav class="md-nav" aria-label="Fencing with fence_recorder">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -763,17 +763,6 @@
     <span class="md-ellipsis">
       
         Configuration Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nnf-software-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NNF Software Configuration
       
     </span>
   </a>
@@ -1655,15 +1644,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#fencing-with-fence_dummy" class="md-nav__link">
+  <a href="#fencing-with-fence_recorder" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Fencing with fence_dummy
+        Fencing with fence_recorder
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Fencing with fence_dummy">
+    <nav class="md-nav" aria-label="Fencing with fence_recorder">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1704,17 +1693,6 @@
     <span class="md-ellipsis">
       
         Configuration Options
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#nnf-software-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        NNF Software Configuration
       
     </span>
   </a>
@@ -1939,7 +1917,7 @@
 <li><a href="#quorum-configuration">Quorum Configuration</a></li>
 <li><a href="#why-the-rabbit-needs-17-votes">Why the Rabbit Needs 17 Votes</a></li>
 <li><a href="#configuring-quorum-votes">Configuring Quorum Votes</a></li>
-<li><a href="#fencing-with-fence_dummy">Fencing with fence_dummy</a></li>
+<li><a href="#fencing-with-fence_recorder">Fencing with fence_recorder</a></li>
 <li><a href="#how-it-works">How It Works</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#stonith-configuration">STONITH Configuration</a></li>
@@ -2100,8 +2078,8 @@
 <a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>corosync-quorumtool
 </code></pre></div>
 <p>The output should show the Rabbit with 17 votes and each compute with 1 vote, for a total of 33 votes and quorum at 17.</p>
-<h2 id="fencing-with-fence_dummy">Fencing with fence_dummy</h2>
-<p>The <a href="https://github.com/ClusterLabs/fence-agents/tree/main/agents/dummy"><code>fence_dummy</code></a> agent coordinates fencing with external NNF software using a request/response file pattern. When Pacemaker decides to fence a compute node, <code>fence_dummy</code>:</p>
+<h2 id="fencing-with-fence_recorder">Fencing with fence_recorder</h2>
+<p>The <code>fence_recorder</code> agent coordinates fencing with external NNF software using a request/response file pattern. When Pacemaker decides to fence a compute node, <code>fence_recorder</code>:</p>
 <ol>
 <li>Writes a fence request file</li>
 <li>Waits for the NNF software to process the request and write a response</li>
@@ -2116,10 +2094,10 @@
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>│  Pacemaker/Corosync  │
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>│  (Cluster Manager)   │
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>└──────────┬───────────┘
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>           │ Calls fence_dummy
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>           │ Calls fence_recorder
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>           ▼
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>┌──────────────────────┐       ┌───────────────────────────────┐
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   fence_dummy        │──────▶│   Request File                │
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   fence_recorder     │──────▶│   Request File                │
 <a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   (Fence Agent)      │       │   requests/&lt;node&gt;-&lt;uuid&gt;.json │
 <a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>└──────────────────────┘       └───────────────────────────────┘
 <a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>           │                                  │
@@ -2144,10 +2122,10 @@
 <a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>└──────────────────────┘
 </code></pre></div>
 <h3 id="installation">Installation</h3>
-<p>Install <code>fence_dummy</code> on all nodes in the cluster:</p>
+<p>Install <code>fence_recorder</code> on all nodes in the cluster:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Copy the agent to each node</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>cp<span class="w"> </span>fence_dummy<span class="w"> </span>/usr/sbin/fence_dummy
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/usr/sbin/fence_dummy
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo<span class="w"> </span>cp<span class="w"> </span>fence_recorder<span class="w"> </span>/usr/sbin/fence_recorder
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/usr/sbin/fence_recorder
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="c1"># Create the request/response directories on each rabbit node</span>
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/localdisk/fence-recorder/<span class="o">{</span>requests,responses<span class="o">}</span>
@@ -2161,7 +2139,7 @@
 <p>Create a STONITH resource for each compute node. Run these commands from any node in the cluster:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Create STONITH resources for all 16 compute nodes (1-16)</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">$(</span>seq<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">16</span><span class="k">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span>-fence-dummy<span class="w"> </span>fence_dummy<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span>-fence-recorder<span class="w"> </span>fence_recorder<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">        </span><span class="nv">port</span><span class="o">=</span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="nv">pcmk_host_list</span><span class="o">=</span>compute-<span class="si">${</span><span class="nv">i</span><span class="si">}</span><span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="nv">request_dir</span><span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
@@ -2175,7 +2153,7 @@
 </code></pre></div>
 <p>Alternatively, create resources individually:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Example: Create STONITH for rabbit-compute-1</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>compute-1-fence-dummy<span class="w"> </span>fence_dummy<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>create<span class="w"> </span>compute-1-fence-recorder<span class="w"> </span>fence_recorder<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nv">port</span><span class="o">=</span>rabbit-compute-1<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nv">pcmk_host_list</span><span class="o">=</span>compute-1<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="nv">request_dir</span><span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
@@ -2205,12 +2183,12 @@
 </tr>
 <tr>
 <td><code>request_dir</code></td>
-<td><code>/var/run/fence_dummy/requests</code></td>
+<td><code>/var/run/fence_recorder/requests</code></td>
 <td>Directory for fence request files</td>
 </tr>
 <tr>
 <td><code>response_dir</code></td>
-<td><code>/var/run/fence_dummy/responses</code></td>
+<td><code>/var/run/fence_recorder/responses</code></td>
 <td>Directory for fence response files</td>
 </tr>
 <tr>
@@ -2220,74 +2198,39 @@
 </tr>
 </tbody>
 </table>
-<h3 id="nnf-software-configuration">NNF Software Configuration</h3>
-<p>The nnf-node-manager DaemonSet must be configured with the <strong>same</strong> request and response directories used by the <code>fence_dummy</code> agent. These are controlled by environment variables in the pod spec:</p>
-<table>
-<thead>
-<tr>
-<th>Environment Variable</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>NNF_FENCE_REQUEST_DIR</code></td>
-<td><code>/localdisk/fence-recorder/requests</code></td>
-<td>Directory where fence agents write JSON request files</td>
-</tr>
-<tr>
-<td><code>NNF_FENCE_RESPONSE_DIR</code></td>
-<td><code>/localdisk/fence-recorder/responses</code></td>
-<td>Directory where nnf-sos writes JSON response files</td>
-</tr>
-</tbody>
-</table>
-<p>These variables are set in the nnf-node-manager DaemonSet manifest (<code>config/manager/manager.yaml</code>):</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">env</span><span class="p">:</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NNF_FENCE_REQUEST_DIR</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/localdisk/fence-recorder/requests&quot;</span>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NNF_FENCE_RESPONSE_DIR</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/localdisk/fence-recorder/responses&quot;</span>
-</code></pre></div>
-<p>When unset or empty, the defaults shown above are used. The nnf-node-manager creates the directories automatically if they do not exist.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The <code>request_dir</code> and <code>response_dir</code> values in the STONITH resource configuration <strong>must match</strong> the <code>NNF_FENCE_REQUEST_DIR</code> and <code>NNF_FENCE_RESPONSE_DIR</code> environment variables in the nnf-node-manager pod. If they differ, fence requests will not be detected.</p>
-</div>
 <h3 id="verifying-configuration">Verifying Configuration</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Check STONITH status</span>
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>status
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># View STONITH configuration</span>
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>config
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="c1"># Test that fence_dummy can generate metadata</span>
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>fence_dummy<span class="w"> </span>--action<span class="w"> </span>metadata
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Check STONITH status</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>status
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># View STONITH configuration</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>config
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="c1"># Test that fence_recorder can generate metadata</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>fence_recorder<span class="w"> </span>--action<span class="w"> </span>metadata
 </code></pre></div>
 <h2 id="requestresponse-protocol">Request/Response Protocol</h2>
 <h3 id="request-file-format">Request File Format</h3>
-<p>When a fence operation is triggered, <code>fence_dummy</code> writes a JSON request file:</p>
+<p>When a fence operation is triggered, <code>fence_recorder</code> writes a JSON request file:</p>
 <p><strong>Location</strong>: <code>&lt;request_dir&gt;/&lt;node&gt;-&lt;uuid&gt;.json</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-10T14:30:00-06:00&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">&quot;target_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-compute-1&quot;</span><span class="p">,</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nt">&quot;recorder_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-node-1&quot;</span>
-<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="p">{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-10T14:30:00-06:00&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">&quot;target_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-compute-1&quot;</span><span class="p">,</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">  </span><span class="nt">&quot;recorder_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-node-1&quot;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="response-file-format">Response File Format</h3>
 <p>The NNF software writes a response file after processing:</p>
 <p><strong>Location</strong>: <code>&lt;response_dir&gt;/&lt;node&gt;-&lt;uuid&gt;.json</code></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="p">{</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">  </span><span class="nt">&quot;action_performed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">  </span><span class="nt">&quot;target_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-compute-1&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Successfully fenced node&quot;</span><span class="p">,</span>
-<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-10T14:30:15-06:00&quot;</span>
-<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">&quot;request_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;550e8400-e29b-41d4-a716-446655440000&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="nt">&quot;success&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="nt">&quot;action_performed&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">  </span><span class="nt">&quot;target_node&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rabbit-compute-1&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Successfully fenced node&quot;</span><span class="p">,</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-01-10T14:30:15-06:00&quot;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="p">}</span>
 </code></pre></div>
 <h3 id="atomic-file-writing">Atomic File Writing</h3>
 <p>Both request and response files use atomic rename to ensure consumers only see complete files:</p>
@@ -2327,41 +2270,41 @@
 </table>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h3 id="check-stonith-status">Check STONITH Status</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># View current status</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>status
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Check for failed resources</span>
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>pcs<span class="w"> </span>status
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
-<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1"># View detailed configuration</span>
-<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>config<span class="w"> </span>&lt;resource-name&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># View current status</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>status
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Check for failed resources</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>pcs<span class="w"> </span>status
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># View detailed configuration</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>pcs<span class="w"> </span>stonith<span class="w"> </span>config<span class="w"> </span>&lt;resource-name&gt;
 </code></pre></div>
 <h3 id="common-issues">Common Issues</h3>
 <p><strong>STONITH resource stopped or failed:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Clean up failed resource state</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>pcs<span class="w"> </span>resource<span class="w"> </span>cleanup<span class="w"> </span>&lt;resource-name&gt;
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Check logs for errors</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>pacemaker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>stonith
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Clean up failed resource state</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>pcs<span class="w"> </span>resource<span class="w"> </span>cleanup<span class="w"> </span>&lt;resource-name&gt;
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Check logs for errors</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>journalctl<span class="w"> </span>-u<span class="w"> </span>pacemaker<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>stonith
 </code></pre></div>
 <p><strong>Timeout waiting for response:</strong></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Check if NNF software is processing requests</span>
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/localdisk/fence-recorder/requests/
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>ls<span class="w"> </span>-la<span class="w"> </span>/localdisk/fence-recorder/responses/
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Check fence_dummy logs</span>
-<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/cluster/fence-events.log
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Check if NNF software is processing requests</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>ls<span class="w"> </span>-la<span class="w"> </span>/localdisk/fence-recorder/requests/
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ls<span class="w"> </span>-la<span class="w"> </span>/localdisk/fence-recorder/responses/
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Check fence_recorder logs</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/cluster/fence-events.log
 </code></pre></div>
 <p><strong>Module not found error:</strong>
-Ensure the fencing library path is correct in <code>/usr/sbin/fence_dummy</code>. The <code>sys.path.append</code> line should point to <code>/usr/share/fence</code>.</p>
+Ensure the fencing library path is correct in <code>/usr/sbin/fence_recorder</code>. The <code>sys.path.append</code> line should point to <code>/usr/share/fence</code>.</p>
 <h3 id="testing-fence-operations">Testing Fence Operations</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Test metadata generation</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>fence_dummy<span class="w"> </span>--action<span class="w"> </span>metadata
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1"># Test monitor action (non-destructive)</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>fence_dummy<span class="w"> </span>--action<span class="w"> </span>monitor<span class="w"> </span>-n<span class="w"> </span>rabbit-compute-1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span>--request-dir<span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span>--response-dir<span class="o">=</span>/localdisk/fence-recorder/responses
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Test metadata generation</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>fence_recorder<span class="w"> </span>--action<span class="w"> </span>metadata
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Test monitor action (non-destructive)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>fence_recorder<span class="w"> </span>--action<span class="w"> </span>monitor<span class="w"> </span>-n<span class="w"> </span>rabbit-compute-1<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>--request-dir<span class="o">=</span>/localdisk/fence-recorder/requests<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span>--response-dir<span class="o">=</span>/localdisk/fence-recorder/responses
 </code></pre></div>
 <h2 id="gfs2-file-system-configuration">GFS2 File System Configuration</h2>
 <p>After the cluster is configured with fencing, you can configure GFS2 file systems. See Red Hat documentation:</p>
