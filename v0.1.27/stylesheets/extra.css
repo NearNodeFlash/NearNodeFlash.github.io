@@ -1,0 +1,27 @@
+/* Prevent word wrapping only in the first column (Argument) */
+.md-typeset table th:first-child,
+.md-typeset table td:first-child {
+    white-space: nowrap;
+    word-break: keep-all;
+    min-width: 120px;
+}
+
+/* Ensure code elements in the first column don't wrap */
+.md-typeset table th:first-child code,
+.md-typeset table td:first-child code {
+    white-space: nowrap;
+    word-break: keep-all;
+}
+
+/* Allow normal wrapping for other columns (especially Notes) */
+.md-typeset table th:not(:first-child),
+.md-typeset table td:not(:first-child) {
+    white-space: normal;
+    word-break: normal;
+}
+
+/* Keep table layout flexible */
+.md-typeset table {
+    table-layout: auto;
+    width: 100%;
+}
