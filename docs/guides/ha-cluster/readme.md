@@ -15,7 +15,7 @@ NNF software supports provisioning of Red Hat GFS2 (Global File System 2) storag
 - [Quorum Configuration](#quorum-configuration)
   - [Why the Rabbit Needs 17 Votes](#why-the-rabbit-needs-17-votes)
   - [Configuring Quorum Votes](#configuring-quorum-votes)
-- [Fencing with fence_recorder](#fencing-with-fence_recorder)
+- [Fencing with fence_dummy](#fencing-with-fence_dummy)
   - [How It Works](#how-it-works)
   - [Installation](#installation)
   - [STONITH Configuration](#stonith-configuration)
@@ -169,9 +169,9 @@ corosync-quorumtool
 
 The output should show the Rabbit with 17 votes and each compute with 1 vote, for a total of 33 votes and quorum at 17.
 
-## Fencing with fence_recorder
+## Fencing with fence_dummy
 
-The `fence_recorder` agent coordinates fencing with external NNF software using a request/response file pattern. When Pacemaker decides to fence a compute node, `fence_recorder`:
+The [`fence_dummy`](https://github.com/ClusterLabs/fence-agents/tree/main/agents/dummy) agent coordinates fencing with external NNF software using a request/response file pattern. When Pacemaker decides to fence a compute node, `fence_dummy`:
 
 1. Writes a fence request file
 2. Waits for the NNF software to process the request and write a response
@@ -188,10 +188,10 @@ This allows the NNF software to perform storage cleanup (detaching NVMe namespac
 │  Pacemaker/Corosync  │
 │  (Cluster Manager)   │
 └──────────┬───────────┘
-           │ Calls fence_recorder
+           │ Calls fence_dummy
            ▼
 ┌──────────────────────┐       ┌───────────────────────────────┐
-│   fence_recorder     │──────▶│   Request File                │
+│   fence_dummy        │──────▶│   Request File                │
 │   (Fence Agent)      │       │   requests/<node>-<uuid>.json │
 └──────────────────────┘       └───────────────────────────────┘
            │                                  │
@@ -218,12 +218,12 @@ This allows the NNF software to perform storage cleanup (detaching NVMe namespac
 
 ### Installation
 
-Install `fence_recorder` on all nodes in the cluster:
+Install `fence_dummy` on all nodes in the cluster:
 
 ```bash
 # Copy the agent to each node
-sudo cp fence_recorder /usr/sbin/fence_recorder
-sudo chmod 755 /usr/sbin/fence_recorder
+sudo cp fence_dummy /usr/sbin/fence_dummy
+sudo chmod 755 /usr/sbin/fence_dummy
 
 # Create the request/response directories on each rabbit node
 sudo mkdir -p /localdisk/fence-recorder/{requests,responses}
@@ -241,7 +241,7 @@ Create a STONITH resource for each compute node. Run these commands from any nod
 ```bash
 # Create STONITH resources for all 16 compute nodes (1-16)
 for i in $(seq 1 16); do
-    pcs stonith create compute-${i}-fence-recorder fence_recorder \
+    pcs stonith create compute-${i}-fence-dummy fence_dummy \
         port=compute-${i} \
         pcmk_host_list=compute-${i} \
         request_dir=/localdisk/fence-recorder/requests \
@@ -258,7 +258,7 @@ Alternatively, create resources individually:
 
 ```bash
 # Example: Create STONITH for rabbit-compute-1
-pcs stonith create compute-1-fence-recorder fence_recorder \
+pcs stonith create compute-1-fence-dummy fence_dummy \
     port=rabbit-compute-1 \
     pcmk_host_list=compute-1 \
     request_dir=/localdisk/fence-recorder/requests \
@@ -273,9 +273,33 @@ pcs stonith create compute-1-fence-recorder fence_recorder \
 |--------|---------|-------------|
 | `port` | (required) | Target node name to fence |
 | `pcmk_host_list` | (required) | Node this STONITH resource can fence |
-| `request_dir` | `/var/run/fence_recorder/requests` | Directory for fence request files |
-| `response_dir` | `/var/run/fence_recorder/responses` | Directory for fence response files |
+| `request_dir` | `/var/run/fence_dummy/requests` | Directory for fence request files |
+| `response_dir` | `/var/run/fence_dummy/responses` | Directory for fence response files |
 | `log_dir` | `/var/log/cluster` | Directory for log files |
+
+### NNF Software Configuration
+
+The nnf-node-manager DaemonSet must be configured with the **same** request and response directories used by the `fence_dummy` agent. These are controlled by environment variables in the pod spec:
+
+| Environment Variable | Default | Description |
+|---------------------|---------|-------------|
+| `NNF_FENCE_REQUEST_DIR` | `/localdisk/fence-recorder/requests` | Directory where fence agents write JSON request files |
+| `NNF_FENCE_RESPONSE_DIR` | `/localdisk/fence-recorder/responses` | Directory where nnf-sos writes JSON response files |
+
+These variables are set in the nnf-node-manager DaemonSet manifest (`config/manager/manager.yaml`):
+
+```yaml
+env:
+  - name: NNF_FENCE_REQUEST_DIR
+    value: "/localdisk/fence-recorder/requests"
+  - name: NNF_FENCE_RESPONSE_DIR
+    value: "/localdisk/fence-recorder/responses"
+```
+
+When unset or empty, the defaults shown above are used. The nnf-node-manager creates the directories automatically if they do not exist.
+
+!!! important
+    The `request_dir` and `response_dir` values in the STONITH resource configuration **must match** the `NNF_FENCE_REQUEST_DIR` and `NNF_FENCE_RESPONSE_DIR` environment variables in the nnf-node-manager pod. If they differ, fence requests will not be detected.
 
 ### Verifying Configuration
 
@@ -286,15 +310,15 @@ pcs stonith status
 # View STONITH configuration
 pcs stonith config
 
-# Test that fence_recorder can generate metadata
-fence_recorder --action metadata
+# Test that fence_dummy can generate metadata
+fence_dummy --action metadata
 ```
 
 ## Request/Response Protocol
 
 ### Request File Format
 
-When a fence operation is triggered, `fence_recorder` writes a JSON request file:
+When a fence operation is triggered, `fence_dummy` writes a JSON request file:
 
 **Location**: `<request_dir>/<node>-<uuid>.json`
 
@@ -379,21 +403,21 @@ journalctl -u pacemaker | grep -i stonith
 ls -la /localdisk/fence-recorder/requests/
 ls -la /localdisk/fence-recorder/responses/
 
-# Check fence_recorder logs
+# Check fence_dummy logs
 tail -f /var/log/cluster/fence-events.log
 ```
 
 **Module not found error:**
-Ensure the fencing library path is correct in `/usr/sbin/fence_recorder`. The `sys.path.append` line should point to `/usr/share/fence`.
+Ensure the fencing library path is correct in `/usr/sbin/fence_dummy`. The `sys.path.append` line should point to `/usr/share/fence`.
 
 ### Testing Fence Operations
 
 ```bash
 # Test metadata generation
-fence_recorder --action metadata
+fence_dummy --action metadata
 
 # Test monitor action (non-destructive)
-fence_recorder --action monitor -n rabbit-compute-1 \
+fence_dummy --action monitor -n rabbit-compute-1 \
     --request-dir=/localdisk/fence-recorder/requests \
     --response-dir=/localdisk/fence-recorder/responses
 ```
