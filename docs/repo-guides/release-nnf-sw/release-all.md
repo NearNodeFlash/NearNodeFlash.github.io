@@ -14,14 +14,14 @@ other components.
 
 - [NearNodeFlash/nnf-deploy](https://github.com/NearNodeFlash/nnf-deploy)
 
-    - [DataWorkflowServices/dws](https://github.com/DataWorkflowServices/dws)
-    - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
-    - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
-    - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu) *(standalone repo, not a submodule)*
-    - [NearNodeFlash/nnf-ec](https://github.com/NearNodeFlash/nnf-ec) *(standalone repo, not a submodule)*
-    - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
-    - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
-    - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
+  - [DataWorkflowServices/dws](https://github.com/DataWorkflowServices/dws)
+  - [HewlettPackard/lustre-csi-driver](https://github.com/HewlettPackard/lustre-csi-driver)
+  - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
+  - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu) *(standalone repo, not a submodule)*
+  - [NearNodeFlash/nnf-ec](https://github.com/NearNodeFlash/nnf-ec) *(standalone repo, not a submodule)*
+  - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
+  - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
+  - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
 
 - [NearNodeFlash/NearNodeFlash.github.io](https://github.com/NearNodeFlash/NearNodeFlash.github.io)
 
@@ -48,7 +48,7 @@ tool enforces the following order:
 The following tools must be installed and available in your PATH:
 
 | Tool | Purpose | Notes |
-|------|---------|-------|
+| --- | --- | --- |
 | `gh` | GitHub CLI for PRs, releases | Requires `GH_TOKEN` env var (see below) |
 | `yq` | YAML processing | Must be the [Go version](https://github.com/mikefarah/yq), not the Python version |
 | `jq` | JSON processing | Used by `final-release-notes.sh` |
@@ -60,7 +60,7 @@ The following tools must be installed and available in your PATH:
 
 **Environment variables:**
 
-- `GH_TOKEN` — A GitHub classic personal access token with `repo` scope. Required by `gh` and by the `release-push`, `create-pr`, `merge-pr`, and `tag-release` phases.
+- `GH_TOKEN` — A GitHub **classic** personal access token (not fine-grained) with `repo` scope. The token is 40 characters, starting with `ghp_`. Required by `gh` and by the `release-push`, `create-pr`, `merge-pr`, and `tag-release` phases.
 
 **SSH access:**
 
@@ -87,7 +87,7 @@ The following tools must be installed and available in your PATH:
 
     The output will show the repos in dependency order:
 
-    ```
+    ```text
     dws
     lustre_csi_driver
     lustre_fs_operator
@@ -102,6 +102,14 @@ The following tools must be installed and available in your PATH:
 
 1. **Check Vendoring:** For each repo's master/main branch; determine whether any of them need to be re-vendored.
     > **Note:** Ensure each repo is error-free before proceeding to the next repo in `repo-list`
+    >
+    > **Note:** `nnf_sos` requires the `-M` flag because it vendors multiple API versions of `dws`:
+    >
+    > ```bash
+    > ./release-all.sh -P master -R nnf_sos -M
+    > ```
+    >
+    > **Important:** Run vendoring checks on **all** repos, not just the ones you plan to release. This catches stale submodule pointers in `nnf-deploy` (e.g., a force-push on a submodule repo can leave the pointer at an orphaned commit SHA).
 
     ```bash
     For each repo in `repo-list`
@@ -109,6 +117,17 @@ The following tools must be installed and available in your PATH:
     ```
 
 2. **Create Trial Release Branch:** Create the new release branch, merge master/main to that release branch, but don't push it yet. The point of this step is to look for merge conflicts between master/main and the release branch.
+
+    > **Note:** `nnf_mfu` may report "No new changes to release" if master has no commits since the last release. This is normal — skip it in subsequent steps.
+    >
+    > **Note:** `nnf_doc` must be deferred until after `nnf_deploy` is tagged and its GitHub Release is published. The `nnf_doc` script updates `mkdocs.yml` with the latest `nnf-deploy` release version by querying GitHub Releases (not just tags). Follow this sequence:
+    >
+    > 1. Complete Steps 2–3d for all repos through `nnf_deploy`
+    > 2. **Wait ~60 seconds** for `nnf_deploy`'s "Handle Release Tag" GitHub Actions workflow to publish the GitHub Release
+    > 3. Verify: `gh release view $NNF_RELEASE -R NearNodeFlash/nnf-deploy` should succeed
+    > 4. Then run `nnf_doc` through Steps 2–3d
+    >
+    > **Important:** `nnf_doc`'s repo is `NearNodeFlash/NearNodeFlash.github.io` and uses the `main` branch (not `master`).
 
     ```bash
     For each repo in `repo-list`
@@ -153,6 +172,14 @@ The following tools must be installed and available in your PATH:
     **Step 3c** — Merge PR for the pushed release branch:
 
     > **Warning:** Do NOT manually merge the PR. Let `release-all.sh` merge it. If you accidentally merge manually, the `tag-release` phase may not find the expected merge commit message — use `-x force-tag=vX.Y.Z` to recover (see step 3d).
+    >
+    > **Note:** `merge-pr` may produce no visible output even on success. Verify the merge completed:
+    >
+    > ```bash
+    > gh api repos/<owner>/<repo>/pulls/<pr_number> 2>&1 | grep -o '"merged":[^,]*'
+    > ```
+    >
+    > Expected output: `"merged":true`
 
     ```bash
     ./release-all.sh -P merge-pr -R <repo>
@@ -161,6 +188,8 @@ The following tools must be installed and available in your PATH:
     **Step 3d** — Tag the release:
 
     > **Important:** This creates an **annotated** git tag. The CI/CD workflow (`handle_release_tag.yaml`) verifies that the tag is annotated and will reject lightweight tags. After tagging, the CI/CD workflow automatically creates the GitHub release with auto-generated release notes and attaches build artifacts (e.g., `manifests.tar` for `nnf-deploy`).
+    >
+    > **Note:** `tag-release` output will include "Bypassed rule violations for refs/tags/...". This is expected. All NNF repos have tag protection rulesets that block creation, update, and deletion of `v*` tags by default. Your account bypasses these rules because it has an admin or maintain role in the ruleset's bypass list. The tags are created correctly.
 
     ```bash
     ./release-all.sh -P tag-release -R <repo>
@@ -194,32 +223,40 @@ Finalize the release by updating the `nnf-deploy` release notes to include the r
 
 After all repos are released and release notes are finalized, compare the new NNF release manifest to the previous release manifest. This is a recommended verification step to confirm the release contains the expected changes and catch any problems.
 
-```console
-./compare-releases.sh v0.1.6 v0.1.7
-```
-
-The output:
+Use the `-i` flag to display image version changes inline:
 
 ```console
-Manifest diffs for v0.1.6 to v0.1.7 are in workingspace/manifest-v0.1.6-to-v0.1.7.diff
+./compare-releases.sh -i $PREVIOUS_RELEASE $NNF_RELEASE
 ```
+
+Example output:
+
+```console
+Manifest diffs for v0.1.26 to v0.1.27 are in workingspace/manifest-v0.1.26-to-v0.1.27.diff (21426 lines, 8 files changed)
+Changed files:
+Files v0.1.26/nnf-dm/nnf-dm.yaml and v0.1.27/nnf-dm/nnf-dm.yaml differ
+Files v0.1.26/nnf-sos/nnf-sos.yaml and v0.1.27/nnf-sos/nnf-sos.yaml differ
+...
+
+Image version changes:
+-        image: ghcr.io/nearnodeflash/nnf-dm:0.1.25
++        image: ghcr.io/nearnodeflash/nnf-dm:0.1.26
+-        image: ghcr.io/nearnodeflash/nnf-sos:0.1.31
++        image: ghcr.io/nearnodeflash/nnf-sos:0.1.32
+```
+
+Use `-d` to display the full diff inline. The diff file is always saved to `workingspace/manifest-<ver1>-to-<ver2>.diff`.
 
 Peruse the release manifest differences:
 
 ```console
-less workingspace/manifest-v0.1.6-to-v0.1.7.diff
-```
-
-Quickly see which submodules were updated between the releases:
-
-```console
-grep image: workingspace/manifest-v0.1.6-to-v0.1.7.diff
+less workingspace/manifest-v0.1.26-to-v0.1.27.diff
 ```
 
 Quickly determine the scope of the differences between the releases:
 
 ```console
 brew install patchutils diffstat
-lsdiff workingspace/manifest-v0.1.6-to-v0.1.7.diff
-diffstat workingspace/manifest-v0.1.6-to-v0.1.7.diff
+lsdiff workingspace/manifest-v0.1.26-to-v0.1.27.diff
+diffstat workingspace/manifest-v0.1.26-to-v0.1.27.diff
 ```
