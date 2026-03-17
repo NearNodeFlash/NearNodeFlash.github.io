@@ -20,6 +20,7 @@ NNF software supports provisioning of Red Hat GFS2 (Global File System 2) storag
   - [Installation](#installation)
   - [STONITH Configuration](#stonith-configuration)
   - [Configuration Options](#configuration-options)
+  - [NNF Software Configuration](#nnf-software-configuration)
   - [Verifying Configuration](#verifying-configuration)
 - [Request/Response Protocol](#requestresponse-protocol)
   - [Request File Format](#request-file-format)
