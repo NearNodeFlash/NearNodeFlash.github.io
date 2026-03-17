@@ -1453,18 +1453,16 @@ other components.</p>
 <ul>
 <li>
 <p><a href="https://github.com/NearNodeFlash/nnf-deploy">NearNodeFlash/nnf-deploy</a></p>
-</li>
-<li>
-<p><a href="https://github.com/DataWorkflowServices/dws">DataWorkflowServices/dws</a></p>
-</li>
+<ul>
+<li><a href="https://github.com/DataWorkflowServices/dws">DataWorkflowServices/dws</a></li>
 <li><a href="https://github.com/HewlettPackard/lustre-csi-driver">HewlettPackard/lustre-csi-driver</a></li>
 <li><a href="https://github.com/NearNodeFlash/lustre-fs-operator">NearNodeFlash/lustre-fs-operator</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-mfu">NearNodeFlash/nnf-mfu</a> <em>(standalone repo, not a submodule)</em></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-ec">NearNodeFlash/nnf-ec</a> <em>(standalone repo, not a submodule)</em></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-sos">NearNodeFlash/nnf-sos</a></li>
 <li><a href="https://github.com/NearNodeFlash/nnf-dm">NearNodeFlash/nnf-dm</a></li>
-<li>
-<p><a href="https://github.com/NearNodeFlash/nnf-integration-test">NearNodeFlash/nnf-integration-test</a></p>
+<li><a href="https://github.com/NearNodeFlash/nnf-integration-test">NearNodeFlash/nnf-integration-test</a></li>
+</ul>
 </li>
 <li>
 <p><a href="https://github.com/NearNodeFlash/NearNodeFlash.github.io">NearNodeFlash/NearNodeFlash.github.io</a></p>
@@ -1541,7 +1539,7 @@ tool enforces the following order:</p>
 </table>
 <p><strong>Environment variables:</strong></p>
 <ul>
-<li><code>GH_TOKEN</code> — A GitHub <strong>classic</strong> personal access token (not fine-grained) with <code>repo</code> scope. The token is 40 characters, starting with <code>ghp_</code>. Required by <code>gh</code> and by the <code>release-push</code>, <code>create-pr</code>, <code>merge-pr</code>, and <code>tag-release</code> phases.</li>
+<li><code>GH_TOKEN</code> — A GitHub classic personal access token with <code>repo</code> scope. Required by <code>gh</code> and by the <code>release-push</code>, <code>create-pr</code>, <code>merge-pr</code>, and <code>tag-release</code> phases.</li>
 </ul>
 <p><strong>SSH access:</strong></p>
 <ul>
@@ -1578,33 +1576,15 @@ tool enforces the following order:</p>
 </li>
 <li>
 <p><strong>Check Vendoring:</strong> For each repo's master/main branch; determine whether any of them need to be re-vendored.
-    &gt; <strong>Note:</strong> Ensure each repo is error-free before proceeding to the next repo in <code>repo-list</code>
-    &gt;
-    &gt; <strong>Note:</strong> <code>nnf_sos</code> requires the <code>-M</code> flag because it vendors multiple API versions of <code>dws</code>:
-    &gt;
-    &gt; <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>master<span class="w"> </span>-R<span class="w"> </span>nnf_sos<span class="w"> </span>-M
-</code></pre></div>
-    &gt;
-    &gt; <strong>Important:</strong> Run vendoring checks on <strong>all</strong> repos, not just the ones you plan to release. This catches stale submodule pointers in <code>nnf-deploy</code> (e.g., a force-push on a submodule repo can leave the pointer at an orphaned commit SHA).</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>For<span class="w"> </span>each<span class="w"> </span>repo<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>repo-list<span class="sb">`</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>master<span class="w"> </span>-R<span class="w"> </span><span class="nv">$repo</span>
+    &gt; <strong>Note:</strong> Ensure each repo is error-free before proceeding to the next repo in <code>repo-list</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>For<span class="w"> </span>each<span class="w"> </span>repo<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>repo-list<span class="sb">`</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>master<span class="w"> </span>-R<span class="w"> </span><span class="nv">$repo</span>
 </code></pre></div>
 </li>
 <li>
 <p><strong>Create Trial Release Branch:</strong> Create the new release branch, merge master/main to that release branch, but don't push it yet. The point of this step is to look for merge conflicts between master/main and the release branch.</p>
-<blockquote>
-<p><strong>Note:</strong> <code>nnf_mfu</code> may report "No new changes to release" if master has no commits since the last release. This is normal — skip it in subsequent steps.</p>
-<p><strong>Note:</strong> <code>nnf_doc</code> must be deferred until after <code>nnf_deploy</code> is tagged and its GitHub Release is published. The <code>nnf_doc</code> script updates <code>mkdocs.yml</code> with the latest <code>nnf-deploy</code> release version by querying GitHub Releases (not just tags). Follow this sequence:</p>
-<ol>
-<li>Complete Steps 2–3d for all repos through <code>nnf_deploy</code></li>
-<li><strong>Wait ~60 seconds</strong> for <code>nnf_deploy</code>'s "Handle Release Tag" GitHub Actions workflow to publish the GitHub Release</li>
-<li>Verify: <code>gh release view $NNF_RELEASE -R NearNodeFlash/nnf-deploy</code> should succeed</li>
-<li>Then run <code>nnf_doc</code> through Steps 2–3d</li>
-</ol>
-<p><strong>Important:</strong> <code>nnf_doc</code>'s repo is <code>NearNodeFlash/NearNodeFlash.github.io</code> and uses the <code>main</code> branch (not <code>master</code>).</p>
-</blockquote>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>For<span class="w"> </span>each<span class="w"> </span>repo<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>repo-list<span class="sb">`</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release<span class="w"> </span>-R<span class="w"> </span><span class="nv">$repo</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>For<span class="w"> </span>each<span class="w"> </span>repo<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>repo-list<span class="sb">`</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release<span class="w"> </span>-R<span class="w"> </span><span class="nv">$repo</span>
 </code></pre></div>
 </li>
 <li>
@@ -1614,46 +1594,41 @@ tool enforces the following order:</p>
 <ul>
 <li>
 <p>If the <strong>Create Trial Release Branch</strong> had <strong>no errors</strong>:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release-push<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release-push<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
 </li>
 <li>
 <p>If <strong>Create Trial Release Branch</strong> was unable to auto merge, manually fix and merge the release branch, then re-run this phase on the existing branch:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>workingspace/&lt;repo&gt;
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># Manually merge the changes from master/main to the release branch</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>go<span class="w"> </span>mod<span class="w"> </span>tidy
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>go<span class="w"> </span>mod<span class="w"> </span>vendor
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>status<span class="w"> </span><span class="c1"># confirm all issues have been addressed</span>
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;all<span class="w"> </span>affected<span class="w"> </span>files&gt;
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-s<span class="w"> </span><span class="c1"># take the default commit message, don&#39;t bother editing it.</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">cd</span><span class="w"> </span>workingspace/&lt;repo&gt;
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># Manually merge the changes from master/main to the release branch</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>go<span class="w"> </span>mod<span class="w"> </span>tidy
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>go<span class="w"> </span>mod<span class="w"> </span>vendor
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>git<span class="w"> </span>status<span class="w"> </span><span class="c1"># confirm all issues have been addressed</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;all<span class="w"> </span>affected<span class="w"> </span>files&gt;
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-s<span class="w"> </span><span class="c1"># take the default commit message, don&#39;t bother editing it.</span>
 </code></pre></div>
 <p>Then re-run this phase on this branch, telling the tool to pick up where you left off:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">USE_EXISTING_WORKAREA</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release-push<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nv">USE_EXISTING_WORKAREA</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release-push<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
 </li>
 </ul>
 <p><strong>Step 3b</strong> — Create PR for the pushed release branch:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>create-pr<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>create-pr<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
 <p><strong>Step 3c</strong> — Merge PR for the pushed release branch:</p>
 <blockquote>
 <p><strong>Warning:</strong> Do NOT manually merge the PR. Let <code>release-all.sh</code> merge it. If you accidentally merge manually, the <code>tag-release</code> phase may not find the expected merge commit message — use <code>-x force-tag=vX.Y.Z</code> to recover (see step 3d).</p>
-<p><strong>Note:</strong> <code>merge-pr</code> may produce no visible output even on success. Verify the merge completed:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gh<span class="w"> </span>api<span class="w"> </span>repos/&lt;owner&gt;/&lt;repo&gt;/pulls/&lt;pr_number&gt;<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;&quot;merged&quot;:[^,]*&#39;</span>
-</code></pre></div>
-<p>Expected output: <code>"merged":true</code></p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>merge-pr<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>merge-pr<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
 <p><strong>Step 3d</strong> — Tag the release:</p>
 <blockquote>
 <p><strong>Important:</strong> This creates an <strong>annotated</strong> git tag. The CI/CD workflow (<code>handle_release_tag.yaml</code>) verifies that the tag is annotated and will reject lightweight tags. After tagging, the CI/CD workflow automatically creates the GitHub release with auto-generated release notes and attaches build artifacts (e.g., <code>manifests.tar</code> for <code>nnf-deploy</code>).</p>
-<p><strong>Note:</strong> <code>tag-release</code> output will include "Bypassed rule violations for refs/tags/...". This is expected. All NNF repos have tag protection rulesets that block creation, update, and deletion of <code>v*</code> tags by default. Your account bypasses these rules because it has an admin or maintain role in the ruleset's bypass list. The tags are created correctly.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>tag-release<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>tag-release<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
 </code></pre></div>
 <p>If tagging fails because the most recent commit doesn't contain the expected merge message (e.g., due to a manual merge), use the force-tag override:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>tag-release<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;<span class="w"> </span>-x<span class="w"> </span>force-tag<span class="o">=</span>vX.Y.Z
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>tag-release<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;<span class="w"> </span>-x<span class="w"> </span>force-tag<span class="o">=</span>vX.Y.Z
 </code></pre></div>
 </li>
 </ol>
@@ -1665,41 +1640,32 @@ tool enforces the following order:</p>
 <ol>
 <li>
 <p>Generate complete release notes for the specified <code>nnf-deploy</code> release for review:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span>
 </code></pre></div>
 </li>
 <li>
 <p>Review the generated notes, then commit them:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span><span class="w"> </span>-C
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>./final-release-notes.sh<span class="w"> </span>-r<span class="w"> </span><span class="nv">$NNF_RELEASE</span><span class="w"> </span>-C
 </code></pre></div>
 </li>
 </ol>
 <h2 id="verify-the-release">Verify the release</h2>
 <p>After all repos are released and release notes are finalized, compare the new NNF release manifest to the previous release manifest. This is a recommended verification step to confirm the release contains the expected changes and catch any problems.</p>
-<p>Use the <code>-i</code> flag to display image version changes inline:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="go">./compare-releases.sh -i $PREVIOUS_RELEASE $NNF_RELEASE</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="go">./compare-releases.sh v0.1.6 v0.1.7</span>
 </code></pre></div>
-<p>Example output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="go">Manifest diffs for v0.1.26 to v0.1.27 are in workingspace/manifest-v0.1.26-to-v0.1.27.diff (21426 lines, 8 files changed)</span>
-<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="go">Changed files:</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="go">Files v0.1.26/nnf-dm/nnf-dm.yaml and v0.1.27/nnf-dm/nnf-dm.yaml differ</span>
-<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="go">Files v0.1.26/nnf-sos/nnf-sos.yaml and v0.1.27/nnf-sos/nnf-sos.yaml differ</span>
-<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="go">...</span>
-<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>
-<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="go">Image version changes:</span>
-<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="go">-        image: ghcr.io/nearnodeflash/nnf-dm:0.1.25</span>
-<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="go">+        image: ghcr.io/nearnodeflash/nnf-dm:0.1.26</span>
-<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="go">-        image: ghcr.io/nearnodeflash/nnf-sos:0.1.31</span>
-<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="go">+        image: ghcr.io/nearnodeflash/nnf-sos:0.1.32</span>
+<p>The output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="go">Manifest diffs for v0.1.6 to v0.1.7 are in workingspace/manifest-v0.1.6-to-v0.1.7.diff</span>
 </code></pre></div>
-<p>Use <code>-d</code> to display the full diff inline. The diff file is always saved to <code>workingspace/manifest-&lt;ver1&gt;-to-&lt;ver2&gt;.diff</code>.</p>
 <p>Peruse the release manifest differences:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="go">less workingspace/manifest-v0.1.26-to-v0.1.27.diff</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="go">less workingspace/manifest-v0.1.6-to-v0.1.7.diff</span>
+</code></pre></div>
+<p>Quickly see which submodules were updated between the releases:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="go">grep image: workingspace/manifest-v0.1.6-to-v0.1.7.diff</span>
 </code></pre></div>
 <p>Quickly determine the scope of the differences between the releases:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="go">brew install patchutils diffstat</span>
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="go">lsdiff workingspace/manifest-v0.1.26-to-v0.1.27.diff</span>
-<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="go">diffstat workingspace/manifest-v0.1.26-to-v0.1.27.diff</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="go">brew install patchutils diffstat</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="go">lsdiff workingspace/manifest-v0.1.6-to-v0.1.7.diff</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="go">diffstat workingspace/manifest-v0.1.6-to-v0.1.7.diff</span>
 </code></pre></div>
 
 
