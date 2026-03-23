@@ -24,6 +24,7 @@ other components.
   - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
   - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu)
   - [NearNodeFlash/nnf-ec](https://github.com/NearNodeFlash/nnf-ec)
+  - [NearNodeFlash/nnf-storedversions-maint](https://github.com/NearNodeFlash/nnf-storedversions-maint)
   - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
   - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
   - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
