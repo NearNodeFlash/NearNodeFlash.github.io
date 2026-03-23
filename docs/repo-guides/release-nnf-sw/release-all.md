@@ -19,6 +19,7 @@ other components.
   - [NearNodeFlash/lustre-fs-operator](https://github.com/NearNodeFlash/lustre-fs-operator)
   - [NearNodeFlash/nnf-mfu](https://github.com/NearNodeFlash/nnf-mfu) *(standalone repo, not a submodule)*
   - [NearNodeFlash/nnf-ec](https://github.com/NearNodeFlash/nnf-ec) *(standalone repo, not a submodule)*
+  - [NearNodeFlash/nnf-storedversions-maint](https://github.com/NearNodeFlash/nnf-storedversions-maint) *(standalone repo, not a submodule)*
   - [NearNodeFlash/nnf-sos](https://github.com/NearNodeFlash/nnf-sos)
   - [NearNodeFlash/nnf-dm](https://github.com/NearNodeFlash/nnf-dm)
   - [NearNodeFlash/nnf-integration-test](https://github.com/NearNodeFlash/nnf-integration-test)
@@ -33,11 +34,12 @@ tool enforces the following order:
 3. `lustre-fs-operator`
 4. `nnf-mfu`
 5. `nnf-ec`
-6. `nnf-sos` (depends on dws, nnf-mfu, nnf-ec)
-7. `nnf-dm` (depends on dws, nnf-sos, nnf-mfu)
-8. `nnf-integration-test` (depends on dws, nnf-sos, nnf-dm, lustre-fs-operator)
-9. `nnf-deploy` (packages all submodules)
-10. `NearNodeFlash.github.io` (documentation, version matches nnf-deploy)
+6. `nnf-storedversions-maint` *(standalone repo)*
+7. `nnf-sos` (depends on dws, nnf-mfu, nnf-ec)
+8. `nnf-dm` (depends on dws, nnf-sos, nnf-mfu)
+9. `nnf-integration-test` (depends on dws, nnf-sos, nnf-dm, lustre-fs-operator)
+10. `nnf-deploy` (packages all submodules)
+11. `NearNodeFlash.github.io` (documentation, version matches nnf-deploy)
 
 ## Overview of release-all tool
 
@@ -93,6 +95,7 @@ The following tools must be installed and available in your PATH:
     lustre_fs_operator
     nnf_mfu
     nnf_ec
+    nnf_storedversions_maint
     nnf_sos
     nnf_dm
     nnf_integration_test
@@ -118,7 +121,7 @@ The following tools must be installed and available in your PATH:
 
 2. **Create Trial Release Branch:** Create the new release branch, merge master/main to that release branch, but don't push it yet. The point of this step is to look for merge conflicts between master/main and the release branch.
 
-    > **Note:** `nnf_mfu` may report "No new changes to release" if master has no commits since the last release. This is normal — skip it in subsequent steps.
+    > **Note:** `nnf_mfu` and `nnf_storedversions_maint` may report "No new changes to release" if master/main has no commits since the last release. This is normal — skip them in subsequent steps.
     >
     > **Note:** `nnf_doc` must be deferred until after `nnf_deploy` is tagged and its GitHub Release is published. The `nnf_doc` script updates `mkdocs.yml` with the latest `nnf-deploy` release version by querying GitHub Releases (not just tags). Follow this sequence:
     >
