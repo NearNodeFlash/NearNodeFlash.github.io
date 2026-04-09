@@ -48,7 +48,7 @@ kubectl get nnfstorageprofiles -n nnf-system
 
 Example output:
 
-```
+```text
 NAME        DEFAULT   AGE
 default     true      14d
 high-perf   false     7d
@@ -199,6 +199,9 @@ data:
     userCommands:
       postSetup:
       - chown $USERID:$GROUPID $MOUNT_PATH
+      # Optional: run diagnostics after block device teardown (Rabbit only)
+      # postTeardown:
+      # - /usr/bin/dlm-diagnostics.sh $VG_NAME
 
     capacityScalingFactor: "1.0"
     allocationPadding: 300MiB
@@ -338,7 +341,7 @@ Target layout options control how Lustre targets (MGT, MDT, OST) are distributed
 Each target type (mgtOptions, mdtOptions, mgtMdtOptions, ostOptions) supports:
 
 | Option | Description |
-|--------|-------------|
+| -------- | ------------- |
 | `count` | Static number of targets to create |
 | `scale` | Dynamic value (1-10) that the WLM uses to determine target count |
 | `colocateComputes` | If true, targets are placed on Rabbits connected to job's compute nodes |
@@ -349,11 +352,13 @@ Each target type (mgtOptions, mdtOptions, mgtMdtOptions, ostOptions) supports:
 ### Understanding colocateComputes
 
 When `colocateComputes: true`:
+
 - Storage is restricted to Rabbit nodes with physical connections to the job's compute nodes
 - This typically means Rabbits in the same chassis as the compute nodes
 - Best for minimizing network hops and maximizing bandwidth
 
 When `colocateComputes: false`:
+
 - Storage can be placed on any available Rabbit node
 - Useful for separating metadata targets from data targets
 - Required for `create_persistent` directives since they may not have compute nodes
@@ -361,11 +366,13 @@ When `colocateComputes: false`:
 ### Scale vs Count
 
 **Scale** is useful when you want storage to automatically adjust based on job size:
+
 - Value of 1: Minimum targets needed to satisfy capacity
 - Value of 10: Maximum targets, potentially one per Rabbit connected to the job
 - The WLM interprets scale values based on allocation size, compute count, and Rabbit count
 
 **Count** is useful when you need precise control:
+
 - Specific number of targets regardless of job size
 - Consistent performance characteristics across different jobs
 - Useful for single-shared-file workloads with low metadata requirements
@@ -373,6 +380,7 @@ When `colocateComputes: false`:
 ### Example Layouts
 
 **High-performance scaled to job size:**
+
 ```yaml
 ostOptions:
   scale: 10
@@ -383,6 +391,7 @@ mdtOptions:
 ```
 
 **Static Configuration:**
+
 ```yaml
 ostOptions:
   count: 4
@@ -461,7 +470,7 @@ There are two categories of user commands with different execution contexts:
 The user commands in `blockDeviceCommands` and `fileSystemCommands` are run when storage is being activated/deactivated and mounted/unmounted for use:
 
 | Location | Workflow Phase | Description |
-|----------|----------------|-------------|
+| ---------- | ---------------- | ------------- |
 | Rabbit | DataIn | Storage is activated and mounted for data staging into the allocation |
 | Rabbit | DataOut | Storage is activated and mounted for data staging out of the allocation |
 | Rabbit | PreRun | Storage is activated and mounted for access in a user container |
@@ -470,6 +479,7 @@ The user commands in `blockDeviceCommands` and `fileSystemCommands` are run when
 | Compute | PostRun | Storage is unmounted and deactivated after the user's application completes |
 
 These commands are useful for operations that need to happen each time storage is accessed, such as:
+
 - Setting up environment-specific configurations
 - Running health checks before/after use
 - Synchronizing data or caches
@@ -537,13 +547,15 @@ xfsStorage:
 The `userCommands` section at the storage level (e.g., `xfsStorage.userCommands`) contains commands that run during the **setup and teardown phases** of the workflow. These run on the Rabbit nodes when storage is first provisioned and when it is finally destroyed.
 
 | Command | Phase | Description |
-|---------|-------|-------------|
+| --------- | ------- | ------------- |
 | `postSetup` | Setup | Runs after storage is fully provisioned and the file system is mounted on the Rabbit |
 | `preTeardown` | Teardown | Runs before storage is destroyed, while the file system is still mounted |
+| `postTeardown` | Teardown | Runs after storage is destroyed — file system and block devices are already removed. Runs on the Rabbit only |
 | `postActivate` | Setup | Runs after the file system is activated during initial setup |
 | `preDeactivate` | Teardown | Runs before the file system is deactivated during final teardown |
 
 These commands are useful for one-time operations such as:
+
 - Setting ownership and permissions on newly created storage
 - Initializing directory structures
 - Cleaning up or archiving data before destruction
@@ -560,6 +572,11 @@ xfsStorage:
     # Run once before storage is torn down (file system still mounted)
     preTeardown:
     - echo "Final cleanup of $MOUNT_PATH"
+
+    # Run once after storage is destroyed (file system and block devices already removed)
+    # Runs on the Rabbit only. $MOUNT_PATH is NOT available — use block device variables.
+    postTeardown:
+    - echo "Post-teardown check for $VG_NAME"
     
     # Run once after file system is activated during setup
     postActivate:
@@ -616,6 +633,8 @@ lustreStorage:
     - lfs setstripe -E 64K -L mdt -E -1 -c -1 $MOUNT_PATH
     rabbitPreTeardown:
     - lfs getstripe $MOUNT_PATH
+    rabbitPostTeardown:
+    - echo "Lustre teardown complete"
 
   # Commands run on MGT after all targets are up
   preMountMGTCommands:
@@ -632,7 +651,7 @@ Storage profile commands can use variables that are expanded at runtime. Variabl
 Available in all commands:
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
@@ -644,13 +663,13 @@ Available in all commands:
 #### Physical Volume Commands
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$DEVICE` | Path to allocated device (e.g., `/dev/nvme0n1`) |
 
 #### Volume Group Commands
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$VG_NAME` | Volume group name (controlled by Rabbit software) |
 | `$DEVICE_LIST` | Space-separated list of devices |
 | `$DEVICE_NUM` | Count of devices |
@@ -661,7 +680,7 @@ Available in all commands:
 #### Logical Volume Commands
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$VG_NAME` | Volume group name |
 | `$LV_NAME` | Logical volume name |
 | `$DEVICE_NUM` | Count of devices |
@@ -676,13 +695,13 @@ Available in all commands:
 #### XFS/Raw mkfs
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$DEVICE` | Path to the logical volume device |
 
 #### GFS2 mkfs
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$DEVICE` | Path to the logical volume device |
 | `$CLUSTER_NAME` | Cluster name (controlled by Rabbit software) |
 | `$LOCK_SPACE` | Lock space key (controlled by Rabbit software) |
@@ -691,7 +710,7 @@ Available in all commands:
 #### Mount/Unmount
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$DEVICE` | Device path to mount |
 | `$MOUNT_PATH` | Path to mount on |
 
@@ -700,7 +719,7 @@ Available in all commands:
 #### zpool create
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$POOL_NAME` | Pool name (controlled by Rabbit software) |
 | `$DEVICE_LIST` | Space-separated list of devices |
 | `$DEVICE_NUM` | Count of devices |
@@ -709,7 +728,7 @@ Available in all commands:
 #### zpool replace
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$POOL_NAME` | Pool name |
 | `$DEVICE_LIST` | List of devices |
 | `$DEVICE_NUM`, `$DEVICE_NUM-1`, `$DEVICE_NUM-2` | Device counts |
@@ -719,7 +738,7 @@ Available in all commands:
 #### Lustre mkfs
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$FS_NAME` | Lustre fsname picked by NNF software |
 | `$MGS_NID` | NID of the MGS |
 | `$ZVOL_NAME` | ZFS volume name (`pool/dataset`) |
@@ -730,7 +749,7 @@ Available in all commands:
 #### Lustre Client
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$MGS_NID` | NID of the MGS |
 | `$FS_NAME` | File system name |
 | `$MOUNT_PATH` | Client mount path |
@@ -745,7 +764,7 @@ Available in all commands:
 For system storage allocations:
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$COMPUTE_HOSTNAME` | Hostname of the compute node using the allocation |
 
 ### User Command Variables
@@ -757,7 +776,7 @@ Different variables are available depending on which user command hook is being 
 The following variables are available to `blockDeviceCommands.rabbitCommands.userCommands` and `blockDeviceCommands.computeCommands.userCommands` (preActivate, postActivate, preDeactivate, postDeactivate):
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
@@ -769,7 +788,7 @@ The following variables are available to `blockDeviceCommands.rabbitCommands.use
 The following variables are available to `fileSystemCommands.rabbitCommands.userCommands` and `fileSystemCommands.computeCommands.userCommands` (preMount, postMount, preUnmount, postUnmount):
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
@@ -781,18 +800,34 @@ The following variables are available to `fileSystemCommands.rabbitCommands.user
 The following variables are available to `userCommands` at the storage level (postSetup, preTeardown, postActivate, preDeactivate):
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
 | `$MOUNT_PATH` | Path where the file system is mounted |
+
+For `postTeardown`, the file system and block devices have already been destroyed, so `$MOUNT_PATH` is **not** available. Instead, the following block device and workflow variables are available:
+
+| Variable | Description |
+| ---------- | ------------- |
+| `$VG_NAME` | Volume group name |
+| `$LV_NAME` | Logical volume name |
+| `$LV_INDEX` | Allocation index |
+| `$LV_SIZE` | Logical volume size |
+| `$DEVICE_NUM` | Number of physical devices |
+| `$DEVICE_LIST` | Space-separated list of device paths |
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$ALLOCATION_COUNT` | Number of allocations on this Rabbit |
+| `$HOST_COUNT` | Total host count (computes + Rabbit) |
 
 #### Lustre Target User Commands
 
 The following variables are available to Lustre target commands (mgtCommandlines, mdtCommandlines, mgtMdtCommandlines, ostCommandlines) for postActivate and preDeactivate:
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$MOUNT_PATH` | Path where the target is mounted |
 | `$FS_NAME` | Lustre file system name |
@@ -805,7 +840,7 @@ The following variables are available to `clientCommandLines` user commands:
 **For rabbitPreMount, rabbitPostMount, rabbitPreUnmount, rabbitPostUnmount, computePreMount, computePostMount, computePreUnmount, computePostUnmount:**
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
@@ -816,7 +851,7 @@ The following variables are available to `clientCommandLines` user commands:
 **For rabbitPostSetup and rabbitPreTeardown:**
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$USERID` | User ID of the job submitter |
 | `$GROUPID` | Group ID of the job submitter |
@@ -829,12 +864,27 @@ The following variables are available to `clientCommandLines` user commands:
 | `$NUM_OSTS` | Number of OSTs |
 | `$NUM_NNFNODES` | Number of NNF nodes |
 
+**For rabbitPostTeardown:**
+
+Runs on the Rabbit after the Lustre file system and zpool are destroyed. `$MOUNT_PATH` and Lustre-specific variables are **not** available. The following variables are available:
+
+| Variable | Description |
+| ---------- | ------------- |
+| `$POOL_NAME` | Zpool name |
+| `$DEVICE_NUM` | Number of physical devices |
+| `$DEVICE_LIST` | Space-separated list of device paths |
+| `$JOBID` | Job ID from the Workflow |
+| `$USERID` | User ID of the job submitter |
+| `$GROUPID` | Group ID of the job submitter |
+| `$ALLOCATION_COUNT` | Number of allocations on this Rabbit |
+| `$HOST_COUNT` | Total host count (computes + Rabbit) |
+
 #### Lustre preMountMGTCommands
 
 The following variables are available to `preMountMGTCommands`:
 
 | Variable | Description |
-|----------|-------------|
+| ---------- | ------------- |
 | `$JOBID` | Job ID from the Workflow |
 | `$FS_NAME` | Lustre file system name |
 
@@ -844,8 +894,7 @@ The `variableOverride` fields in a storage profile allow overriding the default 
 
 When a variable is overridden, the NNF software uses the new value internally when manipulating block devices and file systems; not just for expanding `$VARIABLE` references in command lines. For example, overriding `$LV_NAME` changes the actual logical volume name that the NNF software uses to perform checks and run internal commands.
 
-Variables are expanded recursively so that variable values can reference other variables. This allows building values based on job, workflow, and directive identifiers in a similar way to what the NNF software does internally. 
-
+Variables are expanded recursively so that variable values can reference other variables. This allows building values based on job, workflow, and directive identifiers in a similar way to what the NNF software does internally.
 
 #### Overridable Variables by File System Type
 
@@ -861,7 +910,7 @@ xfsStorage:
 ```
 
 | Variable | Default | Description |
-|----------|---------|-------------|
+| ---------- | --------- | ------------- |
 | `$JOBID` | From workflow | Job ID from the workflow |
 | `$USERID` | From workflow | User ID of the job submitter |
 | `$GROUPID` | From workflow | Group ID of the job submitter |
@@ -892,7 +941,7 @@ lustreStorage:
 **Target-level variables (mgtOptions, mdtOptions, mgtMdtOptions, ostOptions):**
 
 | Variable | Default | Description |
-|----------|---------|-------------|
+| ---------- | --------- | ------------- |
 | `$JOBID` | From workflow | Job ID from the workflow |
 | `$USERID` | From workflow | User ID of the job submitter |
 | `$GROUPID` | From workflow | Group ID of the job submitter |
@@ -909,7 +958,7 @@ lustreStorage:
 **Client-level variables (clientOptions):**
 
 | Variable | Default | Description |
-|----------|---------|-------------|
+| ---------- | --------- | ------------- |
 | `$JOBID` | From workflow | Job ID from the workflow |
 | `$USERID` | From workflow | User ID of the job submitter |
 | `$GROUPID` | From workflow | Group ID of the job submitter |
