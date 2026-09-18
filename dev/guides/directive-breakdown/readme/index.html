@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -1441,7 +1441,7 @@
 <p>The <code>status.storage</code> section of the <code>DirectiveBreakdown</code> describes how the storage allocations should be made and any constraints on the NNF nodes that can be picked. The <code>status.storage</code> section will exist only for <code>jobdw</code> and <code>create_persistent</code> directives. An example of the <code>status.storage</code> section is included below.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nn">...</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">spec</span><span class="p">:</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">directive</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#DW</span><span class="nv"> </span><span class="s">jobdw</span><span class="nv"> </span><span class="s">capacity=1GiB</span><span class="nv"> </span><span class="s">type=xfs</span><span class="nv"> </span><span class="s">name=example&#39;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">directive</span><span class="p">:</span><span class="w"> </span><span class="s">'#DW</span><span class="nv"> </span><span class="s">jobdw</span><span class="nv"> </span><span class="s">capacity=1GiB</span><span class="nv"> </span><span class="s">type=xfs</span><span class="nv"> </span><span class="s">name=example'</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">userID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7900</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">status</span><span class="p">:</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nn">...</span>
@@ -1540,7 +1540,7 @@
 <p>The <code>status.compute</code> section of the <code>DirectiveBreakdown</code> describes how the WLM should pick compute nodes for a job. The <code>status.compute</code> section will exist only for <code>jobdw</code> and <code>persistentdw</code> directives. An example of the <code>status.compute</code> section is included below.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nn">...</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">spec</span><span class="p">:</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">directive</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#DW</span><span class="nv"> </span><span class="s">jobdw</span><span class="nv"> </span><span class="s">capacity=1TiB</span><span class="nv"> </span><span class="s">type=lustre</span><span class="nv"> </span><span class="s">name=example&#39;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">directive</span><span class="p">:</span><span class="w"> </span><span class="s">'#DW</span><span class="nv"> </span><span class="s">jobdw</span><span class="nv"> </span><span class="s">capacity=1TiB</span><span class="nv"> </span><span class="s">type=lustre</span><span class="nv"> </span><span class="s">name=example'</span>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">userID</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3450</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nt">status</span><span class="p">:</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nn">...</span>
@@ -1699,7 +1699,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

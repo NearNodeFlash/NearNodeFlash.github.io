@@ -17,7 +17,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -25,7 +25,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -1400,7 +1400,7 @@ to include the previous release.</p>
 <p>Once merged, update the release branch locally and create an annotated tag. Each repo has a workflow job named <code>create_release</code> that will create a release automatically when the new tag is pushed.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>releases/v0
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>git<span class="w"> </span>pull
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.0.3<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Release v0.0.3&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>git<span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v0.0.3<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Release v0.0.3"</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--tags
 </code></pre></div>
 </li>
@@ -1438,7 +1438,7 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
 <p>There will be conflicts for the submodules after step 3. <strong>This is expected.</strong> Update the
    submodules to the new tags and then commit the changes.  If each tag was committed properly, the
    following command can do this for you:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">&#39;git checkout `git describe --match=&quot;v*&quot; HEAD`&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>git<span class="w"> </span>submodule<span class="w"> </span>foreach<span class="w"> </span><span class="s1">'git checkout `git describe --match="v*" HEAD`'</span>
 </code></pre></div>
 </li>
 <li>
@@ -1557,7 +1557,7 @@ that everything is current on <code>master</code> for <code>nnf-deploy</code>.</
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

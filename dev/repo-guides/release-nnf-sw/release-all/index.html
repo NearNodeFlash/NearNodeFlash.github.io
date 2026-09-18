@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -1628,7 +1628,7 @@ tool enforces the following order:</p>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>go<span class="w"> </span>mod<span class="w"> </span>vendor
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>git<span class="w"> </span>status<span class="w"> </span><span class="c1"># confirm all issues have been addressed</span>
 <a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>git<span class="w"> </span>add<span class="w"> </span>&lt;all<span class="w"> </span>affected<span class="w"> </span>files&gt;
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-s<span class="w"> </span><span class="c1"># take the default commit message, don&#39;t bother editing it.</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>git<span class="w"> </span>commit<span class="w"> </span>-s<span class="w"> </span><span class="c1"># take the default commit message, don't bother editing it.</span>
 </code></pre></div>
 <p>Then re-run this phase on this branch, telling the tool to pick up where you left off:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nv">USE_EXISTING_WORKAREA</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>./release-all.sh<span class="w"> </span>-P<span class="w"> </span>release-push<span class="w"> </span>-R<span class="w"> </span>&lt;repo&gt;
@@ -1642,7 +1642,7 @@ tool enforces the following order:</p>
 <blockquote>
 <p><strong>Warning:</strong> Do NOT manually merge the PR. Let <code>release-all.sh</code> merge it. If you accidentally merge manually, the <code>tag-release</code> phase may not find the expected merge commit message — use <code>-x force-tag=vX.Y.Z</code> to recover (see step 3d).</p>
 <p><strong>Note:</strong> <code>merge-pr</code> may produce no visible output even on success. Verify the merge completed:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gh<span class="w"> </span>api<span class="w"> </span>repos/&lt;owner&gt;/&lt;repo&gt;/pulls/&lt;pr_number&gt;<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">&#39;&quot;merged&quot;:[^,]*&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>gh<span class="w"> </span>api<span class="w"> </span>repos/&lt;owner&gt;/&lt;repo&gt;/pulls/&lt;pr_number&gt;<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'"merged":[^,]*'</span>
 </code></pre></div>
 <p>Expected output: <code>"merged":true</code></p>
 </blockquote>
@@ -1806,7 +1806,7 @@ tool enforces the following order:</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

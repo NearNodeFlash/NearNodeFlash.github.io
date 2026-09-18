@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -29,7 +29,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -1415,10 +1415,10 @@
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>@@<span class="w"> </span>-82,6<span class="w"> </span>+82,9<span class="w"> </span>@@<span class="w"> </span><span class="nb">type</span><span class="w"> </span>SystemConfigurationSpec<span class="w"> </span>struct<span class="w"> </span><span class="o">{</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w"> </span><span class="nb">type</span><span class="w"> </span>SystemConfigurationStatus<span class="w"> </span>struct<span class="w"> </span><span class="o">{</span>
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span>//<span class="w"> </span>Ready<span class="w"> </span>indicates<span class="w"> </span>when<span class="w"> </span>the<span class="w"> </span>SystemConfiguration<span class="w"> </span>has<span class="w"> </span>been<span class="w"> </span>reconciled
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span>Ready<span class="w"> </span>bool<span class="w"> </span><span class="sb">`</span>json:<span class="s2">&quot;ready&quot;</span><span class="sb">`</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span>Ready<span class="w"> </span>bool<span class="w"> </span><span class="sb">`</span>json:<span class="s2">"ready"</span><span class="sb">`</span>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>+
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>+<span class="w">       </span>//<span class="w"> </span>Error<span class="w"> </span>information
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>+<span class="w">       </span>ResourceError<span class="w"> </span><span class="sb">`</span>json:<span class="s2">&quot;,inline&quot;</span><span class="sb">`</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>+<span class="w">       </span>ResourceError<span class="w"> </span><span class="sb">`</span>json:<span class="s2">",inline"</span><span class="sb">`</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w"> </span><span class="o">}</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w"> </span>//+kubebuilder:object:root<span class="o">=</span><span class="nb">true</span>
@@ -1441,8 +1441,8 @@
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">$ </span>git<span class="w"> </span>status
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">On branch api-change-demo</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="go">Changes not staged for commit:</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">  (use "git add &lt;file&gt;..." to update what will be committed)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="go">  (use "git restore &lt;file&gt;..." to discard changes in working directory)</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="go">    modified:   api/v1alpha1/zz_generated.conversion.go</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="go">    modified:   api/v1alpha2/systemconfiguration_types.go</span>
 </code></pre></div>
@@ -1602,7 +1602,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

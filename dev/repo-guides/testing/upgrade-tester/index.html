@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="../../../img/logo.png">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -27,7 +27,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
       
 
@@ -1460,13 +1460,13 @@
 <h3 id="configure-argocd">Configure ArgoCD</h3>
 <p>Configure ArgoCD by giving it access to the gitops repo created earlier, using the token you created for that repo. At a minimum, the token must grant read-only access to the repo's contents. See <a href="https://github.com/NearNodeFlash/argocd-boilerplate?tab=readme-ov-file#using-with-kind-or-a-private-repo">Using with KIND or a private repo</a> for details about creating the token.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="go">REPO_NAME=penguin</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">export ARGOCD_OPTS=&#39;--port-forward --port-forward-namespace argocd&#39;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="go">export ARGOCD_OPTS='--port-forward --port-forward-namespace argocd'</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="go">./tools/kind.sh argocd_attach $NEW_ARGO_PASSWORD</span>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">argocd repo add &quot;$HTTPS_REPO_CLONE_URL&quot; --username &quot;$GH_USER&quot; --password &quot;$REPO_TOKEN&quot; --name &quot;gitops-$REPO_NAME&quot;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="go">argocd repo add "$HTTPS_REPO_CLONE_URL" --username "$GH_USER" --password "$REPO_TOKEN" --name "gitops-$REPO_NAME"</span>
 </code></pre></div>
 <h2 id="run-the-upgrade-test">Run the upgrade test</h2>
 <p>The <code>upgrade-tester.sh</code> tool deploys specific releases and waits for each one to succeed. The user must specify the releases to be tested, identifying them by branch name. The tool uses <code>git checkout</code> to select a release and <code>./tools/deploy-env.sh</code> to deploy the bootstraps for that release. ArgoCD is monitored to determine when each upgrade has completed.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">git clone &quot;$HTTPS_REPO_CLONE_URL&quot; &quot;$REPO_NAME&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="go">git clone "$HTTPS_REPO_CLONE_URL" "$REPO_NAME"</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">cd $REPO_NAME</span>
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="go">./test-tools/upgrade-tester.sh rel-v0.1.11 rel-v0.1.12 rel-v0.1.13-svm</span>
 </code></pre></div>
@@ -1487,7 +1487,7 @@
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="go">./tools/verify-deployment.sh -e kind</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gp"># </span>Address<span class="w"> </span>any<span class="w"> </span>additional<span class="w"> </span>issues.
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="go">git add environments</span>
-<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="go">git commit -m &#39;nnf master&#39;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="go">git commit -m 'nnf master'</span>
 <a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="go">git push</span>
 </code></pre></div>
 <p>This <code>nnf-master</code> branch can be updated repeatedly with additional builds of the NNF master manifest.</p>
@@ -1585,7 +1585,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "navigation.footer", "toc.follow", "search.suggest", "search.highlight", "search.share"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
